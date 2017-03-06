@@ -56,3 +56,16 @@ Script position in the DOM affect when they run.
 * **Defer:** Download the file during HTML parsing and will only execute it after the parser has completed. Before DOMContentLoaded event get fired.
 
 #### Encoding and tag META
+
+When you try save file, you may encounter a problem. To all was well, you need to:
+
+1. Make sure that the HEAD there is a line `<meta charset="utf-8">`.
+2. Make sure that the editor retains the file is in UTF-8.
+
+## Page Load
+
+### Loading stage
+
+1. When the browser is about to start loading a new page. Your browser is waiting for new page contents to get downloaded.
+2. DOM is ready, this where the raw markup and DOM of you page has been loaded and parsed. Important, external resources like images and style sheets have not been parsed. You only see the raw content specified by page/document markup.
+3. Page is fully loaded with any images, style sheets, script, and other external resources. Making their way into what you see.
