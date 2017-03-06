@@ -1,5 +1,3 @@
-# Javascript
-
 Developed by Netscape in 1995 to create product and application that run in the browser, its is primarily client-side. To work with JavaScript, they are some term, you need to understand.
 
 ## Parser
