@@ -266,25 +266,25 @@ if(x == 2) {
 //-> Execute 1
 
 if(x != 2) {
-	console.log("Execute 1");
+  console.log("Execute 1");
 }
 else {
-	console.log("Execute 2");
+  console.log("Execute 2");
 }
 //-> Execute 2
 
 // === Equality Object Identical
 let x = 2;
 if(x == "2") {
-	console.log("Execute 1");
+  console.log("Execute 1");
 }
 //-> Execute 1
 
 if(x === "2") {
-	console.log("Execute 1");
+  console.log("Execute 1");
 }
 else {
-	console.log("Execute 2");
+  console.log("Execute 2");
 }
 //-> Execute 2
 ```
@@ -299,3 +299,167 @@ console.log("5" === 5); //-> false
 console.log(undefined == null); //-> true
 console.log(undefined === null); //-> false
 ```
+
+## Statements
+
+### If
+
+The operator if is a condition in the example above.
+
+```javascript
+var year = 2011;
+if(year != 2011) { 
+  console.log( 'year is 2011..' ); 
+  console.log( '..this condition is true!' ); 
+} 
+```
+
+Operator Question Mark "?" Is a shorted way to if. It has the form of: 
+
+```javascript
+condition ? value-if-true : value-if-false 
+```
+
+Think of the ? as "then" and : as "else"
+
+```javascript
+var age = 11;
+age > 18 ? console.log("true") : console.log("false"); //-> false
+
+var age = 20;
+age > 18 ? console.log("true") : console.log("false"); //-> true
+```
+
+### If...Else
+
+```javascript
+var data = 6;
+
+if(data < 5) {
+  result = 'Block Code 1';
+  console.log(result);
+}
+else {
+  result = 'Block Code 2';
+  console.log(result);
+}
+
+var message;
+var login = "Jack";
+
+if(login == 'John') {
+  message = 'Hello John';
+  console.log(message);
+} 
+else if(login == 'Jack') {
+  message = 'Hello Jack!';
+  console.log(message);
+} 
+else if(login === '') {
+  message = 'Please type login!';
+  console.log(message);
+} 
+else {
+  message = 'Hmmm!';
+  console.log(message);
+}
+```
+
+### Switch
+
+It is a more intuitive way to compare an expression with several options.
+
+```javascript
+switch(x) {
+  case 'value1':  
+    // if (x === 'value1')
+    // Block Code
+    break;
+  case 'value2':  
+    // if (x === 'value2')
+    // Block Code
+    break;
+  default:
+    // Block Code
+    break;
+}
+```
+
+### Throw
+
+Allow us to create a costume error with `throw 'Custom Error'`.
+
+```javascript
+if(x === 9) {
+  console.log('x is ' + x);
+}
+else {
+  throw 'Error: x should contain the value of 10';
+}
+```
+
+### Try Catch & Finally
+
+Allow us to define a block of code to be test for error while be executing.
+
+```javascript
+let age = 10;
+
+try {
+  if( age < 12) {
+    throw "Children are not allowed";
+  }
+  if(age > 95) {
+    throw "Maximum age allowed is 95";
+  }
+}
+catch(err) {
+  console.log("Error: " + err);
+}
+finally {
+  console.log('Test Completed');
+}
+//-> Error: Children are not allowed
+//-> Test Completed
+```
+
+## Loops
+
+### While
+
+```javascript
+var i = 0; 
+
+while(i < 3) { 
+  console.log(i); 
+  i++; 
+}
+```
+
+### Do While
+
+```javascript
+var i = 0; 
+
+do { 
+  console.log( i ); 
+  i++; 
+} 
+while(i < 3); 
+```
+
+### For
+
+```javascript
+var i; 
+for(i = 0; i < 3; i++) { 
+  console.log( i ); 
+} 
+```
+
+* **Start:** `i = 0`
+* **Conditions:** `i < 3` 
+* **Step:** `i++` 
+* **Body:** `console.log( i )`
+
+In the code within the curly braces (they are not mandatory unless a single operation)
