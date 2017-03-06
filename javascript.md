@@ -463,3 +463,6 @@ for(i = 0; i < 3; i++) {
 * **Body:** `console.log( i )`
 
 In the code within the curly braces (they are not mandatory unless a single operation)
+
+## Array
+
