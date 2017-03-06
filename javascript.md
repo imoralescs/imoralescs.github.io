@@ -118,7 +118,7 @@ Only have two restriction:
 
 ### Types
 
-On Javascript we no have the concepts of classes, they only have two kind of types. Primitive and reference. Primitive types are stored as simple data type (Number, String, Boolean, Null, Undefined) and Reference or Comple type are stored as objects, which are really just reference to locations in memory.
+On Javascript we no have the concepts of classes, they only have two kind of types. Primitive and reference. Primitive types are stored as simple data type (Number, String, Boolean, Null, Undefined) and Reference or Complex type are stored as objects, which are really just reference to locations in memory.
 
 #### Primitives
 
@@ -165,4 +165,137 @@ If the variable is declared, but it is nothing recorded, its value is precisely 
 ```javascript
 var x; 
 console.log( x );
+```
+
+#### Reference or Complex
+
+**Objects**
+
+The first five types are called "primitive". Is a container for a collection of value. It is used for data collection and for the announcement of more complex entities.
+
+**Object Structure**
+
+```javascript
+Object {
+  properties/key : properties/value
+}
+```
+
+Declare objects using the curly braces {...} , for example:
+
+```javascript
+var user = { name: "Jack" };
+```
+
+#### Typeof Operator
+
+To identify primitive type is with the typeof operator. Operator typeof returns the type of the argument. He has two syntax: with and without brackets:
+
+1. Syntax: `typeof x`.
+2. Its syntax is: `typeof(x)`.
+
+They work the same way, but the first syntax is shorter.
+
+## Operator With Primitive Types
+
+### Arithmetics
+
+```javascript
+// Assignment 
+var x = 10;
+var y = 10;
+```
+
+```javascript
+// Multiply, Divide, Add
+const x = 7;
+const result = x * 2;
+console.log(result); //-> 14
+```
+
+```javascript
+// Short assingment and avoid duplication.
+y += 5;
+console.log(y);
+```
+
+```javascript
+// Remainder
+const x = 7;
+const result = x % 6;
+console.log(result); //-> 1
+```
+
+```javascript
+// Increment (add one to)
+let x = 7;
+x++;
+console.log(x); //-> 8
+```
+
+```javascript
+// String Concatenation
+let s = "Hello";
+const result = s + ", Worlds!"
+console.log(result); //-> Hello, Worlds!
+```
+
+```javascript
+// Test Equal
+let x = 7;
+console.log(x == 7); //-> true
+console.log(x == 8); //-> false
+```
+
+```javascript
+// Conditionals
+let x = 7;
+console.log(x < 8); //-> true
+```
+
+### Boolean Operator 
+
+Common used on conditional statement.
+
+```javascript
+// == Equality, != Inequality 
+let x = 2;
+if(x == 2) {
+  console.log("Execute 1");
+}
+//-> Execute 1
+
+if(x != 2) {
+	console.log("Execute 1");
+}
+else {
+	console.log("Execute 2");
+}
+//-> Execute 2
+
+// === Equality Object Identical
+let x = 2;
+if(x == "2") {
+	console.log("Execute 1");
+}
+//-> Execute 1
+
+if(x === "2") {
+	console.log("Execute 1");
+}
+else {
+	console.log("Execute 2");
+}
+//-> Execute 2
+```
+
+### Comparing Without Coercion
+
+Triple equal operator instead of the double equal operator. The reason is that triple equals does the comparison without coercing the variable to another type.
+
+```javascript
+console.log("5" == 5); //-> true
+console.log("5" === 5); //-> false
+console.log(undefined == null); //-> true
+console.log(undefined === null); //-> false
 ```
