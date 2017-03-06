@@ -79,11 +79,11 @@ document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
 window.addEventListener("load", pageFullyLoaded, false);
  
 function theDomHasLoaded(e) {
-    // do something
+  // do something
 }
  
 function pageFullyLoaded(e) {
-    // do something again
+  // do something again
 }
 ```
 
@@ -104,4 +104,65 @@ After that we can write in the variable data:
 ```javascript
 var message;
 message = "Hello Worlds!";
+```
+
+### Variable Names and Constants
+
+Only have two restriction:
+
+1. Name can consist of letters, number, symbols, $, and _
+2. The first character must not be a digit.
+3. Good practices of name constant is all letter on uppercase.
+
+## Data Type
+
+### Types
+
+On Javascript we no have the concepts of classes, they only have two kind of types. Primitive and reference. Primitive types are stored as simple data type (Number, String, Boolean, Null, Undefined) and Reference or Comple type are stored as objects, which are really just reference to locations in memory.
+
+#### Primitives
+
+**Number**
+
+A single type of number used for both integer and fractional numbers for. 
+
+```javascript
+var n = 123;
+n = 12.345;
+```
+
+**String**
+
+In Javascript single and double quotes are equal, you can use either one or the other. 
+
+```javascript
+var str = "Hello Worlds!"; 
+str = 'New Sentences'; 
+```
+
+**Boolean**
+
+He has only two meanings: true (the truth), and false (false).
+
+```javascript
+var checked = true;
+```
+
+**Special Value Null and Undefined**
+
+The value null is not related to any of the above types, and forms a separate type, consisting of a single value of null:
+
+```javascript
+var age = null; 
+```
+
+In the JavaScript null is not a "reference to a null object" or "null pointer" in some other languages. It is simply a special value that is worth "nothing" or "value unknown".
+
+The value undefined , is null , forms his own style, consisting of one of this value. It has the meaning of "no value".
+
+If the variable is declared, but it is nothing recorded, its value is precisely undefined :
+
+```javascript
+var x; 
+console.log( x );
 ```
