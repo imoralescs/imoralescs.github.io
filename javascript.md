@@ -69,3 +69,39 @@ When you try save file, you may encounter a problem. To all was well, you need t
 1. When the browser is about to start loading a new page. Your browser is waiting for new page contents to get downloaded.
 2. DOM is ready, this where the raw markup and DOM of you page has been loaded and parsed. Important, external resources like images and style sheets have not been parsed. You only see the raw content specified by page/document markup.
 3. Page is fully loaded with any images, style sheets, script, and other external resources. Making their way into what you see.
+
+### DOMContentLoaded and Load Events
+
+There are two events that represent the two importants milestones while your page loads. The **DOMContentLoaded** events fires at the end of stage #2 when you page DOM is fully parsed. The **load** event fires at the end of stage #3 once your page has fully loaded. We can use these events to time when exactly you want your code to run.
+
+```javascript
+document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
+window.addEventListener("load", pageFullyLoaded, false);
+ 
+function theDomHasLoaded(e) {
+    // do something
+}
+ 
+function pageFullyLoaded(e) {
+    // do something again
+}
+```
+
+## Variable
+
+Variable consists of a name and a dedicated memory, which corresponds to it.
+
+The value is an individual program entities in the programming process can recreate mathematical expression, this expression creates a new value from existing values. This is where the variable represents something important variables allows us to store and retrieve data or mathematical expression in our program.
+
+To declare or, in other words, to create a variable keyword is used var:
+
+```javascript
+var message;
+```
+
+After that we can write in the variable data:
+
+```javascript
+var message;
+message = "Hello Worlds!";
+```
