@@ -954,7 +954,7 @@ console.log(this);// Window{..}
 
 **Pattern 2:** Function invocation(Default binding)
 
-When you invoke a function declaration or a function expression the this keyword will be bound to the global object, which in the browser is the window object. ES6 this get the value undefined.
+When you invoke a function declaration or a function expression the `this` keyword will be bound to the global object, which in the browser is the window object. ES6 this get the value undefined.
 
 ```javascript
 // Function declaration
@@ -969,7 +969,7 @@ baz(); //-> window/global
 
 **Pattern 3:** Method invocation(Implicit binding)
 
-When you invoke a method the this value will be bound to that object.
+When you invoke a method the `this` value will be bound to that object.
 
 ```javascript
 var baz = {
@@ -983,7 +983,7 @@ baz.foo(); //-> baz{}
 
 **Pattern 4:** Constructor invocation(New binding)
 
-When a function invocation processed by the new keyword this will be bound to the newly created object.
+When a function invocation processed by the new keyword `this` will be bound to the newly created object.
 
 ```javascript
 var Person = function(){
@@ -999,7 +999,7 @@ console.log(person.name); //-> 'Other Name'
 
 **Pattern 5:** Explicit binding
 
-Allow to reference to who apply this key. We can explicitly set what this keyword will be bound to using one of the following: .call() .apply() .bind().
+Allow to reference to who apply `this` key. We can explicitly set what `this` keyword will be bound to using one of the following: .call() .apply() .bind().
 
 ```javascript
 var logger = function() {
@@ -1023,7 +1023,7 @@ user1.logMessage.call(user2); //-> user2
 
 ## Call & Apply
 
-The .call() and .apply() methods they allows you to pass or apply function to array of argument, into another function. Instead of individual arguments.
+The `.call()` and `.apply()` methods they allows you to pass or apply function to array of argument, into another function. Instead of individual arguments.
 
 ```javascript
 // Example 1:
