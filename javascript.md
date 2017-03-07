@@ -1783,3 +1783,83 @@ daisy.name = "Daisy";
 console.log(charlie.speak()); //-> Charlie is speaking.
 console.log(daisy.speak()); //-> Daisy is speaking.
 ```
+
+## Document Object Model (DOM)
+
+In application is an HTML, XML or SVG document, when a web page is loaded, the browser creates the DOM of the page. Is basically an object they contain every element of the page inside it. The DOM is constructed as a tree of object and each object represents an element of the page. And each element is an object.
+
+### DOM Structure
+
+* DOCUMENT_NODE
+* ELEMENT_NODE
+
+```html
+<html> <head> <body> <h1> <p>
+```
+
+* TEXT_NODE
+
+```html
+<p>I am text node</p>
+```
+
+* ATTRIBUTE_NODE
+
+```html
+<img src="attribute node">
+```
+
+### Topology
+
+The DOM objects relate to each other in a certain way, but there are some relationships that will be present in most situations:
+
+* **Parents nodes:** Are nodes that nest further nodes in them. Examples of the nodes that most of the times will contain nested nodes are the `<html>` and `<body>` tags.
+* **Child nodes:** Child nodes have something in common, they have a parent. Examples of child nodes can be `<head>`, `<body>` and `<p>`
+* **Sibling nodes:** Sibling nodes are nodes that are placed next to another node in the tree. A paragraph (`<p>`)node can be a sibling of a heading (`<h1>`) node.
+
+### DOM nodes
+
+A node is the minimal unit that a DOM tree is made of. Each element in a well formatted HTML will become a node. Nodes have properties and methods attached to them. During the creation of the DOM, the browser attaches the attributes, the HTML itself, the styles and the events to each node.
+
+The browser then provides JavaScript (and other languages) with an API (Application Programming Interface) that will serve to modify, insert, alter or remove any node in the DOM tree. In fact, each node is an interface on its own.
+
+Each node will inherit from the Node interface which contains some basic functionality attached to it. This functionality will be then accessible to the language (JavaScript in this case) to allow it to modify the node properties or read the current state of the node.
+
+You can see a node like a box containing all kind of fun stuff you can play with, including other nodes (the nested nodes). Properties such as [node].nodeName or [node].firstChild and [node].nextSibling. 
+
+### Access To Node
+
+We have a lot of method to access to node, but we are going to explain, more basic.
+
+**`getElementsByTagName`**
+
+```html
+<div>
+  <p>Proin a aliquet</p>
+  <p>Nulla placerat</p>
+</div>
+```
+
+```javascript
+// Return all element
+var nodeP = document.getElementsByTagName('p');
+console.log(nodeP); //-> [p, p]
+
+// Return specify by array position
+var nodeP = document.getElementsByTagName('p')[0];
+console.log(nodeP); //-> <p>Proin a aliquet</p>
+```
+
+**`getElementsByName`**
+
+```html
+<div>
+  <p>Proin a aliquet</p>
+  <p name="node_two">Nulla placerat</p>
+</div>
+```
+
+```javascript
+var nodeP = document.getElementsByName('node_two');
+console.log(nodeP); //-> [p], <p>Nulla placerat</p>
+```
