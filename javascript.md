@@ -1591,7 +1591,7 @@ console.log(michelle.constructor) //-> Object()
 
 Why is Prototype important and when is it used?
 
-1. Prototype property, prototype-based inheritance
+* **Prototype property:** prototype-based inheritance.
 
 ```javascript
 function Plant() {
@@ -1617,9 +1617,7 @@ console.log(banana.name); //-> Banana
 banana.showNameAndColor(); //-> I am a Banana and my color is Yellow
 ```
 
-2. Prototype Attribute: Accessing Properties on Objects, Object.prototype Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from Object.prototype. 
-
-These inherited properties and methods are constructor, hasOwnProperty (), isPrototypeOf (), propertyIsEnumerable (), toLocaleString (), toString (), and valueOf .valueOf - Is for convert object to primitive value(number, boolean, etc). Is a method that lives on Object.prototype and returns a primitive value representation of the object on which .valueOf is invoked. JavaScript automatically invokes [the valueOf method] when encountering an object where a primitive value is expected (source).
+* **Prototype Attribute:** Accessing Properties on Objects, Object.prototype Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from Object.prototype. 
 
 ```javascript
 let now = new Date();
