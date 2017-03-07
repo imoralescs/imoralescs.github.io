@@ -1831,8 +1831,6 @@ You can see a node like a box containing all kind of fun stuff you can play with
 
 **`getElementsByTagName`**
 
-Return all nodes.
-
 ```html
 <div>
   <p>Proin a aliquet</p>
