@@ -1,16 +1,8 @@
-Developed by Netscape in 1995 to create product and application that run in the browser, its is primarily client-side. To work with JavaScript, they are some term, you need to understand.
-
-## Parser
-
-Process the code as text and produce a structure in memory.
-
-## Syntax Parser
-
-Is a program that read all your Javascript code and determines what it does and if its grammar is valid. JavaScript Engine, is in you browser, and they read all you code and determines what is wrong.
+Javascript was developed by Netscape in 1995 to create product and application that run in the browser, its is primarily client-side. To work with JavaScript, they are some term, you need to understand.
 
 ## Script Tag
 
-The script tag is used for specifying JavaScript which should ran in a web page. Script tags are executed in the order they appear.
+Everything start with where we write the Javascript code to be execute. The script tag is used for specifying JavaScript which should run in a web page. A script tag can either include the JavaScript directly, or it can point to a URL where the script should be loaded from. Script tags are executed in the order they appear.
 
 ```html
 <script>
@@ -19,7 +11,7 @@ The script tag is used for specifying JavaScript which should ran in a web page.
 </script>
 
 // External resource
-<script src="//url.com/fj3j1j2.js"></script>
+<script src="https://example.com/example-framework.js"></script>
 ```
 
 This mean you can significantly slow down your site if you have slow script loading early in the page. Also means script which appear later on the page can depend on things scripts which appear earlier have done.
@@ -47,7 +39,7 @@ Script position in the DOM affect when they run.
 </html>
 ```
 
-#### Using attribute on script tag for external call
+### Using attribute on script tag for external call
 
 * **Script:** Without any attribute, HTML file will parsed until script file hit. At that point parsing will stop and a request will made to fetch the file external.
 
@@ -55,43 +47,27 @@ Script position in the DOM affect when they run.
 
 * **Defer:** Download the file during HTML parsing and will only execute it after the parser has completed. Before DOMContentLoaded event get fired.
 
-#### Encoding and tag META
+### Encoding and tag META
 
 When you try save file, you may encounter a problem. To all was well, you need to:
 
 1. Make sure that the HEAD there is a line `<meta charset="utf-8">`.
 2. Make sure that the editor retains the file is in UTF-8.
 
-## Page Load
+### Integrity Attribute
 
-### Loading stage
+The integrity attribute is a part of the new Subresource Integrity spec. It allows you to provide a hash for the contents which a script file should contain. It’s meant to prevent a nefarious actor from messing with the contents of a script tag over the wire. In a world with SSL, this is only really valuable if you’re loading a script from some external source you don’t control like jquery
 
-1. When the browser is about to start loading a new page. Your browser is waiting for new page contents to get downloaded.
-2. DOM is ready, this where the raw markup and DOM of you page has been loaded and parsed. Important, external resources like images and style sheets have not been parsed. You only see the raw content specified by page/document markup.
-3. Page is fully loaded with any images, style sheets, script, and other external resources. Making their way into what you see.
-
-### DOMContentLoaded and Load Events
-
-There are two events that represent the two importants milestones while your page loads. The **DOMContentLoaded** events fires at the end of stage #2 when you page DOM is fully parsed. The **load** event fires at the end of stage #3 once your page has fully loaded. We can use these events to time when exactly you want your code to run.
-
-```javascript
-document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
-window.addEventListener("load", pageFullyLoaded, false);
- 
-function theDomHasLoaded(e) {
-  // do something
-}
- 
-function pageFullyLoaded(e) {
-  // do something again
-}
+```html
+<script
+  src="//code.jquery.com/jquery.js"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+</script>
 ```
 
 ## Variable
 
-Variable consists of a name and a dedicated memory, which corresponds to it.
-
-The value is an individual program entities in the programming process can recreate mathematical expression, this expression creates a new value from existing values. This is where the variable represents something important variables allows us to store and retrieve data or mathematical expression in our program.
+Variable consists of a name and a dedicated memory, which corresponds to it. The value is an individual program entities in the programming process can recreate mathematical expression, this expression creates a new value from existing values. This is where the variable represents something important variables allows us to store and retrieve data or mathematical expression in our program.
 
 To declare or, in other words, to create a variable keyword is used var:
 
@@ -187,7 +163,7 @@ Declare objects using the curly braces {...} , for example:
 var user = { name: "Jack" };
 ```
 
-#### Typeof Operator
+### Typeof Operator
 
 To identify primitive type is with the typeof operator. Operator typeof returns the type of the argument. He has two syntax: with and without brackets:
 
