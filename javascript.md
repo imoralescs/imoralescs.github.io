@@ -1526,7 +1526,7 @@ trey.sayName(); //-> Trey Johnson
 console.log(trey instanceof Person); //-> true
 ```
 
-### Inheritance Prototypes
+### Classes and Inheritance Prototypes
 
 To understand Javascript Inheritance we need to understand Javascript Prototype.
 
@@ -1563,7 +1563,7 @@ This is a characteristic of the object, telling us the object parent. In simple 
 
 **Constructor**
 
-Is a function used for initializing new object and you can use the new keyword to call the constructor.
+Is a function used for initializing new object and you can use the new keyword to call the constructor. Note: Constructor function === Classes
 
 ```javascript
 function Person() {}
@@ -1617,7 +1617,9 @@ console.log(banana.name); //-> Banana
 banana.showNameAndColor(); //-> I am a Banana and my color is Yellow
 ```
 
-2. Prototype Attribute: Accessing Properties on Objects, Object.prototype Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from Object.prototype. These inherited properties and methods are constructor, hasOwnProperty (), isPrototypeOf (), propertyIsEnumerable (), toLocaleString (), toString (), and valueOf .valueOf - Is for convert object to primitive value(number, boolean, etc). Is a method that lives on Object.prototype and returns a primitive value representation of the object on which .valueOf is invoked. JavaScript automatically invokes [the valueOf method] when encountering an object where a primitive value is expected (source).
+2. Prototype Attribute: Accessing Properties on Objects, Object.prototype Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from Object.prototype. 
+
+These inherited properties and methods are constructor, hasOwnProperty (), isPrototypeOf (), propertyIsEnumerable (), toLocaleString (), toString (), and valueOf .valueOf - Is for convert object to primitive value(number, boolean, etc). Is a method that lives on Object.prototype and returns a primitive value representation of the object on which .valueOf is invoked. JavaScript automatically invokes [the valueOf method] when encountering an object where a primitive value is expected (source).
 
 ```javascript
 let now = new Date();
