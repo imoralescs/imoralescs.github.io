@@ -442,3 +442,271 @@ In the code within the curly braces (they are not mandatory unless a single oper
 
 ## Array
 
+Are list of values, They are used to store multiple values written as a list between square brackets, separated by commas.
+
+### Array Allocation
+
+```javascript
+let primes = [2,3,5,7,11,13];
+let names = ["Joe", "Jane", "John", "Juan"];
+```
+
+### Array Allocation
+
+```javascript
+console.log(primes[1]); //-> 3
+console.log(names[2]); //-> John
+```
+
+Know Length Property
+
+```javascript
+const result = names.length;
+console.log(result); //-> 4
+```
+
+Javascript offers several way to add, remove and replace items in an array, some of these way mutate the array and other non-mutating.
+
+### Add Element To Array
+
+The mutating method for adding element to an array are:
+	
+* **array.push():** Adds an item to the end of the array.
+* **array.unshift():** Adds an item to the beginning of the array.
+
+```javascript
+var mutatingAdd = ['a', 'b', 'c', 'd', 'e'];
+
+mutatingAdd.push('f');
+console.log(mutatingAdd); //-> ["a", "b", "c", "d", "e", "f"]
+
+mutatingAdd.unshift('z');
+console.log(mutatingAdd); //-> ["z", "a", "b", "c", "d", "e", "f"]
+```
+
+Non-mutating have two way to add new items to an array without mutating the original array. The first one is with the .concat() and using the spread operator.
+
+```javascript
+const arr1 = ['a', 'b', 'c', 'd', 'e'];
+
+const arr2 = arr1.concat('f');
+
+console.log(arr1); //-> ["a", "b", "c", "d", "e"]
+console.log(arr2); //-> ["a", "b", "c", "d", "e", "f"]
+
+const arr1 = ['a', 'b', 'c', 'd', 'e'];
+
+const arr2 = [...arr1, 'f'];
+console.log(arr2); //-> ["a", "b", "c", "d", "e", "f"]
+
+const arr3 = ['z', ...arr1];
+console.log(arr3); //-> ["z", "a", "b", "c", "d", "e"]
+```
+
+### Remove Element To Array
+
+Remove method with mutation for removing from an array are:
+
+* **array.pop():** Removes an items at the end of the array.
+* **array.shift():** Removes an items at the beginning of the array.
+
+```javascript
+let mutatingRemove = ['a', 'b', 'c', 'd', 'e']; 
+
+mutatingRemove.pop(); 
+console.log(mutatingRemove); //-> ["a", "b", "c", "d"]
+
+mutatingRemove.shift(); 
+console.log(mutatingRemove); //-> ["b", "c", "d"]
+```
+
+In this case you can catch the delete item in a variable.
+
+```javascript
+const returnedValue = mutatingRemove.pop();  
+console.log(returnedValue); //-> d
+```
+
+Array.splice also removing items from array, they take two parameter.
+
+```javascript
+let mutatingRemove = ['a', 'b', 'c', 'd', 'e'];  
+mutatingRemove.splice(0, 2); 
+console.log(mutatingRemove); //-> ["c", "d", "e"]
+```
+
+* **Param 1:** Is the starting point of the splice.
+* **Param 2:** Number of the items to remove from array.
+
+Non-mutation remove element can be done  with filter and slice:
+
+```javascript
+const arr1 = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = arr1.filter(a => a !== 'e');
+console.log(arr2); //-> ["a", "b", "c", "d"]
+
+const arr1 = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = arr1.slice(1, 5);
+console.log(arr2); //-> ["b", "c", "d", "e"]
+```
+
+### Replace Element From Array
+
+You can replace element from array with mutation, with array.splice.
+
+```javascript
+let mutatingReplace = ['a', 'b', 'c', 'd', 'e'];  
+mutatingReplace.splice(2, 1, 'z');
+console.log(mutatingReplace); //-> ["a", "b", "z", "d", "e"]
+```
+
+* **Param 1:** Is the index to start replacing.
+* **Param 2:** Is the number of item to remove.
+* **Param 3:** Will be inserted into the array.
+
+```javascript
+mutatingReplace.splice(2, 1, 'z','y','x');
+console.log(mutatingReplace); //-> ["a", "b", "z", "y", "x", "d", "e"]
+```
+
+You can replace element from array without mutation.
+
+```javascript
+const replace = (list, index, newElement) => {
+  return [
+    ...list.slice(0, index),
+    newElement,
+    ...list.slice(index + 1)
+  ]
+};
+
+const arr1 = ['a', 'b', 'c', 'd', 'e'];  
+const arr2 = replace(arr1, 2, 'z');
+
+console.log(arr1); //-> ["a", "b", "c", "d", "e"]
+console.log(arr2); //-> ["a", "b", "z", "d", "e"]
+```
+
+### String
+
+This data structure lets you work with a series of characters. String has methods.
+
+```javascript
+let s = "this is a test";
+
+console.log(s.charAt(0)); //-> t
+
+// Return the first character of string 
+console.log(s.indexOf("i")); //-> 2
+
+// Return the last character of string 
+console.log(s.lastIndexOf("i")); //-> 5
+
+// Return specific
+console.log(s.substring(1,4)); //-> his
+
+// Param 1: Starting index
+// Param 2: Ending index
+
+// Return string at lowercase
+console.log(s.toLowerCase()); //-> this is a test
+
+// Return string at uppercase
+console.log(s.toUpperCase()); //-> THIS IS A TEST
+
+Regular Expressions String
+
+Regular expressions are a way to describe patterns in string data.
+
+let g = "aaxbbxxccxxxddXXXee";
+
+// Replace - Replace all place that match the regular expression with a replacement string.
+console.log(g.replace(/x/g, "q"));
+
+// Match - Return array of part string that match the regular expression.
+console.log(g.match(/x+/g));
+
+// Testing - Return boolean value if match value.
+console.log(/abc/.test("abcde")); //-> true
+
+// Split - Return array with all part of the string that are between the regular expression.
+console.log(g.split(/x+/));
+
+// Search - Return the position of the first place that match the regular expression.
+console.log(g.search(/x+/));
+```
+
+### Other Important Methods We Can Used With Array
+
+**Sort** 
+
+With no argument, they just make a default comparisons.
+
+```javascript
+let arr1 = ['hi', 'bye', 'hola', 'adios'];
+console.log(arr1.sort()); //-> ["adios", "bye", "hi", "hola"]
+
+let arr2 = [1, -1, 10, 11, 9, 8];
+console.log(arr2.sort()); //-> [-1, 1, 10, 11, 8, 9]
+```
+
+With function as argument.
+
+```javascript
+let nums = [1, -1, -2, 10, 11, 9, 8];
+let difference = (n1,n2) => { return(n1 - n2)};
+
+console.log(nums.sort(difference)); //-> [-2, -1, 1, 8, 9, 10, 11]
+```
+
+**forEach** 
+
+Call function on each element of array. 
+
+```javascript
+let nums = [1,2,3];
+let sum = 0;
+
+nums.forEach(n => sum += n);
+console.log(sum); //-> 6
+```
+
+**Map** 
+
+Call function on each element, then accumulates result array of the output. Return new array, does not modify original array.
+
+```javascript
+let result = [2,4,6].map(n => n * n);
+console.log(result); //-> [4, 16, 36]
+```
+
+**Filter** 
+
+Call function on each element, keeps only the results that pass the test. Return new array, does not modify original array.
+
+```javascript
+const isEven = n => n % 2 == 0; 
+const result = [1,2,3,4,5,6].filter(isEven);
+
+console.log(result); //-> [2, 4, 6]
+```
+
+**Reduce “fold”** 
+
+Take a function and started value, Each time, passes accumulated result and next array element through function, until a single value is left.
+
+```javascript
+const nums = [1,2,3,4];
+
+const add = (x,y) => x + y;
+const mult = (x,y) => x * y;
+const bigger = (x,y) => x > y ? x : y;
+
+const sum = nums.reduce(add, 0);
+const product = nums.reduce(mult, 1);
+const max = nums.reduce(bigger, -Number.MAX_VALUE);
+
+console.log(sum); //-> 10
+console.log(product); //-> 24
+console.log(max); //-> 4
+```
