@@ -644,9 +644,8 @@ reduceRight is an exception in that it iterates in reverse from end to start.
 
 **Sort** 
 
-With no argument, they just make a default comparisons.
+With no argument, they just make a default comparisons. Callback is a comparator, it should return either a number either < 0, 0, or > 0.
 
-* **callback is a comparator:** it should return either a number either < 0, 0, or > 0
 * **callback answers:** how do the two items compare with each other
 * **callback gets these arguments:** oneElement, theOtherElement
 * **final return value:** number < 0, if oneElement should preceed theOtherElement, 0 to keep the relative order, > 0 to place oneElement at a later index than theOtherElement
@@ -698,13 +697,17 @@ Call function on each element, then accumulates result array of the output. Retu
 * **final return value:** list of new items
 
 ```javascript
-var result = [2,4,6].map(n => n * n);
+var result = [2,4,6].map(item => item * item);
 console.log(result); //-> [4, 16, 36]
 ```
 
 **Filter** 
 
-Call function on each element, keeps only the results that pass the test. Return new array, does not modify original array.
+Call function on each element, keeps only the results that pass the test. Return new array, does not modify original array. Callback is a predicate, it should return a truthy or falsy value.
+
+* **callback answers:** should i keep this item?
+* **callback gets these arguments:** item, index, list
+* **final return value:** list of kept items
 
 ```javascript
 const isEven = n => n % 2 == 0; 
@@ -716,6 +719,10 @@ console.log(result); //-> [2, 4, 6]
 **Reduce “fold”** 
 
 Take a function and started value, Each time, passes accumulated result and next array element through function, until a single value is left.
+
+* **callback answers:** here’s the result from the previous iteration. what should i pass to the next iteration?
+* **callback gets these arguments:** result, item, index, list
+* **final return value:** result of last iteration
 
 ```javascript
 const nums = [1,2,3,4];
@@ -731,4 +738,82 @@ const max = nums.reduce(bigger, -Number.MAX_VALUE);
 console.log(sum); //-> 10
 console.log(product); //-> 24
 console.log(max); //-> 4
+```
+
+**reduceRight** 
+
+(same as reduce, but in reversed order: last-to-first)
+
+**Find**
+
+Callback is a predicate, it should return a truthy or falsy value.
+
+* **callback answers:** is this item what you’re looking for?
+* **callback gets these arguments:** item, index, list
+* **final return value:** the item you’re looking for, or undefined
+
+note: stops iterating once it receives a truthy value from your callback.
+
+```javascript
+const objects = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+const found = objects.find(item => {
+  return item.id === 'b';
+});
+
+console.log(found === objects[1]); //-> true
+```
+
+**findIndex**
+
+Callback is a predicate, it should return a truthy or falsy value.
+
+* **callback answers:** is this item what you’re looking for?
+* **callback gets these arguments:** item, index, list
+* **final return value:** the index of the item you’re looking for, or -1
+
+note: stops iterating once it receives a truthy value from your callback.
+
+```javascript
+const objects = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+const foundIndex = objects.findIndex(function (item) {
+  return item.id === 'b';
+});
+console.log(foundIndex === 1); //-> true
+```
+
+**Some**
+
+Callback is a predicate, it should return a truthy or falsy value
+
+* **callback answers:** does this item meet your criteria?
+* **callback gets these arguments:** item, index, list
+* **final return value:** true after the first item that meets your criteria, else false
+
+note: stops iterating once it receives a truthy value from your callback.
+
+```javascript
+const hasNegativeNumbers = [1, 2, 3, -1, 4].some(item => {
+  return  item < 0;
+}) 
+
+console.log(hasNegativeNumbers); //-> true
+```
+
+**Every**
+
+callback is a predicate, it should return a truthy or falsy value.
+
+* **callback answers:** does this item meet your criteria?
+* **callback gets these arguments:** item, index, list
+* **final return value:** false after the first item that failed to meet your criteria, else true
+
+note: stops iterating once it receives a falsy value from your callback.
+example use case:
+
+```javascript
+const allPositiveNumbers = [1, 2, 3].every( item => {
+  return item > 0;
+});
+
+console.log(allPositiveNumbers); //-> true
 ```
