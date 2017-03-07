@@ -1829,9 +1829,9 @@ You can see a node like a box containing all kind of fun stuff you can play with
 
 ### Access To Node
 
-We have a lot of method to access to node, but we are going to explain, more basic.
-
 **`getElementsByTagName`**
+
+Return all nodes.
 
 ```html
 <div>
@@ -1862,4 +1862,97 @@ console.log(nodeP); //-> <p>Proin a aliquet</p>
 ```javascript
 var nodeP = document.getElementsByName('node_two');
 console.log(nodeP); //-> [p], <p>Nulla placerat</p>
+```
+
+**`getElementById`**
+
+```html
+<div>
+  <p>Proin a aliquet</p>
+  <p id="node_two">Nulla placerat</p>
+</div>
+```
+
+```javascript
+var nodeP = document.getElementById('node_two');
+console.log(nodeP); //-> <p id="node_two">Nulla placerat</p>
+```
+
+**`querySelector`**
+
+```html
+<div>
+  <p class="node_one">Proin a aliquet</p>
+  <p id="node_two">Nulla placerat</p>
+</div>
+```
+
+```javascript
+var nodeClass = document.querySelector('#node_two');
+console.log(nodeClass); //-> <p id="node_two">Nulla placerat</p>
+
+var nodeId = document.querySelector('.node_one');
+console.log(nodeId); //-> <p class="node_one">Proin a aliquet</p>
+```
+
+### Create and Delete Node
+
+**Create**
+
+```javascript
+var container = document.getElementById('container');
+var nodeP = document.createElement('p');
+var nodePContext = document.createTextNode('Nulla placerat');
+
+var result = nodeP.appendChild(nodePContext);
+
+container.appendChild(result);
+```
+
+**Delete**
+
+```html
+<div>
+  <div id="text">Nulla placerat</div>
+  <div>Proin a aliquet</div>
+</div>
+```
+
+```javascript
+var nodePToDelete = document.getElementById('text');
+nodePToDelete.parentNode.removeChild(nodePToDelete);
+```
+
+```html
+<div>
+  <div>Proin a aliquet</div>
+</div>
+```
+
+### Access To Attribute Node
+
+```html
+<div>
+  <a href="https://www.acelerisque.com">Acelerisque</a>
+  <div id="div" data-name="Nulla placerat">Tristique scelerisque</div>
+  <p class="cerat">Sed aliquet leo</p>
+</div>
+```
+
+```javascript
+var nodeA = document.getElementsByTagName('a')[0];
+var nodeDiv = document.getElementsByTagName('div')[0];
+var nodeDivId = document.getElementById('div');
+var nodeP = document.getElementsByTagName('p')[0];
+
+console.log(nodeA.href); //-> https://www.acelerisque.com/
+
+// Access to style of the element.
+nodeDiv.style.fontWeight = "900";
+
+// Access by classname
+console.log(nodeP.className); //-> cerat
+
+// Access by dataset
+console.log(nodeDivId.dataset.name); //-> Nulla placerat
 ```
