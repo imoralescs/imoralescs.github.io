@@ -458,7 +458,7 @@ console.log(primes[1]); //-> 3
 console.log(names[2]); //-> John
 ```
 
-Know Length Property
+### Know Length Property
 
 ```javascript
 const result = names.length;
@@ -638,36 +638,54 @@ console.log(g.search(/x+/));
 
 ### Other Important Methods We Can Used With Array
 
+JavaScript Arrays have lots of built in methods. All array methods iterate in what is traditionally called "left to right" from index 0, to index length - 1, also called "start" to "end". 
+
+reduceRight is an exception in that it iterates in reverse from end to start.
+
 **Sort** 
 
 With no argument, they just make a default comparisons.
 
+* **callback is a comparator:** it should return either a number either < 0, 0, or > 0
+* **callback answers:** how do the two items compare with each other
+* **callback gets these arguments:** oneElement, theOtherElement
+* **final return value:** number < 0, if oneElement should preceed theOtherElement, 0 to keep the relative order, > 0 to place oneElement at a later index than theOtherElement
+
 ```javascript
-let arr1 = ['hi', 'bye', 'hola', 'adios'];
+var arr1 = ['hi', 'bye', 'hola', 'adios'];
 console.log(arr1.sort()); //-> ["adios", "bye", "hi", "hola"]
 
-let arr2 = [1, -1, 10, 11, 9, 8];
+var arr2 = [1, -1, 10, 11, 9, 8];
 console.log(arr2.sort()); //-> [-1, 1, 10, 11, 8, 9]
 ```
 
 With function as argument.
 
 ```javascript
-let nums = [1, -1, -2, 10, 11, 9, 8];
-let difference = (n1,n2) => { return(n1 - n2)};
+var nums = [1, -1, -2, 10, 11, 9, 8];
+var difference = (n1,n2) => {return(n1 - n2)};
 
 console.log(nums.sort(difference)); //-> [-2, -1, 1, 8, 9, 10, 11]
 ```
 
 **forEach** 
 
-Call function on each element of array. 
+Call function on each element of array.
+
+* **callback answers:** here’s an item. do something nutty with it, i don't care what.
+* **callback gets these arguments:** item, index, list
+* **final return value:** nothing - in other words, undefined
 
 ```javascript
-let nums = [1,2,3];
-let sum = 0;
+var nums = [1,2,3];
+var sum = 0;
 
-nums.forEach(n => sum += n);
+[1, 2, 3].forEach((item, index) => {
+  console.log(item);
+  console.log(index);
+  sum += item;
+});
+
 console.log(sum); //-> 6
 ```
 
@@ -675,8 +693,12 @@ console.log(sum); //-> 6
 
 Call function on each element, then accumulates result array of the output. Return new array, does not modify original array.
 
+* **callback answers:** here’s an item. what should i put in the new list in its place?
+* **callback gets these arguments:** item, index, list
+* **final return value:** list of new items
+
 ```javascript
-let result = [2,4,6].map(n => n * n);
+var result = [2,4,6].map(n => n * n);
 console.log(result); //-> [4, 16, 36]
 ```
 
