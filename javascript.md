@@ -1967,7 +1967,7 @@ Window have five properties object are history, location, navigator, screen, and
 
 **History**
 
-The history property keeps track of the pages the user visits. History has a few methods including back() and foward(), to switch between pages the user has visited. The go() method which specifies how far foward or back in the history to go. And a length() property that shows how many pages are in the history stack.
+The history property keeps track of the pages the user visits. History has a few methods including `back()` and `foward()`, to switch between pages the user has visited. The `go()` method which specifies how far foward or back in the history to go. And a `length()` property that shows how many pages are in the history stack.
 
 ```javascript
 // This is like back button on browser.
@@ -1988,7 +1988,7 @@ console.log(protocol); //-> https:
 
 **Navigator**
 
-Using the navigator method allows you to see information about the browser and the operating system. It’s propeties allow you to find out which browser, version, and operating system the user has. So that you are able to act on that information and make sure your code works only in browsers that support it. An important property of the navigator object is geolocation, which uses the geophysical position of the device or computer. The main method of geolocation is getCurrentPosition(). It requires a callback function that executes when getCurrentPosition() is done running.
+Using the navigator method allows you to see information about the browser and the operating system. It’s propeties allow you to find out which browser, version, and operating system the user has. So that you are able to act on that information and make sure your code works only in browsers that support it. An important property of the navigator object is geolocation, which uses the geophysical position of the device or computer. The main method of geolocation is `getCurrentPosition()`. It requires a callback function that executes when `getCurrentPosition()` is done running.
 
 ```javascript
 const appVersion = window.navigator.appVersion;
@@ -2009,7 +2009,7 @@ console.log(browserHeight); //-> 1080
 
 ### Window Method
 
-Like javascript, the browser itself also has methods. Two example methods of the window are alert() and prompt().
+Like javascript, the browser itself also has methods. Two example methods of the window are `alert()` and `prompt()`.
 
 ### Feature Window Detection
 
@@ -2020,3 +2020,68 @@ if (typeof navigator.geolocation != “undefined”) {
   // use geolocation
 }
 ```
+
+## Events
+
+Event is something that the browser or user can interact with. One of the most important features of the DOM is that it provides you with event binding functionality out of the box.
+
+Event binding is the act of attaching event listeners that will be triggered based upon actions on certain nodes in the Document Object Model.
+
+With event binding you can listen for events and wait until the event is fired to act accordingly. Each node can listen to multiple events.
+
+### Events Type
+
+* **Browser Events:** a signal that something (an action) has happend in the browser.
+* **Document Loading:** an action that takes place when the when the page loads up.
+* **Event Handler Attachment:** attaching a handler to an event usually using the `.on` method.
+* **Event Object:** is sent to a handler function as an argument.
+* **Form Events:** takes place when an event is triggered pertaining to the form, like reset, search, etc.
+* **Keyboard Events:** waiting for a press (up/down).
+* **Mouse Events:** an event is triggered when the mouse is clicked.
+
+In the following example we have a button, because this button is a node itself we can “attach” event listeners to it. The code will be explained in the comments.
+
+```html
+<button id="myButton">Say hi!</button>
+```
+
+### Events Handlers
+
+**Inline Events**
+
+Is attach events right into the DOM element. Developers realized that this wasn't a good idea. They started for a better separation of concerns. JavaScript should be moved to a `<script>` tag or .js file. This is generally what’s referred to as unobtrusive JavaScript.
+
+* **Common events:**
+* `onload //when the page loads`
+* `onclick //when a user clicks something`
+* `onmouseover //when a user mouses over something`
+* `onfocus //when a user puts the cursor in a form field`
+* `onblur //When a user leaves a form field`
+
+```javascript
+<a onclick="console.log('Yay');">Link</a>
+```
+```javascript
+function onload () {
+  let button = document.getElementById('myButton')
+  function onclick () {
+    button.innerHTML = 'Hi!, you clicked me!'
+  }
+  
+  button.addEventListener('click', onclick)
+}
+
+window.onload(onload)
+```
+
+**Event Listeners**
+
+`addEventListener` function where it binds an element to a particular event. If you want to remove any applied event just call `removeEventListener`.
+
+```javascript
+element.addEventListener('click', doSomething, false);
+```
+
+Third optional parameter to control event bubbling.
+
+**Event Bubbling**
