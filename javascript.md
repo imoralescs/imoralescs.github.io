@@ -2052,11 +2052,14 @@ In the following example we have a button, because this button is a node itself 
 Is attach events right into the DOM element. Developers realized that this wasn't a good idea. They started for a better separation of concerns. JavaScript should be moved to a `<script>` tag or .js file. This is generally what’s referred to as unobtrusive JavaScript.
 
 * **Common events:**
-* `onload //when the page loads`
-* `onclick //when a user clicks something`
-* `onmouseover //when a user mouses over something`
-* `onfocus //when a user puts the cursor in a form field`
-* `onblur //When a user leaves a form field`
+* `onload // When the page loads.`
+* `onclick // When a user clicks something.`
+* `onmouseover // When a user mouses over something.`
+* `onfocus // When a user puts the cursor in a form field.`
+* `onblur // When a user leaves a form field.`
+* `DOMContentLoaded // When your document's DOM has fully loaded.`
+* `keydown // When you press down on a key on your keyboard.`
+* `scroll // When an element is scrolled around.`
 
 ```javascript
 <a onclick="console.log('Yay');">Link</a>
@@ -2084,7 +2087,7 @@ element.addEventListener('click', doSomething, false);
 
 Third optional parameter to control event bubbling.
 
-**Event Bubbling**
+### Event Bubbling
 
 We have this html structure:
 
@@ -2117,41 +2120,57 @@ Event bubbling work like this. If an element A and that element is contained wit
 
 Example:
 
-```html
-<div class="container">
-  <div class="element-a">
-    <div id="element-b"></div>
-  </div>
-</div>
-```
-
 ```javascript
-// If you click innerDiv, they will fired: Element B, Element A, World blows up!
-innerDiv = document.getElementById("element-b");
-innerDiv.onclick = function(event) {
-  console.log("Element B"); 
-}
+// If you click innerDiv, they will fired: two, three_b, buttonThree
+innerDiv = document.getElementById("buttonThree");
+innerDiv.addEventListener("click",function(){
+  console.log("buttonThree");
+});
 
-// If you click outterDiv, they will fired: Element A, World blows up!
-outterDiv = document.getElementsByClassName("element-a")[0];
+outterDiv = document.getElementById("three_b");
 outterDiv.onclick = function() {
-  console.log("Element A");
+  console.log("three_b");
 };
 
-containerDiv = document.getElementsByClassName("container")[0];
+containerDiv = document.getElementById("two");
 containerDiv.onclick = function() {
-  console.log("World blows up!");
+  console.log("two");
 }
 ```
 
 To avoid this conflict we need to used `event.stopPropagation();` this function is hiding in the shadows to kill the event on specific point. 
 
 ```javascript
-innerDiv = document.getElementById("element-b");
-innerDiv.onclick = function(event) {
-  console.log("Element B");
+innerDiv = document.getElementById("buttonThree");
+innerDiv.addEventListener("click",function(event){
+  console.log("buttonThree");
   event.stopPropagation();
-}
+}); //-> buttonThree
 ```
 
 This fixing resolve the conflict and allow us to only fired event from specifying an element trigger.
+
+### `event.preventDefault()`
+
+Another function that lives on your event object.  Many HTML elements exhibit a default behavior when you interact with them. For example, clicking in a textbox gives that textbox focus with a little blinking text cursor appearing. Using your mouse wheel in a scrollable area will scroll in the direction you are scrolling. Clicking on a checkbox will toggle the checked state on or off. All of these are examples of built-in reactions to events your browser instinctively knows what to do about.
+
+If you want to turn off this default behavior, you can call the `.preventDefault()` function. 
+
+### Event Arguments and Event Type
+
+Your event handler does more than just get called when an event gets overheard by an event listener. It also provides access to the underlying event object as part of its arguments. To access this event object easily, we need to modify your event handler signature to support this argument.
+
+```javascript
+function myEventHandler(e) {
+  // e <- event object
+  // event handlery stuff
+}
+```
+
+This event object contains properties that are relevant to the event that was fired. Some of the popular properties from the Event type that you will use are:
+
+* `currentTarget`
+* `target`
+* `preventDefault`
+* `stopPropagation`
+* `type`
