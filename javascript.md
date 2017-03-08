@@ -2085,3 +2085,73 @@ element.addEventListener('click', doSomething, false);
 Third optional parameter to control event bubbling.
 
 **Event Bubbling**
+
+We have this html structure:
+
+```html
+<div id="one_a" class="item">
+  <div id="two" class="item">
+    <div id="three_a" class="item">
+      <button id="buttonOne" class="item">one</button>
+    </div>
+    <div id="three_b" class="item">
+      <button id="buttonTwo" class="item">two</button>
+      <button id="buttonThree" class="item">three</button>
+    </div>
+  </div>
+</div>
+<div id="one_b" class="item"> 
+</div>
+```
+
+And we attach a event to `buttonOne`, let's say that we click on the `buttonOne` element. When the DOM initiate an event, the event always starts at the root `window`, goes down until it hits the target in this case `buttonOne`, and then goes back up to the root `window`.
+
+This entire journey is very formally defined:
+
+* **Event Capturing Phase:** where you initiate the event and the event barrels down the DOM from the root `window`.
+* **Event Bubbling Phase:** where your event bubbles back up to the root `window`.
+
+Why this is important?
+
+Event bubbling work like this. If an element A and that element is contained within element B, and element A is clicked, the click event fires for element A and then it will bubble up and fire for element B. This occurs because technically you are clicking both elements.
+
+Example:
+
+```html
+<div class="container">
+  <div class="element-a">
+    <div id="element-b"></div>
+  </div>
+</div>
+```
+
+```javascript
+// If you click innerDiv, they will fired: Element B, Element A, World blows up!
+innerDiv = document.getElementById("element-b");
+innerDiv.onclick = function(event) {
+  console.log("Element B"); 
+}
+
+// If you click outterDiv, they will fired: Element A, World blows up!
+outterDiv = document.getElementsByClassName("element-a")[0];
+outterDiv.onclick = function() {
+  console.log("Element A");
+};
+
+containerDiv = document.getElementsByClassName("container")[0];
+containerDiv.onclick = function() {
+  console.log("World blows up!");
+}
+```
+
+To avoid this conflict we need to used `event.stopPropagation();` this function is hiding in the shadows to kill the event on specific point. 
+
+```javascript
+innerDiv = document.getElementById("element-b");
+innerDiv.onclick = function(event) {
+  console.log("Element B");
+  event.stopPropagation();
+}
+```
+
+This fixing resolve the conflict and allow us to only fired event from specifying an element trigger.
