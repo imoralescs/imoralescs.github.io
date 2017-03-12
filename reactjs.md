@@ -813,50 +813,61 @@ Widget.propTypes = {
 
 React exposes a few basic types we can use out of the box.
 
-| Type          | Example        | Class                  |
-| --------- |:------------------:| ----------------------:|
-| String    | `'hello'`	         | React.PropTypes.string |
-| Number    | `10, 0.1`          | React.PropTypes.number |
-| Boolean   | `true` / `false`   | React.PropTypes.bool   |
-| Function  |                    | React.PropTypes.func   |
-| Symbol    | `Symbol("msg")`    | React.PropTypes.symbol |
-| Object    | `{name: 'Ari'}`    | React.PropTypes.object |
+| Type      | Example            | Class                    |
+| --------- |:------------------:| ------------------------:|
+| String    | `'hello'`	         | `React.PropTypes.string` |
+| Number    | `10, 0.1`          | `React.PropTypes.number` |
+| Boolean   | `true` / `false`   | `React.PropTypes.bool`   |
+| Function  |                    | `React.PropTypes.func`   |
+| Symbol    | `Symbol("msg")`    | `React.PropTypes.symbol` |
+| Object    | `{name: 'Ari'}`    | `React.PropTypes.object` |
 
 
-Collection Types
+### Collection Types
+
 We can pass through iterable collections in our props.
 
-Type			Example		Class
-Array			[]			React.PropTypes.array
-Array of numbers	[1, 2, 3]		React.PropTypes.arrayOf([type])
-Enum			['Red', 'Blue']	React.PropTypes.oneOf([arr])
+| Type             | Example            | Class                             |
+| ---------------- |:------------------:| ---------------------------------:|
+| Array	           | `[]`               | `React.PropTypes.array`           |
+| Array of numbers | `[1, 2, 3]`        | `React.PropTypes.arrayOf([type])` |
+| Enum             | `['Red', 'Blue']`  | `React.PropTypes.oneOf([arr])`    |
 
-Object Types
+### Object Types
+
 It's possible to define types that need to be of a certain shape or instance of a certain class.
 
-Type			Example		Class
-Object		{name: 'Ari'}	React.PropTypes.object
-Number object	{count: 42}		React.PropTypes.objectOf()
-Instance		new Message()	React.PropTypes.objectOf()
-Object shape	{name: 'Ari'}	React.PropTypes.shape()
+| Type          | Example         | Class                        |
+| ------------- |:---------------:| ----------------------------:|
+| Object        | `{name: 'Ari'}` | `React.PropTypes.object`     |
+| Number object	| `{count: 42}`	  | `React.PropTypes.objectOf()` |
+| Instance      | `new Message()` | `React.PropTypes.objectOf()` |
+| Object shape  | `{name: 'Ari'}` | `React.PropTypes.shape()`    |
 
-React Types
+### React Types
+
 We can also pass through React elements from a parent to a child. This is incredibly useful for building templates and providing customization with the templates.
 
-Type			Example		Class
-Element		<Title />		React.PropTypes.element
+| Type    | Example      | Class                     |
+| ------- |:------------:| -------------------------:|
+| Element | `<Title />`	 | `React.PropTypes.element` |
 
-Requiring Types
+### Requiring Types
+
 It's possible to require a prop to be passed to a component by appending any of the proptype descriptions with .isRequired
 
+```javascript
 Widget.propTypes = {
   title: React.PropTypes.name.isRequired,
 }
+```
 
-Default Props
+### Default Props
+
 Sometimes we want to be able to set a default value for a prop.
 
+```javascript
 Widget.defaultProps = {
   title: 'Home page activity'
 }
-
+```
