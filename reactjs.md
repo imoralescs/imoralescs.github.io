@@ -381,6 +381,7 @@ The easiest way to implement a list in React is to use array and map(). List are
 
 * **ES6**
 
+```javascript
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -405,9 +406,11 @@ class App extends React.Component {
     )
   }
 }
+```
 
-ES5
+* **ES5**
 
+```javascript
 const App = React.createClass({
   getInitialState() {
     return {
@@ -430,10 +433,13 @@ const App = React.createClass({
     );
   }
 });
+```
 
-Method 
+## Method 
+
 It possible to invoke components method from the {} interpolation.
 
+```javascript
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -451,11 +457,15 @@ class App extends React.Component {
     )
   }
 }
+```
 
-Events
+## Events
+
 The way of handling events in React components is much similar to DOM events processing in pure Javascript. Just define a response function and let it be the event handler and listen an event. React has event system which called Synthetic Events is cross-browser wrapper.
 
-Declaring Events, Bind Method and onClick
+### Declaring Events, Bind Method and onClick
+
+```javascript
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -482,11 +492,15 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
+```
 
-onClick:  Attribute is added to the target element in order to specify the function to be executed when that element is clicked.
+* **`onClick`:**  Attribute is added to the target element in order to specify the function to be executed when that element is clicked.
 
-Form
-Accessing User Input With Refs
+## Form
+
+### Accessing User Input With Refs
+
+```javascript
 Refs mean is reference to specific node value.
 
 class App extends React.Component {
@@ -529,19 +543,24 @@ class App extends React.Component {
 
 let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
+```
 
-Uncontrolled and Controlled Components
-If we have a plain, normal HTML page, and we put a <input id="myTextbox" type="text" /> to my page. We I start typing into the textbox the browser store the current value for that input.
+### Uncontrolled and Controlled Components
 
+If we have a plain, normal HTML page, and we put a `<input id="myTextbox" type="text" />` to my page. We I start typing into the textbox the browser store the current value for that input.
+
+```javascript
 const button = document.getElementById("myButton");
 button.onclick = function(event) {
   const input = document.getElementById("myTextbox");
   const currentText = input.value;
   console.log(currentText);
 }
+```
 
 Later we can use the following javascript to get the value. So normal HTML input field effectively stores its own value at all times, and you can get the element when you ask for its value. This is what we refer to as an Uncontrolled input.  We write HTML form, We have a Submit button, when the button is clicked, We get each input and grab the value, put all the values in an object, and do something with that.
 
+```javascript
 class App extends React.Component {  
   constructor(props) {
     super(props);
@@ -566,11 +585,13 @@ class App extends React.Component {
 
 let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
+```
 
-Now a React-standard way to do things, we can render an input, and tell it what its value should be: return <input type="text" value="Hello World!" />, this applies to all input types, not just type="text". But, now we have a problem. if click to return value after try to type "asdf".... nothing will happen, because every time I type, React will re-render and React will see that the value is supposed to be "Hello World!, That's my problem so far.
+Now a React-standard way to do things, we can render an input, and tell it what its value should be: `return <input type="text" value="Hello World!" />`, this applies to all input types, not just `type="text"`. But, now we have a problem. if click to return value after try to type "asdf".... nothing will happen, because every time I type, React will re-render and React will see that the value is supposed to be "Hello World!, That's my problem so far.
 
-Controlled input is when you specify the value. And, in order to update the value, you must also specify an onChange callback for the input. The event in the callback will have the new suggested value from the input. It is then your job to take that new value and put it somewhere in your state, then re-render with the new value.
+**Controlled** input is when you specify the value. And, in order to update the value, you must also specify an onChange callback for the input. The event in the callback will have the new suggested value from the input. It is then your job to take that new value and put it somewhere in your state, then re-render with the new value.
 
+```javascript
 class App extends React.Component {  
   constructor(props) {
     super(props);
@@ -605,8 +626,11 @@ class App extends React.Component {
 
 let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
+```
 
-Multiples Fields
+### Multiples Fields
+
+```javascript
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -666,8 +690,11 @@ class App extends React.Component {
 
 let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
+```
 
-Forms Validation
+### Forms Validation
+
+```javascript
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -750,18 +777,23 @@ class App extends React.Component {
 
 let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
+```
 
-PropTypes
-Reusable React Components
+## PropTypes
+
+### Reusable React Components
+
 This mean breaking down common design elements (buttons, form fields, layout components) into reusable components with well-defined interfaces to increase consistency across your application’s making look and feel, and minimize effort when building future UI. This allows for cross team collaboration, increases maintainability, speeds up development time, eliminates bugs, and reduces the file-size of your application.
 
 Is important only top-level functional area components should hold state.
 
-PropTypes
+### PropTypes
+
 You may have noticed we use props to pass data to ours child's components (Reusable Components), we expect these props types or set of types have the correct data for ours childs component.
 
 The React.PropTypes object exports a bunch of different types which we can use to define what type a component's prop should be. We can define these using the propTypes method in the ES6 class-style React prop:
 
+```javascript
 class Widget extends React.Component {  
   render () {
     return (
@@ -775,3 +807,56 @@ class Widget extends React.Component {
 Widget.propTypes = {  
   title: React.PropTypes.string.isRequired,
 }
+```
+
+### Basic Types
+
+React exposes a few basic types we can use out of the box.
+
+| Type          | Example        | Class                  |
+| --------- |:------------------:| ----------------------:|
+| String    | `'hello'`	         | React.PropTypes.string |
+| Number    | `10, 0.1`          | React.PropTypes.number |
+| Boolean   | `true` / `false`   | React.PropTypes.bool   |
+| Function  |                    | React.PropTypes.func   |
+| Symbol    | `Symbol("msg")`    | React.PropTypes.symbol |
+| Object    | `{name: 'Ari'}`    | React.PropTypes.object |
+
+
+Collection Types
+We can pass through iterable collections in our props.
+
+Type			Example		Class
+Array			[]			React.PropTypes.array
+Array of numbers	[1, 2, 3]		React.PropTypes.arrayOf([type])
+Enum			['Red', 'Blue']	React.PropTypes.oneOf([arr])
+
+Object Types
+It's possible to define types that need to be of a certain shape or instance of a certain class.
+
+Type			Example		Class
+Object		{name: 'Ari'}	React.PropTypes.object
+Number object	{count: 42}		React.PropTypes.objectOf()
+Instance		new Message()	React.PropTypes.objectOf()
+Object shape	{name: 'Ari'}	React.PropTypes.shape()
+
+React Types
+We can also pass through React elements from a parent to a child. This is incredibly useful for building templates and providing customization with the templates.
+
+Type			Example		Class
+Element		<Title />		React.PropTypes.element
+
+Requiring Types
+It's possible to require a prop to be passed to a component by appending any of the proptype descriptions with .isRequired
+
+Widget.propTypes = {
+  title: React.PropTypes.name.isRequired,
+}
+
+Default Props
+Sometimes we want to be able to set a default value for a prop.
+
+Widget.defaultProps = {
+  title: 'Home page activity'
+}
+
