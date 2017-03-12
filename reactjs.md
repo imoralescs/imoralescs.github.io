@@ -161,7 +161,7 @@ ReactDOM.render(
 ```javascript
 const ClickCounterButton = function(props) {
   return (
-    <button onClick={props.handler}>Don't click me {props.counter} times! </button>
+    <button onClick={props.handler}>Dont click me {props.counter} times! </button>
   )
 };
 
