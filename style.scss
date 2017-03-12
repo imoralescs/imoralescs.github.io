@@ -298,6 +298,15 @@ tr {
   text-align: left;
   border: 1px solid #ccc;
 }
+
+p {
+ code {
+  font-family: 'Bitstream Vera Sans Mono','Courier', monospace;
+  background: #efefef;
+  font-size: 14px;
+ }
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
