@@ -1825,7 +1825,7 @@ The browser then provides JavaScript (and other languages) with an API (Applicat
 
 Each node will inherit from the Node interface which contains some basic functionality attached to it. This functionality will be then accessible to the language (JavaScript in this case) to allow it to modify the node properties or read the current state of the node.
 
-You can see a node like a box containing all kind of fun stuff you can play with, including other nodes (the nested nodes). Properties such as [node].nodeName or [node].firstChild and [node].nextSibling. 
+You can see a node like a box containing all kind of fun stuff you can play with, including other nodes (the nested nodes). Properties such as `[node].nodeName` or `[node].firstChild` and `[node].nextSibling`. 
 
 ### Access To Node
 
