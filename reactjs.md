@@ -125,7 +125,7 @@ Props is a short for properties, Props are immutable meaning they don't change. 
 ```javascript
 class ClickCounterButton extends React.Component {
   render() {
-    return <button onClick={this.props.handler}>Don't click me {this.props.counter} times! </button>
+    return <button onClick={this.props.handler}>Dont click me {this.props.counter} times! </button>
   }
 }
 
