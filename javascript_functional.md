@@ -198,7 +198,7 @@ console.log(result); //-> ["A"]
 
 Essentially, Functional Programming asks us to wrap virtually everything in functions or object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. But in order to actually write programs in this style, functions need to follow some rules.
 
-### Box "Functor, Identity"
+### Box "Functor"
 
 ```javascript
 const Box = x => ({
@@ -230,7 +230,7 @@ The folding of the list [1,2,3,4,5] with the addition operator would result in 1
 ```javascript
 const Box = x => ({
   map: f => Box(f(x)),
-	fold: f => f(x),
+  fold: f => f(x),
   inspect: () => `Box(${x})`,
 });
 
@@ -251,3 +251,51 @@ Simple we using fold to removing value from the box, is exactly like map without
 **Functor**
 
 We are working with a Functor, Box is a Functor, Functor is something that can be mapped over. In other words, it’s a container which has an interface which can be used to iterate over the values inside it. When you see the word functor, you should think “mappable”.
+
+Any type with map method, and is determined by few laws:
+
+* Law 1:  
+
+Functor must distribute over morphism composition, if you have object a to --> b to --> c, always must exist a arrow(morphism) to composite all from a to --> c. And both path are identical. Compose arrow must exist.
+
+F(f) ∘ F(g) === F(f ∘ g)
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  fold: f => f(x),
+  inspect: () => `Box(${x})`,
+});
+
+
+const result_01 = Box('squirrels')
+  .map(s => s.substr(5))
+  .fold(s => s.toUpperCase());
+
+const result_02 = Box('squirrels')
+  .fold(s => s.substr(5).toUpperCase());
+
+console.log(result_01, result_02); //-> "RELS RELS"
+console.log(result_01 === result_02); //-> true
+```
+
+* Law 2: 
+
+Functor must map identity of an object to that of mapped object.
+
+F(id A) === id F(A)
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  fold: f => f(x),
+  inspect: () => `Box(${x})`,
+});
+
+const id = x => x;
+
+const result_01 = Box('crayons').map(id);
+const result_02 = id(Box('crayons'));
+
+console.log(result_01.inspect() === result_02.inspect()); //-> true
+```
