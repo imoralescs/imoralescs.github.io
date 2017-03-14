@@ -315,3 +315,231 @@ Box.of = (x) => Box(x);
 const result = Box.of(100);
 console.log(result.inspect()); //-> Box(100)
 ```
+
+### Either "Maybe"
+
+With Either we can solve challenge like how we handle If-Else Condition and Null Exception.
+
+```javascript
+const Right = x => 
+({
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  inspect: () => `Left(${x})`
+})
+
+Left("hi")
+  .map(s => s.toUpperCase())
+  .fold(x => console.log(x + ', I am Left!'),
+	y => console.log(y + ', Wooo, I am Right!'));
+//-> hi, I am Left!
+
+Right("Hi")
+  .map(s => s.toUpperCase())
+  .fold(x => console.log(x + ', I am Left!'),
+        y => console.log(y + ', Wooo, I am Right!'));
+//-> HI, Wooo, I am Right!
+```
+
+Right Box take a value and map, through another function and continuum mapping if need it. Left Box is different in the case, when take a value they are not going to run any function. Left refuse to run any request.
+
+This is useful, to refactor fold method inside "Box" with (f, g) => g(x) for right box case and (f, g) => f(x) for left box case. 
+
+This allow us to do pure functional error handling, if-else case, code branching, null check, or other case than capture disjunction concept of OR.
+
+**If/Else**
+
+```javascript
+const Right = x => 
+({
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  inspect: () => `Left(${x})`
+})
+
+// Looking for premium member.
+const jack = {
+  "premium":true,
+  "preferences":[{
+    "name":"Jack Smith",
+    "address":"1420 Seagull Dr Apt. 203",
+  }],
+};
+
+const maria = {
+  "premium":false,
+  "preferences":[{
+    "name":"Maria Hillary",
+    "address":"Elon Cres 408",
+  }],
+};
+
+function loadPrefs(data){
+  console.log("User " + data[0].name + " is premium member.");
+}
+
+const getUser = user =>
+  (user.premium ? Right(user) : Left('not premium'))
+    .map(u => u.preferences)
+    .fold(() => console.log("User is not premium member."),
+          prefs => loadPrefs(prefs))
+
+getUser(jack); //-> "User Jack Smith is premium member."
+getUser(maria); //-> “User is not premium member."
+```
+
+**Try/Catch**
+
+```javascript
+const Right = x => 
+({
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  inspect: () => `Left(${x})`
+})
+
+const tryCatch = fn => {
+  try {
+    return Right(fn())
+  }
+  catch(e) {
+    return Left(e)
+  }
+}
+
+var data = '{"serve": "nginx","port": "8000" }';
+const readFile = (x) => x
+
+const getPort = () =>
+  tryCatch(() => readFile(data))
+    .map(p => tryCatch(() => JSON.parse(p)))
+    .fold(e => 3000,
+          p => p);
+
+const result = getPort();
+console.log(result.inspect()); //-> Right(Right([object Object]))
+```
+
+We have a problem with previous code, on the Try/Catch we have the case of two Box are catching our value or testing our value from null. So we have a Box inside another Box. To solve this we can fold two time. But what if the case we have more that two level of deep Box.
+
+**Monads**
+
+Box have `.of` method to lift the value, to place value into the type and we add `.chain` method to create the monad interface, other way to call are (flatMap, bind, >>=)
+
+Chain is like map, only difference is they unboxing back up a value. Chain is a method which, wait for it, allows a chain of operations in sequence. It also takes care of handling invalid or nothing values while it’s at it to make sure our code doesn’t crash and burn if users start sending wrong data through an email field for example. The chain is actually called bind in monadic nomenclature. But since the word is already in javascript’s dictionary for an entirely different purpose than what we used chain for, it was rechristened. Monads allow us to nest computation.
+
+* Law 1:
+
+join(monad.map(join)) === join(join(monad))
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  inspect: () => `Box(${x})`,
+  chain: f => f(x),
+});
+
+Box.of = (x) => Box(x);
+
+const join = monad =>
+  monad.chain(x => x);
+
+const monad = Box(Box(Box(3)));
+console.log(monad.inspect()); //-> Box(Box(Box(3)))
+
+const result_01 = join(monad.chain(x => x));
+const result_02 = join(monad.map(join));
+const result_03 = join(join(monad))
+
+// Flatmap
+console.log(result_01.inspect()); //-> Box(3)
+console.log(result_02.inspect() === result_03.inspect()); //-> true
+```
+
+* Law 2:
+
+join(Box.of(monad)) === join(monad.map(Box.of))
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  inspect: () => `Box(${x})`,
+  chain: f => f(x),
+});
+
+Box.of = (x) => Box(x);
+
+const join = monad =>
+  monad.chain(x => x);
+
+const monad = Box('wonder');
+
+const result_01 = join(Box.of(monad));
+const result_02 = join(monad.map(Box.of));
+console.log(result_01.inspect() === result_02.inspect()); //-> true
+```
+
+**Try/Catch with Chain**
+
+```javascript
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const tryCatch = fn => {
+  try {
+    return Right(fn())
+  }
+  catch(e) {
+    return Left(e)
+  }
+}
+
+var data = '{"serve": "nginx","port": "8000" }';
+const readFile = (x) => x
+
+const getPort = (data) =>
+  tryCatch(() => readFile(data))
+    .chain(p => tryCatch(() => JSON.parse(p)))
+    .fold(e => 3000,
+          p => p.port);
+
+const result_01 = getPort(data);
+console.log(result_01); //-> "8000"
+
+const result_02 = getPort();
+console.log(result_02); //-> "3000"
+```
