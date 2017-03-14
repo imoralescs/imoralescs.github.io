@@ -299,3 +299,19 @@ const result_02 = id(Box('crayons'));
 
 console.log(result_01.inspect() === result_02.inspect()); //-> true
 ```
+
+**`.of`**
+
+Is a interface to put or place a value into the type. And we called lifting a value into a type.
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  fold: f => f(x),
+  inspect: () => `Box(${x})`,
+});
+
+Box.of = (x) => Box(x);
+const result = Box.of(100);
+console.log(result.inspect()); //-> Box(100)
+```
