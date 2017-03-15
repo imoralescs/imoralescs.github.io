@@ -824,3 +824,275 @@ Right.of(data)
         x => console.log("Properties: " + x));
 //-> Properties: localhost
 ```
+
+### Lazy Evaluation Monad
+
+Is strategy which delays the evaluation or execution of an expression until its value is needed. Typically they wrap a function. IO Monad, Task, Promise, Observable, all are Lazy Evaluation Monad.
+
+```javascript
+const LazyBox = g => ({
+  map: f => LazyBox(() => f(g())),
+  fold: f => f(g()),
+});
+
+const result = LazyBox(() => ' 64 ')
+  .map(a => a.trim())
+  .map(trimmed => new Number(trimmed))
+  .map(number => number + 1)
+  .map(x => String.fromCharCode(x));
+
+console.log(result.fold(x => x.toLowerCase()));
+```
+
+**IO Monad**
+
+```javascript
+// Convert function argument to array.
+const argsToArray = (args) => {
+  return Array.prototype.slice.call(args, 0);
+}
+
+// Partial function helper.
+const partial = function() {
+  let args = argsToArray(arguments);
+  let fn = args.shift();
+
+  return function() {
+    let remainingArgs = Array.from(arguments);
+    return fn.apply(this, args.concat(remainingArgs));
+  }
+}
+
+// IO Monad helper.
+const IO = g => 
+({
+  map: f => IO(() => f(g())),
+  inspect: () => `IO(${g()})`,
+  chain: f => f(g),
+  fold: f => f(g()),
+  run: () => g()
+});
+
+// Pure process
+const read = function (document, id) {
+  return function () {
+    return document.querySelector(`${id}`).innerHTML;
+  };
+};
+
+const write = function(document, id) {
+  return function(val) {
+    return document.querySelector(`${id}`).innerHTML = val;
+  };
+};
+
+const readDOM = partial(read, document);
+const writeDOM = partial(write, document);
+
+// Run program
+const changeToStartCase =
+  IO(readDOM('#student_name'))
+    .map(x => x.toUpperCase())
+    .map(writeDOM('#student_name'));
+
+// This will start case the content within the DOM element
+changeToStartCase.run();
+```
+
+**Task Monad**
+
+The Task(a, b) structure represents values that depend on time. This allows one to model time-based effects explicitly, such that one can have full knowledge of when they're dealing with delayed computations, latency, or anything that can not be computed immediately. Need .fork() to execute.
+
+```javascript
+// Library Task
+// https://github.com/folktale/data.task
+
+// Success Case
+Task.of(1)
+  .map(x => x + 1)
+  .chain(x => Task.of(x + 1))
+  .fork(e => console.log('Err', e),
+        s => console.log('Success', s)); //-> Success 3
+				
+// Error Case, like Left
+Task.rejected(1)
+  .map(x => x + 1)
+  .chain(x => Task.of(x + 1))
+  .fork(e => console.log('Err', e),
+        s => console.log('Success', s)); //-> Err 1
+```
+
+### Semigroups and Monoids
+
+Is a type with concat method. This idea come from abstract algebra. Formal definition is, semigroup is an algebraic structure consisting of a set together with associative binary operation.
+ 
+Array and String are semigroup
+
+```javascript
+const result_01 = "a".concat("b").concat("c");
+console.log(result_01); //-> abc
+
+const result_02 = [1,2].concat([3,4].concat([5,6]));
+console.log(result_02); //-> [1, 2, 3, 4, 5, 6]
+```
+
+Sometimes no all type are semigroup, because they no have the concat method. Example 1 + 2 = 3, We need to create the type:
+
+```javascript
+const Sum = x =>
+({
+  x, 
+  concat: ({x: y}) => 
+    Sum(x + y),
+  inspect: () =>
+    `Sum(${x})`,
+  fold: () => x,
+});
+
+const result = Sum(1).concat(Sum(2));
+console.log(result.fold()); //-> 3
+```
+
+Another type without concat method is boolean type.
+
+True && False = False
+True && True = True
+
+```javascript
+const All = x =>
+({
+  x,
+  concat: ({x: y}) =>
+    All(x && y),
+  inspect: () =>
+    `All(${x})`,
+  fold: () => x,
+});
+
+const result_01 = All(true).concat(All(false));
+console.log(result_01.fold()); //-> false
+
+const result_02 = All(true).concat(All(true));
+console.log(result_02.fold()); //-> true
+```
+
+Let create first semigroup, this semigroup always keep the first one.
+
+```javascript
+const First = x =>
+({
+  x,
+  concat: _ => 
+    First(x),
+  inspect: () =>
+    `First(${x})`,
+  fold: () => x
+});
+
+const result = First("blah").concat(First("ice cream")).concat(First("meta programming"));
+console.log(result.fold()); //-> blah
+```
+
+Let suppose we have this user with two same account, and they want to merge those account. Date come in this example object form.
+
+```javascript
+const Sum = x =>
+({
+  x, 
+  concat: ({x: y}) => 
+    Sum(x + y),
+  inspect: () =>
+    `Sum(${x})`,
+  fold: () => x,
+});
+
+const All = x =>
+({
+  x,
+  concat: ({x: y}) =>
+    All(x && y),
+  inspect: () =>
+    `All(${x})`,
+  fold: () => x,
+});
+
+const First = x =>
+({
+  x,
+  concat: _ => 
+    First(x),
+  inspect: () =>
+    `First(${x})`,
+  fold: () => x
+});
+
+const acct1 = Map({name: First('Nico'), isPaid: All(true), points: Sum(10), friends: ['Franklin']});
+const acct2 = Map({name: First('Nico'), isPaid: All(false), points: Sum(2), friends: ['Gatsby']});
+
+const result = acct1.concat(acct2);
+console.log(JSON.stringify(result.toJS()));
+//-> 
+/* 
+ {
+   "name":{"x":"Nico"},
+   "isPaid":{"x":false},
+   "points":{"x":12},
+   "friends":["Franklin","Gatsby"]
+ }
+*/
+```
+
+Monoid is a semigroup with especial element, they act like special identity. Let consider addition, if we have: 
+
+1 + 0 = 1
+2 + 0 = 2
+
+If we have anything x + 0 = x, if this addition is our concatenation, we have a neutral element that access to identity source. Let create some interface to proven.
+
+```javascript
+Sum.empty = () => Sum(0);
+
+// Both must give me same result, because they have a neutral element
+const result_01 = Sum.empty().concat(Sum(1).concat(Sum(2)));
+const result_02 = Sum(1).concat(Sum(2));
+
+console.log(result_01.fold()); //-> 3
+console.log(result_02.fold()); //-> 3
+
+// Now let try the same with All
+// Neutral element will be true on this case
+All.empty = () => All(true);
+
+const result_03 = All(true).concat(All(true));
+const result_04 = All(true).concat(All(true)).concat(All.empty());
+
+console.log(result_03.fold()); //-> true
+console.log(result_04.fold()); //-> true
+```
+
+If we try First, we cannot covert or promoted Semigroup to Monoid, because we no have way to have a neutral element. Normally we don’t receive json object or array with semigroup inner, we can deal this:
+
+```javascript
+const Sum = x =>
+({
+  x, 
+  concat: ({x: y}) => 
+    Sum(x + y),
+  inspect: () =>
+    `Sum(${x})`,
+  fold: () => x,
+});
+
+Sum.empty = () => Sum(0);
+
+const result_01 = Map({brian: 3, sara: 5})
+  .map(x => Sum(x))
+  .fold(Sum.empty());
+
+console.log(result_01.fold()); //-> 8
+
+const result_02 = List.of(1,2,3)
+  .foldMap(Sum, Sum.empty());
+	
+console.log(result_02.fold()); //-> 6
+```
