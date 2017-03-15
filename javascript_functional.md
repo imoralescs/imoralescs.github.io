@@ -505,18 +505,18 @@ console.log(result_01.inspect() === result_02.inspect()); //-> true
 ```javascript
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const tryCatch = fn => {
@@ -554,18 +554,18 @@ const is = R.is;
 
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const tax = curry((tax, price) => {
@@ -575,11 +575,11 @@ const tax = curry((tax, price) => {
 });
 
 const discount = curry((dis, price) => {
-	return (!is(Number, price)) ?
-		Left(new Error("Price must be numeric")) :
-		(price < 10) ?
-			Left(new Error("discount cant be applied for items priced below 10")) :
-			Right(price - (price * dis))			
+  return (!is(Number, price)) ?
+    Left(new Error("Price must be numeric")) :
+    (price < 10) ?
+      Left(new Error("discount cant be applied for items priced below 10")) :
+      Right(price - (price * dis))			
 });
 
 const result_01 = discount(0.1, 11);
@@ -606,7 +606,7 @@ const showTotalPrice = (item) =>
     .chain(apply25Disc)
     .chain(addTax)
     .fold(error => error,
-					price => price);
+          price => price);
 
 const result_06 = showTotalPrice({ name: 't-shirt', price: 11 });
 console.log(result_06); //=> 9.075
@@ -621,18 +621,18 @@ console.log(result_08); //=> Error: discount cant be applied for items priced be
 ```javascript
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const jack = {
@@ -672,22 +672,22 @@ Is a helper to check null value before execute code.
 ```javascript
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const fromNullable = x => 
-	x != null ? Right(x) : Left(null);
+  x != null ? Right(x) : Left(null);
 	
 const jonh = {
   "premium":true,
@@ -731,56 +731,56 @@ const is = R.is;
 const prop = R.prop;
 
 const getProp = (obj, key) =>
-	key.split('.').reduce( (o, x) =>
-		(typeof o == "undefined" || o === null) ? o : o[x], obj);
+  key.split('.').reduce( (o, x) =>
+    (typeof o == "undefined" || o === null) ? o : o[x], obj);
 		
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const fromNullable = x => 
-	x != null ? Right(x) : Left(null);
+  x != null ? Right(x) : Left(null);
 	
 let joeUser = {
-	name: 'joe',
-	email: 'joe@example.com',
-	prefs: {
-		languages: {
-			primary: 'sp',
-			secondary: 'en'
-		}
-	}
+  name: 'joe',
+  email: 'joe@example.com',
+  prefs: {
+    languages: {
+      primary: 'sp',
+      secondary: 'en'
+    }
+  }
 };
 
 let indexURLs = {
-	'en': 'http://mysite.com/en',  
-	'sp': 'http://mysite.com/sp', 
-	'jp': 'http://mysite.com/jp'   
+  'en': 'http://mysite.com/en',  
+  'sp': 'http://mysite.com/sp', 
+  'jp': 'http://mysite.com/jp'   
 }
 
 const getUrl = R.curry(function(allUrls, language){
-	return fromNullable(allUrls[language])
-		.fold(() => "Language not found",
-					url => url);
+  return fromNullable(allUrls[language])
+    .fold(() => "Language not found",
+          url => url);
 })(indexURLs);
 
 const getURLForUser = (user) => 
-	fromNullable(user)//wrap user in a Maybe object 
-		.map(x => getProp(x, 'prefs.languages.primary')) //to grab primary language
-		.fold(() => "User not found",
-					user => getUrl(user));
+  fromNullable(user)//wrap user in a Maybe object 
+    .map(x => getProp(x, 'prefs.languages.primary')) //to grab primary language
+    .fold(() => "User not found",
+          user => getUrl(user));
 
 const result_01 = getURLForUser(joeUser);
 console.log(result_01);
@@ -792,29 +792,29 @@ const is = R.is;
 const prop = R.prop;
 
 const getProp = (obj, key) =>
-	key.split('.').reduce( (o, x) =>
-		(typeof o == "undefined" || o === null) ? o : o[x], obj);
+  key.split('.').reduce( (o, x) =>
+    (typeof o == "undefined" || o === null) ? o : o[x], obj);
 		
 const Right = x => 
 ({
-	fold: (f, g) => g(x),
-	map: f => Right(f(x)),
-	chain: f => f(x),
-	inspect: () => `Right(${x})`
+  fold: (f, g) => g(x),
+  map: f => Right(f(x)),
+  chain: f => f(x),
+  inspect: () => `Right(${x})`
 })
 
 Right.of = (x) => Right(x);
 
 const Left = x =>
 ({
-	fold: (f, g) => f(x),
-	map: f => Left(x),
-	chain: f => Left(x),
-	inspect: () => `Left(${x})`
+  fold: (f, g) => f(x),
+  map: f => Left(x),
+  chain: f => Left(x),
+  inspect: () => `Left(${x})`
 })
 
 const fromNullable = x => 
-	x != null ? Right(x) : Left(null);
+  x != null ? Right(x) : Left(null);
 	
 const data = { host: 'localhost', port: 80,};
 
