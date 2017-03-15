@@ -44,7 +44,7 @@ Anonymous function used in place of a named callback function, this is one of th
 
 ```javascript
 setInterval(function(){
-	console.log(new Date().getTime())
+  console.log(new Date().getTime())
 }, 1000);
 ```
 
@@ -83,8 +83,8 @@ const compose = (f,g) => x => f(g(x));
 
 // Compose ES5
 const composeES5 = function(f,g) {
-	return function(x) {
-  	return f(g(x))
+  return function(x) {
+    return f(g(x))
   }
 }
 
@@ -665,7 +665,7 @@ getUser(jack); //-> "User Jack Smith is premium member."
 getUser(maria); //-> “User is not premium member."
 ```
 
-**`fromNullable:`** 
+**fromNullable** 
 
 Is a helper to check null value before execute code.
 
