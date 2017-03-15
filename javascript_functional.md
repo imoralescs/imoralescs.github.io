@@ -543,3 +543,284 @@ console.log(result_01); //-> "8000"
 const result_02 = getPort();
 console.log(result_02); //-> "3000"
 ```
+
+**If/Else/If**
+
+```javascript
+console.clear();
+
+const curry = R.curry;
+const is = R.is;
+
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const tax = curry((tax, price) => {
+  return (!is(Number, price)) ? 
+    Left(new Error("Price must be numeric")) :
+    Right(price + (tax * price));
+});
+
+const discount = curry((dis, price) => {
+	return (!is(Number, price)) ?
+		Left(new Error("Price must be numeric")) :
+		(price < 10) ?
+			Left(new Error("discount cant be applied for items priced below 10")) :
+			Right(price - (price * dis))			
+});
+
+const result_01 = discount(0.1, 11);
+console.log(result_01.inspect()); //-> Right(9.9)
+
+const result_02 = discount(0.1, '11');
+console.log(result_02.inspect()); //-> Left(Error: Price must be numeric)
+
+const result_03 = discount(0.1, 9);
+console.log(result_03.inspect()); //-> Left(Error: discount cant be applied for items priced below 10)
+
+const result_04 = tax(0.1, 11);
+console.log(result_04.inspect()); //-> Right(12.1)
+
+const result_05 = tax(0.1, '11');
+console.log(result_05.inspect()); //-> Left(Error: Price must be numeric)
+
+const addTax = (tax(0.1));
+const apply25Disc = (discount(0.25));
+const getItemPrice = (item) => Right(item.price);
+
+const showTotalPrice = (item) =>
+  getItemPrice(item)
+    .chain(apply25Disc)
+    .chain(addTax)
+    .fold(error => error,
+					price => price);
+
+const result_06 = showTotalPrice({ name: 't-shirt', price: 11 });
+console.log(result_06); //=> 9.075
+
+const result_07 = showTotalPrice({ name: 't-shirt', price: '10 dollars' });
+console.log(result_07); //=> Error: Price must be numeric
+
+const result_08 = showTotalPrice({ name: 't-shirt', price: 5 });
+console.log(result_08); //=> Error: discount cant be applied for items priced below 10
+```
+
+```javascript
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const jack = {
+  "premium":true,
+  "preferences":[{
+    "name":"Jack Smith",
+    "address":"1420 Seagull Dr Apt. 203",
+  }],
+};
+
+const maria = {
+  "premium":false,
+  "preferences":[{
+    "name":"Maria Hillary",
+    "address":"Elon Cres 408",
+  }],
+};
+
+function loadPrefs(data){
+  console.log("User " + data[0].name + " is premium member.");
+}
+
+const getUser = user =>
+  (user.premium ? Right(user) : Left('not premium'))
+    .map(u => u.preferences)
+    .fold(() => console.log("User is not premium member."),
+          prefs => loadPrefs(prefs))
+					
+getUser(jack); //-> "User Jack Smith is premium member."
+getUser(maria); //-> “User is not premium member."
+```
+
+**`fromNullable:`** 
+
+Is a helper to check null value before execute code.
+
+```javascript
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const fromNullable = x => 
+	x != null ? Right(x) : Left(null);
+	
+const jonh = {
+  "premium":true,
+  "name":"Jonh Walk",
+  "address":{
+    "street":{
+      "name":"Seagull Drive"
+    },
+  },
+};
+
+const steph = {
+  "premium":true,
+  "name":"Steph Walk",
+  "address":{
+    "street":null,
+  },
+};
+
+const maria = {
+  "premium":true,
+  "name":"Steph Walk",
+  "address":null,
+};
+
+const getStreetName = user =>
+  fromNullable(user.address)
+    .chain(a => fromNullable(a.street))
+    .map(s => s.name)
+    .fold(e => console.log("street don't exist"),
+				  n => console.log(n));
+
+getStreetName(jonh); //-> "Seagull Drive"
+getStreetName(steph); //-> "street don't exist"
+getStreetName(maria); //-> "street don't exist"
+```
+
+```javascript
+const curry = R.curry;
+const is = R.is;
+const prop = R.prop;
+
+const getProp = (obj, key) =>
+	key.split('.').reduce( (o, x) =>
+		(typeof o == "undefined" || o === null) ? o : o[x], obj);
+		
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const fromNullable = x => 
+	x != null ? Right(x) : Left(null);
+	
+let joeUser = {
+	name: 'joe',
+	email: 'joe@example.com',
+	prefs: {
+		languages: {
+			primary: 'sp',
+			secondary: 'en'
+		}
+	}
+};
+
+let indexURLs = {
+	'en': 'http://mysite.com/en',  
+	'sp': 'http://mysite.com/sp', 
+	'jp': 'http://mysite.com/jp'   
+}
+
+const getUrl = R.curry(function(allUrls, language){
+	return fromNullable(allUrls[language])
+		.fold(() => "Language not found",
+					url => url);
+})(indexURLs);
+
+const getURLForUser = (user) => 
+	fromNullable(user)//wrap user in a Maybe object 
+		.map(x => getProp(x, 'prefs.languages.primary')) //to grab primary language
+		.fold(() => "User not found",
+					user => getUrl(user));
+
+const result_01 = getURLForUser(joeUser);
+console.log(result_01);
+```
+
+```javascript
+const curry = R.curry;
+const is = R.is;
+const prop = R.prop;
+
+const getProp = (obj, key) =>
+	key.split('.').reduce( (o, x) =>
+		(typeof o == "undefined" || o === null) ? o : o[x], obj);
+		
+const Right = x => 
+({
+	fold: (f, g) => g(x),
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	inspect: () => `Right(${x})`
+})
+
+Right.of = (x) => Right(x);
+
+const Left = x =>
+({
+	fold: (f, g) => f(x),
+	map: f => Left(x),
+	chain: f => Left(x),
+	inspect: () => `Left(${x})`
+})
+
+const fromNullable = x => 
+	x != null ? Right(x) : Left(null);
+	
+const data = { host: 'localhost', port: 80,};
+
+Right.of(data)
+  .map(prop('host'))
+  .fold(() => console.log("Properties don't found"),
+        x => console.log("Properties: " + x));
+//-> Properties: localhost
+```
