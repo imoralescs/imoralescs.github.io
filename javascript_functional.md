@@ -846,7 +846,12 @@ console.log(result.fold(x => x.toLowerCase()));
 
 **IO Monad**
 
+```html
+<div id="text-html">Lorem ipsum dolor sit amet.</div> 
+```
+
 ```javascript
+/*
 // Convert function argument to array.
 const argsToArray = (args) => {
   return Array.prototype.slice.call(args, 0);
@@ -862,21 +867,26 @@ const partial = function() {
     return fn.apply(this, args.concat(remainingArgs));
   }
 }
+*/
 
-// IO Monad helper.
-const IO = g => 
-({
+const partial = function(fn, ...outerArgs){
+	return function(...innerArgs) {
+		return fn(...outerArgs, ...innerArgs)
+	}
+}
+
+const IO = g => ({
   map: f => IO(() => f(g())),
   inspect: () => `IO(${g()})`,
   chain: f => f(g),
   fold: f => f(g()),
-  run: () => g()
+	run: () => g()
 });
 
-// Pure process
+// Helper functions
 const read = function (document, id) {
   return function () {
-    return document.querySelector(`${id}`).innerHTML;
+    return document.querySelector(`${id}`);
   };
 };
 
@@ -886,16 +896,17 @@ const write = function(document, id) {
   };
 };
 
-const readDOM = partial(read, document);
-const writeDOM = partial(write, document);
+// Partial Method - Add function to partial apply and add first param.
+const readDom = partial(read, document); 
+const writeDom = partial(write, document); 
 
 // Run program
 const changeToStartCase =
-  IO(readDOM('#student_name'))
-    .map(x => x.toUpperCase())
-    .map(writeDOM('#student_name'));
+  IO(readDom('#text-html'))
+		.map(x => x.innerHTML.toUpperCase())
+		.map(writeDom('#text-html'));
 
-// This will start case the content within the DOM element
+// this will start case the content within the DOM element
 changeToStartCase.run();
 ```
 
