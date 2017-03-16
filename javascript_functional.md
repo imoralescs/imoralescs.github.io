@@ -140,6 +140,10 @@ Useful tool to aid in building up a single result by iterating over a collection
 
 An accumulator is an additional argument added to a function. As the function that has an accumulator is continually called upon, the result of the computation so far is stored in the accumulator. After the recursion is done, the value of the accumulator itself is often returned unless further manipulation of the data is needed.
 
+### Recursion
+
+Recursion is most famous functional programming technique. A recursive function is a function that calls itself. When a functions calls itself, something strange happens. It acts both as a loop, in that it executes the same code multiple times, and as a function stack.
+
 ## Memoization
 
 Is an optimization technique where expensive function calls are cached such that the result can be immediately returned the next time the function is called with the same arguments. This method of optimization is not unique to JavaScript and is quite common in many programming languages. It is especially useful in recursive functions as calls are more likely to call with the same arguments while recursing.
@@ -206,16 +210,28 @@ console.log(factorial_02(4));
 
 Line:
 
-* 1. Our memoize function accepts a fn to be memoized.
-* 2. We initialize a new cache for the fn passed in utilizing the, ever so powerful, closure scope.
-* 3. We return the memoized fn which accepts some number of args.
-* 4. We stringify the arguments passed to our memoized fn to be used as a “key” to our cache.
-* 5. We then check the cache for the value associated with that key.  If the value associated with that key exists in the cache we assign it to result otherwise we call fn with the arguments passed to the memoized function and assign its value to the cache.
-* 6. Finally, we return the result.
+1. Our memoize function accepts a fn to be memoized.
+2. We initialize a new cache for the fn passed in utilizing the, ever so powerful, closure scope.
+3. We return the memoized fn which accepts some number of args.
+4. We stringify the arguments passed to our memoized fn to be used as a “key” to our cache.
+5. We then check the cache for the value associated with that key.  If the value associated with that key exists in the cache we assign it to result otherwise we call fn with the arguments passed to the memoized function and assign its value to the cache.
+6. Finally, we return the result.
 
 ### Where can I use memoization? 
 
 Not all functions can be memoized. In particular, pure functions can be memoized. A function is said to be pure when it behaves in a predictable way, in the sense that for each x, the function will always return the same associated y value.
+
+## Immutability
+
+Variables can be assigned only once. This is known as immutability. ECMAScript 2015 supports a new keyword, `const`. The `const` keyword can be used in the same way as `var` except that variables assigned with const will be immutable.
+
+If we using an older browser without support, then const won't be available to you. A possible workaround is to make use of the `Object.freeze` functionality which is more widely adopted:
+
+```javascript
+let consts = Object.freeze({ pi : 3.141});
+consts.pi = 7;
+console.log(consts.pi);//outputs 3.141
+```
 
 ## Curry or Partial Application
 
@@ -912,7 +928,7 @@ Right.of(data)
 
 ### Lazy Evaluation Monad
 
-Is strategy which delays the evaluation or execution of an expression until its value is needed. Typically they wrap a function. IO Monad, Task, Promise, Observable, all are Lazy Evaluation Monad.
+Lazy evaluation, also known as non-strict evaluation, call-by-need and deffered execution, is strategy which delays the evaluation or execution of an expression until its value is needed. Typically they wrap a function. IO Monad, Task, Promise, Observable, all are Lazy Evaluation Monad.
 
 ```javascript
 const LazyBox = g => ({
