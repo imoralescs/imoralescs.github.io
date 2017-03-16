@@ -92,6 +92,14 @@ Only have two restriction:
 2. The first character must not be a digit.
 3. Good practices of name constant is all letter on uppercase.
 
+### Constants
+
+Is like a variable that we can create and can be read-only. We create this with `const` keyword.
+
+```javascript
+const AREA_CODE = 787;
+```
+
 ## Data Type
 
 ### Types
@@ -822,7 +830,7 @@ console.log(allPositiveNumbers); //-> true
 
 ## Function
 
-The concept of wrapping a piece of code or program.
+Function are the primary unit of execution. Function are the pieces where you will wrap all your code. 
 
 ### Defining a function
 
@@ -857,6 +865,59 @@ intro;
 ### Parameters
 
 Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments is like a another name to parameters. Same concept you pass to a function, are defined after name our function, work like input to code inside of that function.
+
+### Function as Data
+
+Functions can be assigned to a variables, and variable are data. You can pass functions in other function as parameters.
+
+```javascript
+var validateDataForAge = function(data) {
+  person = data();
+  console.log(person);
+  
+  if (person.age <1 || person.age > 99) {
+    return true;
+  }
+  else {
+    return false;
+ }
+};
+
+var errorHandlerForAge = function(error) {
+  console.log("Error while processing age");
+};
+
+function parseRequest(data, validateData, errorHandler) {
+  var error = validateData(data);
+
+  if (!error) {
+    console.log("no errors");
+  } 
+  else {
+    errorHandler();
+  }
+}
+
+var generateDataForScientist = function() {
+  return {
+    name: "Albert Einstein",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+var generateDataForComposer = function() {
+  return {
+    name: "J S Bach",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+// Parse Request
+parseRequest(generateDataForScientist, validateDataForAge, errorHandlerForAge);
+// -> {name: "Albert Einstein", age: 42} no errors
+parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
+// -> {name: "J S Bach", age: 87} no errors
+```
 
 ### Immediately-Invoked Function Expression (IIFE)
 
