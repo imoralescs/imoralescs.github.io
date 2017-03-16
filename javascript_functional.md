@@ -59,9 +59,9 @@ A higher order function is any function which takes a function as an argument, r
 * Partially apply a function to its arguments or create a curried function for the purpose of reuse or function composition
 * Take a list of functions and return some composition of those input functions
 
-## Function Composition
+## Function Composition (Pipe)
 
-Is the process of combining two or more functions in order to produce a new function or perform some computation. Composing functions together is like snapping together a series of pipes for our data to flow through.
+Is the process of combining two or more functions in order to produce a new function or perform some computation. "take the output of program A and put it into program B". Composing functions together is like snapping together a series of pipes for our data to flow through.
 
 Put simply, a composition of functions `f` and `g` can be defined as `f(g(x))`, which evaluates from the inside out — right to left. In other words, the evaluation order is:
 
@@ -134,6 +134,13 @@ const trimLenGreated5 = compose(greated, compose(length, trim));
 console.log(trimLenGreated5("  blah  ")); //-> false
 ```
 
+## Accumulators (Recursion)
+
+Useful tool to aid in building up a single result by iterating over a collection. Recursion is popular within functional programming languages and many of them actually offer an optimization called "tail call optimization". The problem with for loops is that the control flow through the loop is mutable. Instead we can make use of an accumulator, a tool for combining multiple values from a collection into a single value.
+
+An accumulator is an additional argument added to a function. As the function that has an accumulator is continually called upon, the result of the computation so far is stored in the accumulator. After the recursion is done, the value of the accumulator itself is often returned unless further manipulation of the data is needed.
+
+
 ## Curry or Partial Application
 
 ### Arity and Arguments
@@ -196,7 +203,9 @@ const result = nextCharForNumberString(` 64 `);
 console.log(result); //-> ["A"]
 ```
 
-Essentially, Functional Programming asks us to wrap virtually everything in functions or object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. But in order to actually write programs in this style, functions need to follow some rules.
+Essentially, Functional Programming asks us to wrap virtually everything in javascript object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. 
+
+Everything in JavaScript is an object, which means that we can adding functionality to existing objects to improve their look. Operating on collections of objects is a space in which functional programming provides some powerful features. 
 
 ### Box "Functor"
 
