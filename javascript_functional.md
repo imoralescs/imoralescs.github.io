@@ -140,6 +140,82 @@ Useful tool to aid in building up a single result by iterating over a collection
 
 An accumulator is an additional argument added to a function. As the function that has an accumulator is continually called upon, the result of the computation so far is stored in the accumulator. After the recursion is done, the value of the accumulator itself is often returned unless further manipulation of the data is needed.
 
+## Memoization
+
+Is an optimization technique where expensive function calls are cached such that the result can be immediately returned the next time the function is called with the same arguments. This method of optimization is not unique to JavaScript and is quite common in many programming languages. It is especially useful in recursive functions as calls are more likely to call with the same arguments while recursing.
+
+```javascript
+// Function without Memoization
+function factorial_01(num) {
+  console.log('working for factorial(' + num + ')');
+  if(num === 1) { return 1 };
+  return num * factorial_01(num - 1);
+}
+
+console.log(factorial_01(3)); 
+//-> working for factorial(3)
+//-> working for factorial(2)
+//-> working for factorial(1)
+//-> 6
+
+console.log(factorial_01(3)); 
+//-> working for factorial(3)
+//-> working for factorial(2)
+//-> working for factorial(1)
+//-> 6
+
+console.log(factorial_01(3)); 
+//-> working for factorial(3)
+//-> working for factorial(2)
+//-> working for factorial(1)
+//-> 6
+
+let memoize = fn => { // line 1
+  let cache = {}; // line 2
+  return (...args) => { // line 3
+    let stringifiedArgs = JSON.stringify(args); // line 4
+    let result = cache[stringifiedArgs] = cache[stringifiedArgs] || fn(...args); // line 5
+    return result;// line 6
+  };
+};
+
+var factorial_02 = memoize(function(num) {
+  console.log('working for factorial(' + num + ')');
+  if(num === 1) { return 1 };
+  return num * factorial_02(num - 1);
+});
+
+// First Call
+console.log(factorial_02(3));
+//-> working for factorial(3)
+//-> working for factorial(2)
+//-> working for factorial(1)
+//-> 6
+
+// Successive Calls
+console.log(factorial_02(3)); //-> 6
+console.log(factorial_02(3)); //-> 6
+
+// Short Circuit Higher Factorial Calls
+console.log(factorial_02(4));
+//-> working for factorial(4)
+//-> 24
+```
+
+**Memoization Function**
+
+Line:
+
+* 1. Our memoize function accepts a fn to be memoized.
+* 2. We initialize a new cache for the fn passed in utilizing the, ever so powerful, closure scope.
+* 3. We return the memoized fn which accepts some number of args.
+* 4. We stringify the arguments passed to our memoized fn to be used as a “key” to our cache.
+* 5. We then check the cache for the value associated with that key.  If the value associated with that key exists in the cache we assign it to result otherwise we call fn with the arguments passed to the memoized function and assign its value to the cache.
+* 6. Finally, we return the result.
+
+### Where can I use memoization? 
+
+Not all functions can be memoized. In particular, pure functions can be memoized. A function is said to be pure when it behaves in a predictable way, in the sense that for each x, the function will always return the same associated y value.
 
 ## Curry or Partial Application
 
