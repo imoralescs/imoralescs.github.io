@@ -870,9 +870,9 @@ const partial = function() {
 */
 
 const partial = function(fn, ...outerArgs){
-	return function(...innerArgs) {
-		return fn(...outerArgs, ...innerArgs)
-	}
+  return function(...innerArgs) {
+    return fn(...outerArgs, ...innerArgs)
+  }
 }
 
 const IO = g => ({
@@ -880,7 +880,7 @@ const IO = g => ({
   inspect: () => `IO(${g()})`,
   chain: f => f(g),
   fold: f => f(g()),
-	run: () => g()
+  run: () => g()
 });
 
 // Helper functions
@@ -903,8 +903,8 @@ const writeDom = partial(write, document);
 // Run program
 const changeToStartCase =
   IO(readDom('#text-html'))
-		.map(x => x.innerHTML.toUpperCase())
-		.map(writeDom('#text-html'));
+    .map(x => x.innerHTML.toUpperCase())
+    .map(writeDom('#text-html'));
 
 // this will start case the content within the DOM element
 changeToStartCase.run();
