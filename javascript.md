@@ -450,7 +450,331 @@ for(i = 0; i < 3; i++) {
 
 In the code within the curly braces (they are not mandatory unless a single operation)
 
-## Array
+## Function
+
+Function are the primary unit of execution. Function are the pieces where you will wrap all your code. 
+
+### Defining a function
+
+Function definition is just a regular definition where the value given to the variable happens to be a function. Function is created by an expression that starts with the keyword function. Function have a set of parameters, in the next example will see x as parameters.
+
+```javascript
+var square = function(x){
+  return x * x;
+}
+
+console.log(square(12));
+// 144
+```
+
+The return statement determines the value the function returns.
+
+Function without return statement always return a default value, which is undefined. The only exception is when a new object is created calling a constructor function using new keyword. In this case default return value will be the value this.
+
+```javascript
+function Intro() {
+  console.log(this);
+}
+
+Intro();
+// Window
+
+var intro = new Intro();  
+// Intro {}
+intro;
+```
+
+### Parameters
+
+Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments is like a another name to parameters. Same concept you pass to a function, are defined after name our function, work like input to code inside of that function.
+
+### Function as Data
+
+Functions can be assigned to a variables, and variable are data. You can pass functions in other function as parameters.
+
+```javascript
+var validateDataForAge = function(data) {
+  person = data();
+  console.log(person);
+  
+  if (person.age <1 || person.age > 99) {
+    return true;
+  }
+  else {
+    return false;
+ }
+};
+
+var errorHandlerForAge = function(error) {
+  console.log("Error while processing age");
+};
+
+function parseRequest(data, validateData, errorHandler) {
+  var error = validateData(data);
+
+  if (!error) {
+    console.log("no errors");
+  } 
+  else {
+    errorHandler();
+  }
+}
+
+var generateDataForScientist = function() {
+  return {
+    name: "Albert Einstein",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+var generateDataForComposer = function() {
+  return {
+    name: "J S Bach",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+// Parse Request
+parseRequest(generateDataForScientist, validateDataForAge, errorHandlerForAge);
+// -> {name: "Albert Einstein", age: 42} no errors
+parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
+// -> {name: "J S Bach", age: 87} no errors
+```
+
+### Immediately-Invoked Function Expression (IIFE)
+
+An IIFE is an anonymous function that is created and then immediately invoked. It’s not called from anywhere else (hence why it’s anonymous), but runs just after being created.
+
+```javascript
+var x = (function calc() {
+  return 2 * 2;
+})();
+
+console.log(x); //-> 4 
+```
+
+
+## Scope
+
+Scope is a set of variable you have access to, we have global scope, the main scope of you app, is where any variable can be access. 
+
+### Lexical Scope
+
+Every scope is a lexical scope on javascript. 
+
+```javascript
+var getSponsor = function(info) {
+  // This is a new Lexical Scope
+}
+```
+
+To explain lexical scope, we have rules, every variable define in the global scope is accessible in any other part of you program, however if this variable are define in a new lexical scope, like inside of function. You can not access to variable inside of function if you try get that variable from parent scope. 
+
+### Closure
+
+A closure is an inner function that has access to the outer variables scope chain. The closure has three scope chains: it has access to its own scope (variables defined between its curly brackets), it has access to the outer variables, and it has access to the global variables.
+
+```javascript
+
+var closureFunction = function(name){
+  var text = 'Hello ' + name;
+  return function(){
+    console.log(text);
+  };
+};
+
+closureFunction('John');
+// Nothing happens
+
+var runClosure = closureFunction('John');
+runClosure();
+
+// Only way to call only the closure is using another parentheses.
+closureFunction('Jack')();
+```
+
+## This Keyword
+
+On right theory is a value who decided when an execution context is created. When the original context where this is declared changes, what this refers to also changes. 
+
+### Execution context
+
+Refers to the environment or what is around in which a piece of JavaScript code execute. It is test, check into one of three environment.
+
+Note to remember:
+
+* **Invocation:** Execution the code that makes the body of a function.
+* **Context:** of an invocation is the value of this within function body.
+* **Scope:** of a function is a set of variable, object, function accessible within a function body.
+
+### Global execution context
+
+The default, implicit environment, where your code is not part of any function.
+
+```javascript
+this === window; // true
+```
+
+### Function execution context
+
+Context that is created in order to run the code within function, the destroyed after the function execution. There are four rules of precedence that can be used to determine what this gets bound to. First let's review a function:
+
+```javascript
+// Function declaration
+var baz = function(){
+  // Function body
+};
+
+// Invocation of function
+baz();
+```
+
+### They are 5 pattern for knowing, what this special variable is bound to in call time
+
+**Pattern 1:** Global
+
+```javascript
+console.log(this);// Window{..}
+```
+
+**Pattern 2:** Function invocation(Default binding)
+
+When you invoke a function declaration or a function expression the `this` keyword will be bound to the global object, which in the browser is the window object. ES6 this get the value undefined.
+
+```javascript
+// Function declaration
+var baz = function(){
+  // Function body
+  console.log(this);
+};
+
+// Invocation of function
+baz(); //-> window/global
+```
+
+**Pattern 3:** Method invocation(Implicit binding)
+
+When you invoke a method the `this` value will be bound to that object.
+
+```javascript
+var baz = {
+  foo : function() {
+    console.log(this); 
+  }
+};
+
+baz.foo(); //-> baz{}
+```
+
+**Pattern 4:** Constructor invocation(New binding)
+
+When a function invocation processed by the new keyword `this` will be bound to the newly created object.
+
+```javascript
+var Person = function(){
+  this.name = 'Some Name';
+}
+
+var person = new Person();
+console.log(person.name); //-> 'Some Name'
+
+person.name = 'Other Name';
+console.log(person.name); //-> 'Other Name'
+```
+
+**Pattern 5:** Explicit binding
+
+Allow to reference to who apply `this` key. We can explicitly set what `this` keyword will be bound to using one of the following: .call() .apply() .bind().
+
+```javascript
+var logger = function() {
+  console.log(this);
+}
+
+var user1 = {
+  logMessage: logger
+};
+
+var user2 = {
+  logMessage: logger
+}
+
+user1.logMessage(); // user1
+user2.logMessage(); // user2
+
+// Call or Apply : Allow to reference to who apply this 
+user1.logMessage.call(user2); //-> user2
+```
+
+## Call & Apply
+
+The `.call()` and `.apply()` methods they allows you to pass or apply function to array of argument, into another function. Instead of individual arguments.
+
+```javascript
+// Example 1:
+var sayHi = function(who){
+  return "Hello" + (who ? ", " + who : "") + "!";
+};
+
+console.log(sayHi()); //-> Hello!
+console.log(sayHi('World')); //-> Hello, World!
+console.log(sayHi.apply(null,["Jack"])); //-> Hello, Jack!
+
+// On this case first argument is null, this target to global object.
+var alien = {
+  sayHi: function(who){
+    return "Hello" + (who ? ", " + who : "") + "!";
+  }
+};
+
+console.log(alien.sayHi("Alien")); //-> Hello, Alien!
+console.log(sayHi.apply(alien,["John"])); //-> Hello, John!
+console.log(sayHi.call(alien,"Peter")); //-> Hello, Peter!
+
+// Example 2:
+name = 'Default';
+var person1 = {name: 'Marvin'};
+var person2 = {name: 'Zaphod'};
+
+var sayHello = function(){
+  console.log('Hello, ' + this.name);
+};
+
+var sayGoodbye = function(){
+  console.log('Goodbye, ' + this.name);
+};
+
+sayHello(); //-> Hello, Default
+sayGoodbye(); //-> Goodbye, Default
+
+sayHello.call(person1); //-> Hello, Marvin
+sayGoodbye.call(person2); //-> Goodbye, Zaphod
+
+sayHello.apply(person1); //-> Hello, Marvin
+sayGoodbye.apply(person2); //-> Goodbye, Zaphod
+```
+
+## Bind
+
+Similar to Call and Apply we using Bind to manipulate the Execution Content of an object or function. When you call bind you are really passing one Execution Context to another Execution Context.
+
+```javascript
+var obj = {
+  objName: 'John Doe',
+  getObjName: function(){
+    return this.objName;
+  }
+} 
+
+var greetObj = function(){
+  console.log("Hello " + this.getObjName());
+}
+
+var newObj = greetObj.bind(obj);
+newObj();
+```
+
+## Array Data Structure
 
 Are list of values, They are used to store multiple values written as a list between square brackets, separated by commas.
 
@@ -826,330 +1150,6 @@ const allPositiveNumbers = [1, 2, 3].every( item => {
 });
 
 console.log(allPositiveNumbers); //-> true
-```
-
-## Function
-
-Function are the primary unit of execution. Function are the pieces where you will wrap all your code. 
-
-### Defining a function
-
-Function definition is just a regular definition where the value given to the variable happens to be a function. Function is created by an expression that starts with the keyword function. Function have a set of parameters, in the next example will see x as parameters.
-
-```javascript
-var square = function(x){
-  return x * x;
-}
-
-console.log(square(12));
-// 144
-```
-
-The return statement determines the value the function returns.
-
-Function without return statement always return a default value, which is undefined. The only exception is when a new object is created calling a constructor function using new keyword. In this case default return value will be the value this.
-
-```javascript
-function Intro() {
-  console.log(this);
-}
-
-Intro();
-// Window
-
-var intro = new Intro();  
-// Intro {}
-intro;
-```
-
-### Parameters
-
-Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments is like a another name to parameters. Same concept you pass to a function, are defined after name our function, work like input to code inside of that function.
-
-### Function as Data
-
-Functions can be assigned to a variables, and variable are data. You can pass functions in other function as parameters.
-
-```javascript
-var validateDataForAge = function(data) {
-  person = data();
-  console.log(person);
-  
-  if (person.age <1 || person.age > 99) {
-    return true;
-  }
-  else {
-    return false;
- }
-};
-
-var errorHandlerForAge = function(error) {
-  console.log("Error while processing age");
-};
-
-function parseRequest(data, validateData, errorHandler) {
-  var error = validateData(data);
-
-  if (!error) {
-    console.log("no errors");
-  } 
-  else {
-    errorHandler();
-  }
-}
-
-var generateDataForScientist = function() {
-  return {
-    name: "Albert Einstein",
-    age : Math.floor(Math.random() * (100 - 1)) + 1,
-  };
-};
-
-var generateDataForComposer = function() {
-  return {
-    name: "J S Bach",
-    age : Math.floor(Math.random() * (100 - 1)) + 1,
-  };
-};
-
-// Parse Request
-parseRequest(generateDataForScientist, validateDataForAge, errorHandlerForAge);
-// -> {name: "Albert Einstein", age: 42} no errors
-parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
-// -> {name: "J S Bach", age: 87} no errors
-```
-
-### Immediately-Invoked Function Expression (IIFE)
-
-An IIFE is an anonymous function that is created and then immediately invoked. It’s not called from anywhere else (hence why it’s anonymous), but runs just after being created.
-
-```javascript
-var x = (function calc() {
-  return 2 * 2;
-})();
-
-console.log(x); //-> 4 
-```
-
-
-## Scope
-
-Scope is a set of variable you have access to, we have global scope, the main scope of you app, is where any variable can be access. 
-
-### Lexical Scope
-
-Every scope is a lexical scope on javascript. 
-
-```javascript
-var getSponsor = function(info) {
-  // This is a new Lexical Scope
-}
-```
-
-To explain lexical scope, we have rules, every variable define in the global scope is accessible in any other part of you program, however if this variable are define in a new lexical scope, like inside of function. You can not access to variable inside of function if you try get that variable from parent scope. 
-
-### Closure
-
-A closure is an inner function that has access to the outer variables scope chain. The closure has three scope chains: it has access to its own scope (variables defined between its curly brackets), it has access to the outer variables, and it has access to the global variables.
-
-```javascript
-
-var closureFunction = function(name){
-  var text = 'Hello ' + name;
-  return function(){
-    console.log(text);
-  };
-};
-
-closureFunction('John');
-// Nothing happens
-
-var runClosure = closureFunction('John');
-runClosure();
-
-// Only way to call only the closure is using another parentheses.
-closureFunction('Jack')();
-```
-
-## This Keyword
-
-On right theory is a value who decided when an execution context is created. When the original context where this is declared changes, what this refers to also changes. 
-
-### Execution context
-
-Refers to the environment or what is around in which a piece of JavaScript code execute. It is test, check into one of three environment.
-
-Note to remember:
-
-* **Invocation:** Execution the code that makes the body of a function.
-* **Context:** of an invocation is the value of this within function body.
-* **Scope:** of a function is a set of variable, object, function accessible within a function body.
-
-### Global execution context
-
-The default, implicit environment, where your code is not part of any function.
-
-```javascript
-this === window; // true
-```
-
-### Function execution context
-
-Context that is created in order to run the code within function, the destroyed after the function execution. There are four rules of precedence that can be used to determine what this gets bound to. First let's review a function:
-
-```javascript
-// Function declaration
-var baz = function(){
-  // Function body
-};
-
-// Invocation of function
-baz();
-```
-
-### They are 5 pattern for knowing, what this special variable is bound to in call time
-
-**Pattern 1:** Global
-
-```javascript
-console.log(this);// Window{..}
-```
-
-**Pattern 2:** Function invocation(Default binding)
-
-When you invoke a function declaration or a function expression the `this` keyword will be bound to the global object, which in the browser is the window object. ES6 this get the value undefined.
-
-```javascript
-// Function declaration
-var baz = function(){
-  // Function body
-  console.log(this);
-};
-
-// Invocation of function
-baz(); //-> window/global
-```
-
-**Pattern 3:** Method invocation(Implicit binding)
-
-When you invoke a method the `this` value will be bound to that object.
-
-```javascript
-var baz = {
-  foo : function() {
-    console.log(this); 
-  }
-};
-
-baz.foo(); //-> baz{}
-```
-
-**Pattern 4:** Constructor invocation(New binding)
-
-When a function invocation processed by the new keyword `this` will be bound to the newly created object.
-
-```javascript
-var Person = function(){
-  this.name = 'Some Name';
-}
-
-var person = new Person();
-console.log(person.name); //-> 'Some Name'
-
-person.name = 'Other Name';
-console.log(person.name); //-> 'Other Name'
-```
-
-**Pattern 5:** Explicit binding
-
-Allow to reference to who apply `this` key. We can explicitly set what `this` keyword will be bound to using one of the following: .call() .apply() .bind().
-
-```javascript
-var logger = function() {
-  console.log(this);
-}
-
-var user1 = {
-  logMessage: logger
-};
-
-var user2 = {
-  logMessage: logger
-}
-
-user1.logMessage(); // user1
-user2.logMessage(); // user2
-
-// Call or Apply : Allow to reference to who apply this 
-user1.logMessage.call(user2); //-> user2
-```
-
-## Call & Apply
-
-The `.call()` and `.apply()` methods they allows you to pass or apply function to array of argument, into another function. Instead of individual arguments.
-
-```javascript
-// Example 1:
-var sayHi = function(who){
-  return "Hello" + (who ? ", " + who : "") + "!";
-};
-
-console.log(sayHi()); //-> Hello!
-console.log(sayHi('World')); //-> Hello, World!
-console.log(sayHi.apply(null,["Jack"])); //-> Hello, Jack!
-
-// On this case first argument is null, this target to global object.
-var alien = {
-  sayHi: function(who){
-    return "Hello" + (who ? ", " + who : "") + "!";
-  }
-};
-
-console.log(alien.sayHi("Alien")); //-> Hello, Alien!
-console.log(sayHi.apply(alien,["John"])); //-> Hello, John!
-console.log(sayHi.call(alien,"Peter")); //-> Hello, Peter!
-
-// Example 2:
-name = 'Default';
-var person1 = {name: 'Marvin'};
-var person2 = {name: 'Zaphod'};
-
-var sayHello = function(){
-  console.log('Hello, ' + this.name);
-};
-
-var sayGoodbye = function(){
-  console.log('Goodbye, ' + this.name);
-};
-
-sayHello(); //-> Hello, Default
-sayGoodbye(); //-> Goodbye, Default
-
-sayHello.call(person1); //-> Hello, Marvin
-sayGoodbye.call(person2); //-> Goodbye, Zaphod
-
-sayHello.apply(person1); //-> Hello, Marvin
-sayGoodbye.apply(person2); //-> Goodbye, Zaphod
-```
-
-## Bind
-
-Similar to Call and Apply we using Bind to manipulate the Execution Content of an object or function. When you call bind you are really passing one Execution Context to another Execution Context.
-
-```javascript
-var obj = {
-  objName: 'John Doe',
-  getObjName: function(){
-    return this.objName;
-  }
-} 
-
-var greetObj = function(){
-  console.log("Hello " + this.getObjName());
-}
-
-var newObj = greetObj.bind(obj);
-newObj();
 ```
 
 ## Objects
