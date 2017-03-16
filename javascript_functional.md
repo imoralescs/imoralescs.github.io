@@ -266,7 +266,52 @@ Take a function and turns it into a function. Currying refers to the process of 
 const compose = (f,g) => x => f(g(x));
 ```
 
-## Functional Programming Challenges
+## Category Theory
+Category theory is the theoretical concept that empowers function composition. Allow us to write entire libraries and APIs to programming on functional way.
+
+### Category theory
+
+**Categories** 
+
+Are just sets with the same type. In JavaScript, they're arrays or objects that contain variables that are explicitly
+declared as numbers, strings, Booleans, dates, nodes, and so on.
+
+**Morphisms**
+
+Are pure functions that, when given a specific set of inputs, always return the same output. 
+
+**Homomorphic** 
+
+Operations are restricted to a single category. 
+
+**Polymorphic**
+
+Operations can operate on multiple categories. For example, the homomorphic function multiplication only works on numbers, 
+
+```javascript
+console.log(5 * 5); //-> 25
+console.log('acb' * 'def'); //-> NaN
+```
+
+but the polymorphic function addition can work on strings too.
+
+```javascript
+console.log(5 + 5); //-> 10
+console.log('acb' + 'def'); //-> 'acbdef'
+```
+
+Category theory tells us that, when we have two morphisms where the category of the first one is the expected input of the other, then they can be composed.
+
+### Type Safety
+
+Categories contain two things:
+
+1. **Objects:**  (in JavaScript, types), In category theory are more like variables with an explicit data type and not collections of properties and values like in the JavaScript definition of objects.
+2. **Morphisms:** (in JavaScript, pure functions that only work on types), are just pure functions that use those types.
+
+Using category theory in JavaScript means working with one certain data type per category. Data types are numbers, strings, arrays, dates, objects, Booleans, and so on. But, with no strict type system in JavaScript, things can go awry. So we'll have to implement our own method of ensuring that the data is correct.
+
+There are four primitive data types in JavaScript: numbers, strings, Booleans, and functions. We can create type safety functions that either return the variable or throw an error. This fulfils the object axiom of categories
 
 Functional Programming is a style of writing programs by simply composing a set of functions. Let create a example how we can translate imperative way of programming to a functional programming.
 
