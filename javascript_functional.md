@@ -29,19 +29,35 @@ const result = nextCharForNumberString(` 64 `);
 console.log(result); //-> ["A"]
 ```
 
+## Function
+
+A function is a process which takes some input, called arguments or parameters, and produces some output called a return value. Functions may serve the following purposes:
+
+* **Mapping:** Produce some output based on given inputs. A function maps input values to output values.
+* **Procedures:** A function may be called to perform a sequence of steps. The sequence is known as a procedure, and programming in this style is known as procedural programming.
+* **I/O:** Some functions exist to communicate with other parts of the system, such as the screen, storage, system logs, or network.
+
+### Function Input
+
+Functions need input, sometimes hear people refer to them as "arguments" and sometimes as "parameters". Arguments are the values you pass in, and parameters are the named variables inside the function that receive those passed in values.
+
+**Counting Inputs**
+
+The number of arguments a function "expects" or how many arguments you'll probably want to pass to it, is determined by the number of parameters that are declared. This can be done with the length property of that function.
+
+```javascript
+function foo(x,y,z) {
+  // ..
+}
+
+foo.length; //-> 3	
+```
+
 Essentially, Functional Programming asks us to wrap virtually everything in javascript object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. 
 
 Everything in JavaScript is an object, which means that we can adding functionality to existing objects to improve their look. Operating on collections of objects is a space in which functional programming provides some powerful features. 
 
 ## Pure Function
-
-### What is a Function?
-
-A function is a process which takes some input, called arguments, and produces some output called a return value. Functions may serve the following purposes:
-
-* **Mapping:** Produce some output based on given inputs. A function maps input values to output values.
-* **Procedures:** A function may be called to perform a sequence of steps. The sequence is known as a procedure, and programming in this style is known as procedural programming.
-* **I/O:** Some functions exist to communicate with other parts of the system, such as the screen, storage, system logs, or network.
 
 Pure functions are all about mapping. Functions map input arguments to return values, meaning that for each set of inputs, there exists an output. A function will take the inputs and return the corresponding output.
 
