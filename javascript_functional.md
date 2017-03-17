@@ -4,6 +4,35 @@ Is the process of building software by composing pure functions, avoiding shared
 
 Is all about decomposing a problem into a set of functions. Often, functions are chained together, nested within each other, passed around, and treated as first-class citizens.
 
+```javascript
+const nextCharForNumberString = str => {
+  const trimmed = str.trim();
+  const number = parseInt(trimmed);
+  const nextNumber = number + 1;
+  return String.fromCharCode(nextNumber);
+}
+
+const result = nextCharForNumberString(` 64 `);
+console.log(result); //-> "A"
+```
+To compose in one mini workflow, instead separate line with data assignment. The way we can do this is:
+
+```javascript
+const nextCharForNumberString = str =>
+  [str]
+  .map(t => t.trim())
+  .map(n => parseInt(n))
+  .map(nN => nN + 1)
+  .map(nN => String.fromCharCode(nN));
+
+const result = nextCharForNumberString(` 64 `);
+console.log(result); //-> ["A"]
+```
+
+Essentially, Functional Programming asks us to wrap virtually everything in javascript object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. 
+
+Everything in JavaScript is an object, which means that we can adding functionality to existing objects to improve their look. Operating on collections of objects is a space in which functional programming provides some powerful features. 
+
 ## Pure Function
 
 ### What is a Function?
@@ -267,7 +296,7 @@ const compose = (f,g) => x => f(g(x));
 ```
 
 ## Category Theory
-Category theory is the theoretical concept that empowers function composition. Allow us to write entire libraries and APIs to programming on functional way.
+Category theory is the theoretical concept that empowers function composition. Allow us to write entire libraries helpers and APIs to programming on functional way.
 
 ### Category theory
 
@@ -311,40 +340,44 @@ Categories contain two things:
 
 Using category theory in JavaScript means working with one certain data type per category. Data types are numbers, strings, arrays, dates, objects, Booleans, and so on. But, with no strict type system in JavaScript, things can go awry. So we'll have to implement our own method of ensuring that the data is correct.
 
-There are four primitive data types in JavaScript: numbers, strings, Booleans, and functions. We can create type safety functions that either return the variable or throw an error. This fulfils the object axiom of categories
-
-Functional Programming is a style of writing programs by simply composing a set of functions. Let create a example how we can translate imperative way of programming to a functional programming.
+There are four primitive data types in JavaScript: numbers, strings, Booleans, and functions. We can create type safety functions that either return the variable or throw an error. This fulfils the object axiom of categories.
 
 ```javascript
-const nextCharForNumberString = str => {
-  const trimmed = str.trim();
-  const number = parseInt(trimmed);
-  const nextNumber = number + 1;
-  return String.fromCharCode(nextNumber);
+var typeOf = function(type) {
+  return function(x) {
+    if(typeof x === type) {
+      return x;
+    }
+    else {
+      throw new TypeError("Error: " + type + " expected, " + typeof x + " given.");
+    }
+  }
 }
 
-const result = nextCharForNumberString(` 64 `);
-console.log(result); //-> "A"
+var str = typeOf('string'),
+    num = typeOf('number'),
+    func = typeOf('function'),
+    bool = typeOf('boolean');
+
+// timestampLength :: String -> Int
+function timestampLength(t) { 
+  return num(str(t).length); 
+}
+
+// const result_01 = timestampLength(Date.parse('12/31/1999')); 
+// console.log(result_01); //-> Uncaught TypeError: Error: string expected, number given.
+
+const result_02 = timestampLength(Date.parse('12/31/1999').toString());
+console.log(result_02); //-> 12
 ```
-To compose in one mini workflow, instead separate line with data assignment. The way we can do this is:
 
-```javascript
-const nextCharForNumberString = str =>
-  [str]
-  .map(t => t.trim())
-  .map(n => parseInt(n))
-  .map(nN => nN + 1)
-  .map(nN => String.fromCharCode(nN));
+Functions like this `.toString()` that explicitly transform one type to another (or to the same type) are called morphisms.
 
-const result = nextCharForNumberString(` 64 `);
-console.log(result); //-> ["A"]
-```
-
-Essentially, Functional Programming asks us to wrap virtually everything in javascript object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. 
-
-Everything in JavaScript is an object, which means that we can adding functionality to existing objects to improve their look. Operating on collections of objects is a space in which functional programming provides some powerful features. 
+This fulfils the morphism axiom of category theory. These forced type declarations via the type safety functions and the morphisms that use them are everything we need to represent the notion of a category in JavaScript.
 
 ### Box "Functor"
+
+While morphisms are mappings between types, functors are mappings between categories. They can be thought of as functions that lift values out of a container, morph them, and then put them into a new container. 
 
 ```javascript
 const Box = x => ({
@@ -363,7 +396,7 @@ const result = nextCharForNumberString(` 64 `);
 console.log(result.inspect()); //-> Box(A)
 ```
 
-Map allow us to composing left to right.
+Map on this Box functos allow us to composing left to right.
 
 **Fold**
 
@@ -396,7 +429,13 @@ Simple we using fold to removing value from the box, is exactly like map without
 
 **Functor**
 
-We are working with a Functor, Box is a Functor, Functor is something that can be mapped over. In other words, it’s a container which has an interface which can be used to iterate over the values inside it. When you see the word functor, you should think “mappable”.
+We defined functors as something that takes a value from a container and applies a function to it. When that container is a function, we just call it to get its inner value, Box is a Functor, Functor is something that can be mapped over. In other words, it’s a container which has an interface which can be used to iterate over the values inside it. When you see the word functor, you should think “mappable”.
+
+Function compositions are associative. If your high school algebra teacher was like mine, she taught you what the property is but not what it can do. In practice, compose is what the associative property can do.
+
+This is not to be confused with the commutative property. ƒ o g does not always equal g o ƒ. In other words, the reverse of the first word of a string is not the same as the first word of the reverse of a string.
+
+What this all means is that it doesn't matter which functions are applied and in what order, as long as the input of each functions comes from the output of the previous function. 
 
 Any type with map method, and is determined by few laws:
 
