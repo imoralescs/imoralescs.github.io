@@ -104,6 +104,116 @@ A higher order function is any function which takes a function as an argument, r
 * Partially apply a function to its arguments or create a curried function for the purpose of reuse or function composition
 * Take a list of functions and return some composition of those input functions
 
+## Partial Application and Curry
+
+### Partial Application
+
+Partial Application is the process of taking an original function of n arguments, and generating a new function that fixes some of the arguments, and takes in a smaller number of arguments.
+
+The partial(..) function takes an `fn` for which function we are partially applying. Then, any subsequent arguments passed in are gathered into the presetArgs array and saved for later.
+
+```html
+<ul id="result"></ul>
+```
+
+```javascript
+const ajax = (url, data, callback) => {
+	const request = new XMLHttpRequest();
+	url = url + data;
+  
+  request.open('GET', url, true);
+
+	request.onload = () => {
+  	if (request.status >= 200 && request.status < 400) {
+    	// Success!
+    	const json = JSON.parse(request.responseText);
+      callback(json);
+  	} 
+    else {
+    	// We reached our target server, but it returned an error
+  	}
+	};
+	
+  request.onerror = () => {
+  // There was a connection error of some sort
+	};
+
+	request.send();
+};
+
+const renderItems = data => {
+	const mount = document.getElementById('result');
+	mount.innerHTML = ` `;
+  data.forEach(entry => {
+    let container = document.createElement('li');
+    container.innerHTML = 
+		`
+    	<span>${entry.title}</span>
+    `
+    mount.appendChild(container)
+  })
+};
+
+const partial = function(fn /*, args...*/) {
+  // A reference to the Array#slice method.
+  const slice = Array.prototype.slice;
+  // Convert arguments object to an array, removing the first argument.
+  const args = slice.call(arguments, 1);
+
+  return function() {
+    // Invoke the originally-specified function, passing in all originally-
+    // specified arguments, followed by any just-specified arguments.
+    return fn.apply(this, args.concat(slice.call(arguments, 0)));
+  };
+};
+
+/*
+const getUrl_01 = partial(ajax, 'https://jsonplaceholder.typicode.com/posts?userId=');
+getUrl_01(2, renderItems);
+*/
+
+const getUrl_02 = partial(ajax, 'https://jsonplaceholder.typicode.com/posts?userId=');
+const getPost_02 = partial(getUrl_02, 2);
+getPost_02(renderItems);
+```
+
+**With `.bind`**
+
+JavaScript has a built-in utility called `bind(..)`, which is available on all functions. It has two capabilities: presetting the this context and partially applying arguments.
+
+```javascript
+/*
+const getPost_01 = ajax.bind(null, 'https://jsonplaceholder.typicode.com/posts?userId=');
+getPost_01(2, renderItems);
+*/
+
+const getUrl_02 = ajax.bind(null, 'https://jsonplaceholder.typicode.com/posts?userId=');
+const getPost_02 = getUrl_02.bind(null, 2);
+getPost_02(renderItems);
+```
+
+**Reversing Arguments**
+
+Recall that the signature for our Ajax function is: ajax( url, data, cb ). What if we wanted to partially apply the cb but wait to specify data and url later? We could create a utility that wraps a function to reverse its argument order:
+
+```javascript
+const partialRight = function(fn /*, args...*/) {
+  // A reference to the Array#slice method.
+  const slice = Array.prototype.slice;
+  // Convert arguments object to an array, removing the first argument.
+  const args = slice.call(arguments, 1);
+
+  return function() {
+    // Invoke the originally-specified function, passing in all just-
+    // specified arguments, followed by any originally-specified arguments.
+    return fn.apply(this, slice.call(arguments, 0).concat(args));
+  };
+};
+
+const getUrl = partialRight(ajax, renderItems);
+getUrl('https://jsonplaceholder.typicode.com/posts?userId=', 1);
+```
+
 ## Function Composition (Pipe)
 
 Is the process of combining two or more functions in order to produce a new function or perform some computation. "take the output of program A and put it into program B". Composing functions together is like snapping together a series of pipes for our data to flow through.
