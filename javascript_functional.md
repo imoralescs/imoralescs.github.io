@@ -47,7 +47,7 @@ var square = function(x){
 console.log(square(12));
 // 144
 ```
-The return statement determines the value the function returns. Function without return statement always return a default value, which is undefined. The only exception is when a new object is created calling a constructor function using new keyword. In this case default return value will be the value this.
+The `return` statement determines the value the function returns. Function without return statement always return a default value, which is `undefined`. The only exception is when a new object is created calling a constructor function using `new` keyword. In this case default return value will be the value `this`.
 
 ```javascript
 function Intro() {
@@ -223,32 +223,32 @@ A higher order function is any function which takes a function as an argument, r
 
 Javascript allows us to access all the arguments passed to a function via the arguments variable made available inside a function's scope. This variable contains an array-like list of all the arguments pass to the function when it was called.
 
-I say, array-like, because even though it's a list, it only has a .length and none of the other properties you'd expect of a real Array. You can access it via indexing [], get the .length and iterate over it using a loop construct - and that's about it.
+I say, array-like, because even though it's a list, it only has a .length and none of the other properties you'd expect of a real Array. You can access it via indexing [], get the `.length` and iterate over it using a loop construct - and that's about it.
 
 But we can convert this into a 'real' array which will make the arguments list much more useful to us:
 
 ```javascript
 function showArgs() {  
-   var args = [].slice.call(arguments);
+  var args = [].slice.call(arguments);
 }
 ```
 
-The [].slice.call(arguments) is a short-handed way of doing Array.prototype.slice.call(arguments), we just take advantage of the use of an array literal.
+The `[].slice.call(arguments)` is a short-handed way of doing `Array.prototype.slice.call(arguments)`, we just take advantage of the use of an array literal.
 
 In ES6 we can access and 'unpack' our arguments even more easily with the help of the spread/gather operator:
 
 ```javascript
 function howMany(...args) {  
-   console.log("args:", args, ", length:", args.length);
+  console.log("args:", args, ", length:", args.length);
 }
-howMany(1,2,3,4);  // args: [1,2,3,4], length: 4   (a "real" array)!  
+howMany(1,2,3,4); //-> args: [1,2,3,4], length: 4   (a "real" array)!  
 ```
 
 ### Partial Application
 
-Partial Application is the process of taking an original function of n arguments, and generating a new function that fixes some of the arguments, and takes in a smaller number of arguments.
+Partial Application is the process of taking an original function of N arguments, and generating a new function that fixes some of the arguments, and takes in a smaller number of arguments.
 
-The partial(..) function takes an `fn` for which function we are partially applying. Then, any subsequent arguments passed in are gathered into the presetArgs array and saved for later.
+The `partial(..)` function takes an `fn` for which function we are partially applying. Then, any subsequent arguments passed in are gathered into the presetArgs array and saved for later.
 
 ```html
 <ul id="result"></ul>
@@ -256,37 +256,36 @@ The partial(..) function takes an `fn` for which function we are partially apply
 
 ```javascript
 const ajax = (url, data, callback) => {
-	const request = new XMLHttpRequest();
-	url = url + data;
+  const request = new XMLHttpRequest();
+  url = url + data;
   
   request.open('GET', url, true);
-
-	request.onload = () => {
-  	if (request.status >= 200 && request.status < 400) {
-    	// Success!
-    	const json = JSON.parse(request.responseText);
+  request.onload = () => {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      const json = JSON.parse(request.responseText);
       callback(json);
-  	} 
+    } 
     else {
-    	// We reached our target server, but it returned an error
-  	}
-	};
-	
+      // We reached our target server, but it returned an error
+    }
+  };
+  
   request.onerror = () => {
-  // There was a connection error of some sort
-	};
-
-	request.send();
+    // There was a connection error of some sort
+  };
+  
+  request.send();
 };
 
 const renderItems = data => {
-	const mount = document.getElementById('result');
-	mount.innerHTML = ` `;
+  const mount = document.getElementById('result');
+  mount.innerHTML = ` `;
   data.forEach(entry => {
     let container = document.createElement('li');
     container.innerHTML = 
-		`
-    	<span>${entry.title}</span>
+    `
+       <span>${entry.title}</span>
     `
     mount.appendChild(container)
   })
@@ -383,16 +382,15 @@ const add = (a, b, c) => a + b + c;
 
 const argsArray = argsObject => Array.prototype.slice.call(argsObject, 0);
 
-
 const curry = function(f, n) {
-    const args = argsArray(arguments);
-    if (typeof n === 'undefined')
-        args[1] = f.length;
-    if (n === args.length - 2)
-        return f(...args.slice(2));
-    return function() {
-        return curry(...args.concat(argsArray(arguments)));
-    };
+  const args = argsArray(arguments);
+  if (typeof n === 'undefined')
+    args[1] = f.length;
+  if (n === args.length - 2)
+    return f(...args.slice(2));
+  return function() {
+    return curry(...args.concat(argsArray(arguments)));
+  };
 };
 
 const curriedAdd = curry(add);
@@ -505,11 +503,11 @@ const composeES5 = function() {
 
 // Right To Left
 const nextCharForNumberString = compose( 
-	number => String.fromCharCode(number),
+  number => String.fromCharCode(number),
   number => number + 1,
   number => parseInt(number),
   str => str.trim()
-)
+);
 
 const result = nextCharForNumberString(" 64 ");
 console.log(result); //-> "A"
@@ -542,7 +540,7 @@ const nextCharForNumberString = pipe(
   number => parseInt(number),
   number => number + 1,
   number => String.fromCharCode(number)
-)
+);
 
 const result = nextCharForNumberString(" 64 ");
 console.log(result); //-> "A"
