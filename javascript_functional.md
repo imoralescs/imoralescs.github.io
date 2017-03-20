@@ -1723,4 +1723,192 @@ const result_02 = List.of(1,2,3)
 console.log(result_02.fold()); //-> 6
 ```
 
-### Ap Functor
+### Applicative Functor (`Ap`)
+
+Basically you can just map a function over a functor. Applicative functors allow you to take a "normal" function (taking non-functorial arguments) use it to operate on several values that are in functor contexts. 
+
+An applicative functor is a pointed functor with an ap method.
+
+Example, we have a Box(x => x + 1)  and we want to apply this box to another Box with value Box(2).
+
+```javascript
+const Box = x => ({
+  map: f => Box(f(x)),
+  inspect: () => `Box(${x})`,
+  fold: f => f(x),
+  chain: f => f(x),
+  ap: second_box => second_box.map(x),
+});
+
+const result = Box(x => x + 1).ap(Box(2));
+console.log(result);
+```
+
+Why we do this. You can take multiple Functors and you apply each one to a function. Notice the main function need to be on Curry form.
+
+```javascript
+const result = Box(x => y => x + y).ap(Box(2)).ap(Box(3));
+console.log(result);
+```
+
+Helped function to do the same thing without mention Functor
+
+```javascript
+const liftA2 = (f, fx, fy) =>
+  fx.map(f).ap(fy);
+
+const liftA3 = (f, fx, fy, fz) =>
+  fx.map(f).ap(fy).ap(fz);
+	
+const result_01 = liftA2(x => y => x + y, Box(2), Box(4));
+console.log(result_01);
+
+const result_02 = liftA3(x => y => z => x + y + z, Box(2), Box(4), Box(5));
+console.log(result_02);
+```
+
+We are going to work with two different Either Box
+
+```javascript
+const Right = x =>
+({
+  map: f => Right(f(x)),
+  inspect: () => `Right(${x})`,
+  fold: (f, g) => g(x), // Take out value from the box
+  chain: f => f(x), // Run a function and return another one
+	ap: second_box => second_box.map(x),
+});
+
+const Left = x => ({
+  map: f => Left(x),
+  inspect: () => `Left(${x})`,
+  fold: (f, g) => f(x),
+  chain: f => Left(x),
+});
+
+Either.of = (x) => Right(x);
+
+const Selector = element =>
+  Either.of({element, height:10});
+
+const getScreenSize = (screen, head, foot) =>
+  screen - (head.height + foot.height);
+
+const result = Selector('header')
+  .chain(head => Selector('footer')
+    .map(footer => getScreenSize(800, head, footer)));
+											
+console.log(result); //-> Object {x: 780}
+```
+
+If we see the previous example we still have a sequence process, we need to find the header first and them if not find is break out. We need to refactor with applicative, but change function to curry form.
+
+```javascript
+const getScreenSize = screen => head => foot => screen - (head.height + foot.height);
+
+const result = Either.of(getScreenSize(800))
+                 .ap(Selector('header'))
+                 .ap(Selector('footer'));
+											
+console.log(result); //-> Object {x: 780}
+```
+
+Other way to used Applicative Functor is in the case we have loop inside to another loop to merge List. Example:
+
+```javascript
+for(x in xs){
+  for(y in ys){
+    for(z in zs){
+
+    }
+  }
+}
+```
+
+We can solve this with Applicative Functor.
+Note: For next example we are using “Immutable.js from Facebook and Immutable-ext.js from Brian Lonsdorf”
+
+```javascript
+const merch = () =>
+  List.of(x => y => `${x}-${y}`)
+    .ap(List(['teeshirt', 'sweater']))
+    .ap(List(['large', 'medium', 'small']));
+
+const result = merch();
+console.log(result.toJS()); //-> ["teeshirt-large", "teeshirt-medium", "teeshirt-small", "sweater-large", "sweater-medium", "sweater-small"]
+
+const merch = () =>
+  List.of(x => y => z => `${x}-${y}-${z}`)
+    .ap(List(['teeshirt', 'sweater']))
+    .ap(List(['large', 'medium', 'small']))
+    .ap(List(['black', 'white']));
+
+const result = merch();
+console.log(result.toJS()); //-> ["teeshirt-large-black", "teeshirt-large-white", "teeshirt-medium-black", "teeshirt-medium-white", "teeshirt-small-black", "teeshirt-small-white", "sweater-large-black", "sweater-large-white", "sweater-medium-black", "sweater-medium-white", "sweater-small-black", "sweater-small-white"]
+```
+
+### Traversable
+
+Represents data structures which can be traversed while preserving the shape.
+
+```javascript
+const httpGet = (path, params) =>
+  Task.of(`${path} result`);
+
+const result = Map({home: '/', about: '/about-us', blog: '/blog'})
+  .map(route => httpGet(route, {}));
+
+console.log(result.toJS()); //-> Object {home: Task, about: Task, blog: Task}
+```
+
+In the previous example we have problem, a object values has Task inside of each value. And we want only one Task to all result.
+
+```javascript
+Map({home: '/', about: '/about-us', blog: '/blog'})
+  .traverse(Task.of, route => httpGet(route, {}))
+  .fork(e => console.log('err', e),
+	s => console.log('success:', s.toJS())); //-> success: Object {home: "/ result", about: "/about-us result", blog: "/blog result"}
+```
+
+Another example with array:
+
+```javascript
+const files = ['box.js', 'config.json'];
+const readFile = file =>
+  Task.of(`${file}`);
+
+const result = files.map(file => readFile(file));
+console.log(result); //-> [Task, Task]
+
+const readFile = file =>
+  Task.of(`${file}`);
+	
+const files = List(['box.js', 'config.json']);
+files
+  .traverse(Task.of, file => readFile(file))
+  .fork(e => console.log('err', e),
+        s => console.log('success:', s.toJS())); //-> success: ["box.js", "config.json"]
+```
+
+### Natural Transformation
+
+Is just a type of conversion, a Functor F than hold a value and become to a Functor G and hold same value. Fa -> Ga
+
+```javascript
+const eitherToTask = e =>
+  e.fold(Task.rejected, Task.of);// fold out value inside of Either to a Task
+
+eitherToTask(Either.Right('night-tales'))
+  .fork(e => console.log('err:', e),
+        x => console.log('success:', x)); //-> success: night-tales
+
+eitherToTask(Either.Left('night-tales'))
+  .fork(e => console.log('err:', e),
+        x => console.log('success:', x)); //-> err: night-tales
+
+const boxToEither = b =>
+  b.fold(Either.Right);
+
+const result = boxToEither(Box(100));
+console.log(result); //-> Right {value: 100}
+```
