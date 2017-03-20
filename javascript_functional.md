@@ -174,11 +174,9 @@ console.log(x); //-> 4
 
 ## Pure Function
 
-Pure functions are all about mapping. Functions map input arguments to return values, meaning that for each set of inputs, there exists an output. A function will take the inputs and return the corresponding output.
+Programming task, start from data input to a function, then enclose a series of computing steps to process data and last data will be the output. One or more of these tasks form a program. Inputs and outputs (collectively refereed to as I/O) are related to keyboards, screens, files, database, etc. The key part of pure function is the middle part of the operation, inside of the function between input and output can not have a external I/O operation, should be pure operation, through pue mathematical operation to evaluate.
 
-### What is Pure Functions?
-
-Pure functions take some input and return some output based on that input. Pure functions are completely independent of outside state, and as such, they are immune to entire classes of bugs that have to do with shared mutable state. Pure functions are also extremely independent, can be easy to move around, refactor, and reorganize in your code, making your programs more flexible and adaptable to future changes.
+Pure functions are completely independent of outside state, and as such, they are immune to entire classes of bugs that have to do with shared mutable state. Pure functions can be easy to move around, refactor, and reorganize in your code, making your programs more flexible and adaptable to future changes.
 
 Pure Functions will always produce the same output given the same inputs.
 
