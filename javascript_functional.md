@@ -723,9 +723,63 @@ Functions like this `.toString()` that explicitly transform one type to another 
 
 This fulfils the morphism axiom of category theory. These forced type declarations via the type safety functions and the morphisms that use them are everything we need to represent the notion of a category in JavaScript.
 
+### Category and Containers
+
+We can think of "Category" as a container, with contains two things. Value and the deformation of the value, that is the function.
+
+```javascript
+// Implementation 1
+class Category_01 {
+  constructor(val) {
+    this.val = val;
+  }
+	
+  add(x) {
+    return x + this.val;
+  }
+}
+
+const category = new Category_01(1);
+console.log(category.add(3)); //-> 4
+
+// Implementation 2
+const Category_02 = x => ({
+  add: (y) => y + x 
+});
+
+const result_01 = Category_02(1).add(3);
+console.log(result_01); //-> 4
+```
+
 ### Box "Functor"
 
 While morphisms are mappings between types, functors are mappings between categories. They can be thought of as functions that lift values out of a container, morph them, and then put them into a new container. 
+
+```javascript
+class Functor {
+  constructor(val) { 
+    this.val = val; 
+  }
+
+  map(f) {
+    return new Functor(f(this.val));
+  }
+
+  inspect() {
+    return `Functor(${this.val})`;
+  }
+}
+
+const nextCharForNumberString = str =>
+  new Functor(str)
+  .map(t => t.trim())
+  .map(n => parseInt(n))
+  .map(nN => nN + 1)
+  .map(nN => String.fromCharCode(nN));
+
+const result = nextCharForNumberString(` 64 `);
+console.log(result.inspect()); //-> Functor(A)
+```
 
 ```javascript
 const Box = x => ({
@@ -774,8 +828,6 @@ console.log(result); //-> "a"
 ```
 
 Simple we using fold to removing value from the box, is exactly like map without return Box, is a same way to remove value from the Box.
-
-**Functor**
 
 We defined functors as something that takes a value from a container and applies a function to it. When that container is a function, we just call it to get its inner value, Box is a Functor, Functor is something that can be mapped over. In other words, it’s a container which has an interface which can be used to iterate over the values inside it. When you see the word functor, you should think “mappable”.
 
@@ -835,7 +887,37 @@ console.log(result_01.inspect() === result_02.inspect()); //-> true
 
 **`.of`**
 
-Is a interface to put or place a value into the type. And we called lifting a value into a type.
+`new` command was used when the `new` functor was created . This is really not like a functional programming, because the `new` command is an object-oriented programming. `.of` Is a interface to put or place a value into the type. And we called lifting a value into a type. 
+
+We are use the `of` method to replace the `new`.
+
+```javascript
+class Functor {
+  constructor(val) { 
+    this.val = val; 
+  }
+
+  map(f) {
+    return new Functor(f(this.val));
+  }
+	
+  inspect() {
+    return `Functor(${this.val})`;
+  }
+}
+
+Functor.of = val => new Functor(val);
+
+const nextCharForNumberString = str =>
+  Functor.of(str)
+  .map(t => t.trim())
+  .map(n => parseInt(n))
+  .map(nN => nN + 1)
+  .map(nN => String.fromCharCode(nN));
+
+const result = nextCharForNumberString(` 64 `);
+console.log(result.inspect()); //-> Functor(A)
+```
 
 ```javascript
 const Box = x => ({
@@ -849,7 +931,7 @@ const result = Box.of(100);
 console.log(result.inspect()); //-> Box(100)
 ```
 
-### Either "Maybe"
+### Either and "Maybe" Functor
 
 With Either we can solve challenge like how we handle If-Else Condition and Null Exception.
 
@@ -976,7 +1058,7 @@ console.log(result.inspect()); //-> Right(Right([object Object]))
 
 We have a problem with previous code, on the Try/Catch we have the case of two Box are catching our value or testing our value from null. So we have a Box inside another Box. To solve this we can fold two time. But what if the case we have more that two level of deep Box.
 
-**Monads**
+### Monads Functor
 
 Box have `.of` method to lift the value, to place value into the type and we add `.chain` method to create the monad interface, other way to call are (flatMap, bind, >>=)
 
@@ -1640,3 +1722,5 @@ const result_02 = List.of(1,2,3)
 	
 console.log(result_02.fold()); //-> 6
 ```
+
+### Ap Functor
