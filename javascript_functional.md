@@ -31,19 +31,97 @@ console.log(result); //-> ["A"]
 
 ## Function
 
-A function is a process which takes some input, called arguments or parameters, and produces some output called a return value. Functions may serve the following purposes:
+Function are the pieces where you will wrap all your code, is a process which takes some input, called arguments or parameters, and produces some output called a return value. They are the primary unit of execution. Functions may serve the following purposes:
 
 * **Mapping:** Produce some output based on given inputs. A function maps input values to output values.
 * **Procedures:** A function may be called to perform a sequence of steps. The sequence is known as a procedure, and programming in this style is known as procedural programming.
 * **I/O:** Some functions exist to communicate with other parts of the system, such as the screen, storage, system logs, or network.
 
+Function can be see it as function declaration or function expession(named & anonymous). Function can be declared using the `function` keyword and a name.
+
+```javascript
+var square = function(x){
+  return x * x;
+}
+
+console.log(square(12));
+// 144
+```
+The return statement determines the value the function returns. Function without return statement always return a default value, which is undefined. The only exception is when a new object is created calling a constructor function using new keyword. In this case default return value will be the value this.
+
+```javascript
+function Intro() {
+  console.log(this);
+}
+
+Intro();
+// Window
+
+var intro = new Intro();  
+// Intro {}
+intro;
+```
+
+Functions can also be treated as values, meaning you can assign them to variables and pass and return them to and from functions as well. These are referred to as first-class functions and lead to higher-order functions when working in a more declarative, functional style of programming.
+
+### Function as Data
+
+```javascript
+var validateDataForAge = function(data) {
+  person = data();
+  console.log(person);
+  
+  if (person.age <1 || person.age > 99) {
+    return true;
+  }
+  else {
+    return false;
+ }
+};
+
+var errorHandlerForAge = function(error) {
+  console.log("Error while processing age");
+};
+
+function parseRequest(data, validateData, errorHandler) {
+  var error = validateData(data);
+
+  if (!error) {
+    console.log("no errors");
+  } 
+  else {
+    errorHandler();
+  }
+}
+
+var generateDataForScientist = function() {
+  return {
+    name: "Albert Einstein",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+var generateDataForComposer = function() {
+  return {
+    name: "J S Bach",
+    age : Math.floor(Math.random() * (100 - 1)) + 1,
+  };
+};
+
+// Parse Request
+parseRequest(generateDataForScientist, validateDataForAge, errorHandlerForAge);
+// -> {name: "Albert Einstein", age: 42} no errors
+parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
+// -> {name: "J S Bach", age: 87} no errors
+```
+
 ### Function Input
 
-Functions need input, sometimes hear people refer to them as "arguments" and sometimes as "parameters". Arguments are the values you pass in, and parameters are the named variables inside the function that receive those passed in values.
+Functions need input, sometimes hear people refer to them as "arguments" and sometimes as "parameters". Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments are the values you pass in, and parameters are the named variables inside the function that receive those passed in values.
 
 **Counting Inputs**
 
-The number of arguments a function "expects" or how many arguments you'll probably want to pass to it, is determined by the number of parameters that are declared. This can be done with the length property of that function.
+Function arguments or arity of a function refers to the number of arguments a function expects. This is determined by the number of declared arguments in the function declaration and is available in the function's `.length` property.
 
 ```javascript
 function foo(x,y,z) {
@@ -53,9 +131,46 @@ function foo(x,y,z) {
 foo.length; //-> 3	
 ```
 
-Essentially, Functional Programming asks us to wrap virtually everything in javascript object, write lots of small reusable functions and simply call them one after the other to get the result or in a compose fashion. 
+The arguments object is a local variable available within all functions and it is array-like. This means it is not an instanceof the `Array` type and does not have many of it's methods. `arguments` can be accessed by index, ie `arguments[0]`, `arguments[1]` and it has a `.length` property.
 
-Everything in JavaScript is an object, which means that we can adding functionality to existing objects to improve their look. Operating on collections of objects is a space in which functional programming provides some powerful features. 
+This feature allows Javascript functions to have variable arguments. To work with the arguments as a real array, you can simply convert the arguments object to an array. 
+
+```javascript
+function has() {  
+  let args = [].slice.call(arguments);
+  args.forEach((arg) => console.log(arg));
+}
+has(1,2,3,4); 
+```
+
+### Invoking functions
+
+Invoking a function is done using the () operator on the function name or variable holding the function expression. 
+
+```javascript
+var foo(){ /* do foo */ }   // declaration  
+foo();   // invoke
+
+(function baz() {           // IIFE
+   console.log("baz!");
+})();
+// "baz!"
+
+var bar = function(){ /* do bar */ };  // expression  
+bar();   // invoke  
+```
+
+### Immediately-Invoked Function Expression (IIFE)
+
+An IIFE is an anonymous function that is created and then immediately invoked. It’s not called from anywhere else (hence why it’s anonymous), but runs just after being created.
+
+```javascript
+var x = (function calc() {
+  return 2 * 2;
+})();
+
+console.log(x); //-> 4 
+```
 
 ## Pure Function
 
@@ -105,6 +220,29 @@ A higher order function is any function which takes a function as an argument, r
 * Take a list of functions and return some composition of those input functions
 
 ## Partial Application and Curry
+
+Javascript allows us to access all the arguments passed to a function via the arguments variable made available inside a function's scope. This variable contains an array-like list of all the arguments pass to the function when it was called.
+
+I say, array-like, because even though it's a list, it only has a .length and none of the other properties you'd expect of a real Array. You can access it via indexing [], get the .length and iterate over it using a loop construct - and that's about it.
+
+But we can convert this into a 'real' array which will make the arguments list much more useful to us:
+
+```javascript
+function showArgs() {  
+   var args = [].slice.call(arguments);
+}
+```
+
+The [].slice.call(arguments) is a short-handed way of doing Array.prototype.slice.call(arguments), we just take advantage of the use of an array literal.
+
+In ES6 we can access and 'unpack' our arguments even more easily with the help of the spread/gather operator:
+
+```javascript
+function howMany(...args) {  
+   console.log("args:", args, ", length:", args.length);
+}
+howMany(1,2,3,4);  // args: [1,2,3,4], length: 4   (a "real" array)!  
+```
 
 ### Partial Application
 
@@ -214,9 +352,64 @@ const getUrl = partialRight(ajax, renderItems);
 getUrl('https://jsonplaceholder.typicode.com/posts?userId=', 1);
 ```
 
-## Function Composition (Pipe)
+### Curry
 
-Is the process of combining two or more functions in order to produce a new function or perform some computation. "take the output of program A and put it into program B". Composing functions together is like snapping together a series of pipes for our data to flow through.
+Currying is the process of taking a function that accepts N arguments and turning it into a chained series of N functions each taking 1 argument.
+
+If we had an `add()` function that accepted 3 arguments and returned the sum,
+
+```javascript
+function add(a,b,c) { return a+b+c; }  
+```
+
+we can turn it into a curried function as follows:
+
+```javascript
+function curriedAdd(a) {  
+   return function(b) {
+     return function(c) {
+       return a+b+c;
+     }
+   }
+}
+```
+
+Curry it works by nesting functions for each possible argument, using the natural closure created by the nested functions to retain access to each of the successive arguments.
+
+What we want is a way to easily convert an existing function that takes N arguments into its curried version without having to write-out each curried version of a function as we did with `curriedAdd()`.
+
+```javascript
+const add = (a, b, c) => a + b + c;
+
+const argsArray = argsObject => Array.prototype.slice.call(argsObject, 0);
+
+
+const curry = function(f, n) {
+    const args = argsArray(arguments);
+    if (typeof n === 'undefined')
+        args[1] = f.length;
+    if (n === args.length - 2)
+        return f(...args.slice(2));
+    return function() {
+        return curry(...args.concat(argsArray(arguments)));
+    };
+};
+
+const curriedAdd = curry(add);
+
+const result_01 = curriedAdd(1, 2, 3);
+console.log(result_01); //-> 6
+
+const result_02 = curriedAdd(1)(2, 3); 
+console.log(result_02); //-> 6
+
+const result_03 = curriedAdd(1)(2)(3) === curriedAdd(1, 2)(3);
+console.log(result_03); //-> true
+```
+
+## Function Composition
+
+Is a mathematical concept, by which the result of one function becomes the input of the next, and so on. The return value of the final function call is the overall result. It is a key concept in functional programming. Composing functions from several small and simple functions allows for easy code reuse. Combining two or more functions in order to produce a new function or perform some computation, "take the output of program A and put it into program B". Composing functions together is like snapping together a series of pipes for our data to flow through.
 
 Put simply, a composition of functions `f` and `g` can be defined as `f(g(x))`, which evaluates from the inside out — right to left. In other words, the evaluation order is:
 
@@ -287,6 +480,72 @@ const compose = (f,g) => x => f(g(x));
 
 const trimLenGreated5 = compose(greated, compose(length, trim));
 console.log(trimLenGreated5("  blah  ")); //-> false
+```
+
+Let us implement a more flexible compose function which can handle any number of functions as well as any number of arguments. The previous compose only works with two functions and only accepts the first passed in argument. We can rewrite the compose function as follows:
+
+```javascript
+const compose = function() {
+  const fn = Array.prototype.slice.call(arguments);
+
+  return fn.reduce((f, g) => function() {
+    return f(g.apply(this, arguments));
+  });
+};
+
+const composeES5 = function() {
+  const fn = Array.prototype.slice.call(arguments);
+
+  return fn.reduce(function(f,g) {
+    return function() {
+      return f(g.apply(this, arguments));
+    };
+  });
+};
+
+// Right To Left
+const nextCharForNumberString = compose( 
+	number => String.fromCharCode(number),
+  number => number + 1,
+  number => parseInt(number),
+  str => str.trim()
+)
+
+const result = nextCharForNumberString(" 64 ");
+console.log(result); //-> "A"
+```
+
+### Pipe
+
+In Unix operating systems, a pipeline is multiple processes that are chained together. Each process takes an input from the previous process's output, and then passes it's output along to the next process.
+
+```unix
+process1 | process2 | process3
+```
+
+The `|` symbolises the pipe.
+
+This is very much similar to how our compose function works. The only difference is that it evaluates left-to-right instead. Below is an implementation of a pipe function.
+
+```javascript
+const pipe = (...fns) => {
+  return (initialVal) => {
+    return fns.reduce((val, fn) => {
+      return fn(val);
+    }, initialVal);
+  }
+}
+
+// Right To Left
+const nextCharForNumberString = pipe(
+  str => str.trim(),
+  number => parseInt(number),
+  number => number + 1,
+  number => String.fromCharCode(number)
+)
+
+const result = nextCharForNumberString(" 64 ");
+console.log(result); //-> "A"
 ```
 
 ## Accumulators (Recursion)
@@ -386,39 +645,6 @@ If we using an older browser without support, then const won't be available to y
 let consts = Object.freeze({ pi : 3.141});
 consts.pi = 7;
 console.log(consts.pi);//outputs 3.141
-```
-
-## Curry or Partial Application
-
-### Arity and Arguments
-
-Refers to the number of arguments a function can accept. The value arguments inside of javascript function is a variable they contains all the arguments passed in the function call, regardless of how many are defined.
-
-```javascript
-const showArgs = function(a,b){
-  console.log(arguments);
-}
-
-showArgs('one', 'two'); //-> ["one", "two"
-```
-
-Arguments variable alse has a ‘.length’ property. The ‘.length’ of a function never changes it always matches the number of declared arguments for the function.
-
-```javascript
-const argsLen = function() {
-  console.log(arguments.length);
-}
-argsLen('a', 'e', 'i', 'o', 'u'); //-> 5
-```
-
-We can represent the arguments variable as array by using a built-in array method called slice. Because arguments isn’t is a real array.
-
-### Curry
-
-Take a function and turns it into a function. Currying refers to the process of transforming a function with multiple arity into the same function with less arity. This help us on case we have a function with multiple argument, on functional programming we only can apply one input to the function and one output. Curry allow us to create our Compose function.
-
-```javascript
-const compose = (f,g) => x => f(g(x));
 ```
 
 ## Category Theory
