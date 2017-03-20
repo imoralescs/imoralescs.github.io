@@ -511,6 +511,12 @@ const result = nextCharForNumberString(" 64 ");
 console.log(result); //-> "A"
 ```
 
+Function compositions are associative. If your high school algebra teacher was like mine, she taught you what the property is but not what it can do. In practice, compose is what the associative property can do.
+
+This is not to be confused with the commutative property. ƒ o g does not always equal g o ƒ. In other words, the reverse of the first word of a string is not the same as the first word of the reverse of a string.
+
+What this all means is that it doesn't matter which functions are applied and in what order, as long as the input of each functions comes from the output of the previous function. 
+
 ### Pipe
 
 In Unix operating systems, a pipeline is multiple processes that are chained together. Each process takes an input from the previous process's output, and then passes it's output along to the next process.
@@ -798,7 +804,7 @@ const result = nextCharForNumberString(` 64 `);
 console.log(result.inspect()); //-> Box(A)
 ```
 
-Map on this Box functos allow us to composing left to right.
+Map on this Box or Container functor allow us to composing left to right.
 
 **Fold**
 
@@ -830,12 +836,6 @@ console.log(result); //-> "a"
 Simple we using fold to removing value from the box, is exactly like map without return Box, is a same way to remove value from the Box.
 
 We defined functors as something that takes a value from a container and applies a function to it. When that container is a function, we just call it to get its inner value, Box is a Functor, Functor is something that can be mapped over. In other words, it’s a container which has an interface which can be used to iterate over the values inside it. When you see the word functor, you should think “mappable”.
-
-Function compositions are associative. If your high school algebra teacher was like mine, she taught you what the property is but not what it can do. In practice, compose is what the associative property can do.
-
-This is not to be confused with the commutative property. ƒ o g does not always equal g o ƒ. In other words, the reverse of the first word of a string is not the same as the first word of the reverse of a string.
-
-What this all means is that it doesn't matter which functions are applied and in what order, as long as the input of each functions comes from the output of the previous function. 
 
 Any type with map method, and is determined by few laws:
 
