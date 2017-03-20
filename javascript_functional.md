@@ -121,7 +121,11 @@ Functions need input, sometimes hear people refer to them as "arguments" and som
 
 **Counting Inputs**
 
-Function arguments or arity of a function refers to the number of arguments a function expects. This is determined by the number of declared arguments in the function declaration and is available in the function's `.length` property.
+Function arguments or arity of a function refers to the number of arguments a function expects. Every function scope in JavaScript can access the special variable `arguments`. This variable holds a list of all the arguments that were passed to the function.
+
+The `arguments` object is not an Array. While it has some of the semantics of an array namely the `length` property it does not inherit from `Array.prototype` and is in fact an `Object`.
+
+Due to this, it is not possible to use standard array methods like `push`, `pop` or `slice` on arguments. While iteration with a plain `for` loop works just fine, it is necessary to convert it to a real `Array` in order to use the standard Array methods on it.
 
 ```javascript
 function foo(x,y,z) {
@@ -131,13 +135,21 @@ function foo(x,y,z) {
 foo.length; //-> 3	
 ```
 
-The arguments object is a local variable available within all functions and it is array-like. This means it is not an instanceof the `Array` type and does not have many of it's methods. `arguments` can be accessed by index, ie `arguments[0]`, `arguments[1]` and it has a `.length` property.
-
-This feature allows Javascript functions to have variable arguments. To work with the arguments as a real array, you can simply convert the arguments object to an array. 
+**Converting to an Array** 
 
 ```javascript
 function has() {  
   let args = [].slice.call(arguments);
+  args.forEach((arg) => console.log(arg));
+}
+has(1,2,3,4); 
+```
+
+or 
+
+```javascript
+function has() {  
+  let args = Array.prototype.slice.call(arguments);
   args.forEach((arg) => console.log(arg));
 }
 has(1,2,3,4); 
