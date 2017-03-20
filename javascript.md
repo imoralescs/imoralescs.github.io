@@ -1193,7 +1193,7 @@ console.log(allPositiveNumbers); //-> true
 
 ## Objects
 
-Javascript have five core primitive data type, they are immutable: Number, String, Boolean, Undefined and Null. An Object is an unordered list of primitive data type that is stored as a serie of name value pairs. Each item in the list is called a property and function are called methods.
+Javascript have five core primitive data type, they are immutable: Number, String, Boolean, Undefined and Null. An Object is an unordered list of primitive data type that is stored as a serie of name value pairs. Each unique keys that correspond to a value we'll call this pair a `property`. 
 
 ### Ways to create or instantiate:
 
@@ -1232,7 +1232,7 @@ console.log(Person.name); //-> John
 
 ```javascript
 function Person(name) {
-	this.name = name;
+  this.name = name;
 };
 
 let john = new Person("John");
