@@ -452,11 +452,13 @@ In the code within the curly braces (they are not mandatory unless a single oper
 
 ## Function
 
-Function are the primary unit of execution. Function are the pieces where you will wrap all your code. 
+Function are the pieces where you will wrap all your code, is a process which takes some input, called arguments or parameters, and produces some output called a return value. They are the primary unit of execution. Functions may serve the following purposes:
 
-### Defining a function
+* **Mapping:** Produce some output based on given inputs. A function maps input values to output values.
+* **Procedures:** A function may be called to perform a sequence of steps. The sequence is known as a procedure, and programming in this style is known as procedural programming.
+* **I/O:** Some functions exist to communicate with other parts of the system, such as the screen, storage, system logs, or network.
 
-Function definition is just a regular definition where the value given to the variable happens to be a function. Function is created by an expression that starts with the keyword function. Function have a set of parameters, in the next example will see x as parameters.
+Function can be see it as function declaration or function expession(named & anonymous). Function can be declared using the `function` keyword and a name.
 
 ```javascript
 var square = function(x){
@@ -466,10 +468,7 @@ var square = function(x){
 console.log(square(12));
 // 144
 ```
-
-The return statement determines the value the function returns.
-
-Function without return statement always return a default value, which is undefined. The only exception is when a new object is created calling a constructor function using new keyword. In this case default return value will be the value this.
+The `return` statement determines the value the function returns. Function without return statement always return a default value, which is `undefined`. The only exception is when a new object is created calling a constructor function using `new` keyword. In this case default return value will be the value `this`.
 
 ```javascript
 function Intro() {
@@ -484,13 +483,9 @@ var intro = new Intro();
 intro;
 ```
 
-### Parameters
-
-Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments is like a another name to parameters. Same concept you pass to a function, are defined after name our function, work like input to code inside of that function.
+Functions can also be treated as values, meaning you can assign them to variables and pass and return them to and from functions as well. These are referred to as first-class functions and lead to higher-order functions when working in a more declarative, functional style of programming.
 
 ### Function as Data
-
-Functions can be assigned to a variables, and variable are data. You can pass functions in other function as parameters.
 
 ```javascript
 var validateDataForAge = function(data) {
@@ -541,6 +536,51 @@ parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
 // -> {name: "J S Bach", age: 87} no errors
 ```
 
+### Function Input
+
+Functions need input, sometimes hear people refer to them as "arguments" and sometimes as "parameters". Parameters to a function behave like regular variables. But their initial values are giving by the caller of the function. Arguments are the values you pass in, and parameters are the named variables inside the function that receive those passed in values.
+
+**Counting Inputs**
+
+Function arguments or arity of a function refers to the number of arguments a function expects. This is determined by the number of declared arguments in the function declaration and is available in the function's `.length` property.
+
+```javascript
+function foo(x,y,z) {
+  // ..
+}
+
+foo.length; //-> 3	
+```
+
+The arguments object is a local variable available within all functions and it is array-like. This means it is not an instanceof the `Array` type and does not have many of it's methods. `arguments` can be accessed by index, ie `arguments[0]`, `arguments[1]` and it has a `.length` property.
+
+This feature allows Javascript functions to have variable arguments. To work with the arguments as a real array, you can simply convert the arguments object to an array. 
+
+```javascript
+function has() {  
+  let args = [].slice.call(arguments);
+  args.forEach((arg) => console.log(arg));
+}
+has(1,2,3,4); 
+```
+
+### Invoking functions
+
+Invoking a function is done using the () operator on the function name or variable holding the function expression. 
+
+```javascript
+var foo(){ /* do foo */ }   // declaration  
+foo();   // invoke
+
+(function baz() {           // IIFE
+   console.log("baz!");
+})();
+// "baz!"
+
+var bar = function(){ /* do bar */ };  // expression  
+bar();   // invoke  
+```
+
 ### Immediately-Invoked Function Expression (IIFE)
 
 An IIFE is an anonymous function that is created and then immediately invoked. It’s not called from anywhere else (hence why it’s anonymous), but runs just after being created.
@@ -552,7 +592,6 @@ var x = (function calc() {
 
 console.log(x); //-> 4 
 ```
-
 
 ## Scope
 
