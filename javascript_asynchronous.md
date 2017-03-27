@@ -337,6 +337,110 @@ promise.then(function(result){
 });
 ```
 
+## Fetch API
+
+The Fetch API is an interface that is used to make network requests. The Fetch API is a much needed improvement over XMLHttpRequest, the old API for making network request. The Fetch API is built into most modern browsers and also returns Promises.
+
+```javascript
+fetch("https://jsonplaceholder.typicode.com/todos/1") 
+.then(function(result){ 
+	console.log(result); 
+}); //-> Response {type: "cors", url: "https://jsonplaceholder.typicode.com/todos/1", status: 200, ok: true, statusText: ""…}
+```
+
+### Extracting data from a Response object
+
+A Response object has several methods that are used to extract the fetched data. Here are the common extraction methods:
+
+* **`json()`:** is used to extract a json object.
+* **`text()`:** is used to extract a text string.
+* **`blob()`:** is used to extract a file-like object.
+
+```javascript
+fetch("https://jsonplaceholder.typicode.com/todos/1") 
+.then(function(result){ 
+	return result.json() 
+})
+.then(function(result){
+	console.log(result);
+}); //-> Object {userId: 1, id: 1, title: "delectus aut autem", completed: false}
+```
+
+### Handling Fetch Responses
+
+Example checking the response status, It is important to check the status of the Response object that is fetched. A status between 200-299 means that the request was somewhat successful while statuses in the 400s or 500s mean that problems have occurred. 
+
+```javascript
+fetch("https://jsonplaceholder.typicode.com/todos/1") 
+.then(function(result){ 
+	console.log(result);
+	if(result.ok) { 
+		return result.text(); 
+  }
+	else { 
+    console.log(result.status) //logs 404
+    return Promise.reject(result.status); 
+  } 
+})
+.then(function(result){
+	console.log(result);
+}) //-> {"userId": 1,"id": 1,"title": "delectus aut autem","completed": false}
+.catch(function(err){
+  console.log("Error: " +  err);
+}); //-> "Error: 404", handles the rejected promise
+```
+
+### Customizing Fetch Setting
+
+The fetch() method can also take in an optional init object. This object applies custom settings to the Fetch request.
+
+```javascript
+let initObject = {
+	method: 'POST',
+	headers: new Headers(),
+	mode: 'cors',
+	body: "{}" 
+}
+
+fetch("https://jsonplaceholder.typicode.com/posts", initObject)
+.then(function(result){ 
+	return result.json() 
+})
+.then(function(result){
+	console.log(result);
+})
+.catch(function(err){
+	console.log(err);
+}); //-> Object {id: 101}
+```
+
+**Method**
+
+The method attribute is a string that is used to specify the HTTP request method type. Here is a list of some commonly used method types:
+
+* **Get:** used to retrieve an existing data resource.
+* **Head:** used to retrieve HTTP headers.
+* **Post:** used to create a new data resource.
+* **Put:** used to create a new data resource or modify an existing data resource.
+* **Delete:** used to delete a data resource.
+
+**Body**
+
+The body attribute is a JSON string used to send data along with a fetch request. If the body value is an object, it is important to stringify the object that is being sent using JSON.stringify() or it will not process correctly. Get and Head HTTP requests can not have bodies.
+
+**Headers**
+
+The headers attribute is used to add more information about the resource being fetched or the client doing the fetching. A Headers object can be created using the new Headers() constructor and individual headers can be added to the Headers object through the append() method.
+
+**Mode**
+
+The mode attribute is a string that is used to determine whether or not the Fetch request can fetch resources from different servers.
+
+In this course we will cover the following two mode types:
+
+* same-origin: the Fetch request can only fetch resources from the same server.
+* cors (cross origin HTTP request): the Fetch request can fetch resources from different servers.
+
 ## Generators
 
 ## Observables
