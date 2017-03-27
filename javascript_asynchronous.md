@@ -307,6 +307,36 @@ The Promise.race() method takes in an array of promises and takes the result of 
 
 The Promise.race() method can be used to choose the quickest source when there are two similar sources of the same data.
 
+```javascript
+function delayedResolve(time){
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      resolve("resolved in " + time);
+    })
+  })
+}
+
+function delayedReject(time){
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      reject("reject in " + time);
+    })
+  })
+}
+
+let promise_01 = delayedResolve(500);
+let promise_02 = delayedReject(200);
+let promise_03 = delayedResolve(100);
+
+let promise = Promise.race([promise_01, promise_02, promise_03]);
+promise.then(function(result){
+  console.log(result);
+})
+.catch(function(error){
+  console.log(error);
+});
+```
+
 ## Generators
 
 ## Observables
