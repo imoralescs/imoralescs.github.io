@@ -21,7 +21,7 @@ Is the most basic method of asynchronous programming. Callback functions are fun
 ```javascript
 //multiplies two numbers
 function mult(x,y){ 
-   return x * y;  
+  return x * y;  
 }
 
 //adds to numbers
@@ -31,7 +31,7 @@ function add(x,y){
 
 //uses a callback to process two numbers
 function calculate(x,y,compute){ 
-   return compute(x,y);
+  return compute(x,y);
 }
 
 var a = calculate(10,5,add); //uses add callback
@@ -47,7 +47,7 @@ Callbacks can be created and used without being bound to a specific function nam
 
 ```javascript
 var c = calculate(10,5,function(x,y){ //uses an anonymous callback
-    return x - y; //subtracts y from x
+  return x - y; //subtracts y from x
 });
 
 console.log(c); // logs 5
@@ -72,7 +72,7 @@ The `setTimeout()` method is used to schedule a task to be put on the event queu
 
 ```javascript
 setTimeout(function(){
-    console.log("hello")  
+  console.log("hello")  
 },1000); //waits 1 second
 ```
 
@@ -82,7 +82,7 @@ The `clearTimeout()` function is used to cancel a timeout that is still pending.
 
 ```javascript
 var timeout = setTimeout(function(){
-    console.log("hello")  
+  console.log("hello")  
 },1000); //waits 1 second
 
 clearTimeout(timeout); //clears the setTimeout callback from running
@@ -96,8 +96,8 @@ The `setInterval()` method is used to schedule a reoccurring task to be put on t
 var count = 0;
 
 var interval = setInterval(function(){
-    count++;
-    console.log(count);
+  count++;
+  console.log(count);
 },1000); //executes callback every second
 ```
 
@@ -126,9 +126,9 @@ Notice how "second" is logged asynchronously and occurs out of order:
 
 ```javascript
 function asyncLog(val){ //logs values asynchronously
-    setTimeout(function(){  //setTimeout with a time of 0 will execute asynchronously
-        console.log(val);      
-    },0)
+  setTimeout(function(){  //setTimeout with a time of 0 will execute asynchronously
+    console.log(val);      
+  },0)
 }
 
 console.log("first");
@@ -183,27 +183,25 @@ Promises are containers for values that are not yet available yet but may eventu
 
 ```javascript
 var promise = new Promise(function(resolve, reject) {
-	var isSuccessful = true;
-	
-	if (isSuccessful) { 
-		// If everything is successful
-		resolve("Success!");
-	}
-	else {              
-		// If something went wrong*/
-		reject(Error("Failure."));
-	}
+  var isSuccessful = true;
+  if (isSuccessful) { 
+    // If everything is successful
+    resolve("Success!");
+  }
+  else {              
+    // If something went wrong*/
+    reject(Error("Failure."));
+  }
 });
 
-promise
-	.then(function(val){
-		// val represents the fulfillment value
-		console.log(val);//logs "success!" since promise resolved
-	})
-	.catch(function(val){
-		// val represents the rejection value
-		console.log(val); //doesn't occur since promise never rejected
-	});
+promise.then(function(val){
+  // val represents the fulfillment value
+  console.log(val);//logs "success!" since promise resolved
+})
+.catch(function(val){
+  // val represents the rejection value
+  console.log(val); //doesn't occur since promise never rejected
+});
 ```
 
 ### Creating a new Promise
@@ -232,12 +230,12 @@ Promise results can be transformed by calling the return statement within the `t
 var promise_01 = Promise.resolve("hello");
 
 var promise_02 = promise_01.then(function(result) { 
-    console.log(result); //-> hello
-    return result + " world";
+  console.log(result); //-> hello
+  return result + " world";
 }); 
 
 promise_02.then(function(result){
-    console.log(result); //-> hello world
+  console.log(result); //-> hello world
 });
 ```
 
@@ -249,23 +247,23 @@ Several transforms can be chained together using multiple `then()` method calls.
 var promise = Promise.resolve([1,2,3,4]);
 
 promise.then(function(result) { 
-	console.log(result) //-> [1,2,3,4] 
-	return result.map(x => x * x);
+  console.log(result) //-> [1,2,3,4] 
+  return result.map(x => x * x);
 })
 .then(function(result2){
-	console.log(result2) //-> [1,4,9,16]
-	return result2.filter( x => x > 10);
+  console.log(result2) //-> [1,4,9,16]
+  return result2.filter( x => x > 10);
 })
 .then(function(result3){
-	console.log(result3) //-> [16]
-	return result3.toString() + "!!";
+  console.log(result3) //-> [16]
+  return result3.toString() + "!!";
 })
 .then(function(result4){
-	console.log(result4) //-> "16!!"
-	return result4;
+  console.log(result4) //-> "16!!"
+  return result4;
 })
 .catch(function(error){
-	console.log(error)
+  console.log(error)
 });
 ```
 
@@ -273,11 +271,39 @@ promise.then(function(result) {
 
 **Promise.all()**
 
-The Promise.all() method is used to process multiple Promises at the same time. The method takes in an array of Promises and then waits for them to all to resolve. Once they have all finished resolving, an array of results can be obtained by using the then() method. If any of the Promises reject, then the Promise.all() method will return the first rejected Promise.
+The Promise.all() method is used to process multiple Promises at the same time. The method takes in an array of Promises and then waits for them to all to resolve. Once they have all finished resolving, an array of results can be obtained by using the `then()` method. If any of the Promises reject, then the Promise.all() method will return the first rejected Promise.
+
+```javascript
+let promise_01 = Promise.resolve('hello'); 
+let promise_02 = Promise.resolve({age:2,height:188}) 
+let promise_03 = Promise.resolve('worlds');
+
+let promise = Promise.all([promise_01,promise_02,promise_03])
+promise.then(function(result) { 
+  console.log(result); //-> ["hello", Object, "worlds"]
+}).catch(function(error){
+  console.log(error); 
+});
+```
+
+Rejected case:
+
+```javascript
+let promise_01 = Promise.resolve('hello'); 
+let promise_02 = Promise.resolve({age:2,height:188}) 
+let promise_03 = Promise.reject('worlds');
+
+let promise = Promise.all([promise_01,promise_02,promise_03])
+promise.then(function(result) { 
+  console.log(result); //-> "worlds"
+}).catch(function(error){
+  console.log(error); 
+});
+```
 
 **Promise.Race()**
 
-The Promise.race() method takes in an array of promises and takes the result of the promise that rejects or resolves the fastest. Like normal promises, the then() and catch() methods are used to retrieve the results of the fastest promise.
+The Promise.race() method takes in an array of promises and takes the result of the promise that rejects or resolves the fastest. Like normal promises, the `then()` and `catch()` methods are used to retrieve the results of the fastest promise.
 
 The Promise.race() method can be used to choose the quickest source when there are two similar sources of the same data.
 
