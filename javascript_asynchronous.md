@@ -1,1 +1,176 @@
+# Javascript Asynchronous
 
+First understand what “synchronous”, the opposite, means. In programming, we can simplify the definition of synchronous code as “a bunch of statements in sequence”; so each statement in your code is executed one after the other. This means each statement has to wait for the previous one to finish executing.
+
+```javascript
+console.log('First');
+console.log('Second');
+console.log('Third');
+```
+
+The statements above will execute in order, outputting “First”, “Second”, “Third” to the console. That’s because it’s written synchronously.
+
+Asynchronous code takes statements outside of the main program flow, allowing the code after the asynchronous call to be executed immediately without waiting. 
+
+## Callback
+
+Is the most basic method of asynchronous programming. Callback functions are functions that are passed as arguments into other functions to be executed at a later point in time.
+
+```javascript
+//multiplies two numbers
+function mult(x,y){ 
+   return x * y;  
+}
+
+//adds to numbers
+function add(x,y){  
+   return x + y;
+}
+
+//uses a callback to process two numbers
+function calculate(x,y,compute){ 
+   return compute(x,y);
+}
+
+var a = calculate(10,5,add); //uses add callback
+console.log(a); // logs 15
+
+var b = calculate(10,5,mult); //uses mult callback
+console.log(b); // logs 50
+```
+
+## Anonymous Callbacks
+
+Callbacks can be created and used without being bound to a specific function name. Anonymous callbacks are useful when a callback is only needed to be declared once, since they are quicker to write than named callbacks.
+
+```javascript
+var c = calculate(10,5,function(x,y){ //uses an anonymous callback
+    return x - y; //subtracts y from x
+});
+
+console.log(c); // logs 5
+
+var d = calculate(10,5, (x,y) => {return x - y}); //using arrow functions
+
+console.log(d); // logs 5
+```
+
+## Chaining Callbacks
+
+The Continuation Passing Style(CPS) is a programming style used to chain callback functions together. In CPS, methods with callback functions as arguments are called within other callback functions. CPS is characterized by having methods that have callback functions as their last argument.
+
+CPS has a tendency to become difficult to manage as more and more callback functions are chained together. 
+
+
+## Timers
+
+### setTimeout()
+
+The `setTimeout()` method is used to schedule a task to be put on the event queue after a given amount of time. The first parameter to setTimeout() is the callback function that is going to be executed. The second parameter is the amount of time to wait before putting the task on the event queue. setTimeout() is non-blocking and other code may run while the setTimeout() task is waiting to be executed.
+
+```javascript
+setTimeout(function(){
+    console.log("hello")  
+},1000); //waits 1 second
+```
+
+### claerTimeout();
+
+The `clearTimeout()` function is used to cancel a timeout that is still pending. The setTimeout() method call returns a numeric timerID that is used to identify the timer. This timerID can be passed into the clearTimeout() method call to stop the timer.
+
+```javascript
+var timeout = setTimeout(function(){
+    console.log("hello")  
+},1000); //waits 1 second
+
+clearTimeout(timeout); //clears the setTimeout callback from running
+```
+
+### SetInterval()
+
+The `setInterval()` method is used to schedule a reoccurring task to be put on the event queue every time a given number of milliseconds elapses. The first parameter to setInterval() is the callback function that is going to be executed. The second parameter is the amount of time to wait before the reoccurring task is put back on to the event queue.
+
+```javascript
+var count = 0;
+
+var interval = setInterval(function(){
+    count++;
+    console.log(count);
+},1000); //executes callback every second
+```
+
+### clearInterval()
+
+The `clearInterval()` method is used to stop an interval timer set by setInterval(). The setInterval() method call returns a numeric timerID that is used to identify the interval timer. This timerID can be passed into the clearInterval() method call to stop the interval timer.
+
+
+### Asynchronous Code using Timers
+
+Synchronous code is run line by line in the order in which the code occurred.
+
+Notice how synchronous code is executed:
+
+```javascript
+console.log("first");
+console.log("second");
+console.log("third");
+```
+
+Asynchronous code may be executed in a different order than how it originally occurred. Asynchronous code is non-blocking and will only run when the call stack is empty.
+
+Asynchronous code can be shown by using a setTimeout() method call with a timeout value of 0. This will immediately put a task on the event queue.
+
+Notice how "second" is logged asynchronously and occurs out of order:
+
+```javascript
+function asyncLog(val){ //logs values asynchronously
+    setTimeout(function(){  //setTimeout with a time of 0 will execute asynchronously
+        console.log(val);      
+    },0)
+}
+
+console.log("first");
+asyncLog("second");
+console.log("third");
+```
+
+The output appears out of order because the asynchronous console log task had to wait for the call stack to finish executing the other console logs before it could occur.
+
+
+## DOM Events
+
+DOM Event Listeners happen in parallel with the JavaScript run time. When an event occurs, the event listener detects the event and executes an event handler to put a task on the event queue. The task will eventually make its way to the call stack to be executed.
+
+If multiple events are detected, multiple tasks will be put on the event queue in the order in which they occurred. When the call stack is empty, the first task on the event queue is pushed onto the call stack. When this task finishes, the cycle continues and the next task on the event queue is pushed onto the call stack. Thus, if a certain task takes a long time to finish, the tasks behind it on the event queue will have to wait.
+
+### Types of HTML DOM Events
+
+Here are some examples of HTML DOM Events:
+
+* **Click Event:** Occurs when a user clicks a DOM element
+* **Mouseenter Event:** Occurs when a pointer is moved over an element
+* **Mouseleave Event:** Occurs when a pointer is moved out of an element
+* **Keypress Event:** Occurs when a key is pressed
+
+### Referencing DOM Elements
+
+DOM elements can be referenced using the document.getElementById(id) method call if the DOM element has an id attribute defined.
+
+```javascript
+addEventListener()
+```
+
+The addEventListener(eventType,eventHandler) method call is used to add an event listener to a DOM object. The eventType argument is a string that represents the type of event that is being listened for. The eventHandler is a callback function that handles the event once it is detected.
+
+### Event Attributes
+
+DOM elements have event attributes that can be used to handle events.
+
+Here are several of the attributes that can act as event attributes:
+
+* onclick - handles click events
+* onmouseover - handles mouseover events
+* onmouseleave - handles mouseleave events
+* onkeypress - handles keypress events
+
+The general format for the name of the event attributes is: "on" + "eventType". Event handler functions can be assigned to the event attributes to handle events.
