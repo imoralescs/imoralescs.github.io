@@ -12,6 +12,8 @@ The statements above will execute in order, outputting “First”, “Second”
 
 Asynchronous code takes statements outside of the main program flow, allowing the code after the asynchronous call to be executed immediately without waiting. 
 
+## Event Loop
+
 ## Callback
 
 Is the most basic method of asynchronous programming. Callback functions are functions that are passed as arguments into other functions to be executed at a later point in time.
@@ -174,3 +176,9 @@ Here are several of the attributes that can act as event attributes:
 * onkeypress - handles keypress events
 
 The general format for the name of the event attributes is: "on" + "eventType". Event handler functions can be assigned to the event attributes to handle events.
+
+## Promises
+
+## Generators
+
+## Observables
