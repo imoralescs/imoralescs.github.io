@@ -179,6 +179,108 @@ The general format for the name of the event attributes is: "on" + "eventType". 
 
 ## Promises
 
+Promises are containers for values that are not yet available yet but may eventually become available. Promises are important, because promises are becoming the standard way to handle asynchronous functions in JavaScript.
+
+```javascript
+var promise = new Promise(function(resolve, reject) {
+	var isSuccessful = true;
+	
+	if (isSuccessful) { 
+		// If everything is successful
+		resolve("Success!");
+	}
+	else {              
+		// If something went wrong*/
+		reject(Error("Failure."));
+	}
+});
+
+promise
+	.then(function(val){
+		// val represents the fulfillment value
+		console.log(val);//logs "success!" since promise resolved
+	})
+	.catch(function(val){
+		// val represents the rejection value
+		console.log(val); //doesn't occur since promise never rejected
+	});
+```
+
+### Creating a new Promise
+
+**`new Promise()`**
+
+The `new Promise()` constructor is called to create a new promise. The constructor takes in a callback function with the arguments `resolve` and `reject`.
+
+**`resolve()`**
+
+The `resolve()` function is used to change the status of the promise from pending to fulfilled. The value that is passed inside the `resolve()` function becomes the fulfillment value of the promise. Once the `resolve()` function is called, future `resolve()` and `reject()` calls no longer have any effect.
+
+**`reject()`**
+
+The `reject()` function is used to change the status of the promise from pending to rejected. The value that is passed inside the `reject()` function becomes the rejection value of the promise. Once the `reject()` function is called, future `resolve()` and `reject()` calls no longer have any effect. The resolve function can take in any object as an argument, but one common practice is to pass in a Error object because it provides a more detailed error report. 
+
+### Using Promises with Then() and Catch()
+
+The `then()` and `catch()` methods are used to handle the results of Promises once they have finished pending. The `then()` method is used to handle resolved Promises while the `catch()` method is used to handle rejected Promises. Both of the methods use callback functions. The callback functions should each have one argument representing the Promise result.
+
+### Transforming Value
+
+Promise results can be transformed by calling the return statement within the `then()` callback. This will cause the `then()` method to return a `new Promise` with the transformed result.
+
+```javascript
+var promise_01 = Promise.resolve("hello");
+
+var promise_02 = promise_01.then(function(result) { 
+    console.log(result); //-> hello
+    return result + " world";
+}); 
+
+promise_02.then(function(result){
+    console.log(result); //-> hello world
+});
+```
+
+**Chaining Transforms**
+
+Several transforms can be chained together using multiple `then()` method calls.
+
+```javascript
+var promise = Promise.resolve([1,2,3,4]);
+
+promise.then(function(result) { 
+	console.log(result) //-> [1,2,3,4] 
+	return result.map(x => x * x);
+})
+.then(function(result2){
+	console.log(result2) //-> [1,4,9,16]
+	return result2.filter( x => x > 10);
+})
+.then(function(result3){
+	console.log(result3) //-> [16]
+	return result3.toString() + "!!";
+})
+.then(function(result4){
+	console.log(result4) //-> "16!!"
+	return result4;
+})
+.catch(function(error){
+	console.log(error)
+});
+```
+
+### Handling Multiple Promise
+
+**Promise.all()**
+
+The Promise.all() method is used to process multiple Promises at the same time. The method takes in an array of Promises and then waits for them to all to resolve. Once they have all finished resolving, an array of results can be obtained by using the then() method. If any of the Promises reject, then the Promise.all() method will return the first rejected Promise.
+
+**Promise.Race()**
+
+The Promise.race() method takes in an array of promises and takes the result of the promise that rejects or resolves the fastest. Like normal promises, the then() and catch() methods are used to retrieve the results of the fastest promise.
+
+The Promise.race() method can be used to choose the quickest source when there are two similar sources of the same data.
+
 ## Generators
 
 ## Observables
