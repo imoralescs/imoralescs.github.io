@@ -78,7 +78,7 @@ setTimeout(function(){
 
 ### claerTimeout();
 
-The `clearTimeout()` function is used to cancel a timeout that is still pending. The setTimeout() method call returns a numeric timerID that is used to identify the timer. This timerID can be passed into the clearTimeout() method call to stop the timer.
+The `clearTimeout()` function is used to cancel a timeout that is still pending. The `setTimeout()` method call returns a numeric timerID that is used to identify the timer. This timerID can be passed into the `clearTimeout()` method call to stop the timer.
 
 ```javascript
 var timeout = setTimeout(function(){
@@ -90,7 +90,7 @@ clearTimeout(timeout); //clears the setTimeout callback from running
 
 ### SetInterval()
 
-The `setInterval()` method is used to schedule a reoccurring task to be put on the event queue every time a given number of milliseconds elapses. The first parameter to setInterval() is the callback function that is going to be executed. The second parameter is the amount of time to wait before the reoccurring task is put back on to the event queue.
+The `setInterval()` method is used to schedule a reoccurring task to be put on the event queue every time a given number of milliseconds elapses. The first parameter to `setInterval()` is the callback function that is going to be executed. The second parameter is the amount of time to wait before the reoccurring task is put back on to the event queue.
 
 ```javascript
 var count = 0;
@@ -103,14 +103,12 @@ var interval = setInterval(function(){
 
 ### clearInterval()
 
-The `clearInterval()` method is used to stop an interval timer set by setInterval(). The setInterval() method call returns a numeric timerID that is used to identify the interval timer. This timerID can be passed into the clearInterval() method call to stop the interval timer.
+The `clearInterval()` method is used to stop an interval timer set by `setInterval()`. The `setInterval()` method call returns a numeric timerID that is used to identify the interval timer. This timerID can be passed into the `clearInterval()` method call to stop the interval timer.
 
 
 ### Asynchronous Code using Timers
 
-Synchronous code is run line by line in the order in which the code occurred.
-
-Notice how synchronous code is executed:
+Synchronous code is run line by line in the order in which the code occurred. Notice how synchronous code is executed:
 
 ```javascript
 console.log("first");
@@ -120,7 +118,7 @@ console.log("third");
 
 Asynchronous code may be executed in a different order than how it originally occurred. Asynchronous code is non-blocking and will only run when the call stack is empty.
 
-Asynchronous code can be shown by using a setTimeout() method call with a timeout value of 0. This will immediately put a task on the event queue.
+Asynchronous code can be shown by using a `setTimeout()` method call with a timeout value of 0. This will immediately put a task on the event queue.
 
 Notice how "second" is logged asynchronously and occurs out of order:
 
@@ -156,19 +154,17 @@ Here are some examples of HTML DOM Events:
 
 ### Referencing DOM Elements
 
-DOM elements can be referenced using the document.getElementById(id) method call if the DOM element has an id attribute defined.
+DOM elements can be referenced using the `document.getElementById(id)` method call if the DOM element has an id attribute defined.
 
 ```javascript
 addEventListener()
 ```
 
-The addEventListener(eventType,eventHandler) method call is used to add an event listener to a DOM object. The eventType argument is a string that represents the type of event that is being listened for. The eventHandler is a callback function that handles the event once it is detected.
+The `addEventListener(eventType,eventHandler)` method call is used to add an event listener to a DOM object. The eventType argument is a string that represents the type of event that is being listened for. The `eventHandler` is a callback function that handles the event once it is detected.
 
 ### Event Attributes
 
-DOM elements have event attributes that can be used to handle events.
-
-Here are several of the attributes that can act as event attributes:
+DOM elements have event attributes that can be used to handle events. Here are several of the attributes that can act as event attributes:
 
 * onclick - handles click events
 * onmouseover - handles mouseover events
@@ -359,10 +355,10 @@ A Response object has several methods that are used to extract the fetched data.
 ```javascript
 fetch("https://jsonplaceholder.typicode.com/todos/1") 
 .then(function(result){ 
-	return result.json() 
+  return result.json() 
 })
 .then(function(result){
-	console.log(result);
+  console.log(result);
 }); //-> Object {userId: 1, id: 1, title: "delectus aut autem", completed: false}
 ```
 
@@ -373,17 +369,17 @@ Example checking the response status, It is important to check the status of the
 ```javascript
 fetch("https://jsonplaceholder.typicode.com/todos/1") 
 .then(function(result){ 
-	console.log(result);
-	if(result.ok) { 
-		return result.text(); 
+  console.log(result);
+  if(result.ok) { 
+    return result.text(); 
   }
-	else { 
+  else { 
     console.log(result.status) //logs 404
     return Promise.reject(result.status); 
   } 
 })
 .then(function(result){
-	console.log(result);
+  console.log(result);
 }) //-> {"userId": 1,"id": 1,"title": "delectus aut autem","completed": false}
 .catch(function(err){
   console.log("Error: " +  err);
@@ -392,25 +388,25 @@ fetch("https://jsonplaceholder.typicode.com/todos/1")
 
 ### Customizing Fetch Setting
 
-The fetch() method can also take in an optional init object. This object applies custom settings to the Fetch request.
+The `fetch()` method can also take in an optional init object. This object applies custom settings to the Fetch request.
 
 ```javascript
 let initObject = {
-	method: 'POST',
-	headers: new Headers(),
-	mode: 'cors',
-	body: "{}" 
+  method: 'POST',
+  headers: new Headers(),
+  mode: 'cors',
+  body: "{}" 
 }
 
 fetch("https://jsonplaceholder.typicode.com/posts", initObject)
 .then(function(result){ 
-	return result.json() 
+  return result.json() 
 })
 .then(function(result){
-	console.log(result);
+  console.log(result);
 })
 .catch(function(err){
-	console.log(err);
+  console.log(err);
 }); //-> Object {id: 101}
 ```
 
@@ -426,11 +422,11 @@ The method attribute is a string that is used to specify the HTTP request method
 
 **Body**
 
-The body attribute is a JSON string used to send data along with a fetch request. If the body value is an object, it is important to stringify the object that is being sent using JSON.stringify() or it will not process correctly. Get and Head HTTP requests can not have bodies.
+The body attribute is a JSON string used to send data along with a fetch request. If the body value is an object, it is important to stringify the object that is being sent using `JSON.stringify()` or it will not process correctly. Get and Head HTTP requests can not have bodies.
 
 **Headers**
 
-The headers attribute is used to add more information about the resource being fetched or the client doing the fetching. A Headers object can be created using the new Headers() constructor and individual headers can be added to the Headers object through the append() method.
+The headers attribute is used to add more information about the resource being fetched or the client doing the fetching. A Headers object can be created using the new `Headers()` constructor and individual headers can be added to the Headers object through the `append()` method.
 
 **Mode**
 
@@ -438,12 +434,12 @@ The mode attribute is a string that is used to determine whether or not the Fetc
 
 In this course we will cover the following two mode types:
 
-* same-origin: the Fetch request can only fetch resources from the same server.
-* cors (cross origin HTTP request): the Fetch request can fetch resources from different servers.
+* **same-origin:** the Fetch request can only fetch resources from the same server.
+* **cors (cross origin HTTP request):** the Fetch request can fetch resources from different servers.
 
 ### Using Fetch with Requests
 
-The fetch() method can take in a Request object instead of an URL and an init object. The Request constructor takes in the same parameters as the fetch() method, an URL and an optional init object. Request objects are used because they make Fetch requests a bit cleaner and also offer a bit more control.
+The `fetch()` method can take in a Request object instead of an URL and an init object. The Request constructor takes in the same parameters as the `fetch()` method, an URL and an optional init object. Request objects are used because they make Fetch requests a bit cleaner and also offer a bit more control.
 
 ```javascript
 var initObject = {
@@ -464,7 +460,7 @@ fetch(request).then(function(result){
 });
 ```
 
-**Reusing Request ObJects***
+**Reusing Request Objects***
 
 Requests with Bodies(POST, PUT)
 
