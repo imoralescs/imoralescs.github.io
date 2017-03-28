@@ -441,6 +441,67 @@ In this course we will cover the following two mode types:
 * same-origin: the Fetch request can only fetch resources from the same server.
 * cors (cross origin HTTP request): the Fetch request can fetch resources from different servers.
 
+### Using Fetch with Requests
+
+The fetch() method can take in a Request object instead of an URL and an init object. The Request constructor takes in the same parameters as the fetch() method, an URL and an optional init object. Request objects are used because they make Fetch requests a bit cleaner and also offer a bit more control.
+
+```javascript
+var initObject = {
+  method: 'POST',
+  headers: new Headers(),
+  mode: 'cors',
+  body: "{}" 
+}
+
+var request = new Request("https://jsonplaceholder.typicode.com/posts", initObject)
+
+fetch(request).then(function(result){ 
+  return result.json() 
+}).then(function(result){
+  console.log(result); //-> Object {id: 101}
+}).catch(function(err){
+  console.log(err);
+});
+```
+
+**Reusing Request ObJects***
+
+Requests with Bodies(POST, PUT)
+
+If a Request object is used more than once in a Fetch request that involves bodies (POST, PUT) it will throw an error.
+
+```javascript
+var initObject = {
+  method: 'POST',
+  headers: new Headers(),
+  mode: 'cors',
+  body: "{}" 
+}
+
+var request = new Request("https://jsonplaceholder.typicode.com/posts",initObject)
+
+fetch(request).then(function(result){  
+  return result.json() 
+}).then(function(result){
+  console.log(result);
+}).catch(function(err){
+  console.log(err);
+});
+
+
+fetch(request).then(function(result){
+  return result.json();
+}).catch(function(err){
+  console.log(err.message)
+  //-> "Failed to execute 'fetch' on 'Window': Cannot construct
+  //    a Request with a Request object that has already been used."
+});
+```
+
+**Requests without Bodies (GET, HEAD)**
+
+However, Request objects can be used more than once in Fetch requests that don't involve bodies(Head,Get).
+
 ## Generators
 
 ## Observables
