@@ -222,15 +222,22 @@ To identify primitive type is with the typeof operator. Operator typeof returns 
 
 They work the same way, but the first syntax is shorter.
 
-## Operator With Primitive Types
+## Basic Operator
 
-### Arithmetics
+### The terms "unary", "binary", "operand"
+
+Operators have their own terminology, which is used in all programming languages. Before we move on, there are several terms to understand what this is about.
+
+* **The operand:** Is what the operator applies to. For example: 5 * 2 - operator of multiplication with left and right operands. Another name: "operator argument".
+* **Unary:** Is an operator that applies to a single expression. For example, the unary minus operator "-" changes the sign of the number to the opposite:
 
 ```javascript
 // Assignment 
 var x = 10;
 var y = 10;
 ```
+
+* **Binary:** Is an operator that is applied to two operands. The same minus exists in a binary form.
 
 ```javascript
 // Multiply, Divide, Add
@@ -258,6 +265,12 @@ let x = 7;
 x++;
 console.log(x); //-> 8
 ```
+
+### Adding rows, binary +
+
+Usually, with the plus sign '+' add up the numbers.
+
+But if the binary operator '+' applied to strings, then it unites them into one:
 
 ```javascript
 // String Concatenation
