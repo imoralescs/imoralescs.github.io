@@ -500,4 +500,295 @@ However, Request objects can be used more than once in Fetch requests that don't
 
 ## Generators
 
+Generators are functions that can be paused and resumed. Generators can send out values when pausing and take in values when resuming.
+
+### Creating a Generator Function
+
+`function*` Keyword, Generator functions look similar to regular functions, except that they have an asterisk (*) after the function keyword. This syntax may look similar to the pointer notation from other languages, but it is unrelated.
+
+```javascript
+function* genFunc() {
+  yield console.log('lorem');
+  yield console.log('ipsum');
+  return 'done';
+}
+
+const gen = genFunc();
+
+gen.next(); //-> lorem
+gen.next(); //-> ipsum
+console.log(gen.next().value); //-> done
+```
+
+**Yield Keyword**
+
+The `yield` keyword is used to pause the generator. The `yield` keyword may also be used to receive input and send output from the generator.
+
+```javascript
+yield console.log('lorem'); // pause the generator ans send out
+yield console.log('ipsum'); // pause the generator ans send out
+```
+
+**Return Value**
+
+Generator Functions have an optional return value. Omitting the return value is equivalent to returning an undefined value. The return value of Generator functions is often left unused.
+
+### Iterating through a Generator Object
+
+A Generator Object is returned from calling a Generator function. It is important to not confuse Generator Objects with Generator functions. 
+
+Generator Objects conform to the iterator protocol and may be iterated with the `next()` method.
+
+Generator functions are initially paused and the first call to `next()` starts the Generator function. The Generator function then runs until it hits the first yield keyword and then pauses. Subsequent calls to `next()`  will resume the Generator function until the next yield keyword appears.
+
+The `next()` method returns an object with two properties:
+
+* **done:** a boolean indicating whether the Generator function has processed all of the yield statements or has already returned. 
+* **value:** the value associated with the most recent yield statement.
+
+After all of the yield statements have been processed with `next()`, the following `next()` call returns an object with a value property equal to the Generator function return value and a done property set to true. If the return statement was omitted from the Generator function then the value property will be undefined. After the the done property is true in one of the returned objects, additional `next()` calls will return objects with an undefined value property and a true done property. Yield statements after the return statement are ignored.
+
+### Throwing Errors from within a Generator Function
+
+If an error is encountered within a Generator function, then the error will be thrown by the `next()` call that encounters the error. The `next()` call that throws the error will return an undefined value and additional yield statements after the error are ignored. Additional `next()` calls after the error will also return undefined values.
+
+```javascript
+function* genFunc() {
+  yield 'a';
+  yield 'b';
+  throw new Error("error thrown by genFunc()!");
+  yield 'c';
+  yield 'd';    
+}
+
+var genObject = genFunc();
+
+try {
+  console.log(genObject.next().value); //-> a
+  console.log(genObject.next().value); //-> b
+  console.log(genObject.next().value); //-> error thrown by genFunc()!
+  console.log(genObject.next().value); // undefined, other yield statements are ignored after the error
+}
+catch(e) {
+  console.log(e.message);
+}
+```
+
+### Yielding to other Generators
+
+The `yield*` keyword is used to call another Generator function within a Generator function.
+
+```javascript
+function* genFuncA() {
+  yield 'a';
+  yield 'b';
+  yield 'c';
+  return "done with genFuncA()!"      
+}
+
+function* genFuncB(){
+  yield 1;
+  yield* genFuncA(); // contains iterable [a,b,c]
+  yield 2;
+  yield 3;
+  return "done with genFuncB()!";
+}
+
+var genObject = genFuncB();
+
+console.log(genObject.next().value); //-> 1
+console.log(genObject.next().value); //-> a
+console.log(genObject.next().value); //-> b
+console.log(genObject.next().value); //-> c
+console.log(genObject.next().value); //-> 2
+console.log(genObject.next().value); //-> 3
+console.log(genObject.next().value); //-> done with genFuncB()!
+```
+
+The `yield*` statement does not add the return value of the generator function that it calls to its list of iterables. Instead, the return value may be accessed by the return value of the `yield*` statement.
+
+```javascript
+function* genFuncA() {
+  yield 'a';
+  yield 'b';
+  return "done with genFuncA()!"      
+}
+
+function* genFuncB(){
+  yield 1;
+  let returnVal = yield* genFuncA(); 
+  yield returnVal; 
+  yield 2;
+  return "done with genFuncB()!";
+}
+
+var genObject = genFuncB();
+
+console.log(genObject.next().value); //-> 1
+console.log(genObject.next().value); //-> a
+console.log(genObject.next().value); //-> b
+console.log(genObject.next().value); //-> done with genFuncA()!
+console.log(genObject.next().value); //-> 2
+console.log(genObject.next().value); //-> done with genFuncB()!
+```
+
+The `yield*` statement can be used on any iterable in addition to Generator functions.
+
+```javascript
+function* genFunc(){
+  yield 1;
+  yield* [2,3,4]; 
+  yield 5;
+}
+
+var genObject = genFunc();
+
+console.log(genObject.next().value); //-> 1
+console.log(genObject.next().value); //-> 2
+console.log(genObject.next().value); //-> 3
+console.log(genObject.next().value); //-> 4
+console.log(genObject.next().value); //-> 5
+```
+
+### Sending Input to Generator Functions
+
+Sending input using `next()`, In addition to iterating through Generator Objects, `next()` can also be used to send values back into Generator functions. This is accomplished by passing a value into the next() method call as an argument. The value that is passed into the `next()` method call eventually becomes the return value of the most recent yield statement. Since the first `next()` call starts the Generator function, any value that gets passed into it will be ignored.
+
+```javascript
+function* genFunc(){
+  var a = yield;
+  console.log(a);
+  var b = yield;  
+  console.log(b); 
+  var c = yield;
+  console.log(c); 
+}
+
+var genObject = genFunc();
+
+genObject.next(0); 
+genObject.next(1); //-> 1
+genObject.next(2); //-> 2
+genObject.next(3); //-> 3
+```
+
+The `next()` method can also be used to modify the values sent by the yield statement and send them back.
+
+```javascript
+function* genFunc(){
+  var a = yield 'a';
+  console.log(a); // a = 'a!'
+  var b = yield 'b';  
+  console.log(b); // b = 'B'
+  var c = yield 'c';
+  console.log(c); // c = 'abc'
+}
+
+var genObject = genFunc();
+
+var w = genObject.next(); 
+var x = genObject.next(w.value + '!'); //-> a!
+var y = genObject.next(x.value.toUpperCase()); //-> B
+var z = genObject.next(w.value + x.value + y.value); //-> abc
+```
+
+### Other Methods to Iterate
+
+**For Of**
+
+```javascript
+function* genFunc(){
+  yield 'a';
+  yield;  
+  yield* [1,2,3];
+  yield 123;
+  return "finished";
+}
+
+for (var x of genFunc()){ //for...of statement
+  console.log(x); 
+}
+//-> a undefined 1 2 3 123
+```
+
+**Spread Operator**
+
+```javascript
+var arr = [...genFunc()];
+console.log(arr); //-> ["a", undefined, 1, 2, 3, 123]
+```
+
+**Destructuring**, destructuring assignment
+
+```javascript
+var [a,b,c,d,e,f,g] = genFunc();
+console.log(a,b,c,d,e,f,g); //-> a undefined 1 2 3 123 undefined
+*/
+```
+
+### Return()
+
+Generator Objects have a `return()` method that terminates the Generator function. `return()` causes a return statement to be performed at the most recent yield statement. The `return()` method takes in one optional variable that is used as the return value of the Generator function. Calling return(x) will return an object with a value property equal to x and a done property of true. After `return()` is called, subsequent yield statements in the Generator function are ignored. 
+
+### Throw()
+
+Generator Objects have a `throw()` method that causes an error to be thrown at the most recent yield statement. The `throw()` method takes in one argument, which is commonly an `Error object`.
+
+### Generator with Asynchronous Function
+
+```javascript
+// API Json Data
+/*
+{
+  "name": "imoralescs",
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+*/
+
+// Generator to get and display avatar
+// It yields promises
+function* showUserAvatar() {
+  // User Page Info
+  let userFetch = yield fetch(`https://api.myjson.com/bins/7yj2j`);
+  let userInfo = yield userFetch.json();
+
+  // User Github Info
+  let githubFetch = yield fetch(`https://api.github.com/users/${userInfo.name}`);
+  let githubUserInfo = yield githubFetch.json();
+
+  let img = new Image();
+  img.src = githubUserInfo.avatar_url;
+  img.className = "promise-avatar-example";
+  document.body.appendChild(img);
+
+  yield new Promise(resolve => setTimeout(resolve, 3000));
+
+  img.remove();
+
+  return img.src;
+}
+
+// Auxiliary laborer function
+// To perform promises from the generator
+function execute(generator, yieldValue) {
+  let next = generator.next(yieldValue);
+  
+  if (!next.done) {
+    next.value.then(
+      result => execute(generator, result),
+      err => generator.throw(err)
+    );
+  } 
+  else {
+    // process the result return from the generator
+    // usually here call callback or something like that
+    console.log(next.value);
+  }
+}
+execute(showUserAvatar());
+```
+
 ## Observables
