@@ -120,13 +120,13 @@ var message;
 message = "Hello Worlds!";
 ```
 
-### Variable Names and Constants
+### Variable Names
 
 Only have two restriction:
 
 1. Name can consist of letters, number, symbols, $, and _
 2. The first character must not be a digit.
-3. Good practices of name constant is all letter on uppercase.
+3. Avoid used reserved names, there is a list of reserved words that can not be used for variables, since they are used by the language itself, for example: var, class, return, export , etc. Using reserved names can produces a syntax error.
 
 ### Constants
 
@@ -135,6 +135,10 @@ Is like a variable that we can create and can be read-only. We create this with 
 ```javascript
 const AREA_CODE = 787;
 ```
+
+### Constant Names
+
+Good practices of name constant is all letter on uppercase.
 
 ## Data Type
 
