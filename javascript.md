@@ -266,7 +266,7 @@ x++;
 console.log(x); //-> 8
 ```
 
-### Adding rows, binary +
+### Adding Rows, Binary +
 
 Usually, with the plus sign '+' add up the numbers. But if the binary operator '+' applied to strings, then it unites them into one:
 
@@ -295,7 +295,7 @@ console.log(6 / '2'); //-> 3
 
 ### Assignment
 
-### Taking the remainder `%`
+### Taking The Remainder `%`
 
 The operator of taking the remainder of % interesting in that, despite the designation, nothing to do with interest. Its result a % b is the remainder of dividing a by b .
 
@@ -324,8 +324,6 @@ console.log(i); //-> 1
 ```
 
 Is important that increment / decrement can only be applied to a variable. The code 5++ will give an error.
-
-
 
 ```javascript
 // Test Equal
@@ -583,6 +581,9 @@ var square = function(x){
 console.log(square(12));
 // 144
 ```
+
+### Return
+
 The `return` statement determines the value the function returns. Function without return statement always return a default value, which is `undefined`. The only exception is when a new object is created calling a constructor function using `new` keyword. In this case default return value will be the value `this`.
 
 ```javascript
