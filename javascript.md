@@ -486,7 +486,7 @@ switch(x) {
 
 ### Throw
 
-Allow us to create a costume error with `throw 'Custom Error'`.
+Allow us to create a costume error with `throw 'Custom Error'`. 
 
 ```javascript
 if(x === 9) {
@@ -494,6 +494,22 @@ if(x === 9) {
 }
 else {
   throw 'Error: x should contain the value of 10';
+}
+```
+
+You can use the built-in constructor as an error constructor: `new Error(message)` or any other.
+
+```javascript
+var data = '{ "age": 30 }';
+try {
+  var user = JSON.parse(data); 
+  if(!user.name) {
+    throw new SyntaxError("The data is incorrect");
+  }
+  console.log(user.name);
+} 
+catch (e) {
+  console.log(e); //-> SyntaxError: The data is incorrect
 }
 ```
 
