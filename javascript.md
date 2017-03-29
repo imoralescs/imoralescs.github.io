@@ -723,7 +723,18 @@ console.log(x); //-> 4
 
 ## Scope
 
-Scope is a set of variable you have access to, we have global scope, the main scope of you app, is where any variable can be access. 
+Scope is a set of variable or function you have access to, we have global scope, the main scope of you app, is where any variable and function can be access.
+
+### Global Scope
+
+In the browser, this object is explicitly available under the name window . The window object is simultaneously a global object and contains a number of properties and methods for working with the browser window, but we are only interested in its role as a global object.
+
+By assigning or reading a global variable, we are actually working with window properties.
+
+```javascript
+var a = 5;
+console.log(window.a); //-> 5 
+```
 
 ### Lexical Scope
 
