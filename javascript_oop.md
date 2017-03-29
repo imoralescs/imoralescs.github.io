@@ -1008,3 +1008,31 @@ let coffeAmazon = new CoffeMachine(1000); //-> true
 coffeAmazon.setWaterAmount(50);
 coffeAmazon.enable();
 ```
+
+## OOP Prototype Style
+
+### Object Prototype
+
+Objects in JavaScript can be organized into chains, mean that a property not found in one object is automatically looked up in another. The connecting link is a special property called `__proto__` .
+
+**Proto proto**
+
+If one object has a special reference `__proto__` to another object, then when reading a property from it, if the property is not in the object itself, it is searched in the `__proto__` object.
+
+```javascript
+var animal = {
+  eats: true
+};
+
+var rabbit = {
+  jumps: true
+};
+
+rabbit.__proto__ = animal;
+
+console.log(rabbit.jumps); //-> true
+console.log(rabbit.eats);  //-> true
+```
+
+The object pointed to by the `__proto__` is called a **prototype**.  In this case, it turned out that the animal is a prototype for rabbit. It is also said that the rabbit object "prototype inherits" from the animal.
+
