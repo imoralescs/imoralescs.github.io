@@ -40,10 +40,46 @@ Script position in the DOM affect when they run.
   </body>
 </html>
 ```
+## External Script, Order Of Execution
 
-### Using attribute on script tag for external call
+If the JavaScript code is a lot, it is rendered in a separate file that connects to HTML:
 
-* **Script:** Without any attribute, HTML file will parsed until script file hit. At that point parsing will stop and a request will made to fetch the file external.
+```html
+<script src="/path/to/script.js"></script> 
+```
+
+Here `/path/to/script.js` is the **absolute path** to the file containing the script (from the root of the site). The browser will download the script and execute it. You can also use the **path relative** to the current page. For example, `src="path/to/script.js"` denotes a file from the current directory.
+
+Typically, in HTML, only the simplest scripts are written, and complex ones are rendered in a separate file. The browser will download it only the first time and in the future, if the server is properly configured, will take it from its **cache**.
+
+Because of this, the same large script containing, for example, a library of functions, can be used on different pages without a full reboot from the server.
+
+### Avoid `src` and code
+
+If the `src` attribute is specified, the contents of the tag are ignored. In one SCRIPT tag, you can not simultaneously connect an external script and specify the code.
+
+This is not how it works:
+
+```html
+<script src="file.js"> 
+  alert(1);
+</script> 
+```
+It is necessary to choose: either `SCRIPT` comes with `src` , or contains the code. The tag above should be divided into two: one with `src` , another with code.
+
+### Asynchronous Scripts: `defer` / `async`
+
+The browser loads and displays HTML gradually. This is especially noticeable with a slow Internet connection: the browser does not wait for the page to load in its entirety, but it shows the part that it managed to load.
+
+If the browser sees a `<script>` tag, then it must by default execute it, and then show the rest of the page. This behavior is called "synchronous". As a rule, it is quite normal, but there is an important consequence. If the script is external, then while the browser does not execute it, it will not show the part of the page below it. That is, in such a document, until the `big.js` is loaded, the contents of `<body>` will be hidden.
+
+**What to do?**
+
+You can put all such scripts at the bottom of the page and this will reduce the problem, but it will not get rid of it completely if there are several scripts. Let's say there are 3 scripts at the end of the page, and the first one is slowing down, it turns out that the other two will wait for it, it's also not good.
+
+In addition, the browser will reach the scripts located at the end of the page, they will start to load only when the entire page is loaded. And this is not always correct. For example, the visit counter will most likely work if you load it earlier.
+
+Therefore, "placing the scripts at the bottom" is not the best solution. Cardinally solve this problem using the `async` or `defer` :
 
 * **Async:** Download the file during HTML parsing and will pause the HTML parser to execute it when it has finish download. Will start running before the load event gets fired.
 
