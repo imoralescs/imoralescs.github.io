@@ -1036,3 +1036,4 @@ console.log(rabbit.eats);  //-> true
 
 The object pointed to by the `__proto__` is called a **prototype**.  In this case, it turned out that the animal is a prototype for rabbit. It is also said that the rabbit object "prototype inherits" from the animal.
 
+https://learn.javascript.ru/prototypes
