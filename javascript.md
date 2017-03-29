@@ -268,9 +268,7 @@ console.log(x); //-> 8
 
 ### Adding rows, binary +
 
-Usually, with the plus sign '+' add up the numbers.
-
-But if the binary operator '+' applied to strings, then it unites them into one:
+Usually, with the plus sign '+' add up the numbers. But if the binary operator '+' applied to strings, then it unites them into one:
 
 ```javascript
 // String Concatenation
@@ -278,6 +276,56 @@ let s = "Hello";
 const result = s + ", Worlds!"
 console.log(result); //-> Hello, Worlds!
 ```
+
+If at least one argument is a string, then the second one will also be converted to a string! And it does not matter, the operand-string is located to the right or left, in any case the non-string argument will be transformed.
+
+```javascript
+// String and Number Concatenation
+console.log('1' + 2); //-> "12"
+console.log(2 + '1'); //-> "21"
+```
+
+This reduction to the string is a feature exclusively of the binary operator "+" . The remaining arithmetic operators work only with numbers and always give arguments to the number.
+
+```javascript
+// String and Number Concatenation
+console.log(1 - '2'); //-> 1
+console.log(6 / '2'); //-> 3
+```
+
+### Assignment
+
+### Taking the remainder `%`
+
+The operator of taking the remainder of % interesting in that, despite the designation, nothing to do with interest. Its result a % b is the remainder of dividing a by b .
+
+```javascript
+console.log(5 % 2); //-> 1
+```
+
+### Increment / Decrement `++` , `--`
+
+One of the most common operations in JavaScript, as in many other programming languages, is to increment or decrement the variable by one. There are even special operators for this:
+
+Increment ++ increases by 1:
+
+```javascript
+var i = 2; 
+i++;
+console.log(i); //-> 3
+```
+
+Decrement reduces by 1:
+
+```javascript
+var i = 2; 
+i--;
+console.log(i); //-> 1
+```
+
+Is important that increment / decrement can only be applied to a variable. The code 5++ will give an error.
+
+
 
 ```javascript
 // Test Equal
@@ -292,9 +340,17 @@ let x = 7;
 console.log(x < 8); //-> true
 ```
 
-### Boolean Operator 
+### Bitwise operators
 
-Common used on conditional statement.
+Common used on conditional statement. Bitwise operators treat arguments as 32-bit integers and operate at the level of their internal binary representation. These operators are not specific to JavaScript, they are supported in most programming languages. The following bitwise operators are supported:
+
+* **AND** (s) ( & )
+* **OR** (or) ( | )
+* **XOR** (bitwise exclusive or) ( ^ )
+* **NOT** (not) ( ~ )
+* **LEFT SHIFT** (left shift) ( << )
+* **RIGHT SHIFT** (right shift) ( >> )
+* **ZERO-FILL RIGHT SHIFT** (right shift with zeros filling) ( >>> )
 
 ```javascript
 // == Equality, != Inequality 
@@ -328,6 +384,12 @@ else {
 //-> Execute 2
 ```
 
+### The Comma Operator
+
+A comma allows you to list expressions by separating them with a comma ',' . Each of them is calculated and discarded, with the exception of the last one, which is returned.
+
+A comma is the only operator whose priority is lower than the assignment. In the expression `a = (5,6)` , explicit brackets are used to explicitly set the priority, otherwise the operator `=` would be executed before the comma `,` , it would be `(a=5), 6`.
+
 ### Comparing Without Coercion
 
 Triple equal operator instead of the double equal operator. The reason is that triple equals does the comparison without coercing the variable to another type.
@@ -343,7 +405,7 @@ console.log(undefined === null); //-> false
 
 ### If
 
-The operator if is a condition in the example above.
+It evaluates it, and if the result is true , it executes the command. The operator `if` is a condition in the example above.  
 
 ```javascript
 var year = 2011;
@@ -353,7 +415,7 @@ if(year != 2011) {
 } 
 ```
 
-Operator Question Mark "?" Is a shorted way to if. It has the form of: 
+Operator Question Mark `?` Is a shorted way to if. It has the form of: 
 
 ```javascript
 condition ? value-if-true : value-if-false 
