@@ -694,3 +694,317 @@ daisy.name = "Daisy";
 console.log(charlie.speak()); //-> Charlie is speaking.
 console.log(daisy.speak()); //-> Daisy is speaking.
 ```
+
+## OOP Functional Style
+
+### Public and Private Property
+
+1. Local variables, including constructor parameters, can be considered private properties. Local constructor variables can not be accessed from the outside, but they are available within the constructor itself.
+2. The properties recorded in `this` can be considered public.
+
+```javascript
+let Machine = function(powerAmount) {
+  this.waterAmount = 0;
+  console.log('Initial power of machine is: ' + powerAmount);
+}
+
+let coffeMachine = new Machine(100);
+
+console.log(coffeMachine.waterAmount); //-> 0
+coffeMachine.waterAmount = 200;
+console.log(coffeMachine.waterAmount); //-> 200
+```
+
+### Public and Private Methods
+
+```javascript
+let Machine = function(powerAmount) {
+  this.waterAmount = 0;
+  
+  // Private Methods
+  function getBoilTime() {
+    return 1000;
+  }
+  
+  function onReady() {
+    console.log('Machine Ready')
+  }
+  
+  // Public Methods
+  this.run = function(){
+    setTimeout(onReady, getBoilTime());
+  }
+}
+
+let coffeMachine = new Machine(100);
+coffeMachine.waterAmount = 200;
+
+coffeMachine.run();
+```
+
+### Constant
+
+```javascript
+let Machine = function(powerAmount) {
+  this.waterAmount = 0;
+  
+  // Constant
+  let WATER_HEAT_CAPACITY = 4200;
+  
+  // Private Methods
+  function getBoilTime() {
+    return this.waterAmount * WATER_HEAT_CAPACITY * 80 / powerAmount;
+  }
+  
+  function onReady() {
+    console.log('Machine Ready')
+  }
+  
+  // Public Methods
+  this.run = function(){
+    setTimeout(onReady, getBoilTime());
+  }
+}
+
+let coffeMachine = new Machine(1000);
+coffeMachine.waterAmount = 200;
+
+coffeMachine.run();
+```
+
+### Access The Object From The Internal Method
+
+**Using `this`**
+
+```javascript
+let Machine = function(powerAmount) {
+  this.waterAmount = 0;
+  
+  // Constant
+  let WATER_HEAT_CAPACITY = 4200;
+  
+  // Private Methods
+  function getBoilTime() {
+    return this.waterAmount * WATER_HEAT_CAPACITY * 80 / powerAmount;
+  }
+  
+  function onReady() {
+    console.log('Machine Ready')
+  }
+  
+  // Public Methods
+  this.run = function(){
+    setTimeout(onReady, getBoilTime.call(this));
+  }
+}
+
+let coffeMachine = new Machine(100000);
+coffeMachine.waterAmount = 200;
+
+coffeMachine.run();
+```
+
+**Using `bind`**
+
+```javascript
+let Machine = function(powerAmount) {
+  this.waterAmount = 0;
+  
+  // Constant
+  let WATER_HEAT_CAPACITY = 4200;
+  
+  // Private Methods
+  let getBoilTime = function() {
+    return this.waterAmount * WATER_HEAT_CAPACITY * 80 / powerAmount;
+  }.bind(this);
+  
+  function onReady() {
+    console.log('Machine Ready')
+  }
+  
+  // Public Methods
+  this.run = function(){
+    setTimeout(onReady, getBoilTime);
+  }
+}
+
+let coffeMachine = new Machine(100000);
+coffeMachine.waterAmount = 200;
+
+coffeMachine.run();
+```
+
+### Getters and Setters
+
+### Functional Inheritance
+
+```javascript
+let Machine = function() {
+  let enabled = false;
+  
+  this.enable = function() {
+    enabled = true;
+    console.log(enabled);
+  };
+  
+  this.disable = function() {
+    enabled = false;
+    console.log(enabled);
+  };
+}
+
+let CoffeMachine = function(powerAmount){
+  Machine.call(this);
+  
+  let waterAmount = 0;
+  
+  this.setWaterAmount = function(amount) {
+    waterAmount = amount;
+    console.log(waterAmount);
+  };
+}
+
+let coffeAmazon = new CoffeMachine(1000);
+
+coffeAmazon.enable(); //-> true
+coffeAmazon.setWaterAmount(100); //-> 100
+coffeAmazon.disable(); //-> false
+```
+
+**Functional Inheritance Protected Properties**
+
+1. They does not have access to the private properties of the parent.
+2. For their to have access to the property, it must be written in `this`.
+
+Wrong case:
+
+```javascript
+let Machine = function() {
+  let enabled = false;
+  
+  this.enable = function() {
+    enabled = true;
+    console.log(enabled);
+  };
+  
+  this.disable = function() {
+    enabled = false;
+    console.log(enabled);
+  };
+}
+
+let CoffeMachine = function(powerAmount){
+  Machine.call(this);
+  
+  this.enable();
+  
+  console.log(enabled); //-> ReferenceError: enabled is not defined
+}
+
+let coffeAmazon = new CoffeMachine(1000);
+```
+
+Right case:
+
+```javascript
+let Machine = function() {
+  this._enabled = false;
+  
+  this.enable = function() {
+    enabled = true;
+    console.log(enabled);
+  };
+  
+  this.disable = function() {
+    enabled = false;
+    console.log(enabled);
+  };
+}
+
+let CoffeMachine = function(powerAmount){
+  Machine.call(this);
+  
+  this.enable(); //-> true
+  
+  console.log(this._enabled); 
+}
+
+let coffeAmazon = new CoffeMachine(1000); //-> false
+```
+
+**Transferring A Property To Protected**
+
+```javascript
+let Machine = function(power) {
+  this._power = power;
+  this._enabled = false;
+  
+  this.enable = function() {
+    enabled = true;
+    console.log(enabled);
+  };
+  
+  this.disable = function() {
+    enabled = false;
+    console.log(enabled);
+  };
+}
+
+let CoffeMachine = function(power){
+  Machine.apply(this, arguments);
+  
+  this.enable(); //-> true
+  
+  console.log(this._enabled); 
+  console.log(this._power); 
+}
+
+let coffeAmazon = new CoffeMachine(1000); //-> false, 1000
+```
+
+**Overriding Methods**
+
+```javascript
+let Machine = function(power) {
+  this._enabled = false;
+  let self = this;
+  
+  this.enable = function() {
+    self._enabled = true;
+    console.log(self._enabled);
+  };
+  
+  this.disable = function() {
+    self._enabled = false;
+    console.log(self._enabled);
+  };
+}
+
+let CoffeMachine = function(power){
+  Machine.apply(this, arguments);
+  
+  let waterAmount = 0;
+  
+  this.setWaterAmount = function(amount) {
+    waterAmount = amount;
+  }
+	
+  let parentEnable = this.enable; 
+  this.enable = function() {
+    parentEnable();
+    this.run();
+  }
+  
+  function onReady() {
+    console.log("Machine Ready");
+  }
+  
+  this.run = function() {
+    setTimeout(onReady, 1000);
+  };
+}
+
+let coffeAmazon = new CoffeMachine(1000); //-> true
+coffeAmazon.setWaterAmount(50);
+coffeAmazon.enable();
+```
