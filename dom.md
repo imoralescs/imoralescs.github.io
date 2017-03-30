@@ -752,3 +752,128 @@ let myEvent = new CustomEvent("myEventName");
 
 document.body.dispatchEvent(myEvent); //-> Event is called: myEventName
 ```
+
+## Forms and Controls
+
+### Navigation Form and Elements
+
+Document forms are members of the special collection `document.forms`. When we have a form, then any element is available in the named collection `form.elements`. There may be multiple elements with the same name, that’s often the case with radio buttons. In that case `form.elements[name]` is a collection
+
+```html
+<form name="myForm">
+  <input name="one" value="1">
+  <input name="two" value="2">
+</form>
+```
+
+```javascript
+// Get the form.
+let form = document.forms.myForm;
+
+// Get the element inside form.
+let formElem = form.elements.one;
+console.log(formElem.value); //-> 1
+```
+
+**Fieldsets as “subforms”**
+
+A form may have one or many `<fieldset>` elements inside it. They also support the elements property.
+
+```html
+<form id="form">
+  <fieldset name="userFields">
+    <legend>info</legend>
+    <input name="login" type="text">
+  </fieldset>
+</form>
+```
+
+```javascript
+// Get the form.
+let form = document.forms.form;
+
+// Get the element inside form.
+let formElem = form.elements.userFields;
+console.log(formElem); //-> <fieldset name="userFields">...</fieldset>
+```
+### Form Event Handling
+
+```html
+<form id="register" novalidate>
+  <label>Email</label>
+  <input type="email" id="email" name="email"/>
+  <label>Password</label>
+  <input type="password_01" id="password_01" name="password_02"/>
+  <label>Password Confirm</label>
+  <input type="password_02" id="password_02" name="password_02"/>
+  <button type="submit">Register</button>
+</form>
+```
+
+```javascript
+let form = {
+  registerForm : document.getElementById('register'),
+  emailField : document.getElementById('email'),
+  password_01_Field : document.getElementById('password_01'),
+  password_02_Field : document.getElementById('password_02')
+};
+
+let emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+let checkForm = function(event){
+  let msg = "";
+  
+  // Check Email
+  !emailPattern.test(form.emailField.value) ? msg += "\nyour email": msg += "";
+  
+  // Check Password
+  form.password_01_Field.value == "" || form.password_01_Field.value != form.password_02_Field.value ? msg += "\nyou password" : msg += "";
+  
+  // Complete Message
+  msg != "" ? msg = "Please check: " + msg : msg = 'Form is valid!\nSubmitting...';
+  console.log(msg);
+  event.preventDefault();
+}
+
+form.registerForm.addEventListener('submit', checkForm);
+```
+
+### Form Elements
+
+**input** and **textarea**
+
+Normally, we can access the value as `input.value` or `input.checked` for checkboxes.
+
+**select** and **option**
+
+A `<select>` element has 3 important properties:
+
+* **`select.options`:** the collection of `<option>` elements.
+* **`select.value`:** the value of the chosen option.
+* **`select.selectedIndex`:** the number of the selected option.
+
+So we have three ways to set the value of a `<select>`:
+
+* Find the needed `<option>` and set `option.selected` to true.
+* Set `select.value` to the value.
+* Set `select.selectedIndex` to the number of the option.
+
+```html
+<select id="select" multiple>
+  <option value="blues" selected>Blues</option>
+  <option value="rock" selected>Rock</option>
+  <option value="classic">Classic</option>
+</select>
+```
+
+```javascript
+let selectField = document.getElementById('select');
+let selected = Array.from(selectField);
+let result = selected
+              .filter(option => option.selected)
+              .map(option => option.value);
+
+console.log(result);
+```
+
+### Events focus/blur
+
