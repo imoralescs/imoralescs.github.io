@@ -23,6 +23,20 @@ In application is an HTML, XML or SVG document, when a web page is loaded, the b
 <img src="attribute node">
 ```
 
+## Transverse DOM
+
+DOM allows to do anything with elements and their contents, but first we need to reach the corresponding DOM object, get it into a variable, and then we are able to modify it.
+
+### documentElement and body
+
+The topmost tree nodes are available directly as document properties:
+
+* **`<html>` = `document.documentElement`:** The topmost document node is document.documentElement. That’s DOM node of `<html>` tag.
+* **`<body>` = `document.body:`** Another widely used DOM node is the `<body>` element – document.body.
+<head> = document.head
+
+The <head> tag is available as document.head.
+
 ### Topology
 
 The DOM objects relate to each other in a certain way, but there are some relationships that will be present in most situations:
