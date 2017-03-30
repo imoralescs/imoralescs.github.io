@@ -483,7 +483,7 @@ if (typeof navigator.geolocation != “undefined”) {
 
 ## Events
 
-Event is something that the browser or user can interact with. One of the most important features of the DOM is that it provides you with event binding functionality out of the box.
+Event is something that the browser or user can interact with. One of the most important features of the DOM is that it provides you with event binding functionality out of the box. An event is a signal that something has happened. All DOM nodes generate such signals (but events are not limited to DOM).
 
 Event binding is the act of attaching event listeners that will be triggered based upon actions on certain nodes in the Document Object Model.
 
@@ -491,13 +491,24 @@ With event binding you can listen for events and wait until the event is fired t
 
 ### Events Type
 
+Here a list of the most useful DOM events.
+
 * **Browser Events:** a signal that something (an action) has happend in the browser.
 * **Document Loading:** an action that takes place when the when the page loads up.
+  * `DOMContentLoaded` : when the HTML is loaded and processed, DOM is fully built.
 * **Event Handler Attachment:** attaching a handler to an event usually using the `.on` method.
 * **Event Object:** is sent to a handler function as an argument.
 * **Form Events:** takes place when an event is triggered pertaining to the form, like reset, search, etc.
+  * `submit` : when the visitor submits a `<form>`.
+  * `focus` : when the visitor focuses on an element, e.g. on an `<input>`.
 * **Keyboard Events:** waiting for a press (up/down).
+  * `keydown` and `keyup` : when the visitor presses and then releases the button.
 * **Mouse Events:** an event is triggered when the mouse is clicked.
+  * `click` : when the mouse clicks on an element (touchscreen devices generate it on a tap).
+  * `contextmenu` : when the mouse right-clicks on an element.
+  * `mouseover` : when the mouse cursor comes over an element.
+  * `mousedown` and `mouseup` : when the mouse button is pressed and released over an element.
+  * `mousemove` : when the mouse is moved.
 
 In the following example we have a button, because this button is a node itself we can “attach” event listeners to it. The code will be explained in the comments.
 
@@ -507,23 +518,20 @@ In the following example we have a button, because this button is a node itself 
 
 ### Events Handlers
 
-**Inline Events**
+To react on events we can assign a handler, a function that runs in case of an event. Handlers is a way to run JavaScript code in case of user actions.
+
+There are several ways to assign a handler. Let’s see them, starting from the simplest one.
+
+**Inline Events or HTML-attribute**
 
 Is attach events right into the DOM element. Developers realized that this wasn't a good idea. They started for a better separation of concerns. JavaScript should be moved to a `<script>` tag or .js file. This is generally what’s referred to as unobtrusive JavaScript.
 
-* **Common events:**
-* `onload // When the page loads.`
-* `onclick // When a user clicks something.`
-* `onmouseover // When a user mouses over something.`
-* `onfocus // When a user puts the cursor in a form field.`
-* `onblur // When a user leaves a form field.`
-* `DOMContentLoaded // When your document's DOM has fully loaded.`
-* `keydown // When you press down on a key on your keyboard.`
-* `scroll // When an element is scrolled around.`
+Example HTML-attribute
 
 ```javascript
 <a onclick="console.log('Yay');">Link</a>
 ```
+
 ```javascript
 function onload () {
   let button = document.getElementById('myButton')
@@ -535,6 +543,18 @@ function onload () {
 }
 
 window.onload(onload)
+```
+
+Example 2:
+
+```html
+<button href="#" onclick="onClickLink()">Link</button>
+```
+
+```javascript
+function onClickLink() {
+  console.log('Yay');
+}
 ```
 
 **Event Listeners**
