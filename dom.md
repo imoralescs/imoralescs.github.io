@@ -45,7 +45,7 @@ You can see a node like a box containing all kind of fun stuff you can play with
 
 ### `document.getElementById`
 
-If an element has the id attribute, then there’s a global variable by the name from that id.
+If an element has the `id` attribute, then there’s a global variable by the name from that `id`.
 
 ```html
 <div>
@@ -61,7 +61,7 @@ console.log(nodeP); //-> <p id="node_two">Nulla placerat</p>
 
 ### `getElementsByTagName`
 
-Looks for elements with the given tag and returns the collection of them. The tag parameter can also be a star "*" for “any tags”.
+Looks for elements with the given `tag` and returns the collection of them. The tag parameter can also be a star "*" for “any tags”.
 
 ```html
 <div>
@@ -82,7 +82,7 @@ console.log(nodeP); //-> <p>Proin a aliquet</p>
 
 ### `getElementsByClassName`
 
-Returns elements that have the given CSS class. Elements may have other classes too.
+Returns elements that have the given CSS `class`. Elements may have other classes too.
 
 ```html
 <form name="my-form">
@@ -114,7 +114,7 @@ console.log(nodeP); //-> [p], <p>Nulla placerat</p>
 
 ### `querySelector`
 
-The call to elem.querySelector(css) returns the first element for the given CSS selector. In other words, the result is the same as elem.querySelectorAll(css)[0], but the latter is looking for all elements and picking one, while elem.querySelector just looks for one. So it’s faster and shorter to write.
+The call to `elem.querySelector(css)` returns the first element for the given CSS selector. In other words, the result is the same as `elem.querySelectorAll(css)[0]`, but the latter is looking for all elements and picking one, while `elem.querySelector` just looks for one. So it’s faster and shorter to write.
 
 ```html
 <div>
@@ -153,7 +153,7 @@ console.log(nodeFirstLI); //-> [li, li]
 
 ### `matches`
 
-Previous methods were searching the DOM. The elem.matches(css) does not look for anything, it merely checks if elem matches the given CSS-selector. It returns true or false. The method comes handy when we are iterating over elements (like in array or something) and trying to filter those that interest us.
+Previous methods were searching the DOM. The `elem.matches(css)` does not look for anything, it merely checks if elem matches the given CSS-selector. It returns true or false. The method comes handy when we are iterating over elements (like in array or something) and trying to filter those that interest us.
 
 ```html
 <a href="http://example.com/file.zip">...</a>
@@ -171,7 +171,7 @@ for (let elem of document.body.children) {
 
 ### `closest`
 
-All elements that are directly above the given one are called its ancestors. In other words, ancestors are: parent, the parent of parent, its parent and so on. The ancestors together form the chain of parents from the element to the top. The method elem.closest(css) looks the nearest ancestor that matches the CSS-selector. The elem itself is also included in the search. In other words, the method closest goes up from the element and checks each of parents. If it matches the selector, then the search stops, and the ancestor is returned.
+All elements that are directly above the given one are called its ancestors. In other words, ancestors are: parent, the parent of parent, its parent and so on. The ancestors together form the chain of parents from the element to the top. The method `elem.closest(css)` looks the nearest ancestor that matches the CSS-selector. The elem itself is also included in the search. In other words, the method closest goes up from the element and checks each of parents. If it matches the selector, then the search stops, and the ancestor is returned.
 
 ```html
 <h1>Contents</h1>
@@ -266,7 +266,7 @@ console.log(nodeElem.id); //-> elem-02
 
 ### Non-standard Attributes, Dataset
 
-All attributes starting with “data-” are reserved for programmers’ use. They are available in dataset property.
+All attributes starting with `data-` are reserved for programmers’ use. They are available in dataset property.
 
 ```html
 <div id="elem" data-about="Elephants"></div>
@@ -307,9 +307,9 @@ nodeDiv.innerHTML = "<p>Lorem Ipsum</p>";
 nodeId.appendChild(nodeDiv);
 ```
 
-* **`parentElem.appendChild(node)`:** Appends node as the last child of parentElem.
-* **`parentElem.insertBefore(node, nextSibling)`:** Inserts node before nextSibling into parentElem.
-* **`parentElem.replaceChild(node, oldChild)`:** Replaces oldChild with node among children of parentElem.
+* **`parentElem.appendChild(node)`:** appends node as the last child of parentElem.
+* **`parentElem.insertBefore(node, nextSibling)`:** anserts node before nextSibling into parentElem.
+* **`parentElem.replaceChild(node, oldChild)`:** replaces oldChild with node among children of parentElem.
 
 ### prepend/append/before/after
 
@@ -323,14 +323,14 @@ This set of methods provides more flexible insertions:
 
 ### insertAdjacentHTML/Text/Element
 
-There’s another, pretty versatile method: elem.insertAdjacentHTML(where, html). The first parameter is a string, specifying where to insert, must be one of the following:
+There’s another, pretty versatile method: `elem.insertAdjacentHTML(where, html)`. The first parameter is a string, specifying where to insert, must be one of the following:
 
 * **`beforebegin`:** insert html before elem.
 * **`afterbegin`:** insert html into elem, at the beginning.
 * **`beforeend`:** insert html into elem, at the end.
 * **`afterend`:** insert html after elem.
 
-### Cloning nodes `cloneNode`
+### Cloning Nodes `cloneNode`
 
 ```javascript
 let nodeId = document.getElementById('elem');
