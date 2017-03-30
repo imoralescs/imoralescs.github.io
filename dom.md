@@ -207,9 +207,83 @@ DOM nodes have different properties depending on their class. The classes are:
 
 …and so on, each tag has its own class that may provide specific properties and methods.
 
-### Create and Delete Node
+### `innerHTML` contents
 
-**Create**
+The innerHTML property allows to get the HTML inside the element as a string. We can also modify it. So it’s one of most powerful ways to change the page.
+
+```javascript
+document.body.innerHTML = 'Lorem Ipsum!';
+```
+
+**`innerHTML+=` not do full overwrite**
+
+```javascript
+document.body.innerHTML += 'Ipsum';
+document.body.innerHTML += 'Lorem';
+```
+
+### `outerHTML` full HTML of the element
+
+The outerHTML property contains the full HTML of the element. That’s like innerHTML plus the element itself. Unlike innerHTML, writing to outerHTML does not change the element. Instead, it replaces it as a whole in the outer context. 
+
+```javascript
+var nodeOuter = document.getElementById('elem');
+console.log(nodeOuter.outerHTML); //-> <div id="elem">Hello<b>World</b></div>
+```
+## Attributes and properties
+
+### HTML Attribute
+
+In HTML language, tags may have attributes. When the browser reads HTML text and creates DOM objects for tags, it recognizes standard attributes and creates DOM properties from them.
+
+```html
+<div id="elem">Hello World</div>
+```
+
+```javascript
+var nodeOuter = document.getElementById('elem');
+console.log(nodeOuter.id); //-> elem
+```
+
+So, if an attribute is non-standard, there won’t be DOM-property for it. All attributes are accessible using following methods:
+
+* **`elem.hasAttribute(name)`:** checks for existance.
+* **`elem.getAttribute(name)`:** gets the value.
+* **`elem.setAttribute(name, value)`:** sets the value.
+* **`elem.removeAttribute(name)`:** removes the attribute.
+
+```html
+<div id="elem">Hello World</div>
+```
+
+```javascript
+var nodeElem = document.getElementById('elem');
+
+console.log(nodeElem.getAttribute('id')); //-> elem
+nodeElem.setAttribute('id', 'elem-02');
+console.log(nodeElem.id); //-> elem-02
+```
+
+### Non-standard Attributes, Dataset
+
+All attributes starting with “data-” are reserved for programmers’ use. They are available in dataset property.
+
+```html
+<div id="elem" data-about="Elephants"></div>
+```
+
+```javascript
+var nodeByData = document.getElementById('elem');
+console.log(nodeByData.dataset.about); //-> Elephants
+```
+
+## Modifying the document
+
+DOM modifications is the key to create “live” pages. Here we’ll see how to create new elements “on the fly” and modify the existing page content.
+
+### Create 
+
+To create DOM nodes, there are two methods:
 
 ```javascript
 var container = document.getElementById('container');
@@ -221,7 +295,51 @@ var result = nodeP.appendChild(nodePContext);
 container.appendChild(result);
 ```
 
-**Delete**
+### Insertion
+
+```javascript
+let nodeId = document.getElementById('elem');
+let nodeDiv = document.createElement('div');
+
+nodeDiv.className = "new-div";
+nodeDiv.innerHTML = "<p>Lorem Ipsum</p>";
+
+nodeId.appendChild(nodeDiv);
+```
+
+* **`parentElem.appendChild(node)`:** Appends node as the last child of parentElem.
+* **`parentElem.insertBefore(node, nextSibling)`:** Inserts node before nextSibling into parentElem.
+* **`parentElem.replaceChild(node, oldChild)`:** Replaces oldChild with node among children of parentElem.
+
+### prepend/append/before/after
+
+This set of methods provides more flexible insertions:
+
+* **`node.append(...nodes or strings)`:** append nodes or strings at the end of node.
+* **`node.prepend(...nodes or strings)`:** insert nodes or strings into the beginning of node.
+* **`node.before(...nodes or strings)`:** insert nodes or strings before the node.
+* **`node.after(...nodes or strings)`:** insert nodes or strings after the node.
+* **`node.replaceWith(...nodes or strings)`:** replaces node with the given nodes or strings.
+
+### insertAdjacentHTML/Text/Element
+
+There’s another, pretty versatile method: elem.insertAdjacentHTML(where, html). The first parameter is a string, specifying where to insert, must be one of the following:
+
+* **`beforebegin`:** insert html before elem.
+* **`afterbegin`:** insert html into elem, at the beginning.
+* **`beforeend`:** insert html into elem, at the end.
+* **`afterend`:** insert html after elem.
+
+### Cloning nodes `cloneNode`
+
+```javascript
+let nodeId = document.getElementById('elem');
+let cloneNodeId = nodeId.cloneNode(true);
+
+nodeId.appendChild(cloneNodeId);
+```
+
+### Delete or Removal
 
 ```html
 <div>
@@ -241,32 +359,13 @@ nodePToDelete.parentNode.removeChild(nodePToDelete);
 </div>
 ```
 
-### Access To Attribute Node
+### Document Write
 
-```html
-<div>
-  <a href="https://www.acelerisque.com">Acelerisque</a>
-  <div id="div" data-name="Nulla placerat">Tristique scelerisque</div>
-  <p class="cerat">Sed aliquet leo</p>
-</div>
-```
+The call to document.write(html) writes the html into page “right here and now”. The html string can be dynamically generated, so it’s kind of flexible. We can use JavaScript to create a full-fledged webpage and write it.
 
 ```javascript
-var nodeA = document.getElementsByTagName('a')[0];
-var nodeDiv = document.getElementsByTagName('div')[0];
-var nodeDivId = document.getElementById('div');
-var nodeP = document.getElementsByTagName('p')[0];
-
-console.log(nodeA.href); //-> https://www.acelerisque.com/
-
-// Access to style of the element.
-nodeDiv.style.fontWeight = "900";
-
-// Access by classname
-console.log(nodeP.className); //-> cerat
-
-// Access by dataset
-console.log(nodeDivId.dataset.name); //-> Nulla placerat
+let nodeId = document.getElementById('elem');
+nodeId.appendChild(document.write('<b>Lorem Ipsum</b>'));
 ```
 
 ## Browser Object Model (BOM)
