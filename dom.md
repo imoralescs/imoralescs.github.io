@@ -924,3 +924,48 @@ input.onfocus = function() {
   }
 };
 ```
+
+### Form Submission
+
+The submit event triggers when the form is submitted, it is usually used to validate the form before sending it to the server or to abort the submission and process it in JavaScript.
+
+The method `form.submit()` allows to initiate form sending from JavaScript. We can use it to dynamically create and send our own forms to server.
+
+```html
+<form id="register" novalidate>
+  <label>Email</label>
+  <input type="email" id="email" name="email"/>
+  <label>Password</label>
+  <input type="password_01" id="password_01" name="password_02"/>
+  <label>Password Confirm</label>
+  <input type="password_02" id="password_02" name="password_02"/>
+  <button type="submit">Register</button>
+</form>
+```
+
+```javascript
+let form = {
+  registerForm : document.getElementById('register'),
+  emailField : document.getElementById('email'),
+  password_01_Field : document.getElementById('password_01'),
+  password_02_Field : document.getElementById('password_02')
+};
+
+let emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+let checkForm = function(event){
+  let msg = "";
+	
+  // Check Email
+  !emailPattern.test(form.emailField.value) ? msg += "\nyour email": msg += "";
+	
+  // Check Password
+  form.password_01_Field.value == "" || form.password_01_Field.value != form.password_02_Field.value ? msg += "\nyou password" : msg += "";
+	
+  // Complete Message
+  msg != "" ? msg = "Please check: " + msg : msg = 'Form is valid!\nSubmitting...';
+  console.log(msg);
+  event.preventDefault();
+}
+
+form.registerForm.addEventListener('submit', checkForm);
+```
