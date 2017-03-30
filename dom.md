@@ -526,26 +526,13 @@ There are several ways to assign a handler. Let’s see them, starting from the 
 
 Is attach events right into the DOM element. Developers realized that this wasn't a good idea. They started for a better separation of concerns. JavaScript should be moved to a `<script>` tag or .js file. This is generally what’s referred to as unobtrusive JavaScript.
 
-Example HTML-attribute
+Example 1 HTML-attribute
 
 ```javascript
 <a onclick="console.log('Yay');">Link</a>
 ```
 
-```javascript
-function onload () {
-  let button = document.getElementById('myButton')
-  function onclick () {
-    button.innerHTML = 'Hi!, you clicked me!'
-  }
-  
-  button.addEventListener('click', onclick)
-}
-
-window.onload(onload)
-```
-
-Example 2:
+Example 2 HTML-attribute:
 
 ```html
 <button href="#" onclick="onClickLink()">Link</button>
@@ -557,15 +544,35 @@ function onClickLink() {
 }
 ```
 
+Example DOM property
+
+```html
+<button>Link</button>
+```
+
+```javascript
+let button = document.getElementsByTagName('button')[0];
+
+function onClickButton() {
+  console.log("Yayy");
+}
+  
+button.onclick = onClickButton;
+```
+
 **Event Listeners**
 
-`addEventListener` function where it binds an element to a particular event. If you want to remove any applied event just call `removeEventListener`.
+The fundamental problem of the aforementioned ways to assign handlers, we can’t assign multiple handlers to one event. `addEventListener` function where it binds an element to a particular event. If you want to remove any applied event just call `removeEventListener`.
 
 ```javascript
 element.addEventListener('click', doSomething, false);
 ```
 
 Third optional parameter to control event bubbling.
+
+**Event Object**
+
+When an event happens, the browser creates an event object, puts details into it and passes it as an argument to the handler.
 
 ### Event Bubbling
 
