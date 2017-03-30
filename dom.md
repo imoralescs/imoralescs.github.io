@@ -1,8 +1,8 @@
-## Document Object Model (DOM)
+# Document Object Model (DOM)
 
 In application is an HTML, XML or SVG document, when a web page is loaded, the browser creates the DOM of the page. Is basically an object they contain every element of the page inside it. The DOM is constructed as a tree of object and each object represents an element of the page. And each element is an object.
 
-### DOM Structure
+## DOM Structure
 
 * DOCUMENT_NODE
 * ELEMENT_NODE
@@ -23,20 +23,6 @@ In application is an HTML, XML or SVG document, when a web page is loaded, the b
 <img src="attribute node">
 ```
 
-## Transverse DOM
-
-DOM allows to do anything with elements and their contents, but first we need to reach the corresponding DOM object, get it into a variable, and then we are able to modify it.
-
-### documentElement and body
-
-The topmost tree nodes are available directly as document properties:
-
-* **`<html>` = `document.documentElement`:** The topmost document node is document.documentElement. That’s DOM node of `<html>` tag.
-* **`<body>` = `document.body:`** Another widely used DOM node is the `<body>` element – document.body.
-<head> = document.head
-
-The <head> tag is available as document.head.
-
 ### Topology
 
 The DOM objects relate to each other in a certain way, but there are some relationships that will be present in most situations:
@@ -55,9 +41,27 @@ Each node will inherit from the Node interface which contains some basic functio
 
 You can see a node like a box containing all kind of fun stuff you can play with, including other nodes (the nested nodes). Properties such as `[node].nodeName` or `[node].firstChild` and `[node].nextSibling`. 
 
-### Access To Node
+## Searching `getElemet*` and `querySelector*`
 
-**`getElementsByTagName`**
+### `document.getElementById`
+
+If an element has the id attribute, then there’s a global variable by the name from that id.
+
+```html
+<div>
+  <p>Proin a aliquet</p>
+  <p id="node_two">Nulla placerat</p>
+</div>
+```
+
+```javascript
+var nodeP = document.getElementById('node_two');
+console.log(nodeP); //-> <p id="node_two">Nulla placerat</p>
+```
+
+### `getElementsByTagName`
+
+Looks for elements with the given tag and returns the collection of them. The tag parameter can also be a star "*" for “any tags”.
 
 ```html
 <div>
@@ -76,7 +80,25 @@ var nodeP = document.getElementsByTagName('p')[0];
 console.log(nodeP); //-> <p>Proin a aliquet</p>
 ```
 
-**`getElementsByName`**
+### `getElementsByClassName`
+
+Returns elements that have the given CSS class. Elements may have other classes too.
+
+```html
+<form name="my-form">
+  <div class="article">Article</div>
+  <div class="long article">Long article</div>
+</form>
+```
+
+```javascript
+let nodeClass = document.getElementsByClassName('article');
+console.log(nodeClass); //-> [div.article, div.long.article]
+```
+
+### `getElementsByName`
+
+Returns elements with the given name attribute, document-wide. Exists for historical reasons, very rarely used, we mention it here only for completeness.
 
 ```html
 <div>
@@ -90,21 +112,9 @@ var nodeP = document.getElementsByName('node_two');
 console.log(nodeP); //-> [p], <p>Nulla placerat</p>
 ```
 
-**`getElementById`**
+### `querySelector`
 
-```html
-<div>
-  <p>Proin a aliquet</p>
-  <p id="node_two">Nulla placerat</p>
-</div>
-```
-
-```javascript
-var nodeP = document.getElementById('node_two');
-console.log(nodeP); //-> <p id="node_two">Nulla placerat</p>
-```
-
-**`querySelector`**
+The call to elem.querySelector(css) returns the first element for the given CSS selector. In other words, the result is the same as elem.querySelectorAll(css)[0], but the latter is looking for all elements and picking one, while elem.querySelector just looks for one. So it’s faster and shorter to write.
 
 ```html
 <div>
@@ -120,6 +130,82 @@ console.log(nodeClass); //-> <p id="node_two">Nulla placerat</p>
 var nodeId = document.querySelector('.node_one');
 console.log(nodeId); //-> <p class="node_one">Proin a aliquet</p>
 ```
+
+### `querySelectorAll`
+
+The call to elem.querySelectorAll(css) returns all elements inside elem matching the given CSS selector. That’s the most often used and powerful method. Here we look for all `<li>` elements that are last children:
+
+```html
+<ul>
+  <li>The</li>
+  <li>test</li>
+</ul>
+<ul>
+  <li>has</li>
+  <li>passed</li>
+</ul>
+```
+
+```javascript
+let nodeFirstLI = document.querySelectorAll('ul > li:last-child');
+console.log(nodeFirstLI); //-> [li, li]
+```
+
+### `matches`
+
+Previous methods were searching the DOM. The elem.matches(css) does not look for anything, it merely checks if elem matches the given CSS-selector. It returns true or false. The method comes handy when we are iterating over elements (like in array or something) and trying to filter those that interest us.
+
+```html
+<a href="http://example.com/file.zip">...</a>
+<a href="http://ya.ru">...</a>
+```
+
+```javascript
+for (let elem of document.body.children) {
+  if (elem.matches('a[href$="zip"]')) {
+    console.log("The archive reference: " + elem.href );
+  }
+}
+//-> The archive reference: http://example.com/file.zip
+```
+
+### `closest`
+
+All elements that are directly above the given one are called its ancestors. In other words, ancestors are: parent, the parent of parent, its parent and so on. The ancestors together form the chain of parents from the element to the top. The method elem.closest(css) looks the nearest ancestor that matches the CSS-selector. The elem itself is also included in the search. In other words, the method closest goes up from the element and checks each of parents. If it matches the selector, then the search stops, and the ancestor is returned.
+
+```html
+<h1>Contents</h1>
+
+<div class="contents">
+  <ul class="book">
+    <li class="chapter">Chapter 1</li>
+    <li class="chapter">Chapter 1</li>
+  </ul>
+</div>
+```
+
+```javascript
+let nodeChapter = document.querySelector('.chapter'); 
+
+console.log(nodeChapter.closest('.book')); //-> <ul class="book">...</ul>
+console.log(nodeChapter.closest('.contents')); //-> <div class="contents">...</div>
+console.log(nodeChapter.closest('h1')); //-> null (because h1 is not an ancestor)
+```
+## Node Properties
+
+### DOM node classes
+
+DOM nodes have different properties depending on their class. The classes are:
+
+* **EventTarget:** is the root “abstract” class. Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called “events”, we’ll study them later.
+* **Node:** is also an “abstract” class, serving as a base for DOM nodes. It provides the core tree functionality: parentNode, nextSibling, childNodes and so on (they are getters). Objects of Node class are never created. But there are concrete node classes that inherit from it, namely: Text for text nodes, Element for element nodes and more exotic ones like Comment for comment nodes.
+* **Element:** is a base class for DOM elements. It provides element-level navigation like nextElementSibling, children and searching methods like getElementsByTagName, querySelector. In the browser there may be not only HTML, but also XML and SVG documents. The Element class serves as a base for more specific classes: SVGElement, XMLElement and HTMLElement.
+* **HTMLElement:** is finally the basic class for all HTML elements. It is inherited by various HTML elements:
+  * **HTMLInputElement** the class for `<input>` elements.
+  * **HTMLBodyElement:** the class for `<body>` elements.
+  * **HTMLAnchorElement:** the class for `<a>` elements.
+
+…and so on, each tag has its own class that may provide specific properties and methods.
 
 ### Create and Delete Node
 
