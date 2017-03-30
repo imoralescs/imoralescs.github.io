@@ -877,3 +877,50 @@ console.log(result);
 
 ### Events focus/blur
 
+**Focus**
+
+An element receives a focus when the user either clicks on it or uses the Tab key on the keyboard. There’s also an autofocus HTML attribute that puts the focus into an element by default when a page loads and other means of getting a focus.
+
+Focusing generally means: **prepare to accept the data here**, so that’s the moment when we can run the code to initialize or load something.
+
+**Blur**
+
+The moment of loosing the focus "blur" can be even more important. That’s when a user clicks somewhere else or presses Tab to go to the next form field, or there are other means as well.
+
+Loosing the focus generally means: **the data has been entered**, so we can run the code to check it or even to save it to the server and so on.
+
+```html
+Your email please:<input type="email" id="input">
+<div id="error"></div>
+```
+
+```css
+.invalid {
+  border-color: red;
+}
+
+#error {
+  color: red
+}
+```
+
+```javascript
+let input = document.getElementById('input');
+let error = document.getElementById('error');
+
+// Add error message when blur
+input.onblur = function() {
+  if (!input.value.includes('@')) {
+    input.classList.add('invalid');
+    error.innerHTML = 'Please enter a correct email.'
+  }
+};
+
+// Remove error message when focus.
+input.onfocus = function() {
+  if (this.classList.contains('invalid')) {
+    this.classList.remove('invalid');
+    error.innerHTML = "";
+  }
+};
+```
