@@ -574,6 +574,20 @@ Third optional parameter to control event bubbling.
 
 When an event happens, the browser creates an event object, puts details into it and passes it as an argument to the handler.
 
+```html
+<input type="button" value="Click Me" id="elem">
+```
+
+```javascript
+let elem = document.getElementById('elem');
+
+elem.onclick = function(event) {
+  // show event type, element and coordinates of the click
+  console.log(event.type + " at " + event.currentTarget);
+  console.log(event.clientX + ":" + event.clientY);
+};
+```
+
 ### Event Bubbling
 
 We have this html structure:
@@ -661,3 +675,80 @@ This event object contains properties that are relevant to the event that was fi
 * `preventDefault`
 * `stopPropagation`
 * `type`
+
+### Event Delegation
+
+Capturing and bubbling allow to implement one of most powerful event handling patterns called event delegation. The idea is that if we have a lot of elements handled in a similar way, then instead of assigning a handler to each of them, we put a single handler on their common ancestor. 
+
+In the handler we get `event.target`, see where the event actually happened and handle it.
+
+```html
+<div id="menu">
+  <button data-action="save">Save</button>
+  <button data-action="load">Load</button>
+  <button data-action="search">Search</button>
+</div>
+```
+
+```javascript
+class Menu {
+  constructor(elem) {
+	  this._elem = elem;
+		elem.onclick = this.onClick.bind(this); // (*)
+  }
+	
+	save() {
+	  console.log('saving');
+  }
+	
+	load() {
+	  console.log('loading');
+  }
+	
+	search() {
+	  console.log('searching');
+	}
+	
+	onClick(event) {
+	  let action = event.target.dataset.action;
+		if (action) {
+		  this[action]();
+		}
+	};
+}
+
+new Menu(menu);
+```
+
+### Dispatching Custom Events
+
+**Event constructor**
+
+Events form a hierarchy, just like DOM element classes. The root is the built-in Event class. We can create Event objects like this:
+
+```javascript
+let event = new Event(event type[, options]);
+```
+
+Arguments:
+* `event type` : may be any string, like "click" or our own like "hey-ho!".
+* `options` : the object with two optional properties:
+  * `bubbles` : true/false – if true, then the event bubbles.
+  * `cancelable` : true/false – if true, then the “default action” may be prevented. Later we’ll see what it means for custom events.
+  * By default both are false: {bubbles: false, cancelable: false}.
+
+**dispatchEvent**
+
+After an event object is created, we should “run” it on an element using the call `elem.dispatchEvent(event)`. Then handlers react on it as if it were a regular built-in event. If the event was created with the bubbles flag, then it bubbles.
+
+```javascript
+document.body.addEventListener("myEventName", doSomething, false);
+
+function doSomething(event){
+	console.log("Event is called: " + event.type);
+}
+
+let myEvent = new CustomEvent("myEventName");
+
+document.body.dispatchEvent(myEvent); //-> Event is called: myEventName
+```
