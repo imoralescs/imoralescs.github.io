@@ -39,8 +39,6 @@ The browser then provides JavaScript (and other languages) with an API (Applicat
 
 Each node will inherit from the Node interface which contains some basic functionality attached to it. This functionality will be then accessible to the language (JavaScript in this case) to allow it to modify the node properties or read the current state of the node.
 
-You can see a node like a box containing all kind of fun stuff you can play with, including other nodes (the nested nodes). Properties such as `[node].nodeName` or `[node].firstChild` and `[node].nextSibling`. 
-
 ## Searching `getElemet*` and `querySelector*`
 
 ### `document.getElementById`
@@ -693,28 +691,28 @@ In the handler we get `event.target`, see where the event actually happened and 
 ```javascript
 class Menu {
   constructor(elem) {
-	  this._elem = elem;
-		elem.onclick = this.onClick.bind(this); // (*)
+    this._elem = elem;
+    elem.onclick = this.onClick.bind(this); // (*)
   }
-	
-	save() {
-	  console.log('saving');
+  
+  save() {
+    console.log('saving');
   }
-	
-	load() {
-	  console.log('loading');
+  
+  load() {
+    console.log('loading');
   }
-	
-	search() {
-	  console.log('searching');
-	}
-	
-	onClick(event) {
-	  let action = event.target.dataset.action;
-		if (action) {
-		  this[action]();
-		}
-	};
+  
+  search() {
+    console.log('searching');
+  }
+  
+  onClick(event) {
+    let action = event.target.dataset.action;
+    if (action) {
+      this[action]();
+    }
+  };
 }
 
 new Menu(menu);
@@ -722,7 +720,7 @@ new Menu(menu);
 
 ### Dispatching Custom Events
 
-**Event constructor**
+**Event Constructor**
 
 Events form a hierarchy, just like DOM element classes. The root is the built-in Event class. We can create Event objects like this:
 
@@ -745,7 +743,7 @@ After an event object is created, we should “run” it on an element using the
 document.body.addEventListener("myEventName", doSomething, false);
 
 function doSomething(event){
-	console.log("Event is called: " + event.type);
+  console.log("Event is called: " + event.type);
 }
 
 let myEvent = new CustomEvent("myEventName");
@@ -775,7 +773,7 @@ let formElem = form.elements.one;
 console.log(formElem.value); //-> 1
 ```
 
-**Fieldsets as “subforms”**
+**Fieldsets as "Subforms"**
 
 A form may have one or many `<fieldset>` elements inside it. They also support the elements property.
 
