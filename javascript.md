@@ -739,7 +739,7 @@ console.log(x); //-> 4
 
 ## Scope
 
-Scope is a set of variable or function you have access to, we have global scope, the main scope of you app, is where any variable and function can be access.
+Scope mean where to look for thing, where that variable exist. Scope is a where a set of variable or function you have access to, we have global scope, the main scope of you app, is where any variable and function can be access.
 
 ### Global Scope
 
@@ -766,6 +766,26 @@ To explain lexical scope, we have rules, every variable define in the global sco
 
 ### Closure
 
+Closure is when a function **remember** its lexical scope even when the function is executed outside that lexical scope.
+
+```javascript
+function foo() {
+  var bar = "bar";
+  
+  function baz(){
+    console.log(bar);
+  }
+  
+  bam(baz);
+}
+
+function bam(baz){
+  baz();
+}
+
+foo(); //-> "bar"
+```
+
 A closure is an inner function that has access to the outer variables scope chain. The closure has three scope chains: it has access to its own scope (variables defined between its curly brackets), it has access to the outer variables, and it has access to the global variables.
 
 ```javascript
@@ -785,6 +805,67 @@ runClosure();
 
 // Only way to call only the closure is using another parentheses.
 closureFunction('Jack')();
+```
+
+### Module Patterns
+
+The module pattern makes use of one of the nicer features of JavaScript, **closures** and **IIFE** in order to give you some control of the privacy of your methods so that third party applications cannot access private data or overwrite it.
+
+```javascript
+// Classic Module Pattern
+var foo = (function(){
+  var o = {bar: "bar"};
+  
+  return {
+    bar: function(){
+      console.log(o.bar);
+    }
+  };
+})();
+
+foo.bar(); //-> "bar"
+```
+
+```javascript
+// Modified Module Pattern
+var foo = (function(){
+  var publicAPI = {
+    bar: function(){
+      publicAPI.baz();
+    },
+    baz: function(){
+      console.log("baz");
+    }
+  };
+  return publicAPI;
+})();
+
+foo.bar();
+
+// Modern Module Pattern AMD
+/*
+define("foo", function(){
+  var o = {bar: "bar"};
+  
+  return {
+    bar: function(){
+      console.log(o.bar);
+    }
+  }
+});
+*/
+
+// ES6 
+/*
+var o = {bar: "bar"};
+
+export function bar(){
+  return o.bar;
+}
+
+import bar from "foo";
+bar();
+*/
 ```
 
 ## This Keyword
