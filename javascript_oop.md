@@ -151,7 +151,7 @@ console.log(Phone.propertyIsEnumerable("wifi")); //-> true
 console.log(phoneProperty.propertyIsEnumerable("wifi")); //-> false
 ```
 
-### Type of Object Properties
+## Type of Object Properties
 
 By default there are two different types of properties: Data Properties and Accessor Properties. Data properties contain a value and Accessor properties do not contain a value but instead define a function to call when the property is read (called a getter), and a function to call when the property is written to (called a setter).
 
@@ -184,8 +184,8 @@ On past Javascript version there no way to specify whether a property should be 
 	
 There are two property attribute share between data and accessor properties. We can used .defineProperty() to change property attribute.
 
-1. Enumerable, which determines whether you can iterate over properties. true if and only if this property shows up during enumeration of the properties on the corresponding object. Defaults to false.
-2. Configurable, which determine whether the property can be changed. true if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object. Defaults to false.
+1. `enumerable`, if true, then listed in loops, otherwise not listed. Which determines whether you can iterate over properties. true if and only if this property shows up during enumeration of the properties on the corresponding object. Defaults to false.
+2. `configurable`, if true, the property can be deleted and these attributes can be modified, otherwise not. Which determine whether the property can be changed. true if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object. Defaults to false.
 
 ```javascript
 let Person = {
@@ -225,8 +225,8 @@ console.log(Person.lastName); //-> undefined
 
 Data properties possess two additional attributes that assessors do not. We can used `.defineProperty()` to change property attribute.
 
-1. Value, which holds the property value. This attribute is filled in automatically when you create a property on an object. 
-2. Writable, which is a boolean value indicating whether the property can be written to. By default, all properties are writable unless you specify otherwise.
+1. `value`, which holds the property value. This attribute is filled in automatically when you create a property on an object. 
+2. `writable`, if true, can be changed, otherwise it’s read-only. Which is a boolean value indicating whether the property can be written to. By default, all properties are writable unless you specify otherwise.
 
 ```javascript
 let Person = function(firstName, lastName){
@@ -417,33 +417,61 @@ console.log(Object.isExtensible(Person)); //-> false
 console.log(Object.isFrozen(Person)); //-> true
 ```
 
-### Constructors
+## Prototypal Inheriance
 
-A constructor is simply a function that is used with new to create an object.
+At the beginning of all Javascript code execute we have two thing on the top of the code. This element are created by Javascript.
+
+1. An `function`, they call `Object`.
+2. An `Object` that `function Object` is linking to. That link is called `Object.prototype`. On this `Object` we have `.toString`, `.valueOf`, etc. All come from **[object Object]**
+
+Short notation `obj = {}` is the same as `obj = new Object()`.  When `new Function()` is called, JavaScript does four things:
+
+1. Create a new brand Object.
+2. Object is link to his parent Object. It sets the constructor property of the object to `Function()` on this case.
+3. The `this` are set to his own Object context. It sets up the object to delegate to `Funtion.prototype`.
+4. Return `this`. It calls `Function()` in the context of the new object.
 
 ```javascript
-function Person(firstName, lastName) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.sayName = function() {
-    console.log(this.firstName + " " + this.lastName);
-  };
-};
+function Foo(who) {
+  this.me = who;
+}
 
-let trey = new Person('Trey', 'Johnson');
-trey.sayName(); //-> Trey Johnson
+// Applying identify function in this function Object.
+Foo.prototype.identify = function() {
+  return "I am " + this.me;
+}
 
-// instanceof to know if objects is created by other.
-console.log(trey instanceof Person); //-> true
+var a1 = new Foo("a1");
+var a2 = new Foo("a2");
+
+// Adding method to only his own Object, no parent Object.
+a2.speak = function(){
+  console.log("Hello, " + this.identify() + ".");
+}
 ```
 
-### Classes and Inheritance Prototypes
+On the above example, we creating a function with label Foo and at the same time behind scene created an `Object` which the same function is connected to this Object that was created. That link is `Object.prototype`. That new `Object` have a opposite link to function called `Object.constructor`, note: this `Object.contructor` dont mean anything, is just a name. This `Object.contructor` dont really mean the same of constructor means on other language.
 
-To understand Javascript Inheritance we need to understand Javascript Prototype.
+Prototype is a property belonging only to function. It is used to build `__proto__` when the function happens to be used as a constructor with the `new` keyword. Basically, the `__proto__` property points to the object that the current object actually will use when doing lookups on the prototype chain, while `Object.prototype` only exists on functions, in case you want to use those objects as constructors passed to the `new` keyword.
 
-You can think of a prototype as a recipe for an object. Almost every function (with the exception of some built-in functions) has a prototype property that is used during the creation of new instances. That prototype is shared among all of the object instances, and those instances can access properties of the prototype.
+```javascript
+console.log(a1.__proto__ === Foo.prototype);
+```
 
-We have two concept of prototype on Javascript:
+```javascript
+Foo      ------prototype------> Foo
+function <-----constructor----- object
+```
+
+Object `a1` and `a2` dont have own `Object.constructor` function or method, if you ask to his own `Object.constructor` on particular Object child, they are going to used his Object prototype chain and grab his parent `Object.constructor`. The link or the point value with Object parent is called `[[prototype]]` and is important to understand is not the same as `Object.prototype`.
+
+```javascript
+console.log(a1.constructor === Foo);
+console.log(a1.constructor === a2.constructor);
+```
+
+`__proto__` this properties is on the main Object, that was created at the beginning of Javascript execution. And like all other child Object you can get to this properties by chain prototype. `__proto__` is the actual Object Javascript used in the lookup chain to resolve methods. It is a property that all Object have. `__proto__` is a public properties link of child Object to parent Object, instead used `Object.prototype`, to exposed external characteristic. At the same time `[[prototype]]` is the private link between child Object to parent Object.
+
 
 **Prototype Property**
 
@@ -470,11 +498,11 @@ objNew.print(); //-> 22
 
 **Prototype Attribute**
 
-This is a characteristic of the object, telling us the object parent. In simple terms: An object’s prototype attribute points to the object’s “parent”. The prototype attribute is normally referred to as the prototype object, and it is set automatically when you create a new object.
+This is a characteristic of the object, telling us the object parent. In simple terms: An object’s prototype attribute points to the object’s parent. The prototype attribute is normally referred to as the prototype object, and it is set automatically when you create a new object.
 
 **Constructor**
 
-Is a function used for initializing new object and you can use the new keyword to call the constructor. Note: Constructor function === Classes
+Is a function used for initializing new object and you can use the `new` keyword to call the constructor. Note: Constructor function === Classes
 
 ```javascript
 function Person() {}
@@ -528,7 +556,7 @@ console.log(banana.name); //-> Banana
 banana.showNameAndColor(); //-> I am a Banana and my color is Yellow
 ```
 
-* **Prototype Attribute:** Accessing Properties on Objects, Object.prototype Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from Object.prototype. 
+* **Prototype Attribute:** Accessing Properties on Objects, `Object.prototype` Properties Inherited by all Objects. All objects in JavaScript inherit properties and methods from `Object.prototype`. 
 
 ```javascript
 let now = new Date();
@@ -550,7 +578,7 @@ let Toyota = {
 console.log(Toyota.toString()); //-> Camry 2017
 ```
 
-### Object Pattern, Module Pattern
+## Object Pattern, Module Pattern
 
 ```javascript
 let ModuleObject = (function() {
@@ -590,7 +618,7 @@ human.growOlder();
 console.log(human.getAge()); //-> 28
 ```
 
-### Mixins
+## Mixins
 
 Mixins are a way to add the functionality of 1 or more objects to a new object, essentially creating a non-standard means of inheritance.
 
@@ -695,7 +723,7 @@ console.log(charlie.speak()); //-> Charlie is speaking.
 console.log(daisy.speak()); //-> Daisy is speaking.
 ```
 
-## OOP Functional Style
+## Class Patterns Functional
 
 ### Public and Private Property
 
@@ -833,8 +861,6 @@ coffeMachine.waterAmount = 200;
 
 coffeMachine.run();
 ```
-
-### Getters and Setters
 
 ### Functional Inheritance
 
@@ -1009,31 +1035,47 @@ coffeAmazon.setWaterAmount(50);
 coffeAmazon.enable();
 ```
 
-## OOP Prototype Style
+## Class Patterns Prototype-based
 
-### Object Prototype
-
-Objects in JavaScript can be organized into chains, mean that a property not found in one object is automatically looked up in another. The connecting link is a special property called `__proto__` .
-
-**Proto proto**
-
-If one object has a special reference `__proto__` to another object, then when reading a property from it, if the property is not in the object itself, it is searched in the `__proto__` object.
+Prototype-based classes is the most important and generally on Javascript. We are using this patterns on all previous example.
 
 ```javascript
-var animal = {
-  eats: true
+function User(name, birthday) {
+  this._name = name;
+  this._birthday = birthday;
+}
+
+User.prototype._calcAge = function() {
+  return new Date().getFullYear() - this._birthday.getFullYear();
 };
 
-var rabbit = {
-  jumps: true
+User.prototype.sayHi = function() {
+  console.log(this._name + ', age:' + this._calcAge());
 };
 
-rabbit.__proto__ = animal;
-
-console.log(rabbit.jumps); //-> true
-console.log(rabbit.eats);  //-> true
+let user = new User("John", new Date(2000,0,1));
+user.sayHi(); //-> John
 ```
 
-The object pointed to by the `__proto__` is called a **prototype**.  In this case, it turned out that the animal is a prototype for rabbit. It is also said that the rabbit object "prototype inherits" from the animal.
 
-https://learn.javascript.ru/prototypes
+## Class Patterns Factory
+
+We can create a class without using new at all.
+
+```javascript
+function User(name, birthday) {
+  // only visible from other methods inside User
+  function calcAge() {
+    new Date().getFullYear() - birthday.getFullYear();
+  }
+
+  return {
+    sayHi() {
+      console.log(name + ', age:' + calcAge());
+    }
+  };
+}
+
+let user = User("John", new Date(2000,0,1));
+user.sayHi(); //-> John
+```
