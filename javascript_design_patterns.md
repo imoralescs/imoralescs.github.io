@@ -927,3 +927,6 @@ Insurance(mac_pro);
 console.log(`$${mac_pro.cost()}`); //-> $1522
 console.log(mac_pro.screenSize()); //-> 11.6
 ```
+
+## Resources
+* http://bdcampbell.net/javascript/JavaScriptDesignPatterns.html
