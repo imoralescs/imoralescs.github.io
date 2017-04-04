@@ -928,5 +928,294 @@ console.log(`$${mac_pro.cost()}`); //-> $1522
 console.log(mac_pro.screenSize()); //-> 11.6
 ```
 
+## Others Pattern
+
+### Proxy Pattern
+
+Provide a surrogate or placeholder for another object to control access to it.
+
+```javascript
+var Location = function() {
+  this.coordinate = function(position) {
+
+    var coords;
+
+    switch (position) {
+      case 'Right':
+      case 'right':
+        coords = "x=10, y=0";
+        break;
+      case 'Left':
+        coords = "x=-10, y=0";
+        break;
+      case 'Top':
+        coords = "x=0, y=10";
+        break;
+      case 'Botton':
+        coords = "x0, y=-10";
+        break;
+      default:
+        break;
+    }
+
+    return coords;
+  };
+};
+
+var LocationProxy = function() {
+  var location = new Location();
+  var locationCache = {};
+
+  return {
+    coordinate: function(position) {
+      if (!locationCache[position]) {
+        locationCache[position] = location.coordinate(position);
+      }
+      return locationCache[position];
+    }
+  };
+};
+
+
+var loc = new LocationProxy();
+
+console.log(loc.coordinate('Top')); //-> x=0, y=10
+console.log(loc.coordinate('Left')); //-> x=-10, y=0
+console.log(loc.coordinate('right')); //-> x=10, y=0
+```
+
+### Composite Pattern
+
+Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly. 
+
+```javascript
+var Node = function(name) {
+  this.name = name;
+  this.children = [];
+  this.parent = null;
+};
+
+Node.prototype.addChild = function(child) {
+  this.children.push(child);
+  child.parent = this;
+};
+
+Node.prototype.traverseUp = function() {
+  if (this.parent) {
+    console.log(this.name + ' is the child of ' + this.parent.name);
+    this.parent.traverseUp();
+  } else {
+    console.log(this.name + ' is the root node');
+  }
+};
+
+Node.prototype.traverseDown = function() {
+  if (this.children.length) {
+    this.children.forEach(function(child) {
+      console.log(this.name + ' is the parent of ' + child.name);
+      child.traverseDown();
+    }, this);
+  } else {
+    console.log(this.name + ' is a leaf node');
+  }
+};
+
+
+
+var root = new Node('Fred'),
+  child1 = new Node('John'),
+  child2 = new Node('Jane'),
+  child3 = new Node('Jack'),
+  child4 = new Node('Jill'),
+  child5 = new Node('James'),
+  child6 = new Node('Jess');
+
+root.addChild(child1);
+root.addChild(child2);
+
+child2.addChild(child3);
+child2.addChild(child4);
+
+child4.addChild(child5);
+
+child5.addChild(child6);
+
+root.traverseDown();
+```
+
+### Adapter Pattern
+
+Adapters basically allow objects or classes to function together which normally couldn't due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal. 
+
+```javascript
+// Old Interface
+function Shipping() {
+  this.request = function(zipStart, zipEnd, weight) {
+    return "$49.75";
+  }
+}
+
+// New Interface
+function AdvancedShipping() {
+  this.login = function(credentials) { /* ... */ };
+  this.setStart = function(start) { /* ... */ };
+  this.setDestination = function(destination) { /* ... */ };
+  this.calculate = function(weight) {
+    return "$39.50";
+  };
+}
+
+// Adapter Interface
+function ShippingAdapter(credentials) {
+  var shipping = new AdvancedShipping();
+
+  shipping.login(credentials);
+
+  return {
+    request: function(zipStart, zipEnd, weight) {
+      shipping.setStart(zipStart);
+      shipping.setDestination(zipEnd);
+      return shipping.calculate(weight);
+    }
+  };
+}
+
+var shipping = new Shipping();
+var credentials = {
+  token: "30a8-6ee1"
+};
+var adapter = new ShippingAdapter(credentials);
+
+// original shipping object and interface
+var cost = shipping.request("78701", "10010", "2 lbs");
+console.log("Old cost: " + cost); //-> Old cost: $49.75
+
+// new shipping object with adapted interface
+cost = adapter.request("78701", "10010", "2 lbs");
+console.log("New cost: " + cost); //-> New cost: $39.50
+```
+
+### Iterator Pattern
+
+```javascript
+var createIterator = function(collection) {
+  var index = 0;
+  return {
+    next: function() {
+      if (index < collection.length) {
+        var value = collection[index++];
+        return value;
+      } 
+			else {
+        var done = "Iterator done..!!";
+        return done;
+      }
+    }
+  };
+}
+
+var arr = [1, 2, 3, 4, 5];
+
+var collection = createIterator(arr); //-> Get the iterator
+
+console.log(collection.next()); //-> 1
+console.log(collection.next()); //-> 2
+console.log(collection.next()); //-> 3
+console.log(collection.next()); //-> 4
+console.log(collection.next()); //-> 5
+console.log(collection.next()); //-> Iterator done..!!
+console.log(collection.next()); //-> Iterator done..!!
+```
+
+### Chain Of Responsibility Pattern
+
+Chain Of Responsibility have three parts, sender, receiver, and request. The sender makes the request. The receiver is a chain of 1 or more objects that choose whether to handle the request or pass it on. The request itself can be an object that encapsulates all the appropriate data.
+
+```javascript
+var Request = function(amount) {
+  this.amount = amount;
+  console.log("Request " + amount);
+};
+
+Request.prototype = {
+  get: function(bill) {
+    var count = Math.floor(this.amount / bill);
+    this.amount -= count * bill;
+    console.log("Dispense " + count + " $" + bill + " bills");
+    return this;
+  }
+};
+
+var request = new Request(378);
+
+request.get(100).get(50).get(20).get(10).get(5).get(1);
+//->
+/*
+Request 378
+Dispense 3 $100 bills
+Dispense 1 $50 bills
+Dispense 1 $20 bills
+Dispense 0 $10 bills
+Dispense 1 $5 bills
+Dispense 3 $1 bills
+*/
+```
+
+### Strategy Pattern
+
+Its primary purpose is to help you separate the parts of an object which are subject to change from the rest of the static bits.
+
+```javascript
+var Shipping = function() {
+  this.company = "";
+};
+
+Shipping.prototype = {
+  setStrategy: function(company) {
+    this.company = company;
+  },
+  calculate: function(package) {
+    return this.company.calculate(package);
+  }
+};
+
+var UPS = function() {
+  this.calculate = function(package) {
+    // Calculations
+    return "$45.95";
+  }
+};
+
+var USPS = function() {
+  this.calculate = function(package) {
+    // Calculations
+    return "$39.40";
+  }
+};
+
+var Fedex = function() {
+  this.calculate = function(package) {
+    // Calculations
+    return "$43.20";
+  }
+};
+
+var package = {
+  from: "76712",
+  to: "10012",
+  weigth: "lkg"
+};
+
+// The 3 strategies
+var ups = new UPS();
+var usps = new USPS();
+var fedex = new Fedex();
+
+var shipping = new Shipping();
+
+shipping.setStrategy(fedex);
+console.log(shipping.calculate(package)); //-> $43.20
+```
+
 ## Resources
 * http://bdcampbell.net/javascript/JavaScriptDesignPatterns.html
