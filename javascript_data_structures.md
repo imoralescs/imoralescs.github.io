@@ -172,6 +172,8 @@ A Hash Table (Hash Map) is a data structure used to implement an associative arr
 
 Hash Tables are considered the more efficient data structure for lookup and for this reason, they are widely used.
 
+### Complexity
+
 * **Access:** -	
 * **Search:** O(1)
 * **Insertion:** O(1)
@@ -367,6 +369,8 @@ A Singly Linked List is a linear collection of data elements, called nodes point
 
 Linked Lists are among the simplest and most common data structures because it allows for efficient insertion or removal of elements from any position in the sequence.
 
+### Complexity
+
 * **Access:** -	O(n)
 * **Search:** O(n)
 * **Insertion:** O(1)
@@ -499,6 +503,8 @@ console.log(singlyLinkedList.length()); //-> 7
 A Doubly Linked List is a linked data structure that consists of a set of sequentially linked records called nodes. Each node contains two fields, called links, that are references to the previous and to the next node in the sequence of nodes. - From Wikipedia
 
 Having two node links allow traversal in either direction but adding or removing a node in a doubly linked list requires changing more links than the same operations on a Singly Linked List.
+
+### Complexity
 
 * **Access:** O(n)
 * **Search:** O(n)
@@ -658,6 +664,8 @@ A Stack is an abstract data type that serves as a collection of elements, with t
 
 A Stack often has a third method peek which allows to check the last pushed element without popping it.
 
+### Complexity
+
 * **Access:** O(n)
 * **Search:** O(n)
 * **Insertion:** O(1)
@@ -711,6 +719,8 @@ A Queue is a particular kind of abstract data type or collection in which the en
 
 As for the Stack data structure, a peek operation is often added to the Queue data structure. It returns the value of the front element without dequeuing it.
 
+### Complexity
+
 * **Access:** O(n)
 * **Search:** O(n)
 * **Insertion:** O(1)
@@ -761,6 +771,8 @@ console.log(queue.dequeue()); //-> undefined
 ## Tree
 
 A Tree is a widely used data structure that simulates a hierarchical tree structure, with a root value and subtrees of children with a parent node. A tree data structure can be defined recursively as a collection of nodes (starting at a root node), where each node is a data structure consisting of a value, together with a list of references to nodes (the “children”), with the constraints that no reference is duplicated, and none points to the root node. - From Wikipedia
+
+### Complexity
 
 * **Access:** O(n)
 * **Search:** O(n)
