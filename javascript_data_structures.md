@@ -66,8 +66,8 @@ You will see this on algorithms that returns an element in an already known posi
 ```javascript
 var makeRange = function(array) {
   array.forEach(function(item) {
-	  console.log(item);
-	});
+    console.log(item);
+  });
 };
 
 console.log(makeRange(["a","b","c","d"])); //-> "a" "b" "c" "d" 4 steps
@@ -76,19 +76,19 @@ console.log(makeRange(["a","b","c","d", "e"])); //-> "a" "b" "c" "d" "e" 5 steps
 
 An algorithm has a linear time complexity if the time to execute the algorithm is directly proportional to the input size n. Therefore the time it will take to run the algorithm will increase proportionately as the size of input n increases.
 
-* **O(log n):** These are the holy grail of search/sort algorithms, they are usually the most efficient approach when dealing with large collections. Instead of looking through the components one by one, they split the data in chunks and discard a large amount on every iteration, usually the half.
+**O(log n):** These are the holy grail of search/sort algorithms, they are usually the most efficient approach when dealing with large collections. Instead of looking through the components one by one, they split the data in chunks and discard a large amount on every iteration, usually the half.
 
-* **O(n 2):** Quadratic time complexity is best illustrated with nested for loops. Here, the array provided will be looped through twice. Once for the first loop, but for each index, the array will be looped over again by the second loop. Besides being destructively redundant, the function will take twice as much time for just one additional input.
+**O(n 2):** Quadratic time complexity is best illustrated with nested for loops. Here, the array provided will be looped through twice. Once for the first loop, but for each index, the array will be looped over again by the second loop. Besides being destructively redundant, the function will take twice as much time for just one additional input.
 
 ```javascript
 const buildSquareMatrix = (items) => {
   let matrix= [];
-	for (let i=0, total=items.length; i < total; i++){ 
-	  matrix[i] = [];
-		for (let j=0, total=items.length; j < total; j++)
-		  matrix[i].push(items[j]);
-	}
-	return matrix;
+  for (let i=0, total=items.length; i < total; i++){ 
+    matrix[i] = [];
+    for (let j=0, total=items.length; j < total; j++)
+      matrix[i].push(items[j]);
+  }
+  return matrix;
 };
 
 const result = buildSquareMatrix(["a","b","c"]);
