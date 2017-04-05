@@ -78,7 +78,7 @@ An algorithm has a linear time complexity if the time to execute the algorithm i
 
 **O(log n):** These are the holy grail of search/sort algorithms, they are usually the most efficient approach when dealing with large collections. Instead of looking through the components one by one, they split the data in chunks and discard a large amount on every iteration, usually the half.
 
-**O(n 2):** Quadratic time complexity is best illustrated with nested for loops. Here, the array provided will be looped through twice. Once for the first loop, but for each index, the array will be looped over again by the second loop. Besides being destructively redundant, the function will take twice as much time for just one additional input.
+**O(n 2):** Means the function will perform proportionally to the square of the input data size. Quadratic time complexity is best illustrated with nested for loops. Here, the array provided will be looped through twice. Once for the first loop, but for each index, the array will be looped over again by the second loop. Besides being destructively redundant, the function will take twice as much time for just one additional input.
 
 ```javascript
 const buildSquareMatrix = (items) => {
