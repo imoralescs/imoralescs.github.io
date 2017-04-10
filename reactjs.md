@@ -939,7 +939,10 @@ ReactDOM.render(<App/>, mountElement);
 
 Again mounting in simple form is the process that occurs when a component is being inserted into the DOM. This phase has two methods that we can hook up with:
 
-* **`componentWillMount()`:** Method is the first called in this phase. It’s invoked once and immediately before the initial rendering occurs, hence before React inserts the component into the DOM. It’s very important to note that calling `this.setState()` within this method will not trigger a re-render.
+* **`componentWillMount()`:** Method is the first called in this phase. It’s invoked once and immediately before the initial rendering occurs, hence before React inserts the component into the DOM. It’s very important to note that calling `this.setState()` within this method will not trigger a re-render. Your component is in default position at this point. Almost everything should be taken care of by the rest of your component code, without the complication of an additional lifecycle method. 
+
+**Most common use case:** App configuration in your root component. 
+**Can call setState:** Don’t. Use default state instead.
 
 ```javascript
 class App extends React.Component {
@@ -965,7 +968,10 @@ let mountElement = document.getElementById('root');
 ReactDOM.render(<App/>, mountElement);
 ```
 
-* **`componentDidMount()`:** Is the second invoked in this phase, just once and immediately after React inserts the component into the DOM. Now the updated DOM is available for access, which means that this method is the best place for initializing other Javascript libraries that need access to the DOM and for data fetching operations.
+* **`componentDidMount()`:** Is the second invoked in this phase, just once and immediately after React inserts the component into the DOM. Now the updated DOM is available for access, which means that this method is the best place for initializing other Javascript libraries that need access to the DOM and for data fetching operations. ComponentDidMount is also where you can do all the fun things you couldn’t do when there was no component to play with. Here are some examples: draw on a `<canvas>` element that you just rendered, initialize a masonry grid layout from a collection of elements or add event listeners. 
+
+**Most common use case:** Starting AJAX calls to load in data for your component. 
+**Can call setState:** Yes.
 
 ```javascript
 class App extends React.Component {
@@ -995,11 +1001,11 @@ class App extends React.Component {
     const loading = <span>Loading...</span>;
     const data = this.state.data.map((data) => {
       return(
-				<p key={data.id}>{data.name} : <b>{data.email}</b></p>
-			);
-		});
-		
-  	return (
+        <p key={data.id}>{data.name} : <b>{data.email}</b></p>
+      );
+  });
+  
+  return (
     	<div>
 				{this.state.fetching ? data : loading}
 			</div>
@@ -1037,6 +1043,10 @@ This method is called when props are passed to the child component instance.
 This method was called because React has no way of knowing that the data did not change. Therefore React needs to call componentWillReceiveProps, because the component needs to be notified of the new props.
 
 componentWillReceiveProps allows us to check and see if new props are coming in and we can make choices based on data.
+
+**Most Common Use case:** Acting on particular prop changes to trigger state transitions.
+
+**Can call setState:** Yes.
 
 ```javascript
 class TextField extends React.Component {
@@ -1134,6 +1144,9 @@ let mountElement = document.getElementById('root');
 ReactDOM.render(<CounterButton/>, mountElement);
 ```
 
+**Most common use case:** Controlling exactly when your component will re-render.
+**Can call setState:** No.
+
 **`componentWillUpdate()`**
 
 We can called just like `componentWillMount()` this method is called before `render()`.
@@ -1141,6 +1154,9 @@ We can called just like `componentWillMount()` this method is called before `ren
 The method `componentWillUpdate()` is similar to `componentWillMount()`. The difference being that `componentWillUpdate()` called every time re-render is required, such as when `this.state()` is called.
 
 We can used this `componentWillUpdate()` is a chance for us to handle configuration changes and prepare for the next render.
+
+**Most common use case:** Used instead of componentWillReceiveProps on a component that also has shouldComponentUpdate (but no access to previous props).
+**Can call setState:** No.
 
 ```javascript
 componentWillUpdate(nextProps, nextState) {
@@ -1156,6 +1172,9 @@ We can called this method like `componentDidMount()`, the `componentDidUpdate()`
 
 The most common uses of `componentDidUpdate()` is managing 3rd party UI elements and interacting with the Native UI. When using 3rd Party libraries, like our Chart example, we need to update the UI library with new data.
 
+**Most common use case:** Updating the DOM in response to prop or state changes.
+**Can call setState:** Yes.
+
 ```javascript
 componentDidUpdate(prevProps, prevState) {
   // only update chart if the data has changed
@@ -1170,6 +1189,9 @@ componentDidUpdate(prevProps, prevState) {
 ### `componentWillUnmount()`
 
 Before the component is unmounted, React will call out to the `componentWillUnmount()` callback. This is the time to handle any clean-up events we might need, such as clearing timeouts, clearing data, disconnecting websockets, etc.
+
+**Most common use case:** Cleaning up any leftover debris from your component.
+**Can call setState:** No.
 
 ## Pure Components “Stateless”
 
