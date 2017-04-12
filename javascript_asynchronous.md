@@ -792,3 +792,533 @@ execute(showUserAvatar());
 ```
 
 ## Observables
+
+Is just a function that takes an observer and returns a function. The purpose of observable is connect the observer to something that produces value "producer" and return a means to tear down that connection to producer.
+
+I like to think of Observable as a function that "throws" values. It can “throw” values in synchrony or asynchrony way. If you have interest on this values, you can register observer.
+
+### Observer
+
+The Observer is an object, with three functions or callback.
+
+```javascript
+function nextCallback(value){
+  console.log(value);
+}
+
+function errorCallback(err){
+  console.error(error);
+}
+
+function completeCallback(){
+  console.log('Completed');
+}
+```
+
+* **`next() =>`:** Observable, please call this function when you have a new value for me. 
+* **`error() =>`:** Observable, please call this function when you have a new error for me.
+* **`complete() =>`:** Observable, please call this function when you complete your job.
+
+When the Observable (i.e., function) "throws" new value, error or completes, he will call the corresponding function on your observer. Observer is really a registry of handler that can be pushed values over time.
+
+```javascript
+const observer = {
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') }
+};
+```
+
+Using our observer, Subscribe function to observer. The **$** sign at the end of the variable name means **Stream**.
+
+```javascript
+function fakeSomeData$(obj){
+  [10,20,30].forEach(obj.next);
+  obj.complete();
+}
+
+fakeSomeData$(observer); //-> 10 20 30 'Completed'
+```
+
+If you are familiar with the Iterator pattern, you know that in this case, you are in charge. When you want new value, you just call the next method to pull the value. With Observable it’s like, don’t call us we call you. The Observable is the boss. When he has a new value, he will push the value to you. Your job is just to "listen."
+
+### Subscribing
+
+To put it all together, we just have to subscribe to our observable passing in the observer.
+
+The subscriber argument must be a function object. It is called each time the subscribe method of the Observable object is invoked. The subscriber function is called with a wrapped observer object and may optionally return a function which will cancel the subscription.
+
+Only when you call the subscribe method, you are invoking the function that will "throw" values with the observer.
+
+```javascript
+const Observable = function(producer){
+  this.subscribe = producer
+}
+
+let fakeAsyncData$ = new Observable(observer => {
+  setInterval(() => {
+    observer.next('New data is comming');
+    observer.complete();
+  }, 2000);
+});
+
+fakeAsyncData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('complete') } 
+});
+```
+
+**Let create `Observable.of()`**
+
+```javascript
+Observable.of = function(...values){
+  // Create a producer
+  const producer = observer => {
+    try {
+      // Call observer.next for each of the given values
+      values.forEach(value => observer.next(value));
+      // Signaling completion afterward
+      observer.complete();
+    } 
+    catch(err) {
+      // Handle errors if any occurs
+      observer.error(err);
+    }
+  }
+	
+  // Create and return a new Observable with the given producer
+  return new Observable(producer);
+}
+
+const fakeAsyncNumberData$ = Observable.of(40,50,60);
+fakeAsyncNumberData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') } 
+}); //-> 40 50 60 'Completed'
+
+const fakeAsyncStringData$ = Observable.of('abc','de','fg');
+fakeAsyncStringData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') } 
+}); //-> 'abc' 'de' 'fg' 'Completed'
+```
+
+**Let create `Observable.fromArray()`**
+
+```javascript
+Observable.fromArray = function(array){
+  // Create a producer
+  const producer = observer => {
+    try {
+      // Call observer.next for each value in the array
+      array.forEach(value => observer.next(value))
+      // Signaling completion aftwerward
+      observer.complete()
+    } 
+    catch(error) {
+      // Handle errors if any occurs
+      observer.error(error)
+    }
+  }
+
+  return new Observable(producer)
+}
+
+const numArray = [20, 60, 80];
+const fakeAsyncArrayData$ = Observable.fromArray(numArray);
+fakeAsyncArrayData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') } 
+}); //-> 20 60 80 'Completed'
+```
+
+**Let create `Observable.fromEvent()`**
+
+```javascript
+Observable.fromEvent = function(element, event){
+  const producer = observer => {
+
+    // Create an eventHandler
+    const eventHandler = e => {
+      observer.next(e)
+    }
+
+    // Adding the eventlistener
+    try {
+      element.addEventListener(event, eventHandler)
+    } 
+    catch(error) {
+      observer.error(error)
+    }
+
+    // Return a function to unsubscribe
+    return {
+      unsubscribe() {
+        element.removeEventListener(event, eventHandler)
+      }
+    }
+  }
+
+  return new Observable(producer)
+}
+
+const fakeAsyncEventData$ = Observable.fromEvent(document, 'click');
+fakeAsyncEventData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') } 
+}); //-> MouseEvent
+
+// We can modify observer object
+const fakeAsyncEventModifyData$ = Observable.fromEvent(document, 'click');
+fakeAsyncEventModifyData$.subscribe({
+  next(value) { console.log(`X: ${event.clientX}, Y: ${event.clientY}`) },
+  error(error) { console.log('Error: ', error) },
+  complete() { console.log('Completed') }
+}); //-> X: 191, Y: 231
+```
+
+**Let create `Observable.fromPromise()`**
+
+```javascript
+Observable.fromPromise = function(promise){
+  const producer = observer => {
+    promise
+      // Call observer.next once the promise resolve
+      .then(value => {
+        observer.next(value)
+        // Signaling completion
+        observer.complete()
+      })
+      // Handling errors
+      .catch(reason => {
+        observer.error(reason)
+      })
+  }
+
+  return new Observable(producer);
+}
+
+const request = fetch('https://jsonplaceholder.typicode.com/posts/1');
+const fakeAsyncPromiseData$ = Observable.fromPromise(request);
+fakeAsyncPromiseData$.subscribe({
+  next(value) { console.log(value) } ,
+  error(error) { console.log(error) } ,
+  complete() { console.log('Completed') } 
+}); //-> Response
+```
+
+Now we’ll focus on compositions by rewriting some basic functional composition operators.
+
+**`Observable.map`**
+
+Mapping is a commong pattern:
+
+* Unwrap an item from a container
+* Apply a transformation to it
+* Wrap the result of the transformation back to a similar container 
+ 
+```javascript
+Observable.prototype.map = function(transformation){
+  // Unwrap the producer from the observable
+  const originalProducer = this.subscribe;
+
+  // Hijack it so that it will apply the transformation to its outputs
+  const newProducer = function(observer){
+    return originalProducer({
+      next (value) { observer.next(transformation(value)) },
+      error (error) { observer.error(error) },
+      complete () { observer.complete() }
+    })
+  }
+
+  // Return a new observable with the hijacked producer.
+  return new Observable(newProducer);
+}
+
+
+const square = (num) => num * num;
+const fakeAsyncDataMap$ = Observable.of(3).map(square);
+fakeAsyncDataMap$.subscribe({
+  next(value) { console.log(`New value is ${value}`) },
+  error(error) { console.log(error) },
+  complete() { console.log('Completed') }
+}); //-> New value is 9 
+```
+
+**`Observable.mapTo`**
+
+Sometimes we want to simply map values statically. For example, imagine we created an Observable of click events and we want to map those clicks to redux-like actions.
+
+```javascript
+Observable.prototype.mapTo = function(value){
+  return this.map(() => value)
+}
+```
+
+We are now able to create a stream of redux-like actions out of click events:
+
+```javascript
+const increaseButton  = document.getElementById('increase');
+const action$ = Observable
+  .fromEvent(increaseButton, 'click')
+  .mapTo({ type: 'INCREASE'})
+
+const click$ = action$.subscribe({
+  next(value) { console.log(value) },
+  error(error) { console.log(error) },
+  complete() { console.log('Completed') }
+});
+```
+
+**`Obsevable.interval`**
+
+```javascript
+Observable.interval = function(period){
+
+  const intervalProducer = function(observer) {
+    let counter = 0
+
+    const unsubscribe = function() {
+      clearInterval(timer)
+    }
+
+    const timer = setInterval(() => {
+      try {
+        observer.next(counter++)
+      } catch(err) {
+        unsubscribe() // <- on error we also want to unsusbcribe
+        observer.error(err)
+      }
+    }, period)
+
+    return {
+      unsubscribe
+    }
+  }
+
+ return new Observable(intervalProducer)
+}
+```
+
+**`Observable.filter`**
+
+Filter an observable sequence according to a predicate.
+
+```javascript
+Observable.prototype.filter = function(predicate){
+  // Unwrap the producer from the observable
+  const originalProducer = this.subscribe;
+
+  // Hijack it so that it will push only the value passing the predicate test
+  const newProducer = function(observer){
+    return originalProducer({
+      next (value) {
+        if (predicate(value) === true) {
+          observer.next(value)
+        }
+      },
+      error (err) {observer.error(err)},
+      complete () {observer.complete()}
+    })
+  }
+
+  // Return a new observable with the hijacked producer.
+  return new Observable(newProducer)
+}
+
+const isEven = (num) => num % 2 === 0;
+const fakeAsyncDataFilter$ = Observable.interval(500).filter(isEven);
+fakeAsyncDataFilter$.subscribe({
+  next(value){console.log(value)},
+	error(error) { console.log(error) },
+  complete(){console.log('done')}
+}); //-> 0 2 4 6 8
+```
+
+**`Observable.takeUntil`**
+
+Returns an observable sequence that stop emitting values as soon as a predicate test pass.
+
+```javascript
+Observable.prototype.takeUntil = function(predicate){
+  // Unwrap the producer from the observable
+  const originalProducer = this.subscribe;
+
+  // Hijack it so that it will push values until the predicate test pass
+  const newProducer = function(observer){
+    const interval = originalProducer({
+      next (value) {
+        if (predicate(value) !== true) {
+          observer.next(value)
+        } else {
+          interval.unsubscribe()
+        }
+      },
+      error (err) {observer.error(err)},
+      complete () {observer.complete()}
+    })
+  }
+
+  // Return a new observable with the hijacked producer.
+  return new Observable(newProducer)
+}
+
+const isGreaterThenThree = (num) => num > 3 === true;
+const fakeAsyncCountTill$ = Observable.interval(1000).takeUntil(isGreaterThenThree);
+
+fakeAsyncCountTill$.subscribe({
+  next(value){console.log(value)},
+  error(error) { console.log(error) },
+  complete(){console.log('done')}
+}); //-> 0 1 2 3
+```
+
+Although very naively, we just implemented a very basic stream library. You can find the library on github:
+
+* **Stream:** A toy functional reactive stream library for JavaScript.
+
+I leave it up to the reader to implement it further, maybe taking some inspiration from the following libraries:
+
+* **RxJS**
+* **xstream**
+* **most**
+
+### Observables Real Case
+
+Let simulate a barcode scanner, emitting keypress signal, ending with "Enter Key" which is the key code 13. Let’s say we’re developing an app that allows users to search products from their 16-chars code reference. Rather than typing them by hand, users should be able to use a barcode scanner to trigger the search.
+
+Now, the problem is: how do we differentiate a scanned code from other keypress events?
+
+Solving this, the imperative way
+
+We surely need to listen to keypress events… Then we must… remember the key codes, probably using a buffer! If the key pressed is the **Enter** key, fill the input and clean the buffer. Otherwise, add the key to the buffer!
+
+```javascript
+const ENTER_KEY_CODE = 13;
+let keyCodesBuffer = [];
+
+document.addEventListener("keypress", (event) => {
+  const keyCode = event.keyCode
+  
+  if(keyCode === ENTER_KEY_CODE) {
+    fillInputWithKeyCodesBuffer()
+    cleanBuffer()
+  } else {
+    addToBuffer(keyCode)
+  }
+})
+
+function fillInputWithKeyCodesBuffer() {
+  console.log('Searching product...');
+  console.log('Clear Buffer!');
+}
+
+function cleanBuffer() {
+  keyCodesBuffer = []
+}
+
+function addToBuffer(keyCode) {
+  keyCodesBuffer.push(keyCode);
+  console.log(keyCodesBuffer);
+}
+
+//-> [] Buffer
+// Typing any key except 'Enter': //-> [120, 99, 118, 120, 99, 115]
+// Typing 'Enter': //-> [], 'Searching product...' 'Clear Buffer!'  
+```
+
+Now we know that, if no new keypress is emitted after ~30000ms, it’s not a scanned code for sure and we can clean the buffer.
+
+```javascript
+const ENTER_KEY_CODE = 13;
+const MAX_INTERVAL_BETWEEN_EVENTS_IN_MS = 30000;
+let keyCodesBuffer = [];
+
+document.addEventListener("keypress", (event) => {
+  const keyCode = event.keyCode
+  
+  if(keyCode === ENTER_KEY_CODE) {
+    fillInputWithKeyCodesBuffer()
+    cleanBuffer()
+  } else {
+    addToBuffer(keyCode)
+    cleanBufferAfter(MAX_INTERVAL_BETWEEN_EVENTS_IN_MS)
+  }
+})
+
+function fillInputWithKeyCodesBuffer() {
+  console.log('Searching product...');
+  console.log('Clear Buffer!');
+}
+
+function cleanBuffer() {
+  keyCodesBuffer = []
+}
+
+function addToBuffer(keyCode) {
+  keyCodesBuffer.push(keyCode);
+  console.log(keyCodesBuffer);
+}
+
+function cleanBufferAfter(timeout) {
+  setTimeout(cleanBuffer, timeout)
+}
+
+//-> [] Buffer
+// Typing any key except 'Enter': //-> [120, 99, 118, 120, 99, 115]
+// After 30 second, buffer clean up: //-> []
+// Typing 'Enter': //-> [], 'Searching product...' 'Clear Buffer!' 
+```
+
+But there is a subtle bug here, if the code takes more than 50ms to be scanned, it will drop the beginning. In fact, if a new keypress occurs within ~30000ms, we should clear the timeout.
+
+```javascript
+const ENTER_KEY_CODE = 13
+const MAX_INTERVAL_BETWEEN_EVENTS_IN_MS = 1000
+let keyCodesBuffer = []
+let cleanBufferTimeout
+
+document.addEventListener("keypress", (event) => {
+  const keyCode = event.keyCode
+  
+  stopCleanBufferTimeout()
+  if(keyCode === ENTER_KEY_CODE) {
+    fillInputWithKeyCodesBuffer()
+    cleanBuffer()
+  } else {
+    addToBuffer(keyCode)
+    cleanBufferAfter(MAX_INTERVAL_BETWEEN_EVENTS_IN_MS)
+  }
+})
+
+function fillInputWithKeyCodesBuffer() {
+  console.log('Clear Buffer!');
+}
+
+function cleanBuffer() {
+  keyCodesBuffer = []
+}
+
+function addToBuffer(keyCode) {
+  keyCodesBuffer.push(keyCode)
+  console.log(keyCodesBuffer)
+}
+
+function cleanBufferAfter(timeout) {
+  cleanBufferTimeout = setTimeout(cleanBuffer, timeout)
+}
+
+function stopCleanBufferTimeout() {
+  clearTimeout(cleanBufferTimeout) 
+}
+```
+
+Let’s take a step back and think. What if we’ve had the full history of keypress events we could manipulate to filter out scanned codes sequences?
+
+Solving this, with Observables. Observables are immutable collections of asynchronous events you can manipulate through operators.
+
