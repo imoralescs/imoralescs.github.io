@@ -730,4 +730,108 @@ $facebook = new FacebookService;
 echo $facebook->getRedirectUri(); //-> uri
 ```
 
+### Traits
+
+A Trait is simply a group of methods that you want include within another class. A Trait, like an abstract class, cannot be instantiated on it’s own.
+
+One of the problems of PHP as a programming language is the fact that you can only have single inheritance. This means a class can only inherit from one other class.
+
+However, a lot of the time it would be beneficial to inherit from multiple classes. For example, it might be desirable to inherit methods from a couple of different classes in order to prevent code duplication.
+
+A Trait is kind of like a **Mixin** in that it allows you to mix Trait classes into an existing class. This means you can reduce code duplication and get the benefits whilst avoiding the problems of multiple inheritance.
+
+```php
+trait Hello
+{
+  public function sayHello()
+  {
+    return 'Hello';
+  }
+}
+
+trait World
+{
+  public function sayWorld()
+  {
+    return 'Worlds';
+  }
+}
+
+trait HelloWorld
+{
+  use Hello, World;
+
+  public function sayHelloWorld()
+  {
+    return $this->sayHello() . ' ' . $this->sayWorld();
+  }
+}
+
+class Greeting
+{
+  use HelloWorld;
+
+  public function output()
+  {
+    return $this->sayHelloWorld();
+  }
+}
+
+$greeting = new Greeting;
+echo $greeting->output(); //-> Hello Worlds
+
+```
+
+### Exception
+
+It allows you to have a more fine-grained control over code when things go wrong. This allow us to catch the fact of something is goes wrong with a block, and change the flow of you application. This is more cleaner that used if statement.
+
+```php
+class PaymentGatewayException extends Exception
+{
+  //
+}
+
+class GatewayPaymentFailedException extends Exception
+{
+  protected $message = 'Payment failed';
+}
+
+class InvalidGatewayTokenException extends Exception
+{
+  protected $message = 'Invalid token';
+}
+
+class PaymentGateway
+{
+  public function charge($token, $amount)
+  {
+
+    // Throw errors
+    if(0){
+      throw new InvalidGatewayTokenException;
+    }
+
+    if(1){
+      throw new GatewayPaymentFailedException;
+
+    }
+  }
+}
+
+$gateway = new PaymentGateway;
+
+// Controll flow
+try {
+  $gateway->charge('123', 25.00);
+  echo 'Update subscription';
+}
+catch(PaymentGatewayException $e) {
+  die($e->getMessage());
+}
+finally {
+  die(' Finally...');
+}
+```
+
 ### Namespaces
