@@ -643,8 +643,91 @@ $john = new John('John Doe');
 echo $john->getName(); //-> John Doe
 ```
 
-### Abstract Class
-
 ### Interface
+
+It will not add any additional functionality but it outlines a standard format to which your classes need to use. Any classes which inherit from an interface class must have at least the same methods as the interface class. The methods placed in the interface class will not have any functionality but will have just the method stubs to be used by the other classes. The methods outlined in the interface must be used by the other classes or it will throw an error.
+
+#### Defining An Interface Class
+
+Interface classes are defined by using the keyword interface. All the methods in the interface must be public as this is the nature of an interface.
+
+```php
+interface TaskStorageInterface
+{
+  public function get($id);
+  public function store(Task $task);
+}
+```
+
+#### Using A Defined Interface Class
+
+You will use an interface on classes when you have classes which will do similar things but the functionality being different.
+
+To use an interface class it's done by using the `implements` keyword.
+
+```php
+class FileTaskStorage implements TaskStorageInterface 
+{
+  public function get($id)
+  {
+    // file implementation
+  }
+
+  public function store(Task $task)
+  {
+    // file implementation
+  }
+}
+
+class MySqlDatabaseTaskStorage implements TaskStorageInterface
+{
+  public function get($id)
+  {
+    // mysql implementation
+  }
+
+  public function store(Task $task)
+  {
+    // mysql implementation
+  }
+}
+```
+
+### Abstract
+
+An abstract class is a type of class which we can not create an object from. An abstract class is used like an interface class except we can add functionality into the methods defined in the abstract class. To use the abstract class we will also need to use the `extends` keyword, we can only implement one abstract class where we can implement multiple interface classes.
+
+An abstract class will have abstract methods which are defined by the abstract keyword, these methods are like the methods defined in the interface classes.
+
+All methods in abstract classes that you want to override can not be private methods as they will need to be used outside of the class.
+
+You will use an abstract class in a similar way you would use an interface but there is common functionality which will be used on all the classes which extend it.
+
+```php
+abstract class Service
+{
+  // oauth method
+  abstract function getRedirectUri();
+}
+
+class FacebookService extends Service
+{
+  public function getRedirectUri()
+  {
+    return 'uri';
+  }
+}
+
+class TwitterService extends Service
+{
+  public function getRedirectUri()
+  {
+    return 'uri';
+  }
+}
+
+$facebook = new FacebookService;
+echo $facebook->getRedirectUri(); //-> uri
+```
 
 ### Namespaces
