@@ -301,3 +301,134 @@ foreach ($array as $value)
   echo "You chose a fruit - $value <br>"; 
 }
 ```
+
+## Handling String Functions
+
+## Arrays
+
+Array is a collection of data, which are combined under a single name. The array consists of several elements that have a particular index.
+
+Arrays are created using the assignment operator , as well as a variable. 
+Names of arrays start with a `$` , followed by an arbitrary identifier, followed by square brackets: `$arr[0] = "php";`
+
+This design creates an array and assigns it to the element at index 0 value "php", then we can refer to this element as a normal variable: `echo $arr[0]`. As a result, we see the word `?` Php .
+
+```php
+$arr[1] = "html";
+$arr[2] = "css";
+
+var_dump($arr); //-> array(2) { [1]=> string(4) "html" [2]=> string(3) "css" }
+```
+
+### Create an Array
+
+```php
+$arr = array("php", "html", "css");
+
+var_dump($arr); //-> array(3) { [0]=> string(3) "php" [1]=> string(4) "html" [2]=> string(3) "css" }
+```
+
+### Modification Array Element
+
+```php
+$arr[0] = "PHP";
+$arr[1] = "HTML";
+$arr[2] = "CSS";
+
+echo $arr[1]; //-> HTML
+
+$arr[1] = "JAVASCRIPT";
+
+echo $arr[1]; //-> JAVASCRIPT
+```
+
+### Removing Array Element
+
+```php
+$arr[0] = "PHP";
+$arr[1] = "HTML";
+$arr[2] = "CSS";
+
+echo $arr[1]; //-> HTML
+
+unset($arr[1]);
+
+var_dump($arr); //-> array(2) { [0]=> string(3) "PHP" [2]=> string(3) "CSS" }
+```
+
+### Sorting Array
+
+```php
+$arr[0] = "PHP";
+$arr[1] = "HTML";
+$arr[2] = "CSS";
+
+var_dump($arr); //-> array(3) { [0]=> string(3) "PHP" [1]=> string(4) "HTML" [2]=> string(3) "CSS" } 
+
+echo '</br>';
+sort($arr);
+
+var_dump($arr); //-> array(3) { [0]=> string(3) "CSS" [1]=> string(4) "HTML" [2]=> string(3) "PHP" }
+```
+
+### Navigating Array
+
+```php
+$arr[0] = "PHP";
+$arr[1] = "HTML";
+$arr[2] = "CSS";
+
+echo current($arr), "<br>"; //-> PHP
+echo next($arr), "<br>"; //-> HTML
+echo prev($arr), "<br>"; //-> PHP
+echo end($arr), "<br>"; //-> CSS
+echo reset($arr), "<br>"; //-> PHP
+```
+
+## Funtions
+
+Function is a set of statements that identifies a specific identifier (name).
+
+```php
+function square($num)
+{
+  $square = $num * $num;
+  echo $square;
+}
+
+square(7); //-> 49
+```
+
+### Transfer Data in PHP Function
+
+The function can use the data that is passed to it when you call. For this purpose, use the argument list, which is a list of arguments separated by commas.
+
+```php
+function myfunc($x,$y) {
+  $res = cos($x) + sin($y) + 2;
+  return $res;
+}
+
+$x = 5;
+$y = 7;
+
+$z = myfunc($x,$y);
+
+echo $z; //-> 2.940648784182
+```
+
+The operator `return` needs to function to return a value.
+
+### Default Value PHP Function Arguments
+
+```php
+function hello($text = "Hi") {
+  echo $text;
+}
+
+hello('Good Afternoon'); //-> Good Afternoon
+
+echo "<br/>";
+
+hello(); //-> Hi
+```
