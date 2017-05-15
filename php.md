@@ -834,4 +834,49 @@ finally {
 }
 ```
 
+### Dependency Injection
+
+Dependency Injection is a software design pattern that allows avoiding hard-coding dependencies and makes possible to change the dependencies both at runtime and compile time.
+
+By using Dependency Injection we can write more maintainable, testable, and modular code. All projects have dependencies. The larger the project the more dependencies is it bound to have; now having a great number of dependencies is nothing bad by itself however how those dependencies are managed and maintained is.
+
+Dependency Injection is not a new pattern and it has been commonly used on many languages like Java, but this pattern is somewhat new in the PHP world and it's gaining traction quickly thanks for frameworks like laravel
+
+```php
+class TwitterClient
+{
+  public function getTweets($handle)
+  {
+    return [
+      'Quisque pretium',
+      'Nulla condimentum ex est',
+      'Duis a imperdiet nibh'
+    ];
+  }
+}
+
+class TwitterManager
+{
+  protected $client;
+
+  public function __construct(TwitterClient $twitterclient)
+  {
+    $this->twitterclient = $twitterclient;
+  }
+
+  public function getTweesByUser($handle)
+  {
+    return $this->twitterclient->getTweets($handle);
+  }
+}
+
+$twitterClient = new TwitterClient;
+$twitterManager = new TwitterManager($twitterClient);
+
+var_dump($twitterManager->getTweesByUser('israel.morales@gmail.com'));
+//-> array(3) { [0]=> string(15) "Quisque pretium" [1]=> string(24) "Nulla condimentum ex est" [2]=> string(21) "Duis a imperdiet nibh" }
+```
+
+Notice we divide the code on class, this has be done because we want to maintain each class with his own responsability. **S.O.L.I.D** principle.
+
 ### Namespaces
