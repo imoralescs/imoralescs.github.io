@@ -140,6 +140,7 @@ echo $f; //-> Hello world ! ! !
 ## Conditional Statements
 
 ### IF Conditional Statement
+
 ```php
 // if (exp) 
 //   statement
@@ -148,5 +149,155 @@ $speed = 80;
 
 if($speed > 60){
   echo "Over speed !";
+}
+```
+
+### ELSE Conditional Statement
+
+```php
+// if (exp) 
+//   statement
+// else
+//   statement
+
+$speed = 50;
+
+if($speed > 60) {
+  echo 'Over speed !';
+}
+else {
+  echo 'Speed within normal limits';
+}
+```
+
+### ELSEIF Conditional Statement
+
+```php
+// if (exp) 
+//   statement1
+// elseif (exp2) 
+//   statement2
+
+$speed = 50;
+
+if ($speed < 30) {
+  echo "Speed within normal limits";
+}
+elseif ($speed >= 30 && $speed <= 60) {
+  echo "Your speed {$speed} km/h";
+}
+else {
+  echo "Over speed!";
+}
+```
+
+### Ternary Operator
+
+Ternary operator works almost as well as an operatorif , but when using the ternary operator, we write instead of keywords `?` and `:`.
+
+```php
+$speed = 55;
+
+echo ($speed <= 60) ? "Speed within normal limits" : "Over speed!"; 
+```
+
+### Switch Statement
+
+First written keyword `switch`, followed by parentheses in a written expression. 
+Further, after the speech `case` to list the options values, if the value is true, then the group of statements, which are written to the operator `break`. If neither condition is not suitable, then the operator `default` (if the operator defaultdoes not record, when not carrying out any other conditions it does nothing).
+
+```php
+$speed = 55;
+
+switch($speed)
+{
+  case 30 :
+    echo "Your speed is 30 km/h";
+    break;
+  case 58 :
+    echo "Your speed is 50 km/h";
+    break;
+  case 70 :
+    echo "Over speed!";
+    break;
+  default :
+    echo "Speed within normal limits";
+    break;
+}
+```
+
+## Cycles or Loops
+
+### FOR Loop
+
+```
+for(exp1; exp2; exp3) statement
+```
+
+ * **exp1:** insert an initial value for the loop counter, a variable that counts the number of times of the loop body. 
+ * **exp2:** sets the condition of repetition of the cycle. The cycle will be executed until this condition is true. 
+ * **exp3:** is performed every time after caesarean section loop. Usually, it is used to change (increase or decrease) counter.
+
+```php
+for ($i = 0; $i < 10; $i++)
+{
+  echo "Output string. $i times <br>"; 
+}
+```
+
+### WHILE Loop
+
+```
+while (exp) statement
+```
+
+WHILE loop instead of using a loop counter check condition until such time as this condition is true (TRUE). The condition is tested before executing the cycle, if it is false in the beginning, the loop will not be executed even once!  The body of the loop must be a variable that will have an impact on the condition, to prevent looping.
+
+```php
+$counter = 0;
+while ($counter < 5)
+{
+  echo "This line will be displayed $counter times <br>"; 
+  $counter++;
+}
+```
+
+### DO WHILE Loop
+
+```
+do
+  statement 
+while (condition)
+```
+
+The main difference between DO...WHILE loop WHILE from that first performed first loop body, and then check the condition. Ie, if the condition is at once false, the loop will be executed once. 
+
+```php
+$counter = 6;
+
+do
+{
+  echo "This line will be displayed $counter time"; 
+  $counter++;
+}
+
+while ($counter < 5);
+```
+
+### FOREACH Loop
+
+```
+foreach (array as $value) statement 
+foreach (array as $key => $value) statement
+```
+
+FOREACH cycle is presented to simplify the work with arrays (arrays will be discussed later). The arrays consist of separate elements, FOREACH loop for sorting these elements without counter. 
+
+```php
+$array = array ("Apple", "Limon", "Chery", "Oranges");
+
+foreach ($array as $value)
+{
+  echo "You chose a fruit - $value <br>"; 
 }
 ```
