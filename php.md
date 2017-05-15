@@ -432,3 +432,219 @@ echo "<br/>";
 
 hello(); //-> Hi
 ```
+
+## Object Oriented Programming
+
+### Classes
+
+The class is one of the data types. Every class definition begins with the keyword class, then the class name, a pair of braces, inside which it is possible to determine the properties and methods (to be discussed) that class. Class name can be any word on the condition that it is not included in the list of reserved word in PHP starts with a letter or underscore and followed by any number of letters, digits, or underscores. 
+
+```php
+class User
+{
+  public $email;
+}
+```
+
+### Objects
+
+To create an instance (object) of the class used Directive `new`.
+
+```php
+class User
+{
+  public $email;
+}
+
+$instance = new User();
+$instance->email = "israel.morales@gmail.com";
+
+echo $instance->email; //-> israel.morales@gmail.com
+```
+
+### Constructor / Destructors
+
+PHP allows developers to declare constructor methods. Classes in which the declared constructor method will call this method whenever you create a new object.
+
+```php
+class Task {
+  public $description;
+
+  public function __construct($description = 'Task Title')
+  {
+    $this->description = $description;
+  }
+}
+
+$task_01 = new Task('Learn OOP');
+echo $task_01->description; //-> Learn OOP
+
+$task_02 = new Task();
+echo $task_02->description; //-> Task Title
+```
+
+Also in PHP are represented by destructors. The destructor will be called during the liberation of all references to a particular object, or at the end of the script (the order of the destructor is not guaranteed).
+
+### Properties & Function or Methods
+
+The variables in the class, called "properties". They are also referred to using other terms such as "attributes" or "field". They are defined by using keywords public, protected, or private, following the rules of the correct description of the variables.
+
+```php
+class Task {
+  public $description = "Learn OOP";
+  private $title = "OOP";
+  protected $duration = "1hr";
+}
+
+$task = new Task();
+echo $task->description . '</br>'; //-> Learn OOP
+echo $task->title . '</br>'; //-> Fatal error: Uncaught Error: Cannot access private property
+echo $task->duration . '</br>'; //-> Fatal error: Uncaught Error: Cannot access protected property
+```
+
+Functions in the class known as "method". The process of describing the method occurs as in the description of conventional functions.
+
+```php
+class Task {
+  public $description = "Learn OOP";
+
+  public function getDescription(){
+    return $this->description;
+  }
+}
+
+$task = new Task();
+$result = $task->getDescription();
+
+echo $result; //-> Learn OOP
+```
+
+### Properties Access Areas
+
+The words of the public , the private , protected, determine the scope of a variable or class.
+
+ * **public:** available to all elements of.
+ * **private:** members are not accessible from the outside (outside of class).
+ * **protected:** items are available only to the class and all its descendants (will be considered).
+
+### Getters & Setters
+
+ * Controlling the of behavior associated with getting or setting the property - this allows additional functionality (like validation) to be added more easily later.
+ * Hiding the internal representation of the property while exposing a property using an alternative representation.
+ * Allowing the getter/setter to be passed around as lambda expressions rather than values.
+ * Getters and setters can allow different access levels - for example the get may be public, but the set could be protected.
+ * Insulating your public interface from change - allowing the public interface to remain constant while the implementation changes without affecting existing consumers.
+ * Providing a debugging interception point for when a property changes at runtime.
+ * Improved interoperability with libraries that are designed to operate against property getter/setters - Mocking, Serialization, etc.
+ * Allowing inheritors to change the semantics of how the property behaves and is exposed by overriding the getter/setter methods.
+ 
+```php
+class Person
+{
+  public $name;
+  public $age;
+  
+  public function __construct($name)
+  {
+    $this->name = $name;
+  }
+  
+  public function getAge()
+  {
+    return $this->age * 365;
+  }
+  
+  public function setAge($age)
+  {
+    if($age < 18)
+    {
+      throw new Exception("Person is not old enough.");
+    }
+    
+    $this->age = $age;
+  }
+}
+
+$john = new Person('John Doe');
+$john->setAge(30);
+
+// without encapsulation we can overwrite value.
+$john->age = 8;
+
+var_dump($john->getAge()); //-> int(2920)
+ ```
+ 
+### Encapsulation
+ 
+Is just changing the visibility of you properties, so we can restric access to them.
+ 
+```php
+class Person
+{
+  private $name;
+  private $age;
+
+  public function __construct($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getAge()
+  {
+    return $this->age * 365;
+  }
+
+  public function setAge($age)
+  {
+    if($age < 18)
+    {
+      throw new Exception("Person is not old enough.");
+    }
+
+    $this->age = $age;
+  }
+}
+
+$john = new Person('John Doe');
+$john->setAge(30);
+
+//$john->age = 8; // Uncaught Error: Cannot access private property
+
+var_dump($john->getAge()); //-> int(10950)
+```
+
+### Inheritance
+
+Inheritance is useful when you expand the class, the child class inherits all the public (public) and secure (protected) methods from the parent class. These methods will be original functionality as long as they are not overwritten.
+
+This approach is useful for abstracting functionality. Allows for additional functionality in similar objects implement all the common functionality without the need for.
+
+To create an inheritance from another class you want to use the operator `extends`.
+
+```php
+class Person
+{
+  public $name;
+
+  public function __construct($name = 'Unknown')
+  {
+    $this->name = $name;
+  }
+}
+
+class John extends Person {
+  public function getName()
+  {
+    return $this->name;
+  }
+}
+
+$john = new John('John Doe');
+echo $john->getName(); //-> John Doe
+```
+
+### Abstract Class
+
+### Interface
+
+### Namespaces
