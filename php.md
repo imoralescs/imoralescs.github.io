@@ -880,3 +880,5 @@ var_dump($twitterManager->getTweesByUser('israel.morales@gmail.com'));
 Notice we divide the code on class, this has be done because we want to maintain each class with his own responsability. **S.O.L.I.D** principle.
 
 ### Namespaces
+
+### Method Chaining
