@@ -141,10 +141,12 @@ echo $f; //-> Hello world ! ! !
 
 ### IF Conditional Statement
 
-```php
-// if (exp) 
-//   statement
+```
+if (exp) 
+  statement
+```
 
+```php
 $speed = 80;
 
 if($speed > 60){
@@ -154,12 +156,14 @@ if($speed > 60){
 
 ### ELSE Conditional Statement
 
-```php
-// if (exp) 
-//   statement
-// else
-//   statement
+```
+if (exp) 
+  statement
+else
+  statement
+```
 
+```php
 $speed = 50;
 
 if($speed > 60) {
@@ -172,12 +176,14 @@ else {
 
 ### ELSEIF Conditional Statement
 
-```php
-// if (exp) 
-//   statement1
-// elseif (exp2) 
-//   statement2
+```
+if (exp) 
+  statement1
+elseif (exp2) 
+  statement2
+```
 
+```php
 $speed = 50;
 
 if ($speed < 30) {
@@ -879,6 +885,51 @@ var_dump($twitterManager->getTweesByUser('israel.morales@gmail.com'));
 
 Notice we divide the code on class, this has be done because we want to maintain each class with his own responsability. **S.O.L.I.D** principle.
 
-### Namespaces
-
 ### Method Chaining
+
+Method chaining is a cool and useful featured expecially for procedural sequential API. What make possible chaining is returning at every method call the called object instance.
+
+```php
+class SearchRequest
+{
+    protected $query;
+
+    protected $limit;
+
+    public function setQuery($query)
+    {
+      $this->query = $query;
+
+      // Allow us chain method
+      return $this;
+    }
+
+    public function setLimit($limit = 100)
+    {
+      $this->limit = $limit;
+
+      return $this;
+    }
+}
+
+class SearchService
+{
+  public function search(SearchRequest $request)
+  {
+    var_dump($request); 
+  }
+}
+
+$service = new SearchService;
+$request = new SearchRequest;
+
+// Substitute
+/*
+$request->setQuery('oop');
+$request->setLimit(50);
+*/
+
+$request->setQuery('oop')->setLimit(50);
+
+$service->search($request); //-> object(SearchRequest)#2 (2) { ["query":protected]=> string(3) "oop" ["limit":protected]=> int(50) }
+```
