@@ -73,4 +73,54 @@ MySQL offers many data types but places those data types into 3 categories.
  * TIME - Stores the time in HH:MM:SS format.
  * YEAR - Stores a year in 2-digit or 4-digit format.
 
- *
+## Relational Model Rules
+
+Each column value must be a single value only. All values for a given column must be of the same data type. Each column name must be unique. The order of columns is insignificant. No two rows in a relation can be identical. The order of the rows is insignificant.
+
+## Functional Dependencies
+
+A functional dependency describes a relationship between columns with a single relation. A column is dependent on another if one value can be used to determine the value of another. 
+
+Example: first_name is functionally dependent on id because id can be used to uniquely determine the value of first_name
+
+## Database Normalization
+
+Normalization is the process of organizing the fields and tables of a relational database to minimize redundancy and dependency. This can involve dividing large tables into smaller tables and defining relationships between them. The objective is to isolate data so that actions in a field can be made in one table and then propagated through the rest of the needed tables using properly defined relationships.
+
+### First Normal Form (1NF)
+
+ * No repeating or duplicate fields.
+ * Each row should contain only one value.
+ * Each row/record should be unique and identified by a primary key.
+
+Example:
+Customers Table (Wrong)
+```
+ id  | name           | membership
+----------------------------------
+ 01  | John Doe       | silver
+ 01  | John Doe       | gold
+ 02  | Steve Hill     | gold
+```
+
+Customers Table (Right)
+```
+ id  | name           
+------------------
+ 01  | John Doe       
+ 02  | Steve Hill     
+```
+
+Memberships Table (Right)
+```
+ id  | customer_id | membership           
+-------------------------------
+ 01  | 01          | silver  
+ 02  | 01          | gold
+ 03  | 02          | gold
+```
+
+### Second Normal Form (2NF)
+
+ * Should be in 1NF
+ * All non-key fields depend on all
