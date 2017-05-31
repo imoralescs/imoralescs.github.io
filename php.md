@@ -933,3 +933,89 @@ $request->setQuery('oop')->setLimit(50);
 
 $service->search($request); //-> object(SearchRequest)#2 (2) { ["query":protected]=> string(3) "oop" ["limit":protected]=> int(50) }
 ```
+
+## Autoloading PSR-4
+
+### Autoloading
+
+This just allow us to automatically load or require classes into ours application, so we can start using without having to manually pull in.
+
+### Namespaces
+
+Is a unique name we give to our class, and this is basically where that class live.
+
+### PSR-4 
+
+Is a PHP-FIG standard way to autoload class in a PHP project. Part of this standard is used composer PHP package manager to configurate our project and specify how we are going to load ours files classes.
+
+For this example we are going to work base on this directory structure:
+
+```
+Project
+  -- app
+    -- Models
+      -- Task.php
+    -- Storage
+      -- DatabaseTaskStorage.php
+    TaskManager.php
+  index.php
+```
+
+  1. First on root project directory, create a composer.json file with:
+
+```json
+{
+  "autoload":{
+    "psr-4":{
+      "NamespacesName\\":"app"
+    }
+  }
+}
+```
+
+  2. Them base on root directory run cmd ```composer install```, after finish will see on root directory our vendor directory and ready to used our classes. 
+  3. Before to load, we need to make sure ours classes, have namespaces define.
+
+```php
+// -- app/Models/Task.php
+<?php 
+  namespace NamespacesName/Models;
+  // Namespace/DirectoryName
+  
+  class Task{
+  
+  }
+?>
+
+// -- app/Storage/DatabaseTaskStorage.php
+<?php
+  namespaces NamespacesName/Storage;
+  
+  class DatabaseTaskStorage{
+  
+  }
+?>
+
+// -- app/TaskManager.php
+<?php
+  namespaces NamespacesName;
+  
+  class TaskManager{
+  
+  }
+?>
+```
+
+  4. To used our classes we are goign to test our autoloading on index.php:
+
+```php
+<?php 
+  
+  use NamespacesName\Models\Task;
+  
+  require 'vendor/autoload.php;
+  
+  $task = new Task;
+  
+  var_dump($task);
+```
