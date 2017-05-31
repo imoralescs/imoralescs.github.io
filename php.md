@@ -938,15 +938,19 @@ $service->search($request); //-> object(SearchRequest)#2 (2) { ["query":protecte
 
 ### Autoloading
 
-This just allow us to automatically load or require classes into ours application, so we can start using without having to manually pull in.
+This just allow us to automatically load or require classes into ours application, so we can start using without having to manually pull in.  Every time you want to use a new class in your PHP project, first you need to include this class (using ```include``` or ```require``` language construct, that’s right this are not functions). However if you have autoload function defined, inclusion will handle itself.
 
 ### Namespaces
 
-Is a unique name we give to our class, and this is basically where that class live.
+Is a unique name we give to our class, and this is basically where that class live. Is a way of organizing your PHP classes and preventing from any kind of code conflicts.
+
+Declaring a namespace is as simple as using the ```namespace``` keyword.
 
 ### PSR-4 
 
-Is a PHP-FIG standard way to autoload class in a PHP project. Part of this standard is used composer PHP package manager to configurate our project and specify how we are going to load ours files classes.
+Is a PHP-FIG standard way to autoload class in a PHP project. PSR-4 Autoloader is a PHP-FIG specification for autoloading classes from file paths. Autoloaders remove the complexity of including files by mapping namespaces to file system paths.
+
+Part of this standard is used composer PHP package manager to configurate our project and specify how we are going to load ours files classes.
 
 For this example we are going to work base on this directory structure:
 
