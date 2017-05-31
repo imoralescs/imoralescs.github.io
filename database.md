@@ -123,4 +123,158 @@ Memberships Table (Right)
 ### Second Normal Form (2NF)
 
  * Should be in 1NF
- * All non-key fields depend on all
+ * All non-key fields depend on all components of the primary key.
+ * No partial dependencies.
+
+Example:
+Customers Table (Wrong)
+```
+ id  | name           | membership_id | membership
+--------------------------------------------------
+ 01  | John Doe       | 02            | silver
+ 02  | Steve Hill     | 01            | gold
+```
+
+Customers Table (Right)
+```
+ id  | name           
+------------------
+ 01  | John Doe       
+ 02  | Steve Hill     
+```
+
+Memberships Table (Right)
+```
+ id  | customer_id | membership           
+-------------------------------
+ 01  | 01          | silver  
+ 02  | 01          | gold
+ 03  | 02          | gold
+```
+
+### Third Normal Form (3NF)
+
+ * Should be in 2NF
+ * Every non-prime attribute of table must depend on primary key.
+
+Example:
+Customers Table (Wrong)
+```
+ id  | name  | street   | city     | zip
+-------------------------------------------
+ 01  | John  | 2 Main   | Amesbury | 01913 
+ 02  | Steve | 4 School | Merrimac | 01860 
+```
+
+Customers Table (Right)
+```
+ id  | name  | zip
+---------------------
+ 01  | John  | 01913 
+ 02  | Steve | 01860 
+```
+
+Address Table (Right)
+```
+ zip   | street   | city     
+-----------------------------
+ 01913 | 2 Main   | Amesbury  
+ 01860 | 4 School | Merrimac  
+```
+
+## Design Process
+
+### Step One : Define your purpose
+
+The first step is to define the purpose of yout database and the applications that will use it. Our purpose is on this case is pretty simple. We want to create a database for an application/website that will example:
+
+ * Sell products which can be categorized.
+ * Create customer accounts.
+ * Allow customer to create reviews for products.
+ * Provide a basic content management system for static pages.
+
+### Step Two : Determine your tables
+
+Once we figure out our purpose and what kinds of task we need to do, we can divide our information up into tables. You should follow a naming convention in your table structure.
+
+Going by the defining process, we know we need the following tables
+
+ * product_categories
+ * products
+ * customers
+ * reviews
+ * page_categories
+ * pages
+
+### Step Three : Determine your fields
+
+Your tables need fields. First decide which information you want to save, then decide which table it should be placed in. As an example, our "**products**" table will have an **ID**, **name**, **description**, **price**, **category** and an **image**. We can also add more along the way.
+
+This step also includes "choosing data types".
+
+### Step Four : Determine your relationships
+
+We need to look at our table data and figure out which tables can relate to another. A good example is in our "**revies**" table, we have a "**customer**" field. This field will relate to the "**id**" field in the "**customers**" table.
+
+### Step Five : Create a diagram
+
+Now that you have your data structure figured out, tranfer it from a messy notepad file to a neat diagram or some other physical representation of the schema using software like **MySQL Workbench** or **Dia Diagram Editor**
+
+### Step Six : Refine if needed
+
+### Full Example Schema
+```
+PRODUCTS
+-id (INT(11), auto_increment, primary_key)
+-name (VARCHAR(100))
+-description (TEXT)
+-price (VARCHAR(20))
+-category (INT(11), foreign_key to products_categories id)
+-image (VARCHAR(100))
+
+PRODUCTS_CATEGORIES
+-id (INT(11), auto_increment, primary_key)
+-name (VARCHAR(100))
+-description (TEXT)
+-image (VARCHAR(100))
+
+CUSTOMERS
+-id (INT(11), auto_increment, primary_key)
+-first_name (VARCHAR(100))
+-last_name (VARCHAR(100))
+-email (VARCHAR(100))
+-password (VARCHAR(100))
+-avatar (VARCHAR(100))
+-join_date (TIMESTAMP, DEFAULT - current_date)
+
+CUSTOMER_ADDRESSES
+-id (INT(11), auto_increment, primary_key)
+-customer (INT(11), foreign_key to customers id)
+-address (VARCHAR(100))
+-address2 (VARCHAR(100))
+-city (VARCHAR(100))
+-state (VARCHAR(100))
+-zipcode (VARCHAR(100))
+
+REVIEWS
+-id (INT(11), auto_increment, primary_key)
+-title (VARCHAR(100))
+-body (TEXT)
+-rating INT(2)
+-customer (INT(11), foreign_key to customers id)
+-product (INT(11), foreign_key to products id)
+-review_date (TIMESTAMP, DEFAULT - current_date)
+
+PAGES
+-id (INT(11), auto_increment, primary_key)
+-title(VARCHAR(100))
+-body (TEXT)
+-category (INT(11), foreign_key to products id)
+-create_date (TIMESTAMP, DEFAULT - current_date)
+
+PAGE_CATEGORIES
+-id (INT(11), auto_increment, primary_key)
+-name (VARCHAR(100))
+-description (TEXT)
+-image (VARCHAR(100))
+```
