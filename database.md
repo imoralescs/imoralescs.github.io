@@ -5,7 +5,7 @@ Ordered collection of data.
 
 ## DBMS 
 
-is a software that is designed to model data and provide interaction with a user. Data is normally stored in one or more files, usually stored in tables, tables contain rows and columns. Some DBMS are MySQL, PostgreSQL, Oracle, MariaDB, etc.
+Is a software that is designed to model data and provide interaction with a user. Data is normally stored in one or more files, usually stored in tables, tables contain rows and columns. Some DBMS are MySQL, PostgreSQL, Oracle, MariaDB, etc.
 
 Example of table inside of a database:
 
@@ -76,6 +76,37 @@ MySQL offers many data types but places those data types into 3 categories.
 ## Relational Model Rules
 
 Each column value must be a single value only. All values for a given column must be of the same data type. Each column name must be unique. The order of columns is insignificant. No two rows in a relation can be identical. The order of the rows is insignificant.
+
+Students Table
+```
+ student_id | first_name | last_name | sex
+---------------------------------------------------
+ 200800101  | Brad       | Traversy  | M
+ 200800102  | John       | Doe       | M
+ 200800103  | Steve      | Hill      | M
+ 200800104  | Alice      | Baker     | F
+```
+
+Courses Table
+```
+ course_id | course_title               | credits
+-------------------------------------------------
+ M101      | Mathematics                | 4.5
+ P101      | Philosophy                 | 4.5
+ M207      | Intro. to Programming      | 3.0
+ P321      | Life, Universe, Everything | 3.0
+ M321      | Database Design            | 3.0
+```
+
+Enrollments Table
+```
+ student_id | course_number | term | year
+------------------------------------------
+ 200800101  | P101          | 1    | 2017
+ 200800102  | M101          | 1    | 2017
+ 200800103  | M342          | 1    | 2017
+ 200800104  | P321          | 1    | 2017
+```
 
 ## Functional Dependencies
 
