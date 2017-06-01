@@ -309,3 +309,48 @@ PAGE_CATEGORIES
 -description (TEXT)
 -image (VARCHAR(100))
 ```
+
+## Used SQLFiddle
+
+ * Step 1 : Choose database and build your schema
+Example:
+
+```SQL
+create table employee (emp_id bigint not null, emp_name varchar(50) not null, dept_id bigint null);
+
+insert into employee values (1, 'John', 1);
+insert into employee values (2, 'Danna', 2);
+insert into employee values (3, 'Bob', 3);
+insert into employee values (4, 'Peter', 1);
+insert into employee values (5, 'Lynda', 2);
+insert into employee values (6, 'Steve', 2);
+insert into employee values (7, 'Steph', 2);
+insert into employee values (8, 'Nick', null);
+
+create table department (dept_id bigint null, dept_name varchar(50) not null);
+
+insert into department values (1, 'IT');
+insert into department values (2, 'Finance');
+insert into department values (3, 'Operations');
+insert into department values (null, 'No Department');
+```
+
+ * Step 2 : Enter SQL script and run
+
+```SQL
+SELECT a.emp_name, b.dept_name FROM employee a INNER JOIN department b ON a.dept_id = b.dept_id;
+```
+
+ * Step 3 : Output example:
+
+```
+| emp_name |  dept_name |
+|----------|------------|
+|     John |         IT |
+|    Danna |    Finance |
+|      Bob | Operations |
+|    Peter |         IT |
+|    Lynda |    Finance |
+|    Steve |    Finance |
+|    Steph |    Finance |
+```
