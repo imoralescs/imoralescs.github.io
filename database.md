@@ -316,7 +316,12 @@ PAGE_CATEGORIES
 Example:
 
 ```SQL
-create table employee (emp_id bigint not null, emp_name varchar(50) not null, dept_id bigint null);
+create table employee 
+(
+  emp_id BIGINT NOT NULL, 
+  emp_name VARCHAR(50) NOT NULL, 
+  dept_id BIGINT NULL
+);
 
 insert into employee values (1, 'John', 1);
 insert into employee values (2, 'Danna', 2);
@@ -353,4 +358,79 @@ SELECT a.emp_name, b.dept_name FROM employee a INNER JOIN department b ON a.dept
 |    Lynda |    Finance |
 |    Steve |    Finance |
 |    Steph |    Finance |
+```
+
+## SQL
+
+### Create Table
+
+```sql
+CREATE TABLE tablename
+(
+  column_name data_type,
+  column_name data_type
+);
+```
+
+Example:
+
+```sql
+CREATE TABLE person
+(
+  name VARCHAR(100),
+  age INT
+);
+```
+
+### Show Table
+
+```sql
+SHOW TABLES;
+```
+
+Result:
+
+```
+| TABLE_NAME |
+|------------|
+|     person |
+```
+
+### Show Columns
+
+```
+SHOW COLUMNS FROM <tablename>;
+```
+
+or
+
+```
+DESC <tablename>
+```
+
+Example:
+
+```sql
+SHOW COLUMNS FROM person;
+```
+
+or
+
+```sql
+DESC person;
+```
+
+Result:
+
+```
+| COLUMN_NAME |  COLUMN_TYPE | IS_NULLABLE | COLUMN_KEY | COLUMN_DEFAULT | EXTRA |
+|-------------|--------------|-------------|------------|----------------|-------|
+|        name | varchar(100) |         YES |            |         (null) |       |
+|         age |      int(11) |         YES |            |         (null) |       |
+```
+
+### Delete Table
+
+```
+DROP TABLE <tablename>;
 ```
