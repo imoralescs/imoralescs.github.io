@@ -434,3 +434,84 @@ Result:
 ```
 DROP TABLE <tablename>;
 ```
+
+### Insert Data to Table
+
+Adding data to your tables. Important to know, the order of statment matters.
+
+```
+INSERT INTO <tablename> (column_name, column_name)
+VALUES ('column_value', 'column_value');
+```
+
+Example: Creating Schema
+
+```sql
+CREATE TABLE person
+(
+  name VARCHAR(100),
+  age INT
+);
+
+INSERT INTO person (name, age)
+VALUES ('Steve Palm', 18);
+
+INSERT INTO person (name, age)
+VALUES ('Victoria Holm', 20);
+```
+
+
+Example: View
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
+|          name | age |
+|---------------|-----|
+|    Steve Palm |  18 |
+| Victoria Holm |  20 |
+```
+
+### Multiple Insert Data to Table
+
+```
+INSERT INTO <tablename> (column_name, column_name)
+VALUES 
+('column_value', 'column_value'),
+('column_value', 'column_value');
+```
+
+Example: Creating Schema
+
+```sql
+CREATE TABLE person
+(
+  name VARCHAR(100),
+  age INT
+);
+
+INSERT INTO person (name, age)
+VALUES 
+('Steve Palm', 18), 
+('Victoria Holm', 20);
+```
+
+
+Example: View
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
+|          name | age |
+|---------------|-----|
+|    Steve Palm |  18 |
+| Victoria Holm |  20 |
+```
