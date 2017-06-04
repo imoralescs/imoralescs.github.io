@@ -515,3 +515,68 @@ Result:
 |    Steve Palm |  18 |
 | Victoria Holm |  20 |
 ```
+
+### NULL on SQL
+
+On MySQL Null means the value is unknown or the value is not be specify, this not mean 0. To used null in columns we need to permit to used, on the definition of creation of the table columns. To require avoid using null, we need to specify on the creation of the table. Example:
+
+```sql
+CREATE TABLE person
+(
+  name VARCHAR(100) NOT NULL,
+  age INT NOT NULL
+);
+```
+
+### Default Value
+
+To set default values.
+
+```sql
+CREATE TABLE person
+(
+  name VARCHAR(100) DEFAULT 'unnamed',
+  age INT DEFAULT 18
+);
+```
+
+### Primary Key
+
+Primary keys serve as unique identifiers for the records in a table, while foreign keys are used to link related tables together. When designing a set of database tables, it is important to specify which fields will be used for primary and foreign keys to clarify both in-table structure and inter-table relationships.
+
+You can specify a primary key for the table with the PRIMARY KEY constraint. In a well-designed database schema, a primary key serves as an unchanging, unique identifier for each record. If a key is declared as primary, this usually implies that the values in it will rarely be modified.
+
+The PRIMARY KEY constraint can best be thought of as a combination of the NOT NULL and UNIQUE constraints because it requires values in the specified field to be neither NULL nor repeated in any other row.
+
+Example: Creating Schema
+
+```sql
+CREATE TABLE person
+(
+  person_id INT NOT NULL,
+  name VARCHAR(100),
+  age INT,
+  PRIMARY KEY(person_id)
+);
+
+INSERT INTO person (person_id, name, age)
+VALUES 
+(1, 'Steve Palm', 18), 
+(2, 'Victoria Holm', 20);
+```
+
+
+Example: View
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
+| person_id |          name | age |
+|-----------|---------------|-----|
+|         1 |    Steve Palm |  18 |
+|         2 | Victoria Holm |  20 |
+```
