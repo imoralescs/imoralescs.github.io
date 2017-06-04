@@ -360,6 +360,69 @@ SELECT a.emp_name, b.dept_name FROM employee a INNER JOIN department b ON a.dept
 |    Steph |    Finance |
 ```
 
+## MYSQL on Ubuntu
+
+### Install
+
+```
+sudo apt-get update
+sudo apt-get install mysql-server
+```
+
+Then add password, after finish install we can access to our local mysql sever cli by:
+
+```
+mysql -u root -p
+```
+### Show Database
+
+```sql
+SHOW DATABASES;
+```
+
+### Create Database
+
+```
+CREATE DATABASE <name>;
+```
+
+Example:
+
+```sql
+CREATE DATABASE my_app_db;
+```
+
+Then we can verify if the database it was create by using show database command.
+
+### Delete Database
+
+```
+DROP DATABASE <name>;
+```
+
+Example:
+
+```sql
+CREATE DATABASE testing_db;
+DROP DATABASE testing_db;
+```
+
+Then we can verify ours database.
+
+### How use Database
+
+Tell mysql which database we want to be working.
+
+```
+USE <database name>;
+```
+
+Example:
+
+```sql
+USE my_app_db;
+```
+
 ## SQL
 
 ### Create Table
@@ -579,4 +642,228 @@ Result:
 |-----------|---------------|-----|
 |         1 |    Steve Palm |  18 |
 |         2 | Victoria Holm |  20 |
+```
+
+## SQL CRUD (Create Read Update Delete)
+
+```sql
+CREATE TABLE person
+(
+  person_id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100),
+  last VARCHAR(100),
+  age INT,
+  PRIMARY KEY(person_id)
+);
+
+INSERT INTO person (name, last, age)
+VALUES 
+('Steve', 'Palm', 18), 
+('Victoria', 'Holm', 20),
+('Michael', 'Sheyl', 14), 
+('Bruce', 'Londor', 22),
+('Joe', 'Ray', 17), 
+('Matt', 'Delvin', 20);
+```
+
+### Read (SELECT Clause)
+
+Select expression mean, what columns do you want?
+
+Example 1:
+
+```sql
+SELECT  
+*       /* <-- Give me all columns */
+FROM    
+person; /* <-- Columns */ 
+```
+
+Result:
+
+```
++-----------+----------+--------+------+
+| person_id | name     | last   | age  |
++-----------+----------+--------+------+
+|         1 | Steve    | Palm   |   18 |
+|         2 | Victoria | Holm   |   20 |
+|         3 | Michael  | Sheyl  |   14 |
+|         4 | Bruce    | Londor |   22 |
+|         5 | Joe      | Ray    |   17 |
+|         6 | Matt     | Delvin |   20 |
++-----------+----------+--------+------+
+```
+
+Example 2:
+
+```sql
+SELECT name FROM person;
+```
+
+Result:
+
+```
+|     name |
+|----------|
+|    Steve |
+| Victoria |
+|  Michael |
+|    Bruce |
+|      Joe |
+|     Matt |
+```
+
+Example 3:
+
+```sql
+SELECT name, age FROM person;
+```
+
+Result:
+
+```
+|     name | age |
+|----------|-----|
+|    Steve |  18 |
+| Victoria |  20 |
+|  Michael |  14 |
+|    Bruce |  22 |
+|      Joe |  17 |
+|     Matt |  20 |
+```
+
+### WHERE Clause
+
+We use WHERE all the time to update or delete values.
+
+Example 1:
+
+```sql
+SELECT * FROM person WHERE age=20;
+```
+
+Result:
+
+```
+| person_id |     name |   last | age |
+|-----------|----------|--------|-----|
+|         2 | Victoria |   Holm |  20 |
+|         6 |     Matt | Delvin |  20 |
+```
+
+Example 2:
+
+```sql
+SELECT * FROM person WHERE name='Bruce';
+```
+
+Result:
+
+```
+| person_id |  name |   last | age |
+|-----------|-------|--------|-----|
+|         4 | Bruce | Londor |  22 |
+```
+
+### Aliases
+
+We can specify how our data should be display back yo us. Useful on large table with JOIN clause.
+
+Example 1:
+
+```sql
+SELECT person_id AS id, name FROM person;
+```
+
+Result:
+
+```
+| id |     name |
+|----|----------|
+|  1 |    Steve |
+|  2 | Victoria |
+|  3 |  Michael |
+|  4 |    Bruce |
+|  5 |      Joe |
+|  6 |     Matt |
+```
+
+Example 2:
+
+```sql
+SELECT person_id AS "id of person", name FROM person;
+```
+
+Result:
+
+```
+| id of person |     name |
+|--------------|----------|
+|            1 |    Steve |
+|            2 | Victoria |
+|            3 |  Michael |
+|            4 |    Bruce |
+|            5 |      Joe |
+|            6 |     Matt |
+```
+
+### Update
+
+Example 1:
+
+```sql
+UPDATE person
+SET name='Peter'
+WHERE person_id=3;
+```
+
+View:
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
++-----------+----------+--------+------+
+| person_id | name     | last   | age  |
++-----------+----------+--------+------+
+|         1 | Steve    | Palm   |   18 |
+|         2 | Victoria | Holm   |   20 |
+|         3 | Peter    | Sheyl  |   14 |
+|         4 | Bruce    | Londor |   22 |
+|         5 | Joe      | Ray    |   17 |
+|         6 | Matt     | Delvin |   20 |
++-----------+----------+--------+------+
+```
+
+Example 2:
+
+```sql
+UPDATE person
+SET name='Peter'
+WHERE person_id=3;
+```
+
+View:
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
++-----------+----------+--------+------+
+| person_id | name     | last   | age  |
++-----------+----------+--------+------+
+|         1 | Steve    | Palm   |   14 |
+|         2 | Victoria | Holm   |   20 |
+|         3 | Peter    | Sheyl  |   14 |
+|         4 | Bruce    | Londor |   22 |
+|         5 | Joe      | Ray    |   17 |
+|         6 | Matt     | Delvin |   20 |
++-----------+----------+--------+------+
+
 ```
