@@ -703,14 +703,16 @@ SELECT name FROM person;
 Result:
 
 ```
-|     name |
-|----------|
-|    Steve |
++----------+
+| name     |
++----------+
+| Steve    |
 | Victoria |
-|  Michael |
-|    Bruce |
-|      Joe |
-|     Matt |
+| Michael  |
+| Bruce    |
+| Joe      |
+| Matt     |
++----------+
 ```
 
 Example 3:
@@ -722,14 +724,16 @@ SELECT name, age FROM person;
 Result:
 
 ```
-|     name | age |
-|----------|-----|
-|    Steve |  18 |
-| Victoria |  20 |
-|  Michael |  14 |
-|    Bruce |  22 |
-|      Joe |  17 |
-|     Matt |  20 |
++----------+------+
+| name     | age  |
++----------+------+
+| Steve    |   18 |
+| Victoria |   20 |
+| Michael  |   14 |
+| Bruce    |   22 |
+| Joe      |   17 |
+| Matt     |   20 |
++----------+------+
 ```
 
 ### WHERE Clause
@@ -745,10 +749,12 @@ SELECT * FROM person WHERE age=20;
 Result:
 
 ```
-| person_id |     name |   last | age |
-|-----------|----------|--------|-----|
-|         2 | Victoria |   Holm |  20 |
-|         6 |     Matt | Delvin |  20 |
++-----------+----------+--------+------+
+| person_id | name     | last   | age  |
++-----------+----------+--------+------+
+|         2 | Victoria | Holm   |   20 |
+|         6 | Matt     | Delvin |   20 |
++-----------+----------+--------+------+
 ```
 
 Example 2:
@@ -760,9 +766,11 @@ SELECT * FROM person WHERE name='Bruce';
 Result:
 
 ```
-| person_id |  name |   last | age |
-|-----------|-------|--------|-----|
-|         4 | Bruce | Londor |  22 |
++-----------+-------+--------+------+
+| person_id | name  | last   | age  |
++-----------+-------+--------+------+
+|         4 | Bruce | Londor |   22 |
++-----------+-------+--------+------+
 ```
 
 ### Aliases
@@ -778,14 +786,16 @@ SELECT person_id AS id, name FROM person;
 Result:
 
 ```
-| id |     name |
-|----|----------|
-|  1 |    Steve |
++----+----------+
+| id | name     |
++----+----------+
+|  1 | Steve    |
 |  2 | Victoria |
-|  3 |  Michael |
-|  4 |    Bruce |
-|  5 |      Joe |
-|  6 |     Matt |
+|  3 | Michael  |
+|  4 | Bruce    |
+|  5 | Joe      |
+|  6 | Matt     |
++----+----------+
 ```
 
 Example 2:
@@ -797,17 +807,21 @@ SELECT person_id AS "id of person", name FROM person;
 Result:
 
 ```
-| id of person |     name |
-|--------------|----------|
-|            1 |    Steve |
++--------------+----------+
+| id of person | name     |
++--------------+----------+
+|            1 | Steve    |
 |            2 | Victoria |
-|            3 |  Michael |
-|            4 |    Bruce |
-|            5 |      Joe |
-|            6 |     Matt |
+|            3 | Michael  |
+|            4 | Bruce    |
+|            5 | Joe      |
+|            6 | Matt     |
++--------------+----------+
 ```
 
 ### Update
+
+Good practice is try to SELECT value before you UPDATE.
 
 Example 1:
 
@@ -866,4 +880,30 @@ Result:
 |         6 | Matt     | Delvin |   20 |
 +-----------+----------+--------+------+
 
+```
+
+### Delete
+
+```sql
+DELETE FROM person WHERE name='Peter';
+```
+
+View:
+
+```sql
+SELECT * FROM person;
+```
+
+Result:
+
+```
++-----------+----------+--------+------+
+| person_id | name     | last   | age  |
++-----------+----------+--------+------+
+|         1 | Steve    | Palm   |   14 |
+|         2 | Victoria | Holm   |   20 |
+|         4 | Bruce    | Londor |   22 |
+|         5 | Joe      | Ray    |   17 |
+|         6 | Matt     | Delvin |   20 |
++-----------+----------+--------+------+
 ```
