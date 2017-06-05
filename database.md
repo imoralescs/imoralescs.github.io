@@ -961,3 +961,106 @@ VALUES
 
  4- To load the sql data `source path`, `source book_data.sql`
  5- To verify table and data `SHOW TABLES;` and `SELECT * FROM books;`
+
+## SQL String Functions
+
+### Concat
+
+Is ugly to used this to combine data.
+
+Example 1:
+
+```sql
+SELECT author_fname, author_lname FROM books;
+```
+
+Result:
+
+```
++--------------+----------------+
+| author_fname | author_lname   |
++--------------+----------------+
+| Jhumpa       | Lahiri         |
+| Neil         | Gainman        |
+| Neil         | Gainman        |
+| Jhumpa       | Lahiri         |
+| Dave         | Eggers         |
+| Dave         | Eggers         |
+| Michael      | Chabon         |
+| Patti        | Smith          |
+| Dave         | Eggers         |
+| Neil         | Gainman        |
+| Raymond      | Carver         |
+| Raymond      | Carver         |
+| Don          | DeLillo        |
+| John         | Steinbeck      |
+| David        | Foster Wallace |
+| David        | Foster Wallace |
++--------------+----------------+
+```
+
+Instead we can used `CONCAT` function.
+
+```sql
+SELECT
+ CONCAT(author_fname, ' ', author_lname)
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------+
+| CONCAT(author_fname, ' ', author_lname) |
++-----------------------------------------+
+| Jhumpa Lahiri                           |
+| Neil Gainman                            |
+| Neil Gainman                            |
+| Jhumpa Lahiri                           |
+| Dave Eggers                             |
+| Dave Eggers                             |
+| Michael Chabon                          |
+| Patti Smith                             |
+| Dave Eggers                             |
+| Neil Gainman                            |
+| Raymond Carver                          |
+| Raymond Carver                          |
+| Don DeLillo                             |
+| John Steinbeck                          |
+| David Foster Wallace                    |
+| David Foster Wallace                    |
++-----------------------------------------+
+```
+
+Example 2:
+
+```sql
+SELECT author_fname AS first, author_lname AS last, 
+ CONCAT(author_fname, ' ', author_lname) AS full 
+FROM books;
+```
+
+Result:
+
+```
++---------+----------------+----------------------+
+| first   | last           | full                 |
++---------+----------------+----------------------+
+| Jhumpa  | Lahiri         | Jhumpa Lahiri        |
+| Neil    | Gainman        | Neil Gainman         |
+| Neil    | Gainman        | Neil Gainman         |
+| Jhumpa  | Lahiri         | Jhumpa Lahiri        |
+| Dave    | Eggers         | Dave Eggers          |
+| Dave    | Eggers         | Dave Eggers          |
+| Michael | Chabon         | Michael Chabon       |
+| Patti   | Smith          | Patti Smith          |
+| Dave    | Eggers         | Dave Eggers          |
+| Neil    | Gainman        | Neil Gainman         |
+| Raymond | Carver         | Raymond Carver       |
+| Raymond | Carver         | Raymond Carver       |
+| Don     | DeLillo        | Don DeLillo          |
+| John    | Steinbeck      | John Steinbeck       |
+| David   | Foster Wallace | David Foster Wallace |
+| David   | Foster Wallace | David Foster Wallace |
++---------+----------------+----------------------+
+```
