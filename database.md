@@ -917,3 +917,47 @@ Result:
 |         6 | Matt     | Delvin |   20 |
 +-----------+----------+--------+------+
 ```
+
+## SQL Files
+
+Is best practice and very useful save sql statement on a single file. Let elaborate a example:
+
+ 1- Create a database `CREATE DATABASE my_app_db;`
+ 2- Let used the database `USE my_app_db;`
+ 3- Create the file **book_data.sql** on root directory and add the following code:
+ 
+```sql
+CREATE TABLE books
+(
+ book_id INT NOT NULL AUTO_INCREMENT,
+ title VARCHAR(100),
+ author_fname VARCHAR(100),
+ author_lname VARCHAR(100),
+ released_year INT,
+ stock_quantity INT,
+ pages INT,
+ PRIMARY KEY(book_id)
+);
+
+INSERT INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages)
+VALUES
+('The Namesake', 'Jhumpa', 'Lahiri', 2003, 32, 291),
+('Norse Mythology', 'Neil', 'Gainman', 2016, 43, 304),
+('American Gods', 'Neil', 'Gainman', 2001, 12, 465),
+('Interpreter of Maladies', 'Jhumpa', 'Lahiri', 1996, 97, 198),
+('A Hologram for the King: A Novel', 'Dave', 'Eggers', 2012, 154, 352),
+('The Circle', 'Dave', 'Eggers', 2013, 26, 504),
+('The Amazing Adventures of Kavalier & Clay', 'Michael', 'Chabon', 2000, 68, 634),
+('Just Kids', 'Patti', 'Smith', 2010, 55, 304),
+('A Heartbreaking Work of Staggering Genius', 'Dave', 'Eggers', 2001, 104, 437),
+('Coraline', 'Neil', 'Gainman', 2003, 100, 208),
+('What We Talk About When We Talk About Love: Stories', 'Raymond', 'Carver', 1981, 23, 437),
+("Where I'm Calling From: Selected Stories", 'Raymond', 'Carver', 1989, 12, 526),
+('White Noise', 'Don', 'DeLillo', 1985, 49, 320),
+('Cannery Row', 'John', 'Steinbeck', 1945, 95, 181),
+('Oblivion: Stories', 'David', 'Foster Wallace', 2004, 172, 329),
+('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343);
+```
+
+ 4- To load the sql data `source path`, `source book_data.sql`
+ 5- To verify table and data `SHOW TABLES;` and `SELECT * FROM books;`
