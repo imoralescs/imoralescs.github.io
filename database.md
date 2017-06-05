@@ -1416,3 +1416,201 @@ Result:
 | consider the lobster                                |
 +-----------------------------------------------------+
 ```
+
+## SQL Refining our selections
+
+Add the following sql code:
+
+```sql
+INSERT 
+ INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages) 
+ VALUES 
+ ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+ ('fake_book', 'Freida', 'Harris', 2001, 287, 428), 
+ ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+```
+### DISTINCT 
+
+Example 1:
+
+```sql
+SELECT 
+ DISTINCT author_lname 
+FROM books;
+```
+
+Result:
+
+```
++----------------+
+| author_lname   |
++----------------+
+| Lahiri         |
+| Gainman        |
+| Eggers         |
+| Chabon         |
+| Smith          |
+| Carver         |
+| DeLillo        |
+| Steinbeck      |
+| Foster Wallace |
+| Harris         |
+| Saunders       |
++----------------+
+```
+
+Example 2:
+
+```sql
+SELECT 
+ DISTINCT released_year 
+FROM books; 
+```
+
+Result:
+
+```
++---------------+
+| released_year |
++---------------+
+|          2003 |
+|          2016 |
+|          2001 |
+|          1996 |
+|          2012 |
+|          2013 |
+|          2000 |
+|          2010 |
+|          1981 |
+|          1989 |
+|          1985 |
+|          1945 |
+|          2004 |
+|          2005 |
+|          2014 |
+|          2017 |
++---------------+
+```
+
+### Sorting our results (ORDER BY)
+
+Example 1:
+
+```sql
+SELECT author_lname 
+FROM books 
+ORDER BY author_lname;
+```
+
+Result:
+
+```
++----------------+
+| author_lname   |
++----------------+
+| Carver         |
+| Carver         |
+| Chabon         |
+| DeLillo        |
+| Eggers         |
+| Eggers         |
+| Eggers         |
+| Foster Wallace |
+| Foster Wallace |
+| Gainman        |
+| Gainman        |
+| Gainman        |
+| Harris         |
+| Harris         |
+| Lahiri         |
+| Lahiri         |
+| Saunders       |
+| Smith          |
+| Steinbeck      |
++----------------+
+```
+
+Example 2:
+
+```sql
+SELECT released_year 
+FROM books 
+ORDER BY released_year;
+```
+
+Result:
+
+```
++---------------+
+| released_year |
++---------------+
+|          1945 |
+|          1981 |
+|          1985 |
+|          1989 |
+|          1996 |
+|          2000 |
+|          2001 |
+|          2001 |
+|          2001 |
+|          2003 |
+|          2003 |
+|          2004 |
+|          2005 |
+|          2010 |
+|          2012 |
+|          2013 |
+|          2014 |
+|          2016 |
+|          2017 |
++---------------+
+```
+
+### LIMIT (LIMIT)
+
+Example 1:
+
+```sql
+SELECT title 
+FROM books 
+LIMIT 3;
+```
+
+Result:
+
+```
++-----------------+
+| title           |
++-----------------+
+| The Namesake    |
+| Norse Mythology |
+| American Gods   |
++-----------------+
+```
+
+### Better searching (LIKE)
+
+Example 1:
+
+```sql
+SELECT title, author_fname 
+FROM books 
+WHERE author_fname 
+LIKE '%da%';
+```
+
+Result:
+
+```
++-------------------------------------------+--------------+
+| title                                     | author_fname |
++-------------------------------------------+--------------+
+| A Hologram for the King: A Novel          | Dave         |
+| The Circle                                | Dave         |
+| A Heartbreaking Work of Staggering Genius | Dave         |
+| Oblivion: Stories                         | David        |
+| Consider the Lobster                      | David        |
+| 10% Happier                               | Dan          |
+| fake_book                                 | Freida       |
++-------------------------------------------+--------------+
+```
