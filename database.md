@@ -1614,3 +1614,116 @@ Result:
 | fake_book                                 | Freida       |
 +-------------------------------------------+--------------+
 ```
+
+Example 2: 
+
+```sql
+SELECT title 
+FROM books 
+WHERE title 
+LIKE '%the%';
+```
+
+Result:
+
+```
++-------------------------------------------+
+| title                                     |
++-------------------------------------------+
+| The Namesake                              |
+| A Hologram for the King: A Novel          |
+| The Circle                                |
+| The Amazing Adventures of Kavalier & Clay |
+| Consider the Lobster                      |
+| Lincoln In The Bardo                      |
++-------------------------------------------+
+```
+
+## SQL Aggregate Function
+
+Is the way to grouping data. Group data base of another data. And them do operation on those groups.
+
+### COUNT
+
+Example 1:
+
+How many books are in the database?
+
+```sql
+SELECT COUNT(*) FROM books;
+```
+
+Result:
+
+```
++----------+
+| COUNT(*) |
++----------+
+|       19 |
++----------+
+```
+
+And how many authors?
+
+```sql
+SELECT COUNT(author_fname) FROM books;
+```
+
+Result:
+
+```
++---------------------+
+| COUNT(author_fname) |
++---------------------+
+|                  19 |
++---------------------+
+```
+
+If we verify those author will see, we have some duplicate, so we want to know unique.
+
+
+```sql
+SELECT COUNT(DISTINCT author_fname) FROM books;
+```
+
+Result:
+
+```
++------------------------------+
+| COUNT(DISTINCT author_fname) |
++------------------------------+
+|                           12 |
++------------------------------+
+```
+
+```sql
+SELECT COUNT(DISTINCT author_lname, author_fname) FROM books;
+```
+
+Result:
+
+```
++--------------------------------------------+
+| COUNT(DISTINCT author_lname, author_fname) |
++--------------------------------------------+
+|                                         12 |
++--------------------------------------------+
+```
+
+Example 2:
+
+How many titles contain "the"?
+
+```sql
+SELECT COUNT(*) FROM books WHERE title LIKE '%the%'; 
+```
+
+Result:
+
+```
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+```
