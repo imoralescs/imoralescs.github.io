@@ -964,7 +964,7 @@ VALUES
 
 ## SQL String Functions
 
-### Concat
+### Concat (CONCAT)
 
 Is ugly to used this to combine data.
 
@@ -1098,7 +1098,7 @@ Result:
 +------------------------------------------------------------------------+
 ```
 
-### Work with parts of String
+### Work with parts of String (SUBSTRING)
 
 Example 1:
 
@@ -1165,4 +1165,254 @@ Result:
 | Oblivion: ... |
 | Consider t... |
 +---------------+
+```
+
+### Replace parts of strings (REPLACE)
+
+Example 1:
+
+```sql
+SELECT 
+ REPLACE (title, 'e', '3') 
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------------------+
+| REPLACE (title, 'e', '3')                           |
++-----------------------------------------------------+
+| Th3 Nam3sak3                                        |
+| Nors3 Mythology                                     |
+| Am3rican Gods                                       |
+| Int3rpr3t3r of Maladi3s                             |
+| A Hologram for th3 King: A Nov3l                    |
+| Th3 Circl3                                          |
+| Th3 Amazing Adv3ntur3s of Kavali3r & Clay           |
+| Just Kids                                           |
+| A H3artbr3aking Work of Stagg3ring G3nius           |
+| Coralin3                                            |
+| What W3 Talk About Wh3n W3 Talk About Lov3: Stori3s |
+| Wh3r3 I'm Calling From: S3l3ct3d Stori3s            |
+| Whit3 Nois3                                         |
+| Cann3ry Row                                         |
+| Oblivion: Stori3s                                   |
+| Consid3r th3 Lobst3r                                |
++-----------------------------------------------------+
+```
+
+Example 2:
+
+```sql
+SELECT 
+ SUBSTRING(
+  REPLACE(title, 'e', '3'), 1, 10
+ ) 
+FROM books;
+```
+
+Result:
+
+```
++--------------------------------------------+
+| SUBSTRING(REPLACE(title, 'e', '3'), 1, 10) |
++--------------------------------------------+
+| Th3 Nam3sa                                 |
+| Nors3 Myth                                 |
+| Am3rican G                                 |
+| Int3rpr3t3                                 |
+| A Hologram                                 |
+| Th3 Circl3                                 |
+| Th3 Amazin                                 |
+| Just Kids                                  |
+| A H3artbr3                                 |
+| Coralin3                                   |
+| What W3 Ta                                 |
+| Wh3r3 I'm                                  |
+| Whit3 Nois                                 |
+| Cann3ry Ro                                 |
+| Oblivion:                                  |
+| Consid3r t                                 |
++--------------------------------------------+
+```
+
+### Reverse (REVERSE)
+
+Example 1:
+
+```sql
+SELECT 
+ CONCAT(
+  author_fname, 
+  REVERSE(author_fname)
+ ) 
+FROM books;
+```
+
+Result:
+
+```
++---------------------------------------------+
+| CONCAT(author_fname, REVERSE(author_fname)) |
++---------------------------------------------+
+| JhumpaapmuhJ                                |
+| NeillieN                                    |
+| NeillieN                                    |
+| JhumpaapmuhJ                                |
+| DaveevaD                                    |
+| DaveevaD                                    |
+| MichaelleahciM                              |
+| PattiittaP                                  |
+| DaveevaD                                    |
+| NeillieN                                    |
+| RaymonddnomyaR                              |
+| RaymonddnomyaR                              |
+| DonnoD                                      |
+| JohnnhoJ                                    |
+| DaviddivaD                                  |
+| DaviddivaD                                  |
++---------------------------------------------+
+```
+
+### Counts characters in String (CHAR_LENGTH)
+
+Example 1:
+
+```sql
+SELECT 
+ author_lname, 
+ CHAR_LENGTH(author_lname) AS 'length' 
+FROM books;
+```
+
+Result:
+
+```
++----------------+--------+
+| author_lname   | length |
++----------------+--------+
+| Lahiri         |      6 |
+| Gainman        |      7 |
+| Gainman        |      7 |
+| Lahiri         |      6 |
+| Eggers         |      6 |
+| Eggers         |      6 |
+| Chabon         |      6 |
+| Smith          |      5 |
+| Eggers         |      6 |
+| Gainman        |      7 |
+| Carver         |      6 |
+| Carver         |      6 |
+| DeLillo        |      7 |
+| Steinbeck      |      9 |
+| Foster Wallace |     14 |
+| Foster Wallace |     14 |
++----------------+--------+
+```
+
+Example 2:
+
+```sql
+SELECT 
+ CONCAT(
+  author_lname, 
+  ' is ', 
+  CHAR_LENGTH(author_lname), 
+  ' characters long'
+ ) AS 'character'  
+FROM books;       
+```
+
+Result:
+
+```
++--------------------------------------+
+| character                            |
++--------------------------------------+
+| Lahiri is 6 characters long          |
+| Gainman is 7 characters long         |
+| Gainman is 7 characters long         |
+| Lahiri is 6 characters long          |
+| Eggers is 6 characters long          |
+| Eggers is 6 characters long          |
+| Chabon is 6 characters long          |
+| Smith is 5 characters long           |
+| Eggers is 6 characters long          |
+| Gainman is 7 characters long         |
+| Carver is 6 characters long          |
+| Carver is 6 characters long          |
+| DeLillo is 7 characters long         |
+| Steinbeck is 9 characters long       |
+| Foster Wallace is 14 characters long |
+| Foster Wallace is 14 characters long |
++--------------------------------------+
+```
+
+### Change a string case (UPPER() and LOWER())
+
+Example 1:
+
+```sql
+SELECT 
+ UPPER(title) 
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------------------+
+| UPPER(title)                                        |
++-----------------------------------------------------+
+| THE NAMESAKE                                        |
+| NORSE MYTHOLOGY                                     |
+| AMERICAN GODS                                       |
+| INTERPRETER OF MALADIES                             |
+| A HOLOGRAM FOR THE KING: A NOVEL                    |
+| THE CIRCLE                                          |
+| THE AMAZING ADVENTURES OF KAVALIER & CLAY           |
+| JUST KIDS                                           |
+| A HEARTBREAKING WORK OF STAGGERING GENIUS           |
+| CORALINE                                            |
+| WHAT WE TALK ABOUT WHEN WE TALK ABOUT LOVE: STORIES |
+| WHERE I'M CALLING FROM: SELECTED STORIES            |
+| WHITE NOISE                                         |
+| CANNERY ROW                                         |
+| OBLIVION: STORIES                                   |
+| CONSIDER THE LOBSTER                                |
++-----------------------------------------------------+
+```
+
+Example 2:
+
+```sql
+SELECT 
+ LOWER(title) 
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------------------+
+| LOWER(title)                                        |
++-----------------------------------------------------+
+| the namesake                                        |
+| norse mythology                                     |
+| american gods                                       |
+| interpreter of maladies                             |
+| a hologram for the king: a novel                    |
+| the circle                                          |
+| the amazing adventures of kavalier & clay           |
+| just kids                                           |
+| a heartbreaking work of staggering genius           |
+| coraline                                            |
+| what we talk about when we talk about love: stories |
+| where i'm calling from: selected stories            |
+| white noise                                         |
+| cannery row                                         |
+| oblivion: stories                                   |
+| consider the lobster                                |
++-----------------------------------------------------+
 ```
