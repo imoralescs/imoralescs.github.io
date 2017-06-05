@@ -310,6 +310,16 @@ PAGE_CATEGORIES
 -image (VARCHAR(100))
 ```
 
+## Used Cloud9
+
+ * Step 1 : Create you workspace, add name, allow to be public and select html5 template (Is a empty workspace).
+ * Step 2 : On the workspace, shell type `mysql-ctl start` to install mysql on cloud9 project.
+ * Step 3 : Then on the same shell type `mysql-ctl cli` to access to mysql command line.
+ * Step 4 : For exit of mysql cli `exit;` or `quit;` or `\q;`
+ * Step 5 : To Stop MySQL server `mysql-ctl stop`
+
+Note: `mysql-ctl start` and `mysql-ctl cli` are command from cloud9 only.
+
 ## Used SQLFiddle
 
  * Step 1 : Choose database and build your schema
