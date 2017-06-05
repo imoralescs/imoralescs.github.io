@@ -1064,3 +1064,105 @@ Result:
 | David   | Foster Wallace | David Foster Wallace |
 +---------+----------------+----------------------+
 ```
+
+### Concat with separator
+
+Example 1:
+
+```sql
+SELECT CONCAT_WS(' - ', title, author_fname, author_lname) FROM books;
+```
+
+Result:
+
+```
++------------------------------------------------------------------------+
+| CONCAT_WS(' - ', title, author_fname, author_lname)                    |
++------------------------------------------------------------------------+
+| The Namesake - Jhumpa - Lahiri                                         |
+| Norse Mythology - Neil - Gainman                                       |
+| American Gods - Neil - Gainman                                         |
+| Interpreter of Maladies - Jhumpa - Lahiri                              |
+| A Hologram for the King: A Novel - Dave - Eggers                       |
+| The Circle - Dave - Eggers                                             |
+| The Amazing Adventures of Kavalier & Clay - Michael - Chabon           |
+| Just Kids - Patti - Smith                                              |
+| A Heartbreaking Work of Staggering Genius - Dave - Eggers              |
+| Coraline - Neil - Gainman                                              |
+| What We Talk About When We Talk About Love: Stories - Raymond - Carver |
+| Where I'm Calling From: Selected Stories - Raymond - Carver            |
+| White Noise - Don - DeLillo                                            |
+| Cannery Row - John - Steinbeck                                         |
+| Oblivion: Stories - David - Foster Wallace                             |
+| Consider the Lobster - David - Foster Wallace                          |
++------------------------------------------------------------------------+
+```
+
+### Work with parts of String
+
+Example 1:
+
+```sql
+SELECT 
+ SUBSTRING(title, 1, 10) AS 'short title'  
+FROM books;
+```
+
+Result:
+
+```
++-------------+
+| short title |
++-------------+
+| The Namesa  |
+| Norse Myth  |
+| American G  |
+| Interprete  |
+| A Hologram  |
+| The Circle  |
+| The Amazin  |
+| Just Kids   |
+| A Heartbre  |
+| Coraline    |
+| What We Ta  |
+| Where I'm   |
+| White Nois  |
+| Cannery Ro  |
+| Oblivion:   |
+| Consider t  |
++-------------+
+```
+
+Example 2:
+
+```sql
+SELECT 
+ CONCAT(SUBSTRING(title, 1, 10), '...') 
+ AS 'short title' 
+FROM books;  
+```
+
+Result:
+
+```
++---------------+
+| short title   |
++---------------+
+| The Namesa... |
+| Norse Myth... |
+| American G... |
+| Interprete... |
+| A Hologram... |
+| The Circle... |
+| The Amazin... |
+| Just Kids...  |
+| A Heartbre... |
+| Coraline...   |
+| What We Ta... |
+| Where I'm ... |
+| White Nois... |
+| Cannery Ro... |
+| Oblivion: ... |
+| Consider t... |
++---------------+
+```
