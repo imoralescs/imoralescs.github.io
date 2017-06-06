@@ -1957,3 +1957,580 @@ Result:
 |          2017 |           1000.0000 |
 +---------------+---------------------+
 ```
+
+## SQL Logical Operators
+
+### Not Equal
+
+Select books that were not released in 2017.
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year = 2017; 
+```
+
+Result:
+
+```
++----------------------+---------------+
+| title                | released_year |
++----------------------+---------------+
+| Lincoln In The Bardo |          2017 |
++----------------------+---------------+
+```
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year != 2017; 
+```
+
+Result:
+
+```
++-----------------------------------------------------+---------------+
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| The Namesake                                        |          2003 |
+| Norse Mythology                                     |          2016 |
+| American Gods                                       |          2001 |
+| Interpreter of Maladies                             |          1996 |
+| A Hologram for the King: A Novel                    |          2012 |
+| The Circle                                          |          2013 |
+| The Amazing Adventures of Kavalier & Clay           |          2000 |
+| Just Kids                                           |          2010 |
+| A Heartbreaking Work of Staggering Genius           |          2001 |
+| Coraline                                            |          2003 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| White Noise                                         |          1985 |
+| Cannery Row                                         |          1945 |
+| Oblivion: Stories                                   |          2004 |
+| Consider the Lobster                                |          2005 |
+| 10% Happier                                         |          2014 |
+| fake_book                                           |          2001 |
++-----------------------------------------------------+---------------+
+```
+
+### Not Like
+
+Select books with titles that don't start with 'W'.
+
+```sql
+SELECT title 
+FROM books 
+WHERE title LIKE 'W%';
+```
+
+Result:
+
+```
++-----------------------------------------------------+
+| title                                               |
++-----------------------------------------------------+
+| What We Talk About When We Talk About Love: Stories |
+| Where I'm Calling From: Selected Stories            |
+| White Noise                                         |
++-----------------------------------------------------+
+```
+
+```sql
+SELECT title 
+FROM books 
+WHERE title 
+NOT LIKE 'W%';    
+```
+
+Result:
+
+```
++-------------------------------------------+
+| title                                     |
++-------------------------------------------+
+| The Namesake                              |
+| Norse Mythology                           |
+| American Gods                             |
+| Interpreter of Maladies                   |
+| A Hologram for the King: A Novel          |
+| The Circle                                |
+| The Amazing Adventures of Kavalier & Clay |
+| Just Kids                                 |
+| A Heartbreaking Work of Staggering Genius |
+| Coraline                                  |
+| Cannery Row                               |
+| Oblivion: Stories                         |
+| Consider the Lobster                      |
+| 10% Happier                               |
+| fake_book                                 |
+| Lincoln In The Bardo                      |
++-------------------------------------------+
+```
+
+### Greater Than or Equal To
+
+Example 1:
+
+Select books released after the year 2000.
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year > 2010;
+```
+
+Result:
+
+```
++----------------------------------+---------------+
+| title                            | released_year |
++----------------------------------+---------------+
+| Norse Mythology                  |          2016 |
+| A Hologram for the King: A Novel |          2012 |
+| The Circle                       |          2013 |
+| 10% Happier                      |          2014 |
+| Lincoln In The Bardo             |          2017 |
++----------------------------------+---------------+
+```
+
+Example 2:
+
+Select books released after the year 2000.
+
+```sql
+SELECT title, stock_quantity 
+FROM books 
+WHERE stock_quantity >= 100;
+```
+
+Result:
+
+```
++-------------------------------------------+----------------+
+| title                                     | stock_quantity |
++-------------------------------------------+----------------+
+| A Hologram for the King: A Novel          |            154 |
+| A Heartbreaking Work of Staggering Genius |            104 |
+| Coraline                                  |            100 |
+| Oblivion: Stories                         |            172 |
+| fake_book                                 |            287 |
+| Lincoln In The Bardo                      |           1000 |
++-------------------------------------------+----------------+
+```
+
+### Less Than or Equal To
+
+Example 1:
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year < 2010  
+ORDER BY released_year;  
+```
+
+Result:
+
+```
++-----------------------------------------------------+---------------+
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| Cannery Row                                         |          1945 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| White Noise                                         |          1985 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| Interpreter of Maladies                             |          1996 |
+| The Amazing Adventures of Kavalier & Clay           |          2000 |
+| fake_book                                           |          2001 |
+| A Heartbreaking Work of Staggering Genius           |          2001 |
+| American Gods                                       |          2001 |
+| Coraline                                            |          2003 |
+| The Namesake                                        |          2003 |
+| Oblivion: Stories                                   |          2004 |
+| Consider the Lobster                                |          2005 |
++-----------------------------------------------------+---------------+
+```
+
+Example 2:
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year <= 2010  
+ORDER BY released_year;
+```
+
+Result:
+
+```
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| Cannery Row                                         |          1945 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| White Noise                                         |          1985 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| Interpreter of Maladies                             |          1996 |
+| The Amazing Adventures of Kavalier & Clay           |          2000 |
+| fake_book                                           |          2001 |
+| A Heartbreaking Work of Staggering Genius           |          2001 |
+| American Gods                                       |          2001 |
+| Coraline                                            |          2003 |
+| The Namesake                                        |          2003 |
+| Oblivion: Stories                                   |          2004 |
+| Consider the Lobster                                |          2005 |
+| Just Kids                                           |          2010 |
++-----------------------------------------------------+---------------+
+```
+
+### Logical AND &&
+
+Example 1:
+
+Select books written by Dave Eggers, published after the year 2010.
+
+Case 1:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE author_lname = 'Eggers';
+```
+
+Result:
+
+```
++-------------------------------------------+--------------+---------------+
+| title                                     | author_lname | released_year |
++-------------------------------------------+--------------+---------------+
+| A Hologram for the King: A Novel          | Eggers       |          2012 |
+| The Circle                                | Eggers       |          2013 |
+| A Heartbreaking Work of Staggering Genius | Eggers       |          2001 |
++-------------------------------------------+--------------+---------------+
+```
+
+Case 2:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE released_year > 2010;
+```
+
+Result:
+
+```
++----------------------------------+--------------+---------------+
+| title                            | author_lname | released_year |
++----------------------------------+--------------+---------------+
+| Norse Mythology                  | Gainman      |          2016 |
+| A Hologram for the King: A Novel | Eggers       |          2012 |
+| The Circle                       | Eggers       |          2013 |
+| 10% Happier                      | Harris       |          2014 |
+| Lincoln In The Bardo             | Saunders     |          2017 |
++----------------------------------+--------------+---------------+
+```
+
+Exercise:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE author_lname = 'Eggers' AND released_year > 2010;
+```
+
+Result:
+
+```
++----------------------------------+--------------+---------------+
+| title                            | author_lname | released_year |
++----------------------------------+--------------+---------------+
+| A Hologram for the King: A Novel | Eggers       |          2012 |
+| The Circle                       | Eggers       |          2013 |
++----------------------------------+--------------+---------------+
+```
+
+### Logical OR ||
+
+Example 1:
+
+Select books written by Dave Eggers, published after the year 2010.
+
+Case 1:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE author_lname = 'Eggers';
+```
+
+Result:
+
+```
++-------------------------------------------+--------------+---------------+
+| title                                     | author_lname | released_year |
++-------------------------------------------+--------------+---------------+
+| A Hologram for the King: A Novel          | Eggers       |          2012 |
+| The Circle                                | Eggers       |          2013 |
+| A Heartbreaking Work of Staggering Genius | Eggers       |          2001 |
++-------------------------------------------+--------------+---------------+
+```
+
+Case 2:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE released_year > 2010;
+```
+
+Result:
+
+```
++----------------------------------+--------------+---------------+
+| title                            | author_lname | released_year |
++----------------------------------+--------------+---------------+
+| Norse Mythology                  | Gainman      |          2016 |
+| A Hologram for the King: A Novel | Eggers       |          2012 |
+| The Circle                       | Eggers       |          2013 |
+| 10% Happier                      | Harris       |          2014 |
+| Lincoln In The Bardo             | Saunders     |          2017 |
++----------------------------------+--------------+---------------+
+```
+
+Exercise:
+
+```sql
+SELECT title, author_lname, released_year 
+FROM books 
+WHERE author_lname = 'Eggers' || released_year > 2010;
+```
+
+Result:
+
+```
++-------------------------------------------+--------------+---------------+
+| title                                     | author_lname | released_year |
++-------------------------------------------+--------------+---------------+
+| Norse Mythology                           | Gainman      |          2016 |
+| A Hologram for the King: A Novel          | Eggers       |          2012 |
+| The Circle                                | Eggers       |          2013 |
+| A Heartbreaking Work of Staggering Genius | Eggers       |          2001 |
+| 10% Happier                               | Harris       |          2014 |
+| Lincoln In The Bardo                      | Saunders     |          2017 |
++-------------------------------------------+--------------+---------------+
+```
+
+### Between
+
+Example 1:
+
+Select all books published between 2004 and 2015.
+
+Case 1:
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year >= 2004 && released_year <= 2015;
+```
+
+Result:
+
+```
++----------------------------------+---------------+
+| title                            | released_year |
++----------------------------------+---------------+
+| A Hologram for the King: A Novel |          2012 |
+| The Circle                       |          2013 |
+| Just Kids                        |          2010 |
+| Oblivion: Stories                |          2004 |
+| Consider the Lobster             |          2005 |
+| 10% Happier                      |          2014 |
++----------------------------------+---------------+
+```
+
+Exercise:
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year 
+BETWEEN 2004 AND 2015;
+```
+
+Result:
+
+```
++----------------------------------+---------------+
+| title                            | released_year |
++----------------------------------+---------------+
+| A Hologram for the King: A Novel |          2012 |
+| The Circle                       |          2013 |
+| Just Kids                        |          2010 |
+| Oblivion: Stories                |          2004 |
+| Consider the Lobster             |          2005 |
+| 10% Happier                      |          2014 |
++----------------------------------+---------------+
+```
+
+Exercise:
+
+```sql
+SELECT title, released_year 
+FROM books 
+WHERE released_year 
+NOT BETWEEN 2004 AND 2015; 
+```
+
+Result:
+
+```
++-----------------------------------------------------+---------------+
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| The Namesake                                        |          2003 |
+| Norse Mythology                                     |          2016 |
+| American Gods                                       |          2001 |
+| Interpreter of Maladies                             |          1996 |
+| The Amazing Adventures of Kavalier & Clay           |          2000 |
+| A Heartbreaking Work of Staggering Genius           |          2001 |
+| Coraline                                            |          2003 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| White Noise                                         |          1985 |
+| Cannery Row                                         |          1945 |
+| fake_book                                           |          2001 |
+| Lincoln In The Bardo                                |          2017 |
++-----------------------------------------------------+---------------+
+```
+
+### IN
+
+Example 1:
+
+Select all books written by... Carver or Lahiri or Smith
+
+Case 1:
+
+```sql
+SELECT title, author_lname 
+FROM books 
+WHERE author_lname='Carver' OR author_lname='Lahiri' OR author_lname='Smith';
+```
+
+Result:
+
+```
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| The Namesake                                        | Lahiri       |
+| Interpreter of Maladies                             | Lahiri       |
+| Just Kids                                           | Smith        |
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
++-----------------------------------------------------+--------------+
+```
+
+Exercise:
+
+```sql
+SELECT title, author_lname 
+FROM books 
+WHERE author_lname IN ('Carver', 'Lahiri', 'Smith');
+```
+
+Result:
+
+```
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| The Namesake                                        | Lahiri       |
+| Interpreter of Maladies                             | Lahiri       |
+| Just Kids                                           | Smith        |
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
++-----------------------------------------------------+--------------+
+```
+
+### Case Statements
+
+Example 1:
+
+```sql
+SELECT title, released_year, 
+CASE 
+ WHEN released_year >= 2000 THEN 'Modern Lit' 
+ ELSE '20th Century Lit' 
+END AS GENRE 
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------------------+---------------+------------------+
+| title                                               | released_year | GENRE            |
++-----------------------------------------------------+---------------+------------------+
+| The Namesake                                        |          2003 | Modern Lit       |
+| Norse Mythology                                     |          2016 | Modern Lit       |
+| American Gods                                       |          2001 | Modern Lit       |
+| Interpreter of Maladies                             |          1996 | 20th Century Lit |
+| A Hologram for the King: A Novel                    |          2012 | Modern Lit       |
+| The Circle                                          |          2013 | Modern Lit       |
+| The Amazing Adventures of Kavalier & Clay           |          2000 | Modern Lit       |
+| Just Kids                                           |          2010 | Modern Lit       |
+| A Heartbreaking Work of Staggering Genius           |          2001 | Modern Lit       |
+| Coraline                                            |          2003 | Modern Lit       |
+| What We Talk About When We Talk About Love: Stories |          1981 | 20th Century Lit |
+| Where I'm Calling From: Selected Stories            |          1989 | 20th Century Lit |
+| White Noise                                         |          1985 | 20th Century Lit |
+| Cannery Row                                         |          1945 | 20th Century Lit |
+| Oblivion: Stories                                   |          2004 | Modern Lit       |
+| Consider the Lobster                                |          2005 | Modern Lit       |
+| 10% Happier                                         |          2014 | Modern Lit       |
+| fake_book                                           |          2001 | Modern Lit       |
+| Lincoln In The Bardo                                |          2017 | Modern Lit       |
++-----------------------------------------------------+---------------+------------------+
+```
+
+Example 2:
+
+```sql
+SELECT title, stock_quantity, 
+CASE 
+ WHEN stock_quantity BETWEEN 0 AND 50 THEN '*' 
+ WHEN stock_quantity BETWEEN 51 AND 100 THEN '**' 
+ ELSE '***' 
+END AS STOCK 
+FROM books;
+```
+
+Result:
+
+```
++-----------------------------------------------------+----------------+-------+
+| title                                               | stock_quantity | STOCK |
++-----------------------------------------------------+----------------+-------+
+| The Namesake                                        |             32 | *     |
+| Norse Mythology                                     |             43 | *     |
+| American Gods                                       |             12 | *     |
+| Interpreter of Maladies                             |             97 | **    |
+| A Hologram for the King: A Novel                    |            154 | ***   |
+| The Circle                                          |             26 | *     |
+| The Amazing Adventures of Kavalier & Clay           |             68 | **    |
+| Just Kids                                           |             55 | **    |
+| A Heartbreaking Work of Staggering Genius           |            104 | ***   |
+| Coraline                                            |            100 | **    |
+| What We Talk About When We Talk About Love: Stories |             23 | *     |
+| Where I'm Calling From: Selected Stories            |             12 | *     |
+| White Noise                                         |             49 | *     |
+| Cannery Row                                         |             95 | **    |
+| Oblivion: Stories                                   |            172 | ***   |
+| Consider the Lobster                                |             92 | **    |
+| 10% Happier                                         |             29 | *     |
+| fake_book                                           |            287 | ***   |
+| Lincoln In The Bardo                                |           1000 | ***   |
++-----------------------------------------------------+----------------+-------+
+```
