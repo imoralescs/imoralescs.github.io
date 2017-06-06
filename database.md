@@ -1727,3 +1727,233 @@ Result:
 |        6 |
 +----------+
 ```
+
+### GROUP BY
+
+Summarize or aggregates identical data into single rows.
+
+Example 1:
+
+```sql
+SELECT author_lname, 
+ COUNT(*) 
+FROM books 
+GROUP BY author_lname;
+```
+
+Result:
+
+```
++----------------+----------+
+| author_lname   | COUNT(*) |
++----------------+----------+
+| Carver         |        2 |
+| Chabon         |        1 |
+| DeLillo        |        1 |
+| Eggers         |        3 |
+| Foster Wallace |        2 |
+| Gainman        |        3 |
+| Harris         |        2 |
+| Lahiri         |        2 |
+| Saunders       |        1 |
+| Smith          |        1 |
+| Steinbeck      |        1 |
++----------------+----------+
+```
+
+Example 2:
+
+```sql
+SELECT released_year, 
+ COUNT(*) 
+FROM books 
+GROUP BY released_year;
+```
+
+Result:
+
+```
++---------------+----------+
+| released_year | COUNT(*) |
++---------------+----------+
+|          1945 |        1 |
+|          1981 |        1 |
+|          1985 |        1 |
+|          1989 |        1 |
+|          1996 |        1 |
+|          2000 |        1 |
+|          2001 |        3 |
+|          2003 |        2 |
+|          2004 |        1 |
+|          2005 |        1 |
+|          2010 |        1 |
+|          2012 |        1 |
+|          2013 |        1 |
+|          2014 |        1 |
+|          2016 |        1 |
+|          2017 |        1 |
++---------------+----------+
+```
+
+### MIN and MAX
+
+Example 1:
+
+```sql
+SELECT MIN(released_year) 
+FROM books;
+```
+
+Result:
+
+```
++--------------------+
+| MIN(released_year) |
++--------------------+
+|               1945 |
++--------------------+
+```
+
+Example 2:
+
+```sql
+SELECT MAX(pages), title 
+FROM books;
+```
+
+Result:
+
+```
++------------+--------------+
+| MAX(pages) | title        |
++------------+--------------+
+|        634 | The Namesake |
++------------+--------------+
+```
+
+### MIN and MAX with GROUP BY
+
+Find the year each author published their first book.
+
+Example 1:
+
+```sql
+SELECT author_fname, author_lname, 
+ MIN(released_year) 
+FROM books 
+GROUP BY author_lname, author_fname;
+```
+
+Result:
+
+```
++--------------+----------------+--------------------+
+| author_fname | author_lname   | MIN(released_year) |
++--------------+----------------+--------------------+
+| Raymond      | Carver         |               1981 |
+| Michael      | Chabon         |               2000 |
+| Don          | DeLillo        |               1985 |
+| Dave         | Eggers         |               2001 |
+| David        | Foster Wallace |               2004 |
+| Neil         | Gainman        |               2001 |
+| Dan          | Harris         |               2014 |
+| Freida       | Harris         |               2001 |
+| Jhumpa       | Lahiri         |               1996 |
+| George       | Saunders       |               2017 |
+| Patti        | Smith          |               2010 |
+| John         | Steinbeck      |               1945 |
++--------------+----------------+--------------------+
+```
+
+### SUM
+
+Adds thing together. 
+
+Example 1:
+
+Sum all pages in the entire database.
+
+```sql
+SELECT SUM(pages) 
+FROM books;
+```
+
+Result:
+
+```
++------------+
+| SUM(pages) |
++------------+
+|       6884 |
++------------+
+```
+
+Example 2:
+
+Sum all pages each author has written.
+
+```sql
+SELECT author_fname, author_lname, 
+ SUM(pages) 
+FROM books 
+GROUP BY author_lname, author_fname;
+```
+
+Result:
+
+```
++--------------+----------------+------------+
+| author_fname | author_lname   | SUM(pages) |
++--------------+----------------+------------+
+| Raymond      | Carver         |        963 |
+| Michael      | Chabon         |        634 |
+| Don          | DeLillo        |        320 |
+| Dave         | Eggers         |       1293 |
+| David        | Foster Wallace |        672 |
+| Neil         | Gainman        |        977 |
+| Dan          | Harris         |        256 |
+| Freida       | Harris         |        428 |
+| Jhumpa       | Lahiri         |        489 |
+| George       | Saunders       |        367 |
+| Patti        | Smith          |        304 |
+| John         | Steinbeck      |        181 |
++--------------+----------------+------------+
+```
+
+### AVG
+
+Example 1:
+
+Calculate the average stock quantity for books released in the same year.
+
+```sql
+SELECT released_year,  
+AVG(stock_quantity) 
+FROM books 
+GROUP BY released_year; 
+```
+
+Result:
+
+```
++---------------+---------------------+
+| released_year | AVG(stock_quantity) |
++---------------+---------------------+
+|          1945 |             95.0000 |
+|          1981 |             23.0000 |
+|          1985 |             49.0000 |
+|          1989 |             12.0000 |
+|          1996 |             97.0000 |
+|          2000 |             68.0000 |
+|          2001 |            134.3333 |
+|          2003 |             66.0000 |
+|          2004 |            172.0000 |
+|          2005 |             92.0000 |
+|          2010 |             55.0000 |
+|          2012 |            154.0000 |
+|          2013 |             26.0000 |
+|          2014 |             29.0000 |
+|          2016 |             43.0000 |
+|          2017 |           1000.0000 |
++---------------+---------------------+
+```
