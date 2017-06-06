@@ -2534,3 +2534,279 @@ Result:
 | Lincoln In The Bardo                                |           1000 | ***   |
 +-----------------------------------------------------+----------------+-------+
 ```
+
+## SQL One To Many Relationship
+
+The most common relationship
+
+### Working with Foreign Keys
+
+For this part we are going to used the following data:
+
+```sql
+CREATE TABLE customers(
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ first_name VARCHAR(100),
+ last_name VARCHAR(100),
+ email VARCHAR(100)
+);
+
+CREATE TABLE orders(
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ order_date DATE,
+ amount DECIMAL(8,2),
+ customer_id INT,
+ FOREIGN KEY(customer_id) REFERENCES customers(id)
+);
+
+INSERT INTO customers(first_name, last_name, email)
+VALUES
+('Boyd', 'George', 'george@gmail.com'),
+('George', 'Michael', 'gm@gmail.com'),
+('David', 'Bowie', 'david@gmail.com'),
+('Blue', 'Steele', 'blue@gmail.com'),
+('Bette', 'Davis', 'bette@gmail.com');
+
+INSERT INTO orders(order_date, amount, customer_id)
+VALUES
+('2016/02/10', 99.99, 1),
+('2017/11/11', 35.50, 1),
+('2014/12/12', 800.67, 2),
+('2015/01/03', 12.50, 2),
+('1999/04/11', 450.25, 5);
+```
+
+If we try to insert the following data, we cannot because they have conflict with table base on id of customers.
+
+```sql
+INSERT INTO orders(order_date, amount, customer_id)
+VALUES
+('2016/06/06', 33.67, 98);
+```
+
+```
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`my_app_db`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`))
+```
+
+### Cross Join
+
+Example 1:
+
+Case 1:
+
+```sql
+SELECT id 
+FROM customers 
+WHERE last_name='George';
+```
+
+Result:
+
+```
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| The Namesake                                        | Lahiri       |
+| Interpreter of Maladies                             | Lahiri       |
+| Just Kids                                           | Smith        |
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
++-----------------------------------------------------+--------------+
+```
+
+Case 2:
+
+```sql
+SELECT * 
+FROM orders 
+WHERE customer_id=1;
+```
+
+Result:
+
+```
++----+------------+--------+-------------+
+| id | order_date | amount | customer_id |
++----+------------+--------+-------------+
+|  1 | 2016-02-10 |  99.99 |           1 |
+|  2 | 2017-11-11 |  35.50 |           1 |
++----+------------+--------+-------------+
+```
+
+Exercise:
+
+```sql
+SELECT * 
+FROM orders 
+WHERE customer_id = 
+ (
+  SELECT id 
+  FROM customers 
+  WHERE last_name='George'
+ );
+```
+
+Result:
+
+```
++----+------------+--------+-------------+
+| id | order_date | amount | customer_id |
++----+------------+--------+-------------+
+|  1 | 2016-02-10 |  99.99 |           1 |
+|  2 | 2017-11-11 |  35.50 |           1 |
++----+------------+--------+-------------+
+```
+
+### Inner Join
+
+Select all records from A and B where the join condition is met.
+
+Example 1: Implicit Inner Join
+
+```sql
+SELECT email, order_date, amount FROM customers, orders WHERE customers.id = orders.customer_id;
+```
+
+Result:
+
+```
++------------------+------------+--------+
+| email            | order_date | amount |
++------------------+------------+--------+
+| george@gmail.com | 2016-02-10 |  99.99 |
+| george@gmail.com | 2017-11-11 |  35.50 |
+| gm@gmail.com     | 2014-12-12 | 800.67 |
+| gm@gmail.com     | 2015-01-03 |  12.50 |
+| bette@gmail.com  | 1999-04-11 | 450.25 |
++------------------+------------+--------+
+```
+
+Example 2: Ixplicit Inner Join
+
+```sql
+SELECT email, order_date, amount FROM customers JOIN orders ON customers.id = orders.customer_id;
+```
+
+Result:
+
+```
++------------------+------------+--------+
+| email            | order_date | amount |
++------------------+------------+--------+
+| george@gmail.com | 2016-02-10 |  99.99 |
+| george@gmail.com | 2017-11-11 |  35.50 |
+| gm@gmail.com     | 2014-12-12 | 800.67 |
+| gm@gmail.com     | 2015-01-03 |  12.50 |
+| bette@gmail.com  | 1999-04-11 | 450.25 |
++------------------+------------+--------+
+```
+
+### Left Join
+
+Select everything from A, along with any matching records in B.
+
+Example 1: 
+
+```sql
+SELECT email, order_date, amount FROM customers LEFT JOIN orders ON customers.id = orders.customer_id;
+```
+
+Result:
+
+```
++------------------+------------+--------+
+| email            | order_date | amount |
++------------------+------------+--------+
+| george@gmail.com | 2016-02-10 |  99.99 |
+| george@gmail.com | 2017-11-11 |  35.50 |
+| gm@gmail.com     | 2014-12-12 | 800.67 |
+| gm@gmail.com     | 2015-01-03 |  12.50 |
+| david@gmail.com  | NULL       |   NULL |
+| blue@gmail.com   | NULL       |   NULL |
+| bette@gmail.com  | 1999-04-11 | 450.25 |
++------------------+------------+--------+
+```
+
+Example 2: 
+
+```sql
+SELECT email, order_date, amount FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id;
+```
+
+Result:
+
+```
++------------------+------------+--------+
+| email            | order_date | amount |
++------------------+------------+--------+
+| george@gmail.com | 2016-02-10 |  99.99 |
+| gm@gmail.com     | 2014-12-12 | 800.67 |
+| david@gmail.com  | NULL       |   NULL |
+| blue@gmail.com   | NULL       |   NULL |
+| bette@gmail.com  | 1999-04-11 | 450.25 |
++------------------+------------+--------+
+```
+
+Example 3: 
+
+```sql
+SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id;   
+```
+
+Result:
+
+```
++------------------+------------+-------------+
+| email            | order_date | total_spent |
++------------------+------------+-------------+
+| george@gmail.com | 2016-02-10 |      135.49 |
+| gm@gmail.com     | 2014-12-12 |      813.17 |
+| david@gmail.com  | NULL       |        0.00 |
+| blue@gmail.com   | NULL       |        0.00 |
+| bette@gmail.com  | 1999-04-11 |      450.25 |
++------------------+------------+-------------+
+```
+
+Example 4: 
+
+```sql
+SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id ORDER BY total_spent;   
+```
+
+Result:
+
+```
++------------------+------------+-------------+
+| email            | order_date | total_spent |
++------------------+------------+-------------+
+| david@gmail.com  | NULL       |        0.00 |
+| blue@gmail.com   | NULL       |        0.00 |
+| george@gmail.com | 2016-02-10 |      135.49 |
+| bette@gmail.com  | 1999-04-11 |      450.25 |
+| gm@gmail.com     | 2014-12-12 |      813.17 |
++------------------+------------+-------------+
+```
+
+### Right Join
+
+Select everything from B, along with any matching records in A.
+
+Example 1: 
+
+```sql
+SELECT email, order_date, amount FROM customers RIGHT JOIN orders ON customers.id = orders.customer_id;
+```
+
+Result:
+
+```
++------------------+------------+--------+
+| email            | order_date | amount |
++------------------+------------+--------+
+| george@gmail.com | 2016-02-10 |  99.99 |
+| george@gmail.com | 2017-11-11 |  35.50 |
+| gm@gmail.com     | 2014-12-12 | 800.67 |
+| gm@gmail.com     | 2015-01-03 |  12.50 |
+| bette@gmail.com  | 1999-04-11 | 450.25 |
++------------------+------------+--------+
+```
