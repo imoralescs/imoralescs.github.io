@@ -2664,7 +2664,9 @@ Select all records from A and B where the join condition is met.
 Example 1: Implicit Inner Join
 
 ```sql
-SELECT email, order_date, amount FROM customers, orders WHERE customers.id = orders.customer_id;
+SELECT email, order_date, amount 
+FROM customers, orders 
+WHERE customers.id = orders.customer_id;
 ```
 
 Result:
@@ -2684,7 +2686,10 @@ Result:
 Example 2: Ixplicit Inner Join
 
 ```sql
-SELECT email, order_date, amount FROM customers JOIN orders ON customers.id = orders.customer_id;
+SELECT email, order_date, amount 
+FROM customers 
+JOIN orders 
+ON customers.id = orders.customer_id;
 ```
 
 Result:
@@ -2708,7 +2713,10 @@ Select everything from A, along with any matching records in B.
 Example 1: 
 
 ```sql
-SELECT email, order_date, amount FROM customers LEFT JOIN orders ON customers.id = orders.customer_id;
+SELECT email, order_date, amount 
+FROM customers 
+LEFT JOIN orders 
+ON customers.id = orders.customer_id;
 ```
 
 Result:
@@ -2730,7 +2738,11 @@ Result:
 Example 2: 
 
 ```sql
-SELECT email, order_date, amount FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id;
+SELECT email, order_date, amount 
+FROM customers 
+LEFT JOIN orders 
+ON customers.id = orders.customer_id 
+GROUP BY customers.id;
 ```
 
 Result:
@@ -2750,7 +2762,11 @@ Result:
 Example 3: 
 
 ```sql
-SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id;   
+SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent 
+FROM customers 
+LEFT JOIN orders 
+ON customers.id = orders.customer_id 
+GROUP BY customers.id;   
 ```
 
 Result:
@@ -2770,7 +2786,12 @@ Result:
 Example 4: 
 
 ```sql
-SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id ORDER BY total_spent;   
+SELECT email, order_date, IFNULL(SUM(amount), 0) AS total_spent 
+FROM customers 
+LEFT JOIN orders 
+ON customers.id = orders.customer_id 
+GROUP BY customers.id 
+ORDER BY total_spent;   
 ```
 
 Result:
@@ -2863,12 +2884,16 @@ CREATE TABLE reviews (
  FOREIGN KEY(series_id) REFERENCES series(id),
  FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
 );
+```
 
+Now let insert data into ours tables:
+
+```
 INSERT INTO series (title, released_year, genre)
 VALUES
 ('Archer', 2009, 'Animation'),
 ('Arrested Development', 2003, 'Comedy'),
-('Bob's Burgers', 2011, 'Animation'),
+("Bob's Burgers", 2011, 'Animation'),
 ('BoJack Horseman', 2014, 'Animation'),
 ('Breaking Bad', 2008, 'Drama'),
 ('Curb Your Enthusiasm', 2000, 'Comedy'),
@@ -2880,6 +2905,16 @@ VALUES
 ('Pushing Daisies', 2007, 'Comedy'),
 ('Seinfeld', 1989, 'Comedy'),
 ('Stranger Things', 2016, 'Drama');
+
+INSERT INTO reviewers (first_name, last_name)
+VALUES
+('Thomas', 'Stoneman'),
+('Wyatt', 'Skaggs'),
+('Kimbra', 'Masters'),
+('Domingo', 'Cortes'),
+('Colt', 'Steele'),
+('Pinkie', 'Petit'),
+('Marlon', 'Crafford');
 
 INSERT INTO reviews (series_id, reviewer_id, rating)
 VALUES
@@ -2895,4 +2930,217 @@ VALUES
 (10,5,9.9),
 (13,3,8.0),(13,4,7.2),
 (14,2,8.5),(14,3,8.9),(14,4,8.9);
+```
+
+Now we can verify with the following SQL.
+
+```sql
+SELECT * FROM reviews;
+```
+
+### Join Example
+
+Example 1:
+
+```sql
+SELECT title, rating 
+FROM series 
+JOIN reviews 
+ON series.id = reviews.series_id;
+```
+
+Result:
+
+```
++----------------------+--------+
+| title                | rating |
++----------------------+--------+
+| Archer               |    8.0 |
+| Archer               |    7.5 |
+| Archer               |    8.5 |
+| Archer               |    7.7 |
+| Archer               |    8.9 |
+| Arrested Development |    8.1 |
+| Arrested Development |    6.0 |
+| Arrested Development |    8.0 |
+| Arrested Development |    8.4 |
+| Arrested Development |    9.9 |
+| Bob's Burgers        |    7.0 |
+| Bob's Burgers        |    7.5 |
+| Bob's Burgers        |    8.0 |
+| Bob's Burgers        |    7.1 |
+| Bob's Burgers        |    8.0 |
+| BoJack Horseman      |    7.5 |
+| BoJack Horseman      |    7.8 |
+| BoJack Horseman      |    8.3 |
+| BoJack Horseman      |    7.6 |
+| BoJack Horseman      |    8.5 |
+| Breaking Bad         |    9.5 |
+| Breaking Bad         |    9.0 |
+| Breaking Bad         |    9.1 |
+| Breaking Bad         |    9.3 |
+| Breaking Bad         |    9.9 |
+| Curb Your Enthusiasm |    6.5 |
+| Curb Your Enthusiasm |    7.8 |
+| Curb Your Enthusiasm |    8.8 |
+| Curb Your Enthusiasm |    8.4 |
+| Curb Your Enthusiasm |    9.1 |
+| Fargo                |    9.1 |
+| Fargo                |    9.7 |
+| Freaks and Geeks     |    8.5 |
+| Freaks and Geeks     |    7.8 |
+| Freaks and Geeks     |    8.8 |
+| Freaks and Geeks     |    9.3 |
+| General Hospital     |    5.5 |
+| General Hospital     |    6.8 |
+| General Hospital     |    5.8 |
+| General Hospital     |    4.3 |
+| General Hospital     |    4.5 |
+| Halt and Catch Fire  |    9.9 |
+| Seinfeld             |    8.0 |
+| Seinfeld             |    7.2 |
+| Stranger Things      |    8.5 |
+| Stranger Things      |    8.9 |
+| Stranger Things      |    8.9 |
++----------------------+--------+
+```
+
+Example 2:
+
+```sql
+SELECT title, AVG(rating) AS avg_rating 
+FROM series 
+JOIN reviews 
+ON series.id = reviews.series_id 
+GROUP BY series.id 
+ORDER BY avg_rating; 
+```
+
+Result:
+
+```
++----------------------+------------+
+| title                | avg_rating |
++----------------------+------------+
+| General Hospital     |    5.38000 |
+| Bob's Burgers        |    7.52000 |
+| Seinfeld             |    7.60000 |
+| BoJack Horseman      |    7.94000 |
+| Arrested Development |    8.08000 |
+| Curb Your Enthusiasm |    8.12000 |
+| Archer               |    8.12000 |
+| Freaks and Geeks     |    8.60000 |
+| Stranger Things      |    8.76667 |
+| Breaking Bad         |    9.36000 |
+| Fargo                |    9.40000 |
+| Halt and Catch Fire  |    9.90000 |
++----------------------+------------+
+```
+
+Example 3:
+
+```sql
+SELECT first_name, last_name, rating 
+FROM reviewers 
+INNER JOIN reviews 
+ON reviewers.id = reviews.reviewer_id; 
+```
+
+Result:
+
+```
++------------+-----------+--------+
+| first_name | last_name | rating |
++------------+-----------+--------+
+| Thomas     | Stoneman  |    8.0 |
+| Thomas     | Stoneman  |    8.1 |
+| Thomas     | Stoneman  |    7.0 |
+| Thomas     | Stoneman  |    7.5 |
+| Thomas     | Stoneman  |    9.5 |
+| Wyatt      | Skaggs    |    7.5 |
+| Wyatt      | Skaggs    |    7.6 |
+| Wyatt      | Skaggs    |    9.3 |
+| Wyatt      | Skaggs    |    6.5 |
+| Wyatt      | Skaggs    |    8.4 |
+| Wyatt      | Skaggs    |    9.1 |
+| Wyatt      | Skaggs    |    7.8 |
+| Wyatt      | Skaggs    |    5.5 |
+| Wyatt      | Skaggs    |    8.5 |
+| Kimbra     | Masters   |    8.5 |
+| Kimbra     | Masters   |    8.0 |
+| Kimbra     | Masters   |    7.1 |
+| Kimbra     | Masters   |    7.8 |
+| Kimbra     | Masters   |    9.0 |
+| Kimbra     | Masters   |    7.8 |
+| Kimbra     | Masters   |    6.8 |
+| Kimbra     | Masters   |    8.0 |
+| Kimbra     | Masters   |    8.9 |
+| Domingo    | Cortes    |    7.7 |
+| Domingo    | Cortes    |    6.0 |
+| Domingo    | Cortes    |    8.0 |
+| Domingo    | Cortes    |    8.3 |
+| Domingo    | Cortes    |    9.1 |
+| Domingo    | Cortes    |    8.8 |
+| Domingo    | Cortes    |    8.5 |
+| Domingo    | Cortes    |    5.8 |
+| Domingo    | Cortes    |    7.2 |
+| Domingo    | Cortes    |    8.9 |
+| Colt       | Steele    |    8.9 |
+| Colt       | Steele    |    9.9 |
+| Colt       | Steele    |    8.0 |
+| Colt       | Steele    |    8.5 |
+| Colt       | Steele    |    9.9 |
+| Colt       | Steele    |    9.1 |
+| Colt       | Steele    |    9.7 |
+| Colt       | Steele    |    9.3 |
+| Colt       | Steele    |    4.5 |
+| Colt       | Steele    |    9.9 |
+| Pinkie     | Petit     |    8.4 |
+| Pinkie     | Petit     |    7.5 |
+| Pinkie     | Petit     |    8.8 |
+| Pinkie     | Petit     |    4.3 |
++------------+-----------+--------+
+```
+
+Example 4:
+
+```sql
+SELECT title AS unreviewed_series 
+FROM series 
+LEFT JOIN reviews 
+ON series.id = reviews.series_id 
+WHERE rating IS NULL; 
+```
+
+Result:
+
+```
++-----------------------+
+| unreviewed_series     |
++-----------------------+
+| Malcolm In The Middle |
+| Pushing Daisies       |
++-----------------------+
+```
+
+Example 5:
+
+```sql
+SELECT genre, ROUND(AVG(rating), 2) AS avg_rating 
+FROM series 
+INNER JOIN reviews 
+ON series.id = reviews.series_id 
+GROUP BY genre; 
+```
+
+Result:
+
+```
++-----------+------------+
+| genre     | avg_rating |
++-----------+------------+
+| Animation |       7.86 |
+| Comedy    |       8.16 |
+| Drama     |       8.04 |
++-----------+------------+
 ```
