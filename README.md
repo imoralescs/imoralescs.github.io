@@ -50,3 +50,7 @@ yarn add express
 ```
 rm -rf node_modules
 ```
+
+## json-server
+
+https://github.com/typicode/json-server
