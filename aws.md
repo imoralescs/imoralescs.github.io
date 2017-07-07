@@ -17,6 +17,10 @@ Preparation:
 
 **Lambda and API Gateway**
 
+Exercise 1: Simple "Hello from Lambda"
+
+1. Navigate to the Lambda service.
+2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
 
 
 **Serverless Framework**
