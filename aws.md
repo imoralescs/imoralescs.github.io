@@ -21,6 +21,23 @@ Exercise 1: Simple "Hello from Lambda"
 
 1. Navigate to the Lambda service.
 2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
+3. On Select bluprint, Amazon Web Service will offer you a list of functions code template with some dummi code. On this case we are going to select as runtime **Node.js 4.3** and **Blank Function**.
+4. Now we need to configure triggres, Amazon Web Service give us many triggers options but for this case we are going to leave this empty and click **Next**.
+5. On configuration of the function we can strat we adding the name of the function. `firstLambda`, add description and runtime. Then we can see the Lambda code:
 
+```javascript
+exports.handler = (event, context, callback) => {
+  callback(null, 'Hello from Lambda');
+};
+```
+
+6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
+7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. Now we can click **Next**.
+8. Review all details of your Lambda and click **Create function**.
+9. After successfully creation you can test your function by clicking on the **Test** button on the upper area. After test you will see:
+
+```
+"Hello from Lambda"
+```
 
 **Serverless Framework**
