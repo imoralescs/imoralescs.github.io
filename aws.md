@@ -12,5 +12,5 @@ Serverless frameworks manages your function application code and infrastructure,
 
 Preparation:
 
-  1- Log in or sign up for a new AWS account.
-  2- 
+1- Log in or sign up for a new AWS account.
+2- 
