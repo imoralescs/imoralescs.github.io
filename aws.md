@@ -39,5 +39,17 @@ exports.handler = (event, context, callback) => {
 ```
 "Hello from Lambda"
 ```
+10. Now for Adding API Gateway, Navigate to the API Gateway service. If you don't have any previous API Gateway you go ahead and click **Get Started** otherwise click on **Create API**.
+11. On Create new API, we check on radio selector **Example API**, then click on **Import**. Now will see our example API.
+12. Click on **APIs** on the left sidebar of the API Gateway area and then click on **Create API**.
+13. Add name of your API, on this case `firstAPI` and click **Create API**.
+14. To configured you API click on dropdown **Action -> Create Resource**. Add a name for this resource, on this case `foo` and click **Create Resource**.
+15. On selection the previous resources we can add a method, by clicking on dropdown **Action -> Create Method** and then on the dropdown under resource select `GET` and click the success icon.
+16. Now we can integrate Lambda function. On this case on `GET` method setup check on **Integration type** select `Lambda Function` then on **Lambda Region** select your region and then type the name of the function you want to integrate. On this case `firstLambda`. And click **Seve**.
+17. After sucessfully integration, click on **TEST** for testing purpose. Will see the return value:
+
+```
+"Hello from Lambda"
+```
 
 **Serverless Framework**
