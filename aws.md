@@ -6,7 +6,7 @@ AWS
 
 ### Lambda
 
-Before create a Lambda function or used serverless frameworks for manages your function application code and infrastructure, we need first to give it access keys for your AWS account.
+Before create a Lambda function or used Serverless Frameworks for manages your function application code and infrastructure, we need first to give it access keys for your AWS account.
 
 Preparation:
 
