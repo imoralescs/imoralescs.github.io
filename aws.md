@@ -6,9 +6,7 @@ AWS
 
 ### Lambda
 
-**Serverless Framework**
-
-Serverless frameworks manages your function application code and infrastructure, but first you need to give it access keys for your AWS account.
+Before create a Lambda function or used serverless frameworks for manages your function application code and infrastructure, we need first to give it access keys for your AWS account.
 
 Preparation:
 
@@ -17,3 +15,8 @@ Preparation:
 3. Navigate to the Identity & Access Management (IAM) service and create a new User called `serverless-admin`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Users** and them **Add user**. Add the name `serverless-group`, then check on the checkbox **Programmatic access** to allow development and click **Next: Permissions**. On set permissions area check the group `serverless-group` and click **Next: Review**. After review all details, click **Create user**.
 4. After create the user, AWS provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
 
+**Lambda and API Gateway**
+
+
+
+**Serverless Framework**
