@@ -6,7 +6,9 @@ AWS
 
 ### Lambda
 
-AWS Lambda allows you to run your own code in response to events in a serverless enviroment.
+AWS Lambda allows you to run your own code in response to events in a serverless enviroment. Lambda is a Function-as-a-Service (FaaS) platform provided by Amazon Web Services (AWS). Lambda is tightly integrated into the AWS ecosystem and allows developers to build microservices that easily interact with other AWS services. For example, we can create a Lambda function that is executed every time a user signs up through the AWS Cognito service or we can trigger a Lambda function after a file is uploaded to S3. Combining Lambda with the API Gateway, we can build microservices that can be accessed from outside the AWS ecosystem.
+
+Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure.
 
 **Serverless Computing**
 
