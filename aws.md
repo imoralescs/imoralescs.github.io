@@ -54,7 +54,7 @@ exports.handler = (event, context, callback) => {
 
 **Serverless Framework**
 
-1. First install Nodejs on machine.
+1. First install Nodejs on machine. Ensure that you have installed latest LTS version of Nodejs. 
 2. Install by terminal Serverless as global:
 
 ```
@@ -67,19 +67,108 @@ npm install -g serverless
 serverless
 ```
 
-4. To create a serverless project, create first the serverless directory project and then place your terminal on that directory. Now to create the project type on terminal:
+4. Create new project directory for our serverless service, then place your terminal on the new directory. Now to create the project type on terminal:
 
 ```
-serverless create --template aws-nodejs --name simple
+serverless create --template aws-nodejs --name simpleLambda
 ```
 
 or
 
 ```
-sls create -t aws-nodejs -n simple
+sls create -t aws-nodejs -n simpleLambda
 ```
 
-5. After create your serverless project, you will see the following file: 
+5. Our previous terminal command, create a serverless project by choosing **AWS Nodejs** template and adding the name `simpleLambda`. When creating a new service is finished, we will see file structure in the project folder: 
 
-* **serverless.yml** - Yaml file to configurated our project.
-* **handler.js** - main file of the project.
+* **serverless.yml** - a YAML file where we will define configurations for our service, such as AWS Resources (S3, DynamoDB, etc), Region, Nodejs Runtime, we want to use and also our service’s functions configurations.
+* **handler.js** - Initial Javascript file , created by serverless, that is supposed to be the place where we will write our function’s logic. Rename the file’s name with name of entity that our function interacts with (e.g. blog, product, task, etc).
+
+```javascript
+'use strict';
+
+module.exports.hello = (event, context, callback) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: 'Go Serverless v1.0! Your function executed successfully!',
+      input: event,
+    }),
+  };
+
+  callback(null, response);
+
+  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
+  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
+};
+```
+
+* **.gitignore**
+
+6. Open the **serverless.yml** file and edit these Configuration sections: `handler`. This section route to your **handler.js** file function.
+
+```
+functions:
+  hello:
+    handler: handler.hello
+```
+
+7. To deploy our function to AWS first we need to configurated our serverless framework on our machine with ours AWS credential.
+
+* To setup credential on serverless, by terminal type:
+
+```
+serverless config credentials --provider aws --key xxx --secret yyy
+```
+
+* In case we already have a previous olds credentials we can remove that old credentials by following this steps on terminal:
+
+```
+cd ~
+cd .aws
+rm credentials
+```
+
+8. Let deploy our services to AWS:
+
+```
+serverless deploy --function simpleLambda
+```
+
+* Note: After deploy AWS will provide the following details:
+
+```
+Service Information
+service: simpleLambda
+stage: dev
+region: us-east-1
+api keys:
+  None
+endpoints:
+  None
+functions:
+  hello: simpleLambda-dev-hello
+```
+
+
+9. To test our service we need to invoke our function:
+
+```
+serverless invoke -f hello
+```
+
+* Response
+
+```
+{
+    "statusCode": 200,
+    "body": "{\"message\":\"Go Serverless v1.0! Your function executed successfully!\",\"input\":{}}"
+}
+
+```
+
+10. To test our function on local and not on AWS we can type:
+
+```
+serverless invoke local -f hello
+```
