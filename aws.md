@@ -53,3 +53,33 @@ exports.handler = (event, context, callback) => {
 ```
 
 **Serverless Framework**
+
+1. First install Nodejs on machine.
+2. Install by terminal Serverless as global:
+
+```
+npm install -g serverless
+```
+
+3. To see options after install type on terminal:
+
+```
+serverless
+```
+
+4. To create a serverless project, create first the serverless directory project and then place your terminal on that directory. Now to create the project type on terminal:
+
+```
+serverless create --template aws-nodejs --name simple
+```
+
+or
+
+```
+sls create -t aws-nodejs -n simple
+```
+
+5. After create your serverless project, you will see the following file: 
+
+* **serverless.yml** - Yaml file to configurated our project.
+* **handler.js** - main file of the project.
