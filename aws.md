@@ -1,10 +1,16 @@
-# AWS
+# Amazon Web Service (AWS) 
 
 AWS
 
 ## Compute Services
 
 ### Lambda
+
+AWS Lambda allows you to run your own code in response to events in a serverless enviroment.
+
+**Serverless Computing**
+
+Serverless is a type of event-driven architecture functions are reacting to specific type of trigger events. Minimizing the need for IT infrastructure. Speaking of AWS, it can be an event fired by S3, SNS or the API Gateway just to name a few. Means that you can run your own code without provisioning and managing your computer resource.
 
 Before create a Lambda function or used Serverless Frameworks for manages your function application code and infrastructure, we need first to give it access keys for your AWS account.
 
@@ -31,6 +37,10 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
+* **event** - This variable is used by Lambda to pass in event data to the handler (like an HTTP request).
+* **context** - The context variable is used to pass in runtime information for the Lambda function, like how much time is remaining before the function will be terminated.
+* **callback** - By using it, you can explicitly return data to the caller (like an HTTP response).
+
 6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
 7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. Now we can click **Next**.
 8. Review all details of your Lambda and click **Create function**.
@@ -39,6 +49,7 @@ exports.handler = (event, context, callback) => {
 ```
 "Hello from Lambda"
 ```
+
 10. Now for Adding API Gateway, Navigate to the API Gateway service. If you don't have any previous API Gateway you go ahead and click **Get Started** otherwise click on **Create API**.
 11. On Create new API, we check on radio selector **Example API**, then click on **Import**. Now will see our example API.
 12. Click on **APIs** on the left sidebar of the API Gateway area and then click on **Create API**.
@@ -53,6 +64,8 @@ exports.handler = (event, context, callback) => {
 ```
 
 **Serverless Framework**
+
+The Serverless framework is an open-source, MIT-licensed solution which helps with creating and managing AWS Lambda functions easier.
 
 1. First install Nodejs on machine. Ensure that you have installed latest LTS version of Nodejs. 
 2. Install by terminal Serverless as global:
@@ -95,11 +108,8 @@ module.exports.hello = (event, context, callback) => {
       input: event,
     }),
   };
-
+  
   callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
 };
 ```
 
@@ -159,10 +169,10 @@ serverless invoke -f hello
 
 * Response
 
-```
+```json
 {
-    "statusCode": 200,
-    "body": "{\"message\":\"Go Serverless v1.0! Your function executed successfully!\",\"input\":{}}"
+  "statusCode": 200,
+  "body": "{\"message\":\"Go Serverless v1.0! Your function executed successfully!\",\"input\":{}}"
 }
 
 ```
