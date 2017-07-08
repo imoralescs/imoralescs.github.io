@@ -82,7 +82,7 @@ sls create -t aws-nodejs -n simpleLambda
 5. Our previous terminal command, create a serverless project by choosing **AWS Nodejs** template and adding the name `simpleLambda`. When creating a new service is finished, we will see file structure in the project folder: 
 
 * **serverless.yml** - a YAML file where we will define configurations for our service, such as AWS Resources (S3, DynamoDB, etc), Region, Nodejs Runtime, we want to use and also our service’s functions configurations.
-* **handler.js** - Initial Javascript file , created by serverless, that is supposed to be the place where we will write our function’s logic. Rename the file’s name with name of entity that our function interacts with (e.g. blog, product, task, etc).
+* **handler.js** - Initial Javascript file , created by serverless, that is supposed to be the place where we will write our function’s logic. 
 
 ```javascript
 'use strict';
@@ -135,7 +135,7 @@ rm credentials
 serverless deploy --function simpleLambda
 ```
 
-* Note: After deploy AWS will provide the following details:
+* Note: After deploy, AWS will provide the following details:
 
 ```
 Service Information
@@ -151,7 +151,7 @@ functions:
 ```
 
 
-9. To test our service we need to invoke our function:
+9. To test our service we need to invoke our function, remember our function is `hello`, not the name of the services:
 
 ```
 serverless invoke -f hello
@@ -171,4 +171,31 @@ serverless invoke -f hello
 
 ```
 serverless invoke local -f hello
+```
+
+11. Let add method name associated to HTTP path and verbs. We need to add to our **serverless.yml** the following:
+
+```
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get 
+```
+
+12. After deploy, AWS provide the url to test on browser.
+
+```
+Service Information
+service: simpleLambda
+stage: dev
+region: us-east-1
+api keys:
+  None
+endpoints:
+  GET - https://jn1lnbbj9k.execute-api.us-east-1.amazonaws.com/dev/hello
+functions:
+  hello: simpleLambda-dev-hello
 ```
