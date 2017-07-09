@@ -29,10 +29,10 @@ Is a service that enable developer to create or define endpoint & HTTP method to
 
 * *Integration type:*
 
-... **Lambda Function** refer to any lambda function we create...
-... **HTTP** refer to foward to another http request...
-... **AWS Service** refer to another service provide by AWS and... 
-... **Mock** refer to mock up you own response...
+  * **Lambda Function** - refer to any lambda function we create.
+  * **HTTP** - refer to foward to another http request.
+  * **AWS Service** - refer to another service provide by AWS. 
+  * **Mock** - refer to mock up you own response.
 
 **Options on the left sidebar**
 
