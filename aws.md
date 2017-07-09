@@ -131,7 +131,7 @@ exports.fn = (event, context, callback) => {
 };
 ```
 
-* *Role* * Allow us to add permission.
+* *Role* - Allow us to add permission.
 
 **Exercise Compare-Yourself App:**
 
