@@ -172,7 +172,7 @@ exports.handler = (event, context, callback) => {
 var xhr = new XMLHttpRequest();
 xhr.open('POST', 'https://2e7inih0x8.execute-api.us-east-1.amazonaws.com/dev/compare-yourself');
 xhr.onreadystatechange = function(event) {
-	console.log(event.target.response);
+  console.log(event.target.response);
 }
 xhr.send();
 ```
@@ -185,7 +185,7 @@ XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.co
 
 5. We need to fix the header request. By clicking **POST** method on resource and click under **Integration Response**, on **Header Mappings** we need to set our missing header.
 6. To set our missing header click under **Method Response**, then click dropdown on **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and back to **Integration Response** add `'*'` on **Mapping value** of the **Header Mappings**.
-7. Need to re-deploy.
+7. Now we need to re-deploy. And try again.
 
 
 
