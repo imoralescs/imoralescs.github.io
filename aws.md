@@ -34,6 +34,17 @@ Is a service that enable developer to create or define endpoint & HTTP method to
   * **AWS Service** - refer to another service provide by AWS. 
   * **Mock** - refer to mock up you own response.
 
+6. Select **Mock** and click on **Save** button.
+7. For send through API dummie data, bck on **Integration Response** and on **Body Mapping Templates**, click on **application/json** type:
+
+```json
+{
+  "message": "This is working!"
+}
+```
+
+8. Click on save and we need to deploy this API, click on dropdown **Actions -> Create Resource**
+
 **Options on the left sidebar**
 
 
