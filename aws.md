@@ -15,15 +15,23 @@ Is a service that enable developer to create or define endpoint & HTTP method to
 
 **Create API**
 
-1. Navigate to the API Gateway service. If you don't have any previous API Gateway you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
+1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
 2. Will see 4 ways to create a API:
 
-* New API
-* Clone from existing API - You can used other existing API.
-* Import from Swagger - Allow us to import a Swagger definition file.
-* Example API
+* *New API*
+* *Clone from existing API* - You can used other existing API.
+* *Import from Swagger* - Allow us to import a Swagger definition file.
+* *Example API*
 
 3. Select **New API** add name `firstAPI`, add description and click on **Create API**.
+4. To add resource to you API, by selection you API on the left sidebar, click on dropdown **Actions -> Create Resource**. Add a name for this resource, on this case `first-api-test` and click **Create Resource**.
+5. To add a request to you resource, by selecting the resource clicking on the dropdown **Actions -> Create Method** And we can decide what HTTP method we want to used. On this case pick **GET**. On the configuration of this particular method we have:
+
+* *Integration type*
+...**Lambda Function** refer to any lambda function we create
+...**HTTP** refer to foward to another http request, 
+...**AWS Service** refer to another service provide by AWS and 
+...**Mock** refer to mock up you own response.
 
 **Options on the left sidebar**
 
