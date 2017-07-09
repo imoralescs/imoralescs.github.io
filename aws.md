@@ -90,12 +90,71 @@ Is a security model to not allow to access resource on the server from another s
 
 ### AWS Lambda
 
+AWS Lambda allows you to run your own code in response to events in a serverless enviroment. Lambda is a Function-as-a-Service (FaaS) platform provided by Amazon Web Services (AWS). Lambda is tightly integrated into the AWS ecosystem and allows developers to build microservices that easily interact with other AWS services. For example, we can create a Lambda function that is executed every time a user signs up through the AWS Cognito service or we can trigger a Lambda function after a file is uploaded to S3. Combining Lambda with the API Gateway, we can build microservices that can be accessed from outside the AWS ecosystem.
 
+Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure.
 
+**Create Lambda Function**
 
+1. Navigate to the Lambda service.
+2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
+3. On Select bluprint, Amazon Web Service will offer you a list of functions code template with some dummi code. On this case we are going to select as runtime **Node.js 4.3** and **Blank Function**.
+4. Now we need to configure triggres, Amazon Web Service give us many triggers options but for this case we are going to leave this empty and click **Next**.
+5. On configuration of the function we can strat we adding the name of the function. `firstLambda`, add description and runtime. Then we can see the Lambda code:
 
+```javascript
+exports.handler = (event, context, callback) => {
+  callback(null, 'Hello from Lambda');
+};
+```
 
+* **event** - This variable is used by Lambda to pass in event data to the handler (like an HTTP request).
+* **context** - The context variable is used to pass in runtime information for the Lambda function, like how much time is remaining before the function will be terminated.
+* **callback** - By using it, you can explicitly return data to the caller (like an HTTP response).
 
+6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
+7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. **Timeout** allow us to set a time spend of the function and quit no metter if the function finish or not. On this case we can choose `10 sec`. Now we can click **Next**.
+8. Review all details of your Lambda and click **Create function**.
+9. After successfully creation you can test your function by clicking on the **Test** button on the upper area. After test you will see:
+
+```
+"Hello from Lambda"
+```
+
+**Lambda function handler abd role**
+
+* *Handler* - This part define the entry point to the Lambda funcion. Example if the change `index.handler` to `index.fn`, this name must be the same on the function code:
+
+```javascript
+exports.fn = (event, context, callback) => {
+  callback(null, 'Hello from Lambda');
+};
+```
+
+* *Role* * Allow us to add permission.
+
+**Exercise Compare-Yourself App:**
+
+1. Navigate to the Lambda service.
+2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
+3. On Select bluprint, Amazon Web Service will offer you a list of functions code template with some dummi code. On this case we are going to select as runtime **Node.js 4.3** and **Blank Function**.
+4. Now we need to configure triggres, Amazon Web Service give us many triggers options but for this case we are going to leave this empty and click **Next**.
+5. On configuration of the function we can strat we adding the name of the function `cy-store-data`, add description `Store user comparison data` and runtime. Then we can see the Lambda code:
+
+```javascript
+exports.handler = (event, context, callback) => {
+  callback(null, 'Hi, I\'m Lambda');
+};
+```
+
+6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
+7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. **Timeout** allow us to set a time spend of the function and quit no metter if the function finish or not. On this case we can choose `10 sec`. Now we can click **Next**.
+8. Review all details of your Lambda and click **Create function**.
+9. After successfully creation you can test your function by clicking on the **Test** button on the upper area. After test you will see:
+
+```
+"Hello from Lambda"
+```
 
 
 
@@ -111,9 +170,7 @@ Is a security model to not allow to access resource on the server from another s
 
 ### Lambda
 
-AWS Lambda allows you to run your own code in response to events in a serverless enviroment. Lambda is a Function-as-a-Service (FaaS) platform provided by Amazon Web Services (AWS). Lambda is tightly integrated into the AWS ecosystem and allows developers to build microservices that easily interact with other AWS services. For example, we can create a Lambda function that is executed every time a user signs up through the AWS Cognito service or we can trigger a Lambda function after a file is uploaded to S3. Combining Lambda with the API Gateway, we can build microservices that can be accessed from outside the AWS ecosystem.
 
-Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure.
 
 **Serverless Computing**
 
