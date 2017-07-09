@@ -121,7 +121,7 @@ exports.handler = (event, context, callback) => {
 "Hello from Lambda"
 ```
 
-**Lambda function handler abd role**
+**Lambda function handler add role**
 
 * *Handler* - This part define the entry point to the Lambda funcion. Example if the change `index.handler` to `index.fn`, this name must be the same on the function code:
 
@@ -159,8 +159,8 @@ exports.handler = (event, context, callback) => {
 **Connect Lambda to API Gateway**
 
 1. Navigate to the API Gateways service.
-2. Select our previous API `compare-youself` and select ours **POST** method. On **Integration type** select **Lambda Function**, select region and type the name of the function on **Lambda Function**. Then click **Save**.
-3. For test, click on **Test** and we are not going to pass body request on this case, just click on **Test**. And we receive back our response.
+2. Select API to connect function, on this case select our previous API `compare-youself` and select ours **POST** method. On **Integration type** select **Lambda Function**, select region and type the name of the function on **Lambda Function**. Then click **Save**.
+3. For test, click on **Test** and we are not going to pass request body on this case, just click on **Test**. And we receive back our response.
 
 
 
