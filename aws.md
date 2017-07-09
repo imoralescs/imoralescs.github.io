@@ -162,10 +162,30 @@ exports.handler = (event, context, callback) => {
 2. Select API to connect function, on this case select our previous API `compare-youself` and select ours **POST** method. On **Integration type** select **Lambda Function**, select region and type the name of the function on **Lambda Function**. Then click **Save**.
 3. For test, click on **Test** and we are not going to pass request body on this case, just click on **Test**. And we receive back our response.
 
+**Accessing the API from the Web**
 
+1. By selecting our API, click on dropdown **Actions -> Deploy API**. We need to create or select **Stage**, if the case you need to create one, type the name of `dev` and click on **Deploy** button.
+2. On the left sidebar select your API and on **Stages** section, will provide you the URL to test your API.
+3. On JSFiddle we are going to test our API:
 
+```
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://2e7inih0x8.execute-api.us-east-1.amazonaws.com/dev/compare-yourself');
+xhr.onreadystatechange = function(event) {
+	console.log(event.target.response);
+}
+xhr.send();
+```
 
+4. In case we receive this error:
 
+```
+XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.com/dev/compare-yourself. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'https://fiddle.jshell.net' is therefore not allowed access.
+```
+
+5. We need to fix the header request. By clicking **POST** method on resource and click under **Integration Response**, on **Header Mappings** we need to set our missing header.
+6. To set our missing header click under **Method Response**, then click dropdown on **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and back to **Integration Response** add `'*'` on **Mapping value** of the **Header Mappings**.
+7. Need to re-deploy.
 
 
 
