@@ -1,8 +1,60 @@
 # Amazon Web Service (AWS) 
 
-AWS
+Preparation:
 
-## Compute Services
+1. Log in or sign up for a new AWS account.
+2. Navigate to the Identity & Access Management (IAM) service and create a new Group called `serverless-group`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Groups** and them **Create New Group**. Add the name `serverless-group`, and then click **Next Step** and on Attach Policy we are going to attach to this group **AdministratorAccess** checking his checkbox them click **Next Step**, review all the details of the group and click **Create Group**.
+3. Navigate to the Identity & Access Management (IAM) service and create a new User called `serverless-admin`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Users** and them **Add user**. Add the name `serverless-group`, then check on the checkbox **Programmatic access** to allow development and click **Next: Permissions**. On set permissions area check the group `serverless-group` and click **Next: Review**. After review all details, click **Create user**.
+4. After create the user, AWS provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
+
+## Serverless
+
+### API Gateway
+
+Is a service that enable developer to create or define endpoint & HTTP method to directly access to some AWS services.
+
+**Create API**
+
+1. Navigate to the API Gateway service. If you don't have any previous API Gateway you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
+2. Will see 4 ways to create a API:
+
+* New API
+* Clone from existing API - You can used other existing API.
+* Import from Swagger - Allow us to import a Swagger definition file.
+* Example API
+
+3. Select **New API** add name `firstAPI`, add description and click on **Create API**.
+
+**Options on the left sidebar**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Lambda
 
@@ -16,12 +68,7 @@ Serverless is a type of event-driven architecture functions are reacting to spec
 
 Before create a Lambda function or used Serverless Frameworks for manages your function application code and infrastructure, we need first to give it access keys for your AWS account.
 
-Preparation:
 
-1. Log in or sign up for a new AWS account.
-2. Navigate to the Identity & Access Management (IAM) service and create a new Group called `serverless-group`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Groups** and them **Create New Group**. Add the name `serverless-group`, and then click **Next Step** and on Attach Policy we are going to attach to this group **AdministratorAccess** checking his checkbox them click **Next Step**, review all the details of the group and click **Create Group**.
-3. Navigate to the Identity & Access Management (IAM) service and create a new User called `serverless-admin`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Users** and them **Add user**. Add the name `serverless-group`, then check on the checkbox **Programmatic access** to allow development and click **Next: Permissions**. On set permissions area check the group `serverless-group` and click **Next: Review**. After review all details, click **Create user**.
-4. After create the user, AWS provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
 
 **Lambda and API Gateway**
 
