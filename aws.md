@@ -9,7 +9,7 @@ Preparation:
 
 ## Serverless
 
-### API Gateway
+### AWS API Gateway
 
 Is a service that enable developer to create or define endpoint & HTTP method to directly access to some AWS services.
 
@@ -76,6 +76,19 @@ Basically show us a flow of the data between client(User App) and endpoint. They
 * *Integration Request* - Mapping incoming data or tranform incoming data into the shape to used that data.
 * *Integration Response* - Allow us to extract data or response back to the client.
 * *Method Response* - Allow us to configurated the shape the form of the response data.
+
+**Cross Origin Resource Sharing (CORS)**
+
+Is a security model to not allow to access resource on the server from another server.
+
+**Exercise Compare-Yourself App:**
+
+1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
+2. Add the name `compare-yourself` and add the resource `compare-yourself` and check on **Enable API Gateway CORS**. This automatically add to resource **OPTIONS** method.
+3. Add another method **POST** by clicking on dropdown **Actions -> Create Method** by selecting our previous resource.
+4. On **POST** method setup **Integration type** with **Lambda Function** and select **Lambda Region**.
+
+### AWS Lambda
 
 
 
