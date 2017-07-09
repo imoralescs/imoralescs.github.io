@@ -35,7 +35,7 @@ Is a service that enable developer to create or define endpoint & HTTP method to
   * **Mock** - refer to mock up you own response.
 
 6. Select **Mock** and click on **Save** button.
-7. For send through API dummie data, by selecting **GET** method click on **Integration Response** and on **Body Mapping Templates**, click on **application/json** type:
+7. For send through API dummie data, by selecting **GET** method click on **Integration Response**, and on **Body Mapping Templates**, click on **application/json** type:
 
 ```json
 {
@@ -45,6 +45,10 @@ Is a service that enable developer to create or define endpoint & HTTP method to
 
 8. Click on save and we need to deploy this API, click on dropdown **Actions -> Deploy API**. We need to create or select **Stage**, if the case you need to create one, type the name of `dev` and click on **Deploy** button.
 9. On the left sidebar select your API and on **Stages** section, will provide you the URL to test your API.
+
+```
+https://vtjoat3drl.execute-api.us-east-1.amazonaws.com/dev/first-api-test
+```
 
 **Options on the left sidebar**
 
