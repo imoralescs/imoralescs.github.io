@@ -156,6 +156,11 @@ exports.handler = (event, context, callback) => {
 "Hello from Lambda"
 ```
 
+**Connect Lambda to API Gateway**
+
+1. Navigate to the API Gateways service.
+2. Select our previous API `compare-youself` and select ours **POST** method. On **Integration type** select **Lambda Function**, select region and type the name of the function on **Lambda Function**. Then click **Save**.
+3. For test, click on **Test** and we are not going to pass body request on this case, just click on **Test**. And we receive back our response.
 
 
 
