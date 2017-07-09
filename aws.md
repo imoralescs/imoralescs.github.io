@@ -187,6 +187,33 @@ XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.co
 6. To set our missing header click under **Method Response**, then click dropdown on **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and back to **Integration Response** add `'*'` on **Mapping value** of the **Header Mappings**.
 7. Now we need to re-deploy. And try again.
 
+**Understanding "Event" argument on Lambda**
+
+First we add `event` argument on `callback` as argument of function. 
+
+```javascript
+exports.handler = (event, context, callback) => {
+  callback(null, event);
+};
+```
+
+On test your lambda function API on **POST** method of API, we include on **Request body** :
+
+```json
+{
+  "name":"Jack Doe",
+  "age":"28"
+}
+```
+
+And  click on test, we recive response back:
+
+```json
+{
+  "name": "Jack Doe",
+  "age": "28"
+}
+```
 
 
 
