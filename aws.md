@@ -52,15 +52,30 @@ https://vtjoat3drl.execute-api.us-east-1.amazonaws.com/dev/first-api-test
 
 **Options on the left sidebar**
 
+* *APIs* - Lists of all API we create on AWS.
+* *Usage Plans* 
+* *API Keys* - Allow us to share our API with other developer and provider a key for used.
+* *Custom Domain Names* - Allow us to choose at own domain name for API.
+* *Client Certificates*
+* *Setting* - Allow us manage permission and roles of the API.
 
+**Options on API**
 
+* *Resources*
+* *Stages* - Are deploy snapshot for ship to the web.
+* *Authorizes* - Allow us to add authentication to the API.
+* *Model* - Allow us to models our API data with Schema.
+* *Binary Support*
+* *Dashboard* - Give analitics data from the API.
 
+**Request-Response Cycle**
 
+Basically show us a flow of the data between client(User App) and endpoint. They have **TEST** ability for testing purpose.
 
-
-
-
-
+* *Method Request* - Handler incoming request.
+* *Integration Request* - Mapping incoming data or tranform incoming data into the shape to used that data.
+* *Integration Response* - Allow us to extract data or response back to the client.
+* *Method Response* - Allow us to configurated the shape the form of the response data.
 
 
 
