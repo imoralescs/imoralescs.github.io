@@ -187,7 +187,7 @@ XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.co
 6. To set our missing header click under **Method Response**, then click dropdown on **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and back to **Integration Response** add `'*'` on **Mapping value** of the **Header Mappings**.
 7. Now we need to re-deploy. And try again.
 
-**Understanding "Event" argument on Lambda**
+**Understanding "event" argument on Lambda function code**
 
 First we add `event` argument on `callback` as argument of function. 
 
@@ -215,6 +215,9 @@ And  click on test, we recive response back:
 }
 ```
 
+**Using Lambda Proxy Integration**
+
+With the Lambda proxy integration, API Gateway maps the entire client request to the input event parameter of the backend Lambda function, As an interpretation of this function of me, it is "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda" function.
 
 
 
