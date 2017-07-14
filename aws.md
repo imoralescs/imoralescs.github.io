@@ -217,7 +217,7 @@ And  click on test, we recive response back:
 
 **Using Lambda Proxy Integration**
 
-With the Lambda proxy integration, API Gateway maps the entire client request to the input event parameter of the backend Lambda function, As an interpretation of this function of me, it is "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda" function.
+With the Lambda proxy integration, API Gateway we can pass the entire request object into Lambda function. proxy integration allow us to map the entire client request to the input event parameter of the backend Lambda function, As an interpretation of this function of me, it is "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda" function.
 
 1. To configurated one of endpoint to used proxy integration, On the **POST** method on API resource, click on **Integration Request**. Then check the checkbox **Use Lambda Proxy integration**
 2. Now let change ours Lambda function with:
@@ -238,6 +238,64 @@ exports.handler = (event, context, callback) => {
 ```
 
 4. Now we allow to pass the complete request into Lambda function.
+
+**Body Mapping Templates**
+
+On integration request we have **Body Mapping Templates** are used to transform an incoming payload into a different format. API Gateway allows you to define input mapping templates, for mapping the incoming request from a client to a server format, and output mapping templates, for mapping the outgoing response from the server to a client format. The mappings are defined using the Velocity Template Language combined with JSONPath expressions. 
+
+1. On Body Mapping Templates we check the radion button on **When there are no templates defined (recommended)** then click on **Add mapping template** and we define the *Content-Type* to *application/json*. Important, this name is not random, *application/json* means that incoming request with **Content-Type** of  *application/json* will be handled by this template.
+2. Now we right on template section:
+
+```
+{
+  "age" : $input.json('$.personData.age')
+}
+```
+
+`$input` - Variable provided by AWS, gives you access to your request data(body, params,...)
+`json('$')` - Extracts complete request body.
+
+3. On the Lambda code:
+
+```
+exports.fn = (event, context, callback) => {
+  console.log(event);
+  const age = event.age;
+  callback(null, age * 2);
+};
+```
+
+4. Then we create a **Test** with:
+
+```
+{
+  "personData" : {
+    "name" : "Max",
+    "age" : 28
+  }
+}
+```
+
+5. On response we receive:
+
+```
+56
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Serverless Framework
 
