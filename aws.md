@@ -133,7 +133,7 @@ exports.fn = (event, context, callback) => {
 
 * *Role* - Allow us to add permission.
 
-**Exercise Compare-Yourself App:**
+### Exercise Compare-Yourself App
 
 1. Navigate to the Lambda service.
 2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
@@ -215,9 +215,9 @@ And  click on test, we recive response back:
 }
 ```
 
-**Using Lambda Proxy Integration**
+**Using Lambda Proxy Integration (Compare-Yourself App)**
 
-With the Lambda proxy integration, API Gateway we can pass the entire request object into Lambda function. proxy integration allow us to map the entire client request to the input event parameter of the backend Lambda function, As an interpretation of this function of me, it is "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda" function.
+With the Lambda proxy integration, API Gateway can pass the entire request object into Lambda function. Proxy integration allow us to map the entire client request to the event parameter of the backend Lambda function, As an interpretation of this "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda".
 
 1. To configurated one of endpoint to used proxy integration, On the **POST** method on API resource, click on **Integration Request**. Then check the checkbox **Use Lambda Proxy integration**
 2. Now let change ours Lambda function with:
@@ -241,10 +241,13 @@ exports.handler = (event, context, callback) => {
 
 **Body Mapping Templates**
 
-On integration request we have **Body Mapping Templates** are used to transform an incoming payload into a different format. API Gateway allows you to define input mapping templates, for mapping the incoming request from a client to a server format, and output mapping templates, for mapping the outgoing response from the server to a client format. The mappings are defined using the Velocity Template Language combined with JSONPath expressions. 
+On `Integration Request` and `Integration Response` we have **Body Mapping Templates** are used to transform an incoming payload into a different format. API Gateway allows you to define input mapping templates, for mapping the incoming request from a client to a server format, and output mapping templates, for mapping the outgoing response from the server to a client format. The mappings are defined using the Velocity Template Language combined with JSONPath expressions. 
 
-1. On Body Mapping Templates we check the radion button on **When there are no templates defined (recommended)** then click on **Add mapping template** and we define the *Content-Type* to *application/json*. Important, this name is not random, *application/json* means that incoming request with **Content-Type** of  *application/json* will be handled by this template.
-2. Now we right on template section:
+* Let try to add this to excercise: 
+
+1. On the **POST** method on API resource, click on **Integration Request**. Then uncheck the checkbox **Use Lambda Proxy integration**.
+2. On the same method, click on **Integration Request** then on Body Mapping Templates we check the radion button on **When there are no templates defined (recommended)** then click on **Add mapping template** and we define the *Content-Type* to *application/json*. Important, this name is not random, *application/json* means that incoming request with **Content-Type** of  *application/json* will be handled by this template.
+3. Now we right on template section:
 
 ```
 {
@@ -282,15 +285,109 @@ exports.fn = (event, context, callback) => {
 56
 ```
 
+* Let Mapping the response: 
 
+1. On the **POST** method on API resource, click on **Integration Response**. Then click on dropdown menu and then click on dropdown **Body Mapping Templates**.
+2. Click on `application/json` and then we can see the section to add our templates.
 
+```
+{
+  "your-age" : $input.json('$')
+}
+```
 
+3. Then we create a **Test** with:
 
+```
+{
+  "personData" : {
+    "name" : "Max",
+    "age" : 28
+  }
+}
+```
 
+4. On response we receive:
 
+```
+{
+  "your-age": 56
+}
+```
 
+**Models**
 
+A model defines the structure of the incoming payload using JSON Schema. The model is an optional, but not required, piece of API Gateway. By providing a model, you make it easier to define the upcoming mapping template that actually does the transformation between the client and server.
 
+Let create models for our exercise app:
+
+1. On left sidebar section under our API, we have the options **Models**, click on option **Models** and then on button **Create**.
+2. Type the name of the models, on this case `CompareData` and add content type `application/json`, description is optional.
+3. Now we include our **Schema**:
+
+```
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CompareData",
+  "type": "object",
+  "properties": {
+    "age": {"type": "integer"},
+    "height": {"type": "integer"},
+    "income": {"type": "integer"}
+  },
+  "required": ["age", "height", "income"]
+}
+```
+
+4. Now let go back to our resource method **POST**, click on **Method Request** and click on dropdown **Request Body**.
+5. We add content type `application/json` and select our model name, on this case `CompareData`.
+6. After add our model, on the same section click the dropdown **Settings** and select on **Request Validator**: `Validate body`
+7. Let test our **POST** method with:
+
+```
+{
+    "age": 28,
+    "height": 72,
+}
+```
+
+8. On response we receive:
+
+```
+{
+  "message": "Invalid request body"
+}
+```
+
+9. To successfully request we need to add all parameters:
+
+```
+{
+    "age": 28,
+    "height": 72,
+    "income": 2500
+}
+```
+
+10. On response we receive:
+
+```
+{
+  "your-age": 0
+}
+```
+
+**JSON Schemas**
+
+Models are defined using JSON schema.
+
+**Models and Mappings**
+
+After create our models, now is more simple to Mapping ours parameters.
+
+1. On the **POST** method on API resource, click on **Integration Response**. Then click on dropdown menu and then click on dropdown **Body Mapping Templates**.
+2. On **Generate template** we can select our models.
+3. And on **Method Request** on the mapping section we can select our models.
 
 
 
