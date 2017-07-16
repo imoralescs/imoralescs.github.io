@@ -20,27 +20,33 @@ Is a service that enable developer to create or define endpoint & HTTP method to
 
 **Create API**
 
-1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
-2. Will see 4 ways to create a API:
+From API Gateway service screen in the AWS console click on **Get Started** to create a new API or otherwise if you already have some API, click **Create API** on the left sidebar.
 
-* *New API*
-* *Clone from existing API* - You can used other existing API.
-* *Import from Swagger* - Allow us to import a Swagger definition file.
-* *Example API*
+Will see 4 ways to create our API:
 
-3. Select **New API** add name `firstAPI`, add description and click on **Create API**.
-4. To add resource to you API, by selection you API on the left sidebar, click on dropdown **Actions -> Create Resource**. Add a name for this resource, on this case `first-api-test` and click **Create Resource**.
-5. To add a request to you resource, by selecting the resource clicking on the dropdown **Actions -> Create Method** And we can decide what HTTP method we want to used. On this case pick **GET**. On the configuration of this particular method we have:
+1. **New API**
+2. **Clone from existing API** - You can used other existing API.
+3. **Import from Swagger** - Allow us to import a Swagger definition file.
+4. **Example API**
 
-* *Integration type:*
+On this initial example we are going to select create a new API, click on **New API** and add the name of `firstAPI`. We can add some description and click on **Create API**.
 
-  * **Lambda Function** - refer to any lambda function we create.
-  * **HTTP** - refer to foward to another http request.
-  * **AWS Service** - refer to another service provide by AWS. 
-  * **Mock** - refer to mock up you own response.
+**Add Resource to API**
 
-6. Select **Mock** and click on **Save** button.
-7. For send through API dummie data, by selecting **GET** method click on **Integration Response**, and on **Body Mapping Templates**, click on **application/json** type:
+From API Gateway service screen in the AWS console by selecting our API on the left sidebar, we click on **Actions -> Create Resource**. This allow us to create our resource to the same API we selecting. Add to resource a url path name, on this case will be `first-api-test`, and click on **Create Resource**.
+
+**Add Method to API Resource***
+
+From API Gateway service screen in the AWS console by our desire resource to add method, click on **Actions -> Create Resource** and we can pick what kind of HTTP method we want to include to it resource selecting. On this case we are going to select **GET**.
+
+On the configuration of this method, on **Integration Type** we have:
+
+* **Lambda Function** - refer to any lambda function we create.
+* **HTTP** - refer to foward to another http request.
+* **AWS Service** - refer to another service provide by AWS. 
+* **Mock** - refer to mock up you own response.
+
+On this case we are going to select **Mock** and click on **Save**. To testing purpose we are going to send through our API somo dummie data. By selecting our previous new method we are going to click on **Integration Response**, expand on **Body Mapping Templates**, click on **application/json** and add the following JSON code:
 
 ```json
 {
@@ -48,8 +54,13 @@ Is a service that enable developer to create or define endpoint & HTTP method to
 }
 ```
 
-8. Click on save and we need to deploy this API, click on dropdown **Actions -> Deploy API**. We need to create or select **Stage**, if the case you need to create one, type the name of `dev` and click on **Deploy** button.
-9. On the left sidebar select your API and on **Stages** section, will provide you the URL to test your API.
+Once added click on save and we need to deploy this API to used or testing.
+
+**Deploy API**
+
+From API Gateway service screen in the AWS console by selecting our API we desire to deploy on the left sidebar, and click on **Actions -> Deploy API**. We need to create or select **Stage** we want to deploy. If is the case that we need to create a new one, type the name of the stage, on this case will be `dev` adn click on **Deploy**. 
+
+From API Gateway service screen in the AWS console by selecting our API on the left sidebar, on the **Stages** section, AWS will provide you the URL to test your API.
 
 ```
 https://vtjoat3drl.execute-api.us-east-1.amazonaws.com/dev/first-api-test
