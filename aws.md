@@ -400,10 +400,40 @@ After create our models, now is more simple to Mapping ours parameters.
 3. On **DELETE** method setup **Integration type** with **Lambda Function** and select **Lambda Region**. 
 4. Now trying some test.
 
+**Path Parameters**
 
+Is how to map method request parameters to the corresponding integration request parameters for an API Gateway API.
 
+1. Navigate to the API Gateway service. On ours `compare-yourself`API and then resource, by selecting our resource, we are going to create a child resource.
+2. Clicking on dropdown **Actions -> Create Resource**, then on resource name will named `type` and the resource path will be on curly brance `{type}`. After this check on **Enable API Gateway CORS** and click on **Create Resource**.
+3. Now on this new variable resource we create a new **GET** method. **Actions -> Create Method**.
+4. Now let create our Lambda function to this new method:
 
+```
+exports.handler = (event, context, callback) => {
+  const type = event.type;
+  
+  if(type === 'all') {
+    callback(null, 'All the data');
+  }
+  else if(type === 'single') {
+    callback(null, 'Just my data');
+  }
+  else {
+    callback(null, 'Hello from Lambda');
+  }
+};
+```
 
+5. Now to passing data from API to Lambda (extract value from url) we need to go on **Integration Request** and setup a tamplate on **Body Mapping Templates**. Check `When there are no templates define`, add on **Content-Type** the following value `application/json` and on template editor the following code:
+
+```
+{
+  "type" : "$input.params('type')"
+}
+```
+
+6. After save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All data is here!`.
 
 ### Serverless Framework
 
