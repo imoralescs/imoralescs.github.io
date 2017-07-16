@@ -389,6 +389,17 @@ After create our models, now is more simple to Mapping ours parameters.
 2. On **Generate template** we can select our models.
 3. And on **Method Request** on the mapping section we can select our models.
 
+**Adding DELETE method to API**
+
+1. Navigate to the API Gateway service. On ours `compare-yourself`API adn then resource, clicking on dropdown **Actions -> Create Method** and select **DELETE**.
+2. Create a new Lambda function `cy-delete-data` for **DELETE** with following code:
+
+```
+```
+
+3. On **DELETE** method setup **Integration type** with **Lambda Function** and select **Lambda Region**. 
+4. Now trying some test.
+
 
 
 
