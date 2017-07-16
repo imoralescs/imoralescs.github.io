@@ -33,20 +33,20 @@ On this initial example we are going to select create a new API, click on **New 
 
 ### Add Resource to API
 
-From API Gateway service screen in the AWS console by selecting our API on the left sidebar, we click on **Actions -> Create Resource**. This allow us to create our resource to the same API we selecting. Add to resource a url path name, on this case will be `first-api-test`, and click on **Create Resource**.
+From API Gateway service screen in the AWS console by selecting our API on the left sidebar, we click on **Actions -> Create Resource**. This allow us to create our resource to the same API we selecting. Add to resource a name and url path name, on this case will be `first-api-test`, and click on **Create Resource**.
 
 ### Add Method to API Resource
 
-From API Gateway service screen in the AWS console by our desire resource to add method, click on **Actions -> Create Resource** and we can pick what kind of HTTP method we want to include to it resource selecting. On this case we are going to select **GET**.
+From API Gateway service screen in the AWS console by our desire resource to add method or by selecting our resource to add method, click on **Actions -> Create Method** and we can pick what kind of HTTP method we want to include to it resource selecting. On this case we are going to select **GET**.
 
-On the configuration of this method, on **Integration Type** we have:
+On the setup of this method, we have:
 
 * **Lambda Function** - refer to any lambda function we create.
 * **HTTP** - refer to foward to another http request.
 * **AWS Service** - refer to another service provide by AWS. 
 * **Mock** - refer to mock up you own response.
 
-On this case we are going to select **Mock** and click on **Save**. To testing purpose we are going to send through our API somo dummie data. By selecting our previous new method we are going to click on **Integration Response**, expand on **Body Mapping Templates**, click on **application/json** and add the following JSON code:
+On this case we are going to select **Mock** and click on **Save**. To testing purpose we are going to send through our API some dummies data. By selecting our new previous method we are going to click on **Integration Response**, expand on **Body Mapping Templates**, click on **application/json** and add the following JSON code:
 
 ```json
 {
@@ -54,11 +54,11 @@ On this case we are going to select **Mock** and click on **Save**. To testing p
 }
 ```
 
-Once added click on save and we need to deploy this API to used or testing.
+Once added click on **Save** and we need to deploy this API to used or testing.
 
 ### Deploy API
 
-From API Gateway service screen in the AWS console by selecting our API we desire to deploy on the left sidebar, and click on **Actions -> Deploy API**. We need to create or select **Stage** we want to deploy. If is the case that we need to create a new one, type the name of the stage, on this case will be `dev` adn click on **Deploy**. 
+From API Gateway service screen in the AWS console by selecting our API we desire to deploy on the left sidebar, click on **Actions -> Deploy API**. We need to create or select **Stage** we want to deploy. If is the case that we need to create a new one, type the name of the stage, on this case will be `dev` adn click on **Deploy**. 
 
 From API Gateway service screen in the AWS console by selecting our API on the left sidebar, on the **Stages** section, AWS will provide you the URL to test your API.
 
@@ -140,15 +140,6 @@ exports.fn = (event, context, callback) => {
 ```
 
 * **Role** - Allow us to add permission.
-
-
-
-
-
-
-
-
-
 
 ## Exercise Compare-Yourself App:**
 
