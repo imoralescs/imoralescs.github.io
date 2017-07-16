@@ -2,15 +2,15 @@
 
 ## Preparation
 
-**Creating Groups**
+### Creating Groups
 
 From Identity & Access Management (IAM) screen in the AWS console click on **Groups** on the left sidebar. Then click **Create New Group** and add the name of the group `serverless-group`. Then click **Next Step** and on **Attach Policy** we are going to attach to this group `AdministratorAccess` by selecting it and finish this section by click on **Next Step**, reviews all details and click on **Create Group**.
 
-**Creating Users**
+### Creating Users
 
 From Identity & Access Management (IAM) screen in the AWS console click on **Users** on the left sidebar. Then click **Add user** and add the name `serverless-admin`. Select **Programmatic access** to allow development and click on **Next: Permission**. From on set permissions area select the group `serverless-group` adn click on **Next: Review**. After review all details we can proceed by click on **Create user**.
 
-**Access Key & Secret Key**
+### Access Key & Secret Key
 
 After create the user, AWS will provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
 
@@ -18,7 +18,7 @@ After create the user, AWS will provide you a table with the **user**, **access 
 
 Is a service that enable developer to create or define endpoint & HTTP method to directly access to some AWS services.
 
-**Create API**
+### Create API
 
 From API Gateway service screen in the AWS console click on **Get Started** to create a new API or otherwise if you already have some API, click **Create API** on the left sidebar.
 
@@ -31,11 +31,11 @@ Will see 4 ways to create our API:
 
 On this initial example we are going to select create a new API, click on **New API** and add the name of `firstAPI`. We can add some description and click on **Create API**.
 
-**Add Resource to API**
+### Add Resource to API
 
 From API Gateway service screen in the AWS console by selecting our API on the left sidebar, we click on **Actions -> Create Resource**. This allow us to create our resource to the same API we selecting. Add to resource a url path name, on this case will be `first-api-test`, and click on **Create Resource**.
 
-**Add Method to API Resource***
+### Add Method to API Resource
 
 From API Gateway service screen in the AWS console by our desire resource to add method, click on **Actions -> Create Resource** and we can pick what kind of HTTP method we want to include to it resource selecting. On this case we are going to select **GET**.
 
@@ -56,7 +56,7 @@ On this case we are going to select **Mock** and click on **Save**. To testing p
 
 Once added click on save and we need to deploy this API to used or testing.
 
-**Deploy API**
+### Deploy API
 
 From API Gateway service screen in the AWS console by selecting our API we desire to deploy on the left sidebar, and click on **Actions -> Deploy API**. We need to create or select **Stage** we want to deploy. If is the case that we need to create a new one, type the name of the stage, on this case will be `dev` adn click on **Deploy**. 
 
@@ -66,57 +66,48 @@ From API Gateway service screen in the AWS console by selecting our API on the l
 https://vtjoat3drl.execute-api.us-east-1.amazonaws.com/dev/first-api-test
 ```
 
-**Options on the left sidebar**
+### Options on the left sidebar on API Gateway service screen
 
-* *APIs* - Lists of all API we create on AWS.
-* *Usage Plans* 
-* *API Keys* - Allow us to share our API with other developer and provider a key for used.
-* *Custom Domain Names* - Allow us to choose at own domain name for API.
-* *Client Certificates*
-* *Setting* - Allow us manage permission and roles of the API.
+* **APIs** - Lists of all API we create on AWS.
+* **Usage Plans**
+* **API Keys** - Allow us to share our API with other developer and provider a key for used.
+* **Custom Domain Names** - Allow us to choose at own domain name for API.
+* **Client Certificates**
+* **Setting** - Allow us manage permission and roles of the API.
 
-**Options on API**
+### Options on each API
 
-* *Resources*
-* *Stages* - Are deploy snapshot for ship to the web.
-* *Authorizes* - Allow us to add authentication to the API.
-* *Model* - Allow us to models our API data with Schema.
-* *Binary Support*
-* *Dashboard* - Give analitics data from the API.
+* **Resources**
+* **Stages** - Are deploy snapshot for ship to the web.
+* **Authorizes** - Allow us to add authentication to the API.
+* **Model** - Allow us to models our API data with Schema.
+* **Binary Support**
+* **Dashboard** - Give analitics data from the API.
 
-**Request-Response Cycle**
+### API Request-Response Cycle
 
 Basically show us a flow of the data between client(User App) and endpoint. They have **TEST** ability for testing purpose.
 
-* *Method Request* - Handler incoming request.
-* *Integration Request* - Mapping incoming data or tranform incoming data into the shape to used that data.
-* *Integration Response* - Allow us to extract data or response back to the client.
-* *Method Response* - Allow us to configurated the shape the form of the response data.
+* **Method Request** - Handler incoming request.
+* **Integration Request** - Mapping incoming data or tranform incoming data into the shape to used that data.
+* **Integration Response** - Allow us to extract data or response back to the client.
+* **Method Response** - Allow us to configurated the shape the form of the response data.
 
-**Cross Origin Resource Sharing (CORS)**
+### Cross Origin Resource Sharing (CORS)
 
 Is a security model to not allow to access resource on the server from another server.
 
-**Exercise Compare-Yourself App:**
-
-1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
-2. Add the name `compare-yourself` and add the resource `compare-yourself` and check on **Enable API Gateway CORS**. This automatically add to resource **OPTIONS** method.
-3. Add another method **POST** by clicking on dropdown **Actions -> Create Method** by selecting our previous resource.
-4. On **POST** method setup **Integration type** with **Lambda Function** and select **Lambda Region**.
-
-### AWS Lambda
+## AWS Lambda
 
 AWS Lambda allows you to run your own code in response to events in a serverless enviroment. Lambda is a Function-as-a-Service (FaaS) platform provided by Amazon Web Services (AWS). Lambda is tightly integrated into the AWS ecosystem and allows developers to build microservices that easily interact with other AWS services. For example, we can create a Lambda function that is executed every time a user signs up through the AWS Cognito service or we can trigger a Lambda function after a file is uploaded to S3. Combining Lambda with the API Gateway, we can build microservices that can be accessed from outside the AWS ecosystem.
 
 Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure.
 
-**Create Lambda Function**
+### Create Lambda Function
 
-1. Navigate to the Lambda service.
-2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
-3. On Select bluprint, Amazon Web Service will offer you a list of functions code template with some dummi code. On this case we are going to select as runtime **Node.js 4.3** and **Blank Function**.
-4. Now we need to configure triggres, Amazon Web Service give us many triggers options but for this case we are going to leave this empty and click **Next**.
-5. On configuration of the function we can strat we adding the name of the function. `firstLambda`, add description and runtime. Then we can see the Lambda code:
+From Lambda service screen in the AWS console, if you don't have any previous Lambda function you can go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**. AWS will provide you a selections of blueprint as templates with some dummie code. On this case we are going to select as runtime `Node.js 4.3` and `Blank Function`. After selection of template AWS will ask for triggers option to ours function. We have many options to trigger a Lambda function but for this case, we can leave this option `empty` and click **Next**.
+
+Following previous step we need now to configurate our function, we start with name on this case `firstLambda`, description and runtime. Then we can edit the Lambda code:
 
 ```javascript
 exports.handler = (event, context, callback) => {
@@ -124,22 +115,23 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
+On code we have:
+
 * **event** - This variable is used by Lambda to pass in event data to the handler (like an HTTP request).
 * **context** - The context variable is used to pass in runtime information for the Lambda function, like how much time is remaining before the function will be terminated.
 * **callback** - By using it, you can explicitly return data to the caller (like an HTTP response).
 
-6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
-7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. **Timeout** allow us to set a time spend of the function and quit no metter if the function finish or not. On this case we can choose `10 sec`. Now we can click **Next**.
-8. Review all details of your Lambda and click **Create function**.
-9. After successfully creation you can test your function by clicking on the **Test** button on the upper area. After test you will see:
+Once edit the Lambda code we moving to function handler and role, click on **Role** adn then click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click on **Allow**. After allow permission we can add some advance properties by click on **Advance settings**. On memory we can add more memory to our function, but as more memory you add more higher payment will be. On this case we are going to set memory to `128`, then timeout allow us to set the time of ou function will spend on execution and quit no metter if the function accomplish or not. On this case we are going to set this to `10 sec`. To finish click on **Next**.
+
+Now we can reviews all details of our Lambda function and click on **Create function**. After successfully creation we can test our function by clicking on the **Test** on upper area. Will see the response of:
 
 ```
 "Hello from Lambda"
 ```
 
-**Lambda function handler add role**
+### Lambda function handler add role
 
-* *Handler* - This part define the entry point to the Lambda funcion. Example if the change `index.handler` to `index.fn`, this name must be the same on the function code:
+* **Handler** - This part define the entry point to the Lambda funcion. Example if the change `index.handler` to `index.fn`, this name must be the same on the function code:
 
 ```javascript
 exports.fn = (event, context, callback) => {
@@ -147,7 +139,25 @@ exports.fn = (event, context, callback) => {
 };
 ```
 
-* *Role* - Allow us to add permission.
+* **Role** - Allow us to add permission.
+
+
+
+
+
+
+
+
+
+
+## Exercise Compare-Yourself App:**
+
+1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
+2. Add the name `compare-yourself` and add the resource `compare-yourself` and check on **Enable API Gateway CORS**. This automatically add to resource **OPTIONS** method.
+3. Add another method **POST** by clicking on dropdown **Actions -> Create Method** by selecting our previous resource.
+4. On **POST** method setup **Integration type** with **Lambda Function** and select **Lambda Region**.
+
+
 
 ### Exercise Compare-Yourself App
 
