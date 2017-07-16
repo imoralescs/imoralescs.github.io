@@ -6,7 +6,7 @@
 
 From Identity & Access Management (IAM) screen in the AWS console click on **Groups** on the left sidebar. Then click **Create New Group** and add the name of the group `serverless-group`. Then click **Next Step** and on **Attach Policy** we are going to attach to this group `AdministratorAccess` by selecting it and finish this section by click on **Next Step**, reviews all details and click on **Create Group**.
 
-** Creating Users**
+**Creating Users**
 
 From Identity & Access Management (IAM) screen in the AWS console click on **Users** on the left sidebar. Then click **Add user** and add the name `serverless-admin`. Select **Programmatic access** to allow development and click on **Next: Permission**. From on set permissions area select the group `serverless-group` adn click on **Next: Review**. After review all details we can proceed by click on **Create user**.
 
