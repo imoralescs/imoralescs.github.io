@@ -1,15 +1,20 @@
-# Amazon Web Service (AWS) 
+# Amazon Web Service (AWS) - Serverless
 
-Preparation:
+## Preparation
 
-1. Log in or sign up for a new AWS account.
-2. Navigate to the Identity & Access Management (IAM) service and create a new Group called `serverless-group`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Groups** and them **Create New Group**. Add the name `serverless-group`, and then click **Next Step** and on Attach Policy we are going to attach to this group **AdministratorAccess** checking his checkbox them click **Next Step**, review all the details of the group and click **Create Group**.
-3. Navigate to the Identity & Access Management (IAM) service and create a new User called `serverless-admin`. On the left sidebar of the Identity & Access Management (IAM) area, click on **Users** and them **Add user**. Add the name `serverless-group`, then check on the checkbox **Programmatic access** to allow development and click **Next: Permissions**. On set permissions area check the group `serverless-group` and click **Next: Review**. After review all details, click **Create user**.
-4. After create the user, AWS provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
+**Creating Groups**
 
-## Serverless
+From Identity & Access Management (IAM) screen in the AWS console click on **Groups** on the left sidebar. Then click **Create New Group** and add the name of the group `serverless-group`. Then click **Next Step** and on **Attach Policy** we are going to attach to this group `AdministratorAccess` by selecting it and finish this section by click on **Next Step**, reviews all details and click on **Create Group**.
 
-### AWS API Gateway
+** Creating Users**
+
+From Identity & Access Management (IAM) screen in the AWS console click on **Users** on the left sidebar. Then click **Add user** and add the name `serverless-admin`. Select **Programmatic access** to allow development and click on **Next: Permission**. From on set permissions area select the group `serverless-group` adn click on **Next: Review**. After review all details we can proceed by click on **Create user**.
+
+**Access Key & Secret Key**
+
+After create the user, AWS will provide you a table with the **user**, **access key id** and **secret access key**. Copy all items and saved on a secure document for future used.
+
+## AWS API Gateway
 
 Is a service that enable developer to create or define endpoint & HTTP method to directly access to some AWS services.
 
