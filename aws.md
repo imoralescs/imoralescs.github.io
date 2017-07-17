@@ -141,49 +141,40 @@ exports.fn = (event, context, callback) => {
 
 * **Role** - Allow us to add permission.
 
-## Exercise Compare-Yourself App:**
+## Exercise Compare-Yourself App
 
-1. Navigate to the API Gateway service. If you don't have any previous API you go ahead and click **Get Started** otherwise click **APIs** on the left sidebar of the section and then click the button **Create API**.
-2. Add the name `compare-yourself` and add the resource `compare-yourself` and check on **Enable API Gateway CORS**. This automatically add to resource **OPTIONS** method.
-3. Add another method **POST** by clicking on dropdown **Actions -> Create Method** by selecting our previous resource.
-4. On **POST** method setup **Integration type** with **Lambda Function** and select **Lambda Region**.
+### Setting API
 
+From API Gateway service screen in the AWS console, click **APIs** on the left sidebar and then click on **Create API**. Add the name `compare-yourself`, add a new resource with the name `compare-yourself` and select **Enable API Gateway CORS**.
 
+Enable API Gateway CORS automatically add to resource **OPTIONS** method. When your API's resources receive requests from a domain other than the API's own domain, you must enable cross-origin resource sharing (CORS) for selected methods on the resource. 
 
-### Exercise Compare-Yourself App
+Once enable CORS, we add another method **POST** by click on **Actions -> Create Method** and on method setup we set on **Integration type** to `Lambda Function` and select our **Lambda Region**.
 
-1. Navigate to the Lambda service.
-2. If you don't have any previous Lambda function you go ahead and click **Get Started Now** otherwise click on **Create a Lambda function**.
-3. On Select bluprint, Amazon Web Service will offer you a list of functions code template with some dummi code. On this case we are going to select as runtime **Node.js 4.3** and **Blank Function**.
-4. Now we need to configure triggres, Amazon Web Service give us many triggers options but for this case we are going to leave this empty and click **Next**.
-5. On configuration of the function we can strat we adding the name of the function `cy-store-data`, add description `Store user comparison data` and runtime. Then we can see the Lambda code:
+### Setting Our First Lambda Function for POST data
+
+From Lambda service screen in the AWS console, create our application post Lambda function. By selecting **Blank Function** and runtime **Node.js 4.3**. Set trigger to empty, add the name of this function to `cy-store-data` and description to `Store user comparison data`.
+
+On our Lambda code will are going to write:
 
 ```javascript
 exports.handler = (event, context, callback) => {
-  callback(null, 'Hi, I\'m Lambda');
+  callback(null, 'Store Data');
 };
 ```
 
-6. Moving to Lambda function handler and role, click on dropdown **Role** and click on **Create a custom role**. Create a new (IAM) Role, with `lambda_basic_execution` and click **Allow**.
-7. Then click on dropdown **Advanced settings**, we can add memory on this section, remember if you add more memory and as more memory more higher payment, so for this case we can leave as default `128`. **Timeout** allow us to set a time spend of the function and quit no metter if the function finish or not. On this case we can choose `10 sec`. Now we can click **Next**.
-8. Review all details of your Lambda and click **Create function**.
-9. After successfully creation you can test your function by clicking on the **Test** button on the upper area. After test you will see:
+Once create our Lambda function we can test ours function and following to the next step.
 
-```
-"Hello from Lambda"
-```
+### Connect Lambda to API Gateway
 
-**Connect Lambda to API Gateway**
+From API Gateway service screen in the AWS console, by selecting ours API and resource `compare-youself`, selecting **POST** method. Click on **Integration type** and select **Lambda Function**. Select region and type the name of the Lambda function  associate to this HTTP method, then click **Save**.
 
-1. Navigate to the API Gateways service.
-2. Select API to connect function, on this case select our previous API `compare-youself` and select ours **POST** method. On **Integration type** select **Lambda Function**, select region and type the name of the function on **Lambda Function**. Then click **Save**.
-3. For test, click on **Test** and we are not going to pass request body on this case, just click on **Test**. And we receive back our response.
+Now let test our API by API Gateway service screen in the AWS console. We are going to pass request body on this case and we will receive response back.
 
-**Accessing the API from the Web**
+### Accessing API from the Web
 
-1. By selecting our API, click on dropdown **Actions -> Deploy API**. We need to create or select **Stage**, if the case you need to create one, type the name of `dev` and click on **Deploy** button.
-2. On the left sidebar select your API and on **Stages** section, will provide you the URL to test your API.
-3. On JSFiddle we are going to test our API:
+To access our API from external used, we need to deploy our API first. After deploy ours API we can trying using our API on JSFiddler:
+
 
 ```
 var xhr = new XMLHttpRequest();
@@ -194,19 +185,19 @@ xhr.onreadystatechange = function(event) {
 xhr.send();
 ```
 
-4. In case we receive this error:
+In case we receive this error:
 
 ```
 XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.com/dev/compare-yourself. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'https://fiddle.jshell.net' is therefore not allowed access.
 ```
 
-5. We need to fix the header request. By clicking **POST** method on resource and click under **Integration Response**, on **Header Mappings** we need to set our missing header.
-6. To set our missing header click under **Method Response**, then click dropdown on **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and back to **Integration Response** add `'*'` on **Mapping value** of the **Header Mappings**.
-7. Now we need to re-deploy. And try again.
+To solve this problem, we need to fix our API header request. From API Gateway service screen in the AWS console, by selecting our API resource method **POST** click on **Integration Response** and expand **Header Mappings** we need to set our missing header.
 
-**Understanding "event" argument on Lambda function code**
+To set our missing header click on **Method Response**, then expand **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and navigate back to **Integration Response** and, add `'*'` on **Mapping value** of the **Header Mappings**. Once finish previous step re-deploy and we can trying again.
 
-First we add `event` argument on `callback` as argument of function. 
+### Understanding `event` argument on Lambda function code
+
+On our POST Lambda function we add `event` argument on `callback` as argument of function. 
 
 ```javascript
 exports.handler = (event, context, callback) => {
@@ -214,7 +205,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-On test your lambda function API on **POST** method of API, we include on **Request body** :
+Then test your lambda function API on **POST** method of API, we include on **Request body** :
 
 ```json
 {
@@ -223,7 +214,7 @@ On test your lambda function API on **POST** method of API, we include on **Requ
 }
 ```
 
-And  click on test, we recive response back:
+And click on test, we recive response back:
 
 ```json
 {
@@ -232,12 +223,11 @@ And  click on test, we recive response back:
 }
 ```
 
-**Using Lambda Proxy Integration (Compare-Yourself App)**
+**Using Lambda Proxy Integration**
 
 With the Lambda proxy integration, API Gateway can pass the entire request object into Lambda function. Proxy integration allow us to map the entire client request to the event parameter of the backend Lambda function, As an interpretation of this "a function that collects request information (HTTP method, query string, path, source IP etc) of this Gateway without permission and passes it to Lambda".
 
-1. To configurated one of endpoint to used proxy integration, On the **POST** method on API resource, click on **Integration Request**. Then check the checkbox **Use Lambda Proxy integration**
-2. Now let change ours Lambda function with:
+To configurated one of our endpoint or method to used proxy integration, by selecting our **POST** method on API resource, click on **Integration Request**. Then select **Use Lambda Proxy integration**. Once finish the previous step, edit our POST Lambda function with:
 
 ```
 exports.handler = (event, context, callback) => {
@@ -245,7 +235,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-3. Now let return to ours API **POST** method and test with.
+Now let return to ours API **POST** method and test with:
 
 ```json
 {
@@ -254,28 +244,28 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-4. Now we allow to pass the complete request into Lambda function.
+Now we allow to pass the complete request into Lambda function.
 
-**Body Mapping Templates**
+### Body Mapping Templates
 
 On `Integration Request` and `Integration Response` we have **Body Mapping Templates** are used to transform an incoming payload into a different format. API Gateway allows you to define input mapping templates, for mapping the incoming request from a client to a server format, and output mapping templates, for mapping the outgoing response from the server to a client format. The mappings are defined using the Velocity Template Language combined with JSONPath expressions. 
 
-* Let try to add this to excercise: 
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, resource and method **POST**, click on **Integration Request** and uncheck **Use Lambda Proxy integration**.
 
-1. On the **POST** method on API resource, click on **Integration Request**. Then uncheck the checkbox **Use Lambda Proxy integration**.
-2. On the same method, click on **Integration Request** then on Body Mapping Templates we check the radion button on **When there are no templates defined (recommended)** then click on **Add mapping template** and we define the *Content-Type* to *application/json*. Important, this name is not random, *application/json* means that incoming request with **Content-Type** of  *application/json* will be handled by this template.
-3. Now we right on template section:
+On the same method, click on **Integration Request** then expand **Body Mapping Templates** we select on **When there are no templates defined (recommended)** then click on **Add mapping template** and we define the **Content-Type** to `application/json`. Important, this name is not random, `application/json` means that incoming request with **Content-Type** of  `application/json` will be handled by this template. 
 
-```
+On edit template section we write:
+
+```json
 {
   "age" : $input.json('$.personData.age')
 }
 ```
 
-`$input` - Variable provided by AWS, gives you access to your request data(body, params,...)
-`json('$')` - Extracts complete request body.
+* `$input` - Variable provided by AWS, gives you access to your request data(body, params,...)
+* `json('$')` - Extracts complete request body.
 
-3. On the Lambda code:
+Then edit our POST Lambda function with:
 
 ```
 exports.fn = (event, context, callback) => {
@@ -285,7 +275,7 @@ exports.fn = (event, context, callback) => {
 };
 ```
 
-4. Then we create a **Test** with:
+Then we create a **Test** with:
 
 ```
 {
@@ -296,16 +286,15 @@ exports.fn = (event, context, callback) => {
 }
 ```
 
-5. On response we receive:
+On response we receive:
 
 ```
 56
 ```
 
-* Let Mapping the response: 
+**Let Mapping the response** 
 
-1. On the **POST** method on API resource, click on **Integration Response**. Then click on dropdown menu and then click on dropdown **Body Mapping Templates**.
-2. Click on `application/json` and then we can see the section to add our templates.
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, resource and method **POST**, click on **Integration Response**. Then expand on **Body Mapping Templates** and click on **application/json** and then we can see the section to add our templates:
 
 ```
 {
@@ -313,7 +302,7 @@ exports.fn = (event, context, callback) => {
 }
 ```
 
-3. Then we create a **Test** with:
+Then we create a **Test** with:
 
 ```
 {
@@ -324,7 +313,7 @@ exports.fn = (event, context, callback) => {
 }
 ```
 
-4. On response we receive:
+On response we receive:
 
 ```
 {
@@ -332,15 +321,11 @@ exports.fn = (event, context, callback) => {
 }
 ```
 
-**Models**
+### Models
 
 A model defines the structure of the incoming payload using JSON Schema. The model is an optional, but not required, piece of API Gateway. By providing a model, you make it easier to define the upcoming mapping template that actually does the transformation between the client and server.
 
-Let create models for our exercise app:
-
-1. On left sidebar section under our API, we have the options **Models**, click on option **Models** and then on button **Create**.
-2. Type the name of the models, on this case `CompareData` and add content type `application/json`, description is optional.
-3. Now we include our **Schema**:
+Let create models for our exercise API. From API Gateway service screen in the AWS console, on left sidebar section under our API, we have the options **Models**, click on **Models** and then click on **Create**. Type the name of the models, on this case `CompareData` and add content type `application/json`, description is optional. Once finish of create model, we include our **Schema**:
 
 ```
 {
@@ -356,10 +341,7 @@ Let create models for our exercise app:
 }
 ```
 
-4. Now let go back to our resource method **POST**, click on **Method Request** and click on dropdown **Request Body**.
-5. We add content type `application/json` and select our model name, on this case `CompareData`.
-6. After add our model, on the same section click the dropdown **Settings** and select on **Request Validator**: `Validate body`
-7. Let test our **POST** method with:
+Now let go back to our resource method **POST**, click on **Method Request** and expand **Request Body**. Then we add content type `application/json` and select our model name, on this case `CompareData`. Once add our model, on the same section click expand **Settings** and select on **Request Validator**: `Validate body`. Let test our **POST** method with:
 
 ```
 {
@@ -368,7 +350,7 @@ Let create models for our exercise app:
 }
 ```
 
-8. On response we receive:
+On response we receive:
 
 ```
 {
@@ -376,7 +358,7 @@ Let create models for our exercise app:
 }
 ```
 
-9. To successfully request we need to add all parameters:
+To successfully request we need to add all parameters:
 
 ```
 {
@@ -386,7 +368,7 @@ Let create models for our exercise app:
 }
 ```
 
-10. On response we receive:
+On response we receive:
 
 ```
 {
@@ -394,7 +376,7 @@ Let create models for our exercise app:
 }
 ```
 
-**JSON Schemas**
+### JSON Schemas
 
 Models are defined using JSON schema.
 
@@ -402,29 +384,29 @@ Models are defined using JSON schema.
 
 After create our models, now is more simple to Mapping ours parameters.
 
-1. On the **POST** method on API resource, click on **Integration Response**. Then click on dropdown menu and then click on dropdown **Body Mapping Templates**.
-2. On **Generate template** we can select our models.
-3. And on **Method Request** on the mapping section we can select our models.
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, resource and method **POST**, click on **Integration Response**. Then expand **Body Mapping Templates**. On **Generate template** we can select our models. And on **Method Request** on the mapping section we can select our models.
 
-**Adding DELETE method to API**
+### Adding DELETE method to API
 
-1. Navigate to the API Gateway service. On ours `compare-yourself`API adn then resource, clicking on dropdown **Actions -> Create Method** and select **DELETE**.
-2. Create a new Lambda function `cy-delete-data` for **DELETE** with following code:
+From API Gateway service screen in the AWS console, click **APIs** on the left sidebar by selecting our `compare-yourself` API let add a new method **DELETE**, click on **Actions -> Create Method** and select **DELETE**. 
 
+Create a new Lambda function `cy-delete-data` for our **DELETE** method with following code:
+
+```javascript
+exports.handler = (event, context, callback) => {
+  callback(null, 'Deleted!');
+};
 ```
-```
 
-3. On **DELETE** method setup **Integration type** with **Lambda Function** and select **Lambda Region**. 
-4. Now trying some test.
+Once create our Lambda function for our method **DELETE**, we need to setup on **Integration type** with **Lambda Function** and select **Lambda Region**. after integration we can trying some test.
 
-**Path Parameters**
+### Path Parameters
 
-Is how to map method request parameters to the corresponding integration request parameters for an API Gateway API.
+Path parameters is how to map method request parameters to the corresponding integration request parameters for an API Gateway.
 
-1. Navigate to the API Gateway service. On ours `compare-yourself`API and then resource, by selecting our resource, we are going to create a child resource.
-2. Clicking on dropdown **Actions -> Create Resource**, then on resource name will named `type` and the resource path will be on curly brance `{type}`. After this check on **Enable API Gateway CORS** and click on **Create Resource**.
-3. Now on this new variable resource we create a new **GET** method. **Actions -> Create Method**.
-4. Now let create our Lambda function to this new method:
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, by selecting our resource `compare-youself`, we are going to create a child resource. Click on **Actions -> Create Resource**, then on resource name will named `type` and the resource path will be on curly brance `{type}`. After this check on **Enable API Gateway CORS** and click on **Create Resource**.
+
+On this new variable resource we create a new **GET** method. **Actions -> Create Method**. Now let create our Lambda function to this new method:
 
 ```
 exports.handler = (event, context, callback) => {
@@ -442,7 +424,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-5. Now to passing data from API to Lambda (extract value from url) we need to go on **Integration Request** and setup a tamplate on **Body Mapping Templates**. Check `When there are no templates define`, add on **Content-Type** the following value `application/json` and on template editor the following code:
+Now to passing data from API to Lambda (extract value from url) we need to go on **Integration Request** and setup a tamplate on **Body Mapping Templates**. Check `When there are no templates define`, add on **Content-Type** the following value `application/json` and on template editor the following code:
 
 ```
 {
@@ -450,7 +432,7 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-6. After save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All data is here!`.
+Once save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All data is here!`.
 
 ### Serverless Framework
 
