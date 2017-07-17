@@ -147,9 +147,9 @@ exports.fn = (event, context, callback) => {
 
 From API Gateway service screen in the AWS console, click **APIs** on the left sidebar and then click on **Create API**. Add the name `compare-yourself`, add a new resource with the name `compare-yourself` and select **Enable API Gateway CORS**.
 
-Enable API Gateway CORS automatically add to resource **OPTIONS** method. When your API's resources receive requests from a domain other than the API's own domain, you must enable cross-origin resource sharing (CORS) for selected methods on the resource. 
+Once enable API gateway CORS AWS automatically add to resource **OPTIONS** method. Now when your API's resources receive requests from a domain other than the API's own domain, you must enable cross-origin resource sharing (CORS) for selected methods on the resource. 
 
-Once enable CORS, we add another method **POST** by click on **Actions -> Create Method** and on method setup we set on **Integration type** to `Lambda Function` and select our **Lambda Region**.
+Now again, once enable CORS, we add another method **POST** by click on **Actions -> Create Method** and on method setup we set on **Integration type** to `Lambda Function`, add a dummies Lambda function, this case we can used `firstLambda` and select our **Lambda Region**.
 
 ### Setting Our First Lambda Function for POST data
 
@@ -167,7 +167,7 @@ Once create our Lambda function we can test ours function and following to the n
 
 ### Connect Lambda to API Gateway
 
-From API Gateway service screen in the AWS console, by selecting ours API and resource `compare-youself`, selecting **POST** method. Click on **Integration type** and select **Lambda Function**. Select region and type the name of the Lambda function  associate to this HTTP method, then click **Save**.
+From API Gateway service screen in the AWS console, by selecting ours API and resource `compare-youself`, selecting **POST** method. Click on **Integration Request** and on **Integration type** select `Lambda Function`. Select region and type the name of the Lambda function associate to this HTTP method, then save.
 
 Now let test our API by API Gateway service screen in the AWS console. We are going to pass request body on this case and we will receive response back.
 
@@ -193,7 +193,7 @@ XMLHttpRequest cannot load https://2e7inih0x8.execute-api.us-east-1.amazonaws.co
 
 To solve this problem, we need to fix our API header request. From API Gateway service screen in the AWS console, by selecting our API resource method **POST** click on **Integration Response** and expand **Header Mappings** we need to set our missing header.
 
-To set our missing header click on **Method Response**, then expand **200**, add a new header `Access-Control-Allow-Origin` on **Response header** and navigate back to **Integration Response** and, add `'*'` on **Mapping value** of the **Header Mappings**. Once finish previous step re-deploy and we can trying again.
+To set our missing header, return to method cycle and click on **Method Response**, then expand **200**, add a new header `Access-Control-Allow-Origin`. Once add new header return to method cycle and click on **Integration Response** expand **Header Mapping** and on **Response header**, add `'*'` on **Mapping value** of the **Header Mappings**. Once finish previous step re-deploy and we can trying again.
 
 ### Understanding `event` argument on Lambda function code
 
