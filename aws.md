@@ -298,7 +298,7 @@ From API Gateway service screen in the AWS console, by selecting our API `compar
 
 ```
 {
-  "your-age" : $input.json('$')
+  "your-age" : "$input.json('$')"
 }
 ```
 
@@ -435,6 +435,63 @@ To passing data from API to our Lambda get function (we need to extract value fr
 ```
 
 Once save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All the data`.
+
+### Test our API from the web
+
+**Step 1:** Enabaling CORS
+
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, the select our main resource and click **Actions -> Enable CORS**. This will add all the CORS header for us. Note: Add to each resource.
+
+**Step 2:** Deploy
+**Step 3:** Test our API on Codepen or JSFiddle**
+
+* POST
+
+```javascript
+let xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://d5bmzork35.execute-api.us-east-1.amazonaws.com/dev/compare-yourself');
+xhr.onreadystatechange = function(event){
+	console.log(event.target.response);
+}
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({age: 28, height:72, income: 2500}));
+```
+
+```
+Response: "Store Data!"
+```
+
+* DELETE
+
+```
+let xhr = new XMLHttpRequest();
+xhr.open('DELETE', 'https://d5bmzork35.execute-api.us-east-1.amazonaws.com/dev/compare-yourself');
+xhr.onreadystatechange = function(event){
+	console.log(event.target.response);
+}
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send();
+```
+
+```
+Response: "Deleted!"
+```
+
+* GET
+
+```
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://d5bmzork35.execute-api.us-east-1.amazonaws.com/dev/compare-yourself/single');
+xhr.onreadystatechange = function(event){
+	console.log(event.target.response);
+}
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send();
+```
+
+```
+Response: "Just my data"
+```
 
 ### Serverless Framework
 
