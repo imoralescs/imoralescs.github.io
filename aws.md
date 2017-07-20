@@ -404,9 +404,9 @@ Once create our Lambda function for our method **DELETE**, we need to setup on *
 
 Path parameters is how to map method request parameters to the corresponding integration request parameters for an API Gateway.
 
-From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, by selecting our resource `compare-youself`, we are going to create a child resource. Click on **Actions -> Create Resource**, then on resource name will named `type` and the resource path will be on curly brance `{type}`. After this check on **Enable API Gateway CORS** and click on **Create Resource**.
+From API Gateway service screen in the AWS console, by selecting our API `compare-youself`, then selecting our resource `compare-youself`, we are going to create a child resource, by clicking on **Actions -> Create Resource**, then on resource name will apply the name to `type` and the resource path will be on curly brance `{type}`. After this check on **Enable API Gateway CORS** and click on **Create Resource**.
 
-On this new variable resource we create a new **GET** method. **Actions -> Create Method**. Now let create our Lambda function to this new method:
+By selecting this new variable resource we are going create a new **GET** method, click **Actions -> Create Method**. Now let create our new Lambda function `cy-get-data` to attach to this new method:
 
 ```
 exports.handler = (event, context, callback) => {
@@ -419,12 +419,14 @@ exports.handler = (event, context, callback) => {
     callback(null, 'Just my data');
   }
   else {
-    callback(null, 'Hello from Lambda');
+    callback(null, 'Hello from get Lambda');
   }
 };
 ```
 
-Now to passing data from API to Lambda (extract value from url) we need to go on **Integration Request** and setup a tamplate on **Body Mapping Templates**. Check `When there are no templates define`, add on **Content-Type** the following value `application/json` and on template editor the following code:
+Now return to API Gateway service screen in the AWS console and add new get Lambda function to **GET** method. 
+
+To passing data from API to our Lambda get function (we need to extract value from url) we need to click on **Integration Request** and expand **Body Mapping Templates**. Then select `When there are no templates define`, click on **add mapping template** and add on **Content-Type** the following value `application/json` and on template editor the following code:
 
 ```
 {
@@ -432,7 +434,7 @@ Now to passing data from API to Lambda (extract value from url) we need to go on
 }
 ```
 
-Once save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All data is here!`.
+Once save, we are trying to test this API, on the test section will see our field input to add value. Let try `all` and as response will see `All the data`.
 
 ### Serverless Framework
 
