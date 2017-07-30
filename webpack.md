@@ -10,5 +10,9 @@
 ### Install Webpack
 
 1. `yarn add webpack --dev`
- * `--dev` This mean add dependecy on development enviroment.
-2. 
+
+  * `--dev` This mean add dependecy on development enviroment.
+
+2. Add script to create JS bundle.
+
+
