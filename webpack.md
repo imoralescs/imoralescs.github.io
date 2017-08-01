@@ -274,6 +274,7 @@ module.exports = {
 }
 ```
 
+**package.json**
 ```
 {
   "name": "webpack-intro",
@@ -322,4 +323,122 @@ const createAndAppendCard = (header, body) => {
 };
 
 export default createAndAppendCard
+```
+
+### Using the webpack configuration function
+
+**webpack.config.js**
+
+```javascript
+const path = require("path");
+
+module.exports = (env) => {
+  console.log(env);
+  return {
+    entry: "./src/index.js",
+    output: {
+      filename: "[chunkhask].bundle.js",
+      path: path.join(__dirname, "build"),
+    }
+  }
+}
+```
+
+**package.json**
+```
+{
+  "name": "webpack-started",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-build": "yarn build -- --watch",
+    "watch": "webpack --watch",
+    "build-log": "yarn build -- --env.foo=1 --env.bar=2",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "webpack": "^3.4.1"
+  }
+}
+```
+
+### Environments and Composition
+
+**Directory Structure**
+
+```
+src
+  -- index.js
+  -- card.js
+build-utils
+  -- common-paths.js
+  -- webpack.common.js
+  -- webpack.dev.js
+  -- webpack.prod.js
+package.json
+webpack.config.js
+yarn.lock
+```
+
+**webpack.config.js**
+
+```javascript
+const commonConfig = require("./build-utils/webpack.common");
+
+module.exports = (env) => {
+  console.log(env);
+  return commonConfig
+}
+```
+
+**package.json**
+
+```
+{
+  "name": "webpack-started",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-watch-dev": "yarn build-watch -- --env.env=dev",
+    "build-watch-prod": "yarn build-watch -- --env.env=prod",
+    "build-watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "webpack": "^3.4.1"
+  }
+}
+```
+
+**webpack.common.js**
+
+```javascript
+const commonPaths = require("./common-paths");
+
+const config = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: commonPaths.outputPath,
+  }
+};
+
+module.exports = config;
+```
+
+**common-paths.js**
+
+```javascript
+const path = require("path");
+module.exports = {
+  outputPath: path.resolve(__dirname, "../", "build")
+};
 ```
