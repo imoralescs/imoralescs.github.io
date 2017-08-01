@@ -245,3 +245,81 @@ module.exports = {
   ]
 }
 ```
+
+### Leveraging NPM Scripts
+
+
+**Directory Structure**
+
+```
+src
+  -- index.js
+  -- card.js
+package.json
+webpack.config.js
+yarn.lock
+```
+
+**webpack.config.js**
+
+```javascript
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "[chunkhask].bundle.js",
+    path: path.join(__dirname, "build"),
+  }
+}
+```
+
+```
+{
+  "name": "webpack-intro",
+  "version": "1.0.0",
+  "description": "Webpack for newbee",
+  "main": "index.js",
+  "scripts": {
+    "watch-build": "yarn build -- --watch",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": "Israel Morales",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.4.1"
+  }
+}
+```
+
+```
+import createCard from "./card";
+
+createCard(
+  "Im learning webpack: Web Essentials",
+  "This course is made by me."
+);
+```
+
+```
+const createAndAppendCard = (header, body) => {
+  const cardFragment = document.createDocumentFragment();
+  const cardElement = document.createElement("div");
+  const cardHeader = `<h2 class="card-header">${header}</h2>`;
+  const cardBody = `<div class="card-body">${body}</div>`;
+
+  cardElement.innerHTML = `
+    <div class="card">
+      ${cardHeader}
+      ${cardBody}
+    </div>
+  `;
+
+  cardFragment.appendChild(cardElement);
+
+  document.body.appendChild(cardFragment);
+};
+
+export default createAndAppendCard
+```
