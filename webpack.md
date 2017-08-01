@@ -442,3 +442,35 @@ module.exports = {
   outputPath: path.resolve(__dirname, "../", "build")
 };
 ```
+
+### Composition with webpack-merge
+
+First add webpack merge
+
+`yarn add webpack-merge`
+
+**webpack.config.js**
+
+```javascript
+const commonConfig = require("./build-utils/webpack.common");
+const webpackMerge = require("webpack-merge");
+
+module.exports = (env) => {
+  console.log(env);
+
+  const envConfig = require(`./build-utils/webpack.${env.env}.js`);
+
+  return webpackMerge(commonConfig, envConfig);
+}
+```
+
+**webpack.dev.js**
+
+```javascript
+const commonConfig = require("./build-utils/webpack.common");
+const config = {
+  devtool: "source-map"
+};
+
+module.exports = config;
+```
