@@ -59,3 +59,57 @@ To check node is ready to go just echo the version.
 ```
 $ node --version
 ```
+
+**Creating a public HTTP endpoint**
+
+Make a directory for the server and cd into it.
+
+```
+$ mkdir server
+$ cd server
+```
+
+Now you are in your server directory, you need to npm init
+
+```
+$ npm init
+```
+
+This will create a `package.json` file which will be used to track any dependencies we use. All we will need to run our server is the express package. 
+
+To install express and add it to `package.json`.
+
+```
+$ npm install express --save-dev
+```
+
+Now we just need to add some code to run the server. We will use `nano` to write the server in an `index.js` file.
+
+```
+$ nano index.js
+```
+
+```javascript
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('HELLO NODEJS FROM AWS!')
+})
+
+app.listen(3000, () => console.log('Server running on port 3000'))
+```
+
+Press `ctrl+x` to exit, ensuring you save when you exit by pressing `y` followed by `enter`. Now we can use node to start the server!
+
+```
+$ node index.js
+```
+
+Once listening, this should log `Server running on port 3000`. You may have noticed however we didn’t open our instance server traffic to port `3000`, we opened it to port `80`. 
+
+Port `80` is a privileged port and running the server there using Nodejs is unusual, generally using a router is better. If you change the `index.js` file to use `80` and then run `node index.js` you will notice you get a permission denied error.
+
+Leave your server running and go to the **Security Groups** tab in the AWS EC2 console. Right click the **security group** on your setup Nodejs instance and click edit **inbound rules**. Click **Add Rule**. This time we are going to use a ``custom TCP`` rule on port `3000`, open to `anywhere` and **Save**.
+
+Using a browser, visit your public DNS URL with port 3000.
