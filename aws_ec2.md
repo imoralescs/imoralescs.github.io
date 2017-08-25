@@ -113,3 +113,19 @@ Port `80` is a privileged port and running the server there using Nodejs is unus
 Leave your server running and go to the **Security Groups** tab in the AWS EC2 console. Right click the **security group** on your setup Nodejs instance and click edit **inbound rules**. Click **Add Rule**. This time we are going to use a ``custom TCP`` rule on port `3000`, open to `anywhere` and **Save**.
 
 Using a browser, visit your public DNS URL with port 3000.
+
+**Leave Nodejs server running**
+
+To leave the server running when we log out, we need to press `ctrl+z` to pause the process. When you press `ctrl+z` you will be presented with all jobs, in this case the only one there will be the Node.js job that was paused. 
+
+You can see that the job number for `node index.js` is 1 (as noted by [1]+). To run that in the background, use the bg command.
+
+```
+$ bg %1
+```
+
+Then logout
+
+```
+$ exit
+```
