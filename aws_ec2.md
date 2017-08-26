@@ -302,3 +302,41 @@ cat  id_rsa.pub
 ```
 git push -u origin master
 ```
+
+It’s nice to start with an empty commit.
+
+Like we did on the server run npm init and then create an index.js file using the same code from the last.
+
+```javascript
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('HELLO NODEJS FROM AWS!')
+})
+
+app.listen(3000, () => console.log('Server running on port 3000'))
+```
+
+NPM install express
+
+```
+npm install express --save
+```
+
+Also, let’s add a .gitignore file so that we don’t check in the node_modules directory. .DS_Store files always get added to directories by OSX, they contain folder meta data. We want to ignore these too.
+
+```
+node_modules
+.DS_Store
+```
+
+Now add all your code and push it up
+
+```
+git add .
+git commit -m "Nodejs server."
+git push
+```
+
+Now we need to pull the code into the server.
