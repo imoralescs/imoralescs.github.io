@@ -2,13 +2,17 @@
 
 ### Create and Manage Nodejs Server
 
-From (EC2) screen in the AWS console click on **Launch Instance**. Then on choose an Amazon Machine Image (AMI) select **Ubuntu Server**. On instance type pick `t2.micro` and then click on **Next: Configure Instance Details**, we are going to skip some instance property by click on **Next: Add Storage**, then **Next: Add Tags** and **Next: Configure Security Group**. 
+From (EC2) screen in the AWS console click on **Launch Instance**. Then on choose an Amazon Machine Image (AMI) select **Ubuntu Server**. 
+
+On instance type pick `t2.micro` and then click on **Next: Configure Instance Details**, we are going to skip some instance property by click on **Next: Add Storage**, then **Next: Add Tags** and **Next: Configure Security Group**. 
 
 A security group is a configuration for your server, is basically telling it which ports it should expose to which IP addresses for certain types of traffic. We going to name the group something meaningful, I chose `nodejs-group`. 
 
 To run our app we are going to need SSH access, which by default is on port `22` and uses the TCP protocol. Amazon adds this in for us by default. There is a warning about the source being `0.0.0.0/0` which allows us to SSH from any IP address however this is fine.
 
-Since we would like to also serve an app we need to expose a HTTP port publicly, by default this is port `80`. Click **Add Rule** and select the type as `HTTP`, the default settings for this will use TCP as the protocol and expose port `80` to all IPs. To launch the instance, click **Review and Launch**, then click **Launch**. 
+Since we would like to also serve an app we need to expose a HTTP port publicly, by default this is port `80`. Click **Add Rule** and select the type as `HTTP`, the default settings for this will use TCP as the protocol and expose port `80` to all IPs. 
+
+To launch the instance, click **Review and Launch**, then click **Launch**. 
 
 **Key Pair**
 
@@ -130,7 +134,7 @@ Then logout
 $ exit
 ```
 
-**Serving HTTP traffic on the standard port, 80**
+**Serving HTTP traffic on the standard port 80**
 
 We are going to install **nginx** on the Ubuntu instance.
 
@@ -147,7 +151,7 @@ sudo /etc/init.d/nginx start
 
 We need to configure **nginx** to route port `80` traffic to port `3000`. **nginx** has config placed in the `/etc/nginx/sites-available` folder where there is already a default config which serves the **nginx**
 
-You can take a look at this config using cat.
+You can take a look at this config using `cat`.
 
 ```
 cat /etc/nginx/sites-available/default
@@ -205,9 +209,9 @@ bg %1
 
 Now visit your server’s public DNS URL, using port `80`.
 
-**Keeping the Node.js process running with PM2**
+**Keeping the Nodejs process running with PM2**
 
-It’s quite tedious using ctrl+z to pause a process, and then running it in the background. Also, doing it this way will not allow the Node.js process to restart when you restart your server after an update or crash.
+It’s quite tedious using ctrl+z to pause a process, and then running it in the background. Also, doing it this way will not allow the Nodejs process to restart when you restart your server after an update or crash.
 
 Before moving forward, stop your running node process
 
@@ -234,7 +238,7 @@ To make sure that your PM2 restarts when your server restarts:
 pm2 startup
 ```
 
-This will print out a line of code you need to run depending on the server you are using. Run the code it outputs. In my case is:
+This previous statement will print out a line of code you need to run depending on the server you are using. Run the code it outputs. In my case is:
 
 ```
 sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v7.10.1/bin /home/ubuntu/.nvm/versions/node/v7.10.1/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
