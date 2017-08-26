@@ -130,7 +130,77 @@ Then logout
 $ exit
 ```
 
-1- sudo apt-get update
-2- sudo apt-get install nginx
+**Serving HTTP traffic on the standard port, 80**
 
-In case you need to starting manually
+We are going to install **nginx** on the Ubuntu instance.
+
+```
+$ sudo apt-get update
+$ sudo apt-get install nginx
+```
+
+After install so you should now have it running on port `80`, check by entering your public DNS URL into a browser. In case if this doesn't work, you might need to start it manually.
+
+```
+sudo /etc/init.d/nginx start
+```
+
+We need to configure **nginx** to route port `80` traffic to port `3000`. **nginx** has config placed in the `/etc/nginx/sites-available` folder where there is already a default config which serves the **nginx**
+
+You can take a look at this config using cat.
+
+```
+cat /etc/nginx/sites-available/default
+```
+
+Let’s first remove the default config from `sites-enabled`, we will leave it in `sites-available` for reference.
+
+```
+sudo rm /etc/nginx/sites-enabled/default
+```
+
+Create a config file in `sites-available` and name it whatever you like.
+
+```
+sudo nano /etc/nginx/sites-available/nodejs_server
+```
+
+The following is the config we are going to use.
+
+```
+server {
+  listen 80;
+  server_name tutorial;
+  location / {
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  Host       $http_host;
+    proxy_pass        http://127.0.0.1:3000;
+  }
+}
+```
+
+This will forward all HTTP traffic from port `80` to port `3000`. To link the config file in `sites enabled`
+
+```
+sudo ln -s /etc/nginx/sites-available/nodejs_server /etc/nginx/sites-enabled/nodejs_server
+```
+
+Restart nginx for the new config to take effect.
+
+```
+sudo service nginx restart
+```
+
+If it is not running then you need to start it. 
+
+```
+node index.js
+```
+
+Once the server is running, press `ctrl+z`, then resume it as a background task.
+
+```
+bg %1
+```
+
+Now visit your server’s public DNS URL, using port `80`.
