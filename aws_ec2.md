@@ -132,3 +132,5 @@ $ exit
 
 1- sudo apt-get update
 2- sudo apt-get install nginx
+
+In case you need to starting manually
