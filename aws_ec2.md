@@ -204,3 +204,52 @@ bg %1
 ```
 
 Now visit your server’s public DNS URL, using port `80`.
+
+**Keeping the Node.js process running with PM2**
+
+It’s quite tedious using ctrl+z to pause a process, and then running it in the background. Also, doing it this way will not allow the Node.js process to restart when you restart your server after an update or crash.
+
+Before moving forward, stop your running node process
+
+```
+# Nukes all Node processes
+killall -9 node
+```
+
+To keep these processes running we are going to use a great NPM package called PM2. Install PM2 globally.
+
+```
+npm i -g pm2
+```
+
+To start your server, simply use `pm2` to execute `index.js`.
+
+```
+pm2 start index.js
+```
+
+To make sure that your PM2 restarts when your server restarts:
+
+```
+pm2 startup
+```
+
+This will print out a line of code you need to run depending on the server you are using. Run the code it outputs. In my case is:
+
+```
+sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v7.10.1/bin /home/ubuntu/.nvm/versions/node/v7.10.1/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+```
+
+Finally, save the current running processes so they are run when PM2 restarts.
+
+```
+pm2 save
+```
+
+That’s it! You can log out/in to SSH, even restart your server and it will continue to run on port 80.
+
+To list all processes use
+
+```
+pm2 ls
+```
