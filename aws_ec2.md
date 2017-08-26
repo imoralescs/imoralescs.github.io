@@ -146,7 +146,7 @@ $ sudo apt-get install nginx
 After install so you should now have it running on port `80`, check by entering your public DNS URL into a browser. In case if this doesn't work, you might need to start it manually.
 
 ```
-sudo /etc/init.d/nginx start
+$ sudo /etc/init.d/nginx start
 ```
 
 We need to configure **nginx** to route port `80` traffic to port `3000`. **nginx** has config placed in the `/etc/nginx/sites-available` folder where there is already a default config which serves the **nginx**
@@ -217,37 +217,37 @@ Before moving forward, stop your running node process
 
 ```
 # Nukes all Node processes
-killall -9 node
+$ killall -9 node
 ```
 
 To keep these processes running we are going to use a great NPM package called PM2. Install PM2 globally.
 
 ```
-npm i -g pm2
+$ npm i -g pm2
 ```
 
 To start your server, simply use `pm2` to execute `index.js`.
 
 ```
-pm2 start index.js
+$ pm2 start index.js
 ```
 
 To make sure that your PM2 restarts when your server restarts:
 
 ```
-pm2 startup
+$ pm2 startup
 ```
 
 This previous statement will print out a line of code you need to run depending on the server you are using. Run the code it outputs. In my case is:
 
 ```
-sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v7.10.1/bin /home/ubuntu/.nvm/versions/node/v7.10.1/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+$ sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v7.10.1/bin /home/ubuntu/.nvm/versions/node/v7.10.1/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 ```
 
 Finally, save the current running processes so they are run when PM2 restarts.
 
 ```
-pm2 save
+$ pm2 save
 ```
 
 That’s it! You can log out/in to SSH, even restart your server and it will continue to run on port 80.
@@ -255,10 +255,50 @@ That’s it! You can log out/in to SSH, even restart your server and it will con
 To list all processes use
 
 ```
-pm2 ls
+$ pm2 ls
 ```
 
 
 ** jkj **
 
 Go to Github or your favourite source control website, login and create a new repository named what you like.
+
+Make a new directory wherever you like to put your code projects locally
+
+```
+cd ~
+mkdir nodejs-app
+cd nodejs-app
+```
+
+Now set up your origin, make an empty commit and push it up, setting your upstream branch as master.
+
+```
+git init
+git commit --allow-empty -m "First commit"
+git remote add origin git@github.com:imoralescs/nodejs-app.git
+git push -u origin master
+```
+
+In case of Permission denied (publickey). You need to create a new SSH key on github to upload by SSH. Simply follow those steps and you will set up your ssh key:
+
+1. Generate a new ssh key (or skip this step if you already have a key) `ssh-keygen -t rsa -C "your@email"`
+
+```
+ssh-keygen -t rsa -C "imoralescs@gmail.com"
+```
+
+2. Once you have your key set in home/.ssh directory (or Users/<your user>.ssh under windows), open it and copy the content.
+
+```
+cd /home/israel/.ssh
+cat  id_rsa.pub
+```
+
+3. On your GitHub profile there is an Edit Profile button. It is located on top-right corner of the webpage. Press it and you will see left Personal Settings menu.
+
+4. Inside that menu find SSH and GPG keys option and press it. You will see an option New SSH key to add new key.
+
+```
+git push -u origin master
+```
