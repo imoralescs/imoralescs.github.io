@@ -493,7 +493,7 @@ export NVM_DIR="/home/ubuntu/.nvm"
 ```
 
 ```
-& nano ~/.bashrc
+$ nano ~/.bashrc
 ```
 
 Save and exit. Back on your local terminal, try running the PM2 deploy again
