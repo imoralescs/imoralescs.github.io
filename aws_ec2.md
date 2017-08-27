@@ -461,9 +461,9 @@ pm2 deploy ecosystem.config.js production
 
 This should come up with an error, which will be that `npm` was not found.
 
-The reason for this is because of some code in the .bashrc file of the server. This code stops the file from running if the shell is not interactive. Unlike using ssh, PM2 logs into the server in a non-interactive shell. NVM is set up in the .bashrc file so PM2 isn’t running NVM, which adds the npm executable (thus the error from PM2). Read more about interactive/non interactive shells.
+The reason for this is because of some code in the `.bashrc` file of the server. This code stops the file from running if the shell is not interactive. Unlike using ssh, PM2 logs into the server in a non-interactive shell. NVM is set up in the .bashrc file so PM2 isn’t running NVM, which adds the npm executable (thus the error from PM2). Read more about interactive/non interactive shells.
 
-SSH into your server and open up the ~/.bashrc file. The code that excludes non-interactive sessions is near the top.
+SSH into your server and open up the `~/.bashrc` file. The code that excludes non-interactive sessions is near the top.
 
 ```
 # If not running interactively, don't do anything
@@ -473,6 +473,10 @@ case $- in
 esac
 ```
 
+```
+cat ~/.bashrc
+```
+
 All we need to do is move the NVM code above this code, so it always executes. Find the following lines and move them above the case statement
 
 ```
@@ -480,8 +484,14 @@ export NVM_DIR="/home/ubuntu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 ```
 
+```
+nano ~/.bashrc
+```
+
 Save and exit. Back on your local terminal, try running the PM2 deploy again
 
 ```
 pm2 deploy ecosystem.config.js production
 ```
+
+It should work this time! And your server should still be running when you check in a browser.
