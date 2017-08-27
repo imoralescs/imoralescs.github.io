@@ -2,6 +2,11 @@
 
 ### Create and Manage Nodejs Server
 
+**Terms First**
+* `.bashrc`: The `.bashrc` file is a shell script which is run every time a user opens a new shell. It’s normally located in `~`, your home directory. This is where bash will try to find your settings and load them whenever the terminal is opened. BASH stands for Bourne Again Shell. There are a number of different shells including csh, zsh, dash and korn. 
+
+* `shell`: Is an interpreter which can accept commands for a user and run them to perform operations such as navigating around a file system, running programs and interacting with devices.
+
 From (EC2) screen in the AWS console click on **Launch Instance**. Then on choose an Amazon Machine Image (AMI) select **Ubuntu Server**. 
 
 On instance type pick `t2.micro` and then click on **Next: Configure Instance Details**, we are going to skip some instance property by click on **Next: Add Storage**, then **Next: Add Tags** and **Next: Configure Security Group**. 
