@@ -2,7 +2,7 @@
 
 ### Create and Manage Nodejs Server
 
-**Terms First**
+**Terms**
 * `.bashrc`: The `.bashrc` file is a shell script which is run every time a user opens a new shell. It’s normally located in `~`, your home directory. This is where bash will try to find your settings and load them whenever the terminal is opened. BASH stands for Bourne Again Shell. There are a number of different shells including csh, zsh, dash and korn. 
 
 * `shell`: Is an interpreter which can accept commands for a user and run them to perform operations such as navigating around a file system, running programs and interacting with devices.
