@@ -347,5 +347,141 @@ git commit -m "Nodejs server."
 git push
 ```
 
-Now we need to pull the code into the server.
+Now we need to pull the code into the server. We need to SSH into the server, generate a SSH private/public key pair and then add it as a deployment key in source control (i.e. Github).
 
+```
+ssh-keygen -t rsa
+```
+
+Show the contents of the file
+
+```
+cat ~/.ssh/id_rsa.pub
+```
+
+Select the key’s contents and copy it into Github. Deploy keys are added in a section called Deploy keys in the settings for your repo. 
+
+Whenever you are logged in over SSH, you want the keys to be added so that they are used to authenticate with Github. To do this, add these lines to the top of your `~/.bashrc` file.
+
+```
+# Start the SSH agent
+eval `ssh-agent -s`
+
+# Add the SSH key
+ssh-add
+```
+
+This will make sure you use the keys whenever you log on to the server. To run the code without logging out, execute the `.bashrc` file
+
+```
+source ~/.bashrc
+```
+
+Now we can clone the repo. Remove any previous code on the server and in the user directory, clone the repo
+
+```
+git clone git@github.com:imoralescs/nodejs-app.git
+```
+
+If it works, it will allow you to type “yes” to add github as a known host, then the repo will be downloaded.
+
+**Using PM2 to deploy**
+
+In a nice world we like to completely avoid ever using SSH. For deployment, we are going to use PM2 in order for us to do the git cloning on the server for us, with some bonus features.
+
+Before using PM2, remove the code you just pulled in from git into your server.
+
+```
+rm -rf ~/server
+```
+
+While you are still in the SSH session, ensure that there are no processes still running on PM2, if there are then remove them.
+
+```
+pm2 ls
+
+pm2 delete all
+```
+
+In your local version of the project, install PM2 globally
+
+```
+npm i -g pm2
+```
+
+Now we need to add a config file PM2 can read so that it knows how to deploy. PM2 configs are fully explained in the PM2 docs. The config file can be auto generated but I prefer to just create my own from scratch, avoiding any config I don’t need.
+
+The config file should be named `ecosystem.config.js` and should look like this
+
+```
+module.exports = {
+  apps: [{
+    name: 'nodejs_server',
+    script: './index.js'
+  }],
+  deploy: {
+    production: {
+      user: 'ubuntu',
+      host: 'ec2-174-129-116-141.compute-1.amazonaws.com',
+      key: '~/Documents/SSH/nodejs-server.pem',
+      ref: 'origin/master',
+      repo: 'git@github.com:imoralescs/nodejs-app.git',
+      path: '/home/ubuntu/nodejs_server',
+      'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js'
+    }
+  }
+}
+```
+
+You will need to add your own host in the config file.
+
+How does PM2 use this config file? When you run pm2 deploy ..., PM2 SSHs into your server, clones your repo into the directory specified in path, then it runs the post-deploy on the server (so it starts your server using the PM2 installed globally on the server). After the deploy, you will be able to run pm2 ls on the server to see all the apps running, their names will be the same as specified in the config file.
+
+Once the file is saved, setup the directories on the remote
+
+```
+pm2 deploy ecosystem.config.js production setup
+```
+
+if you run into any auth issues, look back at setting up the SSH agent to make sure you didn’t miss anything.
+
+Once setup, commit and push your changes to Github so that when it clones it gets your `ecosystem.config.js` file, which is going to be used to start your app using PM2 on the server.
+
+```
+git add .
+git commit -m "Setup PM2 deployment"
+git push
+```
+
+Now you can run the deploy command
+
+```
+pm2 deploy ecosystem.config.js production
+```
+
+This should come up with an error, which will be that `npm` was not found.
+
+The reason for this is because of some code in the .bashrc file of the server. This code stops the file from running if the shell is not interactive. Unlike using ssh, PM2 logs into the server in a non-interactive shell. NVM is set up in the .bashrc file so PM2 isn’t running NVM, which adds the npm executable (thus the error from PM2). Read more about interactive/non interactive shells.
+
+SSH into your server and open up the ~/.bashrc file. The code that excludes non-interactive sessions is near the top.
+
+```
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+  *) return;;
+esac
+```
+
+All we need to do is move the NVM code above this code, so it always executes. Find the following lines and move them above the case statement
+
+```
+export NVM_DIR="/home/ubuntu/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+```
+
+Save and exit. Back on your local terminal, try running the PM2 deploy again
+
+```
+pm2 deploy ecosystem.config.js production
+```
