@@ -259,7 +259,7 @@ $ pm2 ls
 ```
 
 
-** jkj **
+** Deploy code into the server **
 
 Go to Github or your favourite source control website, login and create a new repository named what you like.
 
@@ -305,7 +305,11 @@ git push -u origin master
 
 It’s nice to start with an empty commit.
 
-Like we did on the server run npm init and then create an index.js file using the same code from the last.
+Like we did on the server run `npm init` and then create an `index.js` file using the same code from the last.
+
+```
+$ nano index.js
+```
 
 ```javascript
 const express = require('express')
@@ -324,7 +328,11 @@ NPM install express
 npm install express --save
 ```
 
-Also, let’s add a .gitignore file so that we don’t check in the node_modules directory. .DS_Store files always get added to directories by OSX, they contain folder meta data. We want to ignore these too.
+Also, let’s add a `.gitignore` file so that we don’t check in the `node_modules` directory. `.DS_Store` files always get added to directories by OSX, they contain folder meta data. We want to ignore these too.
+
+```
+nano .gitignore
+```
 
 ```
 node_modules
@@ -340,3 +348,4 @@ git push
 ```
 
 Now we need to pull the code into the server.
+
