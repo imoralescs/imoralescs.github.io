@@ -159,19 +159,19 @@ We need to configure **nginx** to route port `80` traffic to port `3000`. **ngin
 You can take a look at this config using `cat`.
 
 ```
-cat /etc/nginx/sites-available/default
+$ cat /etc/nginx/sites-available/default
 ```
 
 Let’s first remove the default config from `sites-enabled`, we will leave it in `sites-available` for reference.
 
 ```
-sudo rm /etc/nginx/sites-enabled/default
+$ sudo rm /etc/nginx/sites-enabled/default
 ```
 
 Create a config file in `sites-available` and name it whatever you like.
 
 ```
-sudo nano /etc/nginx/sites-available/nodejs_server
+$ sudo nano /etc/nginx/sites-available/nodejs_server
 ```
 
 The following is the config we are going to use.
@@ -191,25 +191,25 @@ server {
 This will forward all HTTP traffic from port `80` to port `3000`. To link the config file in `sites enabled`
 
 ```
-sudo ln -s /etc/nginx/sites-available/nodejs_server /etc/nginx/sites-enabled/nodejs_server
+$ sudo ln -s /etc/nginx/sites-available/nodejs_server /etc/nginx/sites-enabled/nodejs_server
 ```
 
 Restart nginx for the new config to take effect.
 
 ```
-sudo service nginx restart
+$ sudo service nginx restart
 ```
 
 If it is not running then you need to start it. 
 
 ```
-node index.js
+$ node index.js
 ```
 
 Once the server is running, press `ctrl+z`, then resume it as a background task.
 
 ```
-bg %1
+$ bg %1
 ```
 
 Now visit your server’s public DNS URL, using port `80`.
@@ -271,18 +271,18 @@ Go to Github or your favourite source control website, login and create a new re
 Make a new directory wherever you like to put your code projects locally
 
 ```
-cd ~
-mkdir nodejs-app
-cd nodejs-app
+$ cd ~
+$ mkdir nodejs-app
+$ cd nodejs-app
 ```
 
 Now set up your origin, make an empty commit and push it up, setting your upstream branch as master.
 
 ```
-git init
-git commit --allow-empty -m "First commit"
-git remote add origin git@github.com:imoralescs/nodejs-app.git
-git push -u origin master
+$ git init
+$ git commit --allow-empty -m "First commit"
+$ git remote add origin git@github.com:imoralescs/nodejs-app.git
+$ git push -u origin master
 ```
 
 In case of Permission denied (publickey). You need to create a new SSH key on github to upload by SSH. Simply follow those steps and you will set up your ssh key:
@@ -290,14 +290,14 @@ In case of Permission denied (publickey). You need to create a new SSH key on gi
 1. Generate a new ssh key (or skip this step if you already have a key) `ssh-keygen -t rsa -C "your@email"`
 
 ```
-ssh-keygen -t rsa -C "imoralescs@gmail.com"
+$ ssh-keygen -t rsa -C "imoralescs@gmail.com"
 ```
 
 2. Once you have your key set in home/.ssh directory (or Users/<your user>.ssh under windows), open it and copy the content.
 
 ```
-cd /home/israel/.ssh
-cat  id_rsa.pub
+$ cd /home/israel/.ssh
+$ cat  id_rsa.pub
 ```
 
 3. On your GitHub profile there is an Edit Profile button. It is located on top-right corner of the webpage. Press it and you will see left Personal Settings menu.
@@ -305,7 +305,7 @@ cat  id_rsa.pub
 4. Inside that menu find SSH and GPG keys option and press it. You will see an option New SSH key to add new key.
 
 ```
-git push -u origin master
+$ git push -u origin master
 ```
 
 It’s nice to start with an empty commit.
@@ -330,13 +330,13 @@ app.listen(3000, () => console.log('Server running on port 3000'))
 NPM install express
 
 ```
-npm install express --save
+$ npm install express --save
 ```
 
 Also, let’s add a `.gitignore` file so that we don’t check in the `node_modules` directory. `.DS_Store` files always get added to directories by OSX, they contain folder meta data. We want to ignore these too.
 
 ```
-nano .gitignore
+$ nano .gitignore
 ```
 
 ```
@@ -347,21 +347,21 @@ node_modules
 Now add all your code and push it up
 
 ```
-git add .
-git commit -m "Nodejs server."
-git push
+$ git add .
+$ git commit -m "Nodejs server."
+$ git push
 ```
 
 Now we need to pull the code into the server. We need to SSH into the server, generate a SSH private/public key pair and then add it as a deployment key in source control (i.e. Github).
 
 ```
-ssh-keygen -t rsa
+$ ssh-keygen -t rsa
 ```
 
 Show the contents of the file
 
 ```
-cat ~/.ssh/id_rsa.pub
+$ cat ~/.ssh/id_rsa.pub
 ```
 
 Select the key’s contents and copy it into Github. Deploy keys are added in a section called Deploy keys in the settings for your repo. 
@@ -370,22 +370,22 @@ Whenever you are logged in over SSH, you want the keys to be added so that they 
 
 ```
 # Start the SSH agent
-eval `ssh-agent -s`
+$ eval `ssh-agent -s`
 
 # Add the SSH key
-ssh-add
+$ ssh-add
 ```
 
 This will make sure you use the keys whenever you log on to the server. To run the code without logging out, execute the `.bashrc` file
 
 ```
-source ~/.bashrc
+$ source ~/.bashrc
 ```
 
 Now we can clone the repo. Remove any previous code on the server and in the user directory, clone the repo
 
 ```
-git clone git@github.com:imoralescs/nodejs-app.git
+$ git clone git@github.com:imoralescs/nodejs-app.git
 ```
 
 If it works, it will allow you to type “yes” to add github as a known host, then the repo will be downloaded.
@@ -397,21 +397,21 @@ In a nice world we like to completely avoid ever using SSH. For deployment, we a
 Before using PM2, remove the code you just pulled in from git into your server.
 
 ```
-rm -rf ~/server
+$ rm -rf ~/server
 ```
 
 While you are still in the SSH session, ensure that there are no processes still running on PM2, if there are then remove them.
 
 ```
-pm2 ls
+$ pm2 ls
 
-pm2 delete all
+$ pm2 delete all
 ```
 
 In your local version of the project, install PM2 globally
 
 ```
-npm i -g pm2
+$ npm i -g pm2
 ```
 
 Now we need to add a config file PM2 can read so that it knows how to deploy. PM2 configs are fully explained in the PM2 docs. The config file can be auto generated but I prefer to just create my own from scratch, avoiding any config I don’t need.
@@ -445,7 +445,7 @@ How does PM2 use this config file? When you run pm2 deploy ..., PM2 SSHs into yo
 Once the file is saved, setup the directories on the remote
 
 ```
-pm2 deploy ecosystem.config.js production setup
+$ pm2 deploy ecosystem.config.js production setup
 ```
 
 if you run into any auth issues, look back at setting up the SSH agent to make sure you didn’t miss anything.
@@ -453,15 +453,15 @@ if you run into any auth issues, look back at setting up the SSH agent to make s
 Once setup, commit and push your changes to Github so that when it clones it gets your `ecosystem.config.js` file, which is going to be used to start your app using PM2 on the server.
 
 ```
-git add .
-git commit -m "Setup PM2 deployment"
-git push
+$ git add .
+$ git commit -m "Setup PM2 deployment"
+$ git push
 ```
 
 Now you can run the deploy command
 
 ```
-pm2 deploy ecosystem.config.js production
+$ pm2 deploy ecosystem.config.js production
 ```
 
 This should come up with an error, which will be that `npm` was not found.
@@ -479,7 +479,7 @@ esac
 ```
 
 ```
-cat ~/.bashrc
+$ cat ~/.bashrc
 ```
 
 All we need to do is move the NVM code above this code, so it always executes. Find the following lines and move them above the case statement
@@ -490,13 +490,41 @@ export NVM_DIR="/home/ubuntu/.nvm"
 ```
 
 ```
-nano ~/.bashrc
+& nano ~/.bashrc
 ```
 
 Save and exit. Back on your local terminal, try running the PM2 deploy again
 
 ```
-pm2 deploy ecosystem.config.js production
+$ pm2 deploy ecosystem.config.js production
 ```
 
 It should work this time! And your server should still be running when you check in a browser.
+
+Using a global PM2 on the server and a global PM2 on the client is a bit messy. It would be better if our code used the local version of the PM2 package. To do this, add a deploy and restart script to your `package.json`
+
+```
+...
+"main": "index.js",
+"scripts": {
+  "restart": "pm2 startOrRestart ecosystem.config.js",
+  "deploy": "pm2 deploy ecosystem.config.js production",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+"repository": {
+...
+```
+
+Install PM2 locally and save, using `--save-dev`
+
+```
+$ npm i pm2 --save-dev
+```
+
+For those not that familiar with NPM, adding --save or --save-dev adds the package, along with a version number to `package.json`. Any packages in the `package.json` file will be installed when running npm install, which happens in the PM2 post-deploy.
+
+Before deploying, commit all your changes and push to git. When you run npm deploy, it will now use the local version of PM2. Neat!
+
+```
+$ npm run-script deploy
+```
