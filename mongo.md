@@ -116,3 +116,65 @@ app.get('*', function(req, res){
 app.listen(8080);
 console.log("Express server started on port 8080");
 ```
+
+## Express, Mongo and Pug
+
+`mongodb` is the official MongoDB driver for Nodejs.
+
+* posts.pug
+
+```
+html
+  head
+    title= title
+  body
+    ul
+      each val, index in posts
+        li= val.title + ' - ' + val.text
+```
+
+```javascript
+var express = require('express');
+var app = express();
+
+var mongo = require('mongodb');
+var url = 'mongodb://localhost:27017/api';
+
+app.set('view engine', 'pug');
+
+app.get('/', function(req, res, next){
+  res.render('index',{
+    title: 'Nodejs Express App',
+    message: 'Helo there!'
+  });
+});
+
+app.get('/posts', function(req, res, next){
+  var resultArray = [];
+  mongo.connect(url, function(error, db){
+    if(error) return next(error);
+    var posts = db.collection('posts').find();
+    posts.forEach(function(post, error){
+      if(error) return next(error);
+      resultArray.push(post);
+    },
+    function(){
+      db.close();
+      res.render('posts',{
+        title: 'Nodejs Express App',
+        posts: resultArray
+      });
+    });
+  });
+});
+
+app.get('*', function(req, res){
+  res.status(404).render('index',{
+    title: 'Nodejs Express App',
+    message: 'Page not found'
+  });
+});
+
+app.listen(8080);
+console.log("Express server started on port 8080");
+```
