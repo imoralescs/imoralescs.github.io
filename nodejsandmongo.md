@@ -1,5 +1,124 @@
 # Nodejs and MongoDB
 
+## Nodejs
+
+Is a single-threaded by design to make asynchronous processing simpler.
+
+## Non-Blocking I/O
+
+## `global` Object
+
+Is similar to window object in the browser Javascript.
+
+```
+global.require() === require()
+global.process === process
+global.console === console
+```
+
+**`process` Object**
+
+In Node, interaction with the current Node process takes place via the `process` object. As the `process` object is a global, it is accessible from anywhere in the application source code. Example:
+
+Environmenta variable can be accessed via the env attribute.
+
+```
+console.log(process.env)
+```
+
+To exit a process, use the exit function.
+
+```
+process.exit();
+```
+
+## Modules
+
+In the browser `<script>`, CommonJS, AMD (requirejs) and ES6. Module loaders in the browser are SystemJS, RequireJS, Browserify and es6-module-loader. On Nodejs, built-in modules with require a CommonJS notation.
+
+```
+var express = require('express');
+var app = express();
+```
+
+Modules can live different place with Javascript. They can be on local machines, virtual machines, server, remote URI locations, or anywhere really.
+
+**Loading Node Modules**
+
+These modules can be loaded with module loaders like require or via inversion of control patterns.
+
+```
+var filesystem - require('fs');
+```
+
+**Creating a Module with a "Class" example**
+
+```
+function UserController() {}
+
+var ctrl = UserController();
+ctrl.login("fred", "123456");
+```
+
+**Node Patterns for Module Exports**
+
+```
+module.exports = function(ops){}
+module.exports = {}
+exports.methodA = function(ops){}
+exports.obj = {}
+```
+
+## NPM (Node Package Manager)
+
+## Nodejs HTTP Server "Hello World"
+
+Example of the `server`, `request` and `response` object.
+
+```javascript
+var http = require('http');
+var server = http.createServer(function(request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello, World\n");
+});
+
+server.listen(8000, function(){
+  console.log("Server running at http://localhost:8000");
+});
+
+```
+
+```
+var http = require('http');
+var server = http.createServer(function(request, response) {
+  console.log('url', request.url);
+  console.log('method:', request.method);
+
+  // Auth
+  response.writeHead(401, {"Content-Type": "text/plain"});
+  response.end("Hello, World\n");
+});
+
+server.listen(8000, function(){
+	console.log("Server running at http://localhost:8000");
+});
+```
+
+Run with:
+
+```
+$ node server.js
+```
+
+Send requests:
+
+```
+$ curl http://localhost:8000
+$ curl http://localhost:8000 -v
+```
+
+## MongoDB
+
 Mongo DB is a non-relational data base. Stored only JSON.
 
 ## Install Mongo on local
