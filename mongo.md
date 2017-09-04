@@ -178,3 +178,88 @@ app.get('*', function(req, res){
 app.listen(8080);
 console.log("Express server started on port 8080");
 ```
+
+## Schemaless
+
+MongoDB is a JSON-style data store. The documents stored in the database can have varying sets of fields, with different types for each field.
+
+```
+> db.posts.find().pretty()
+{
+	"_id" : ObjectId("59ac4169f8e91961ca2870ee"),
+	"title" : "Suspendisse",
+	"text" : "Nullam blandit orci ut tortor facilisis sollicitudin."
+}
+{
+	"_id" : ObjectId("59acb35bf8e91961ca2870ef"),
+	"title" : "Sundisse",
+	"text" : "Nullam ut tortor facilisis sollicitudin."
+}
+```
+
+If we insert a new data with different key values:
+
+```
+db.posts.save({title: "Maecenas", text: "Maecenas tincidunt quis arcu non suscipit.", type: "news"})
+```
+
+```
+> db.posts.find().pretty()
+{
+	"_id" : ObjectId("59ac4169f8e91961ca2870ee"),
+	"title" : "Suspendisse",
+	"text" : "Nullam blandit orci ut tortor facilisis sollicitudin."
+}
+{
+	"_id" : ObjectId("59acb35bf8e91961ca2870ef"),
+	"title" : "Sundisse",
+	"text" : "Nullam ut tortor facilisis sollicitudin."
+}
+{
+	"_id" : ObjectId("59ace7ebf8e91961ca2870f0"),
+	"title" : "Maecenas",
+	"text" : "Maecenas tincidunt quis arcu non suscipit.",
+	"type" : "news"
+}
+```
+
+We can update old data:
+
+```
+> var j = db.posts.findOne({'title':'Sundisse'})
+> j
+{
+	"_id" : ObjectId("59acb35bf8e91961ca2870ef"),
+	"title" : "Sundisse",
+	"text" : "Nullam ut tortor facilisis sollicitudin."
+}
+> j.type = "sport"
+sport
+> j
+{
+	"_id" : ObjectId("59acb35bf8e91961ca2870ef"),
+	"title" : "Sundisse",
+	"text" : "Nullam ut tortor facilisis sollicitudin.",
+	"type" : "sport"
+}
+> db.posts.save(j);
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.posts.find().pretty()
+{
+	"_id" : ObjectId("59ac4169f8e91961ca2870ee"),
+	"title" : "Suspendisse",
+	"text" : "Nullam blandit orci ut tortor facilisis sollicitudin."
+}
+{
+	"_id" : ObjectId("59acb35bf8e91961ca2870ef"),
+	"title" : "Sundisse",
+	"text" : "Nullam ut tortor facilisis sollicitudin.",
+	"type" : "sport"
+}
+{
+	"_id" : ObjectId("59ace7ebf8e91961ca2870f0"),
+	"title" : "Maecenas",
+	"text" : "Maecenas tincidunt quis arcu non suscipit.",
+	"type" : "news"
+}
+```
