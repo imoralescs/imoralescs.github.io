@@ -1,4 +1,4 @@
-# Mongo
+# Nodejs and MongoDB
 
 Mongo DB is a non-relational data base. Stored only JSON.
 
