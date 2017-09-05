@@ -275,8 +275,168 @@ db.studentInfo.insert({
 > db.studentInfo.find().pretty();
 ```
 
-MongoDB:
+* **Insert Array**
+
 ```
+var studentsArray =
+[{
+  name: {
+    firstName: "Peter",
+    lastName: "Gates"
+  },
+  age: 12,
+  class: 6,
+  rollNo: 26,
+  subjects: [
+    "Maths", "Physics", "English"
+  ],
+  attendance: {
+    January: "80%",
+    February: "95%",
+    March: "93%"
+  }
+},
+{
+  name: {
+    firstName: "Sunil",
+    lastName: "Gupta"
+  },
+  age: 18,
+  class: 6,
+  rollNo: 24,
+  subjects: [
+    "Maths", "Physics", "English", "Chemistry"
+  ],
+  attendance: {
+    January: "97%",
+    February: "99%",
+    March: "100%"
+  }
+},{
+  name: {
+    firstName: "John",
+    lastName: "Reach"
+  },
+  age: 17,
+  class: 6,
+  rollNo: 23,
+  subjects: [
+    "Maths", "Physics", "English"
+  ],
+  attendance: {
+    January: "90%",
+    February: "85%",
+    March: "98%"
+  }
+}];
+
+db.studentInfo.insert(studentsArray);
+```
+
+* **Querying**
+
+```
+db.studentInfo.find({"name.firstName":"Sunil"}).pretty();
+```
+
+```
+{
+  "_id" : ObjectId("59aef7320786199ef27197a8"),
+  "name" : {
+    "firstName" : "Sunil",
+    "lastName" : "Gupta"
+  },
+  "class" : 6,
+  "rollNo" : 24,
+  "subjects" : [
+    "Maths",
+    "Physics",
+    "English",
+    "Chemistry"
+  ],
+  "attendance" : {
+    "January" : "97%",
+    "February" : "99%",
+    "March" : "100%"
+  }
+}
+```
+
+* **Querying with $lt and $gt
+
+`$lt` - Less than.
+
+```
+db.studentInfo.find({"age":{$lt:16}}).pretty();
+```
+
+```
+{
+        "_id" : ObjectId("59aefa340786199ef27197a9"),
+        "name" : {
+                "firstName" : "Peter",
+                "lastName" : "Gates"
+        },
+        "age" : 12,
+        "class" : 6,
+        "rollNo" : 26,
+        "subjects" : [
+                "Maths",
+                "Physics",
+                "English"
+        ],
+        "attendance" : {
+                "January" : "80%",
+                "February" : "95%",
+                "March" : "93%"
+        }
+}
+```
+
+`$gt` - Greated than.
+
+```
+db.studentInfo.find({"age":{$gt:16}}).pretty();
+```
+
+* **Updating**
+
+```
+db.studentInfo.update({"name.firstName":"Sunil"},{$set:{"age":17}});
+
+db.studentInfo.update({"name.firstName":"Sunil"},{$set:{"subjects.1":"Science"}});
+
+db.studentInfo.find({"name.firstName":"Sunil"}).pretty();
+```
+
+```
+{
+        "_id" : ObjectId("59aefa340786199ef27197aa"),
+        "name" : {
+                "firstName" : "Sunil",
+                "lastName" : "Gupta"
+        },
+        "age" : 17,
+        "class" : 6,
+        "rollNo" : 24,
+        "subjects" : [
+                "Maths",
+                "Science",
+                "English",
+                "Chemistry"
+        ],
+        "attendance" : {
+                "January" : "97%",
+                "February" : "99%",
+                "March" : "100%"
+        }
+}
+```
+
+* **Deleting**
+
+```
+db.studentInfo.remove({"name.firstName":"Sunil"})
 ```
 
 ## Express
