@@ -4,9 +4,9 @@
 
 Is a single-threaded by design to make asynchronous processing simpler.
 
-## Non-Blocking I/O
+### Non-Blocking I/O
 
-## `global` Object
+### `global` Object
 
 Is similar to window object in the browser Javascript.
 
@@ -16,7 +16,7 @@ global.process === process
 global.console === console
 ```
 
-**`process` Object**
+* **`process` Object**
 
 In Node, interaction with the current Node process takes place via the `process` object. As the `process` object is a global, it is accessible from anywhere in the application source code. Example:
 
@@ -32,7 +32,7 @@ To exit a process, use the exit function.
 process.exit();
 ```
 
-## Modules
+### Modules
 
 In the browser `<script>`, CommonJS, AMD (requirejs) and ES6. Module loaders in the browser are SystemJS, RequireJS, Browserify and es6-module-loader. On Nodejs, built-in modules with require a CommonJS notation.
 
@@ -43,7 +43,7 @@ var app = express();
 
 Modules can live different place with Javascript. They can be on local machines, virtual machines, server, remote URI locations, or anywhere really.
 
-**Loading Node Modules**
+* **Loading Node Modules**
 
 These modules can be loaded with module loaders like require or via inversion of control patterns.
 
@@ -51,7 +51,7 @@ These modules can be loaded with module loaders like require or via inversion of
 var filesystem - require('fs');
 ```
 
-**Creating a Module with a "Class" example**
+* **Creating a Module with a "Class" example**
 
 ```
 function UserController() {}
@@ -60,7 +60,7 @@ var ctrl = UserController();
 ctrl.login("fred", "123456");
 ```
 
-**Node Patterns for Module Exports**
+* **Node Patterns for Module Exports**
 
 ```
 module.exports = function(ops){}
@@ -69,9 +69,9 @@ exports.methodA = function(ops){}
 exports.obj = {}
 ```
 
-## NPM (Node Package Manager)
+### NPM (Node Package Manager)
 
-## Nodejs HTTP Server "Hello World"
+### Nodejs HTTP Server "Hello World"
 
 Example of the `server`, `request` and `response` object.
 
@@ -117,7 +117,7 @@ $ curl http://localhost:8000
 $ curl http://localhost:8000 -v
 ```
 
-## `HTTP` Object
+* **`HTTP` Object*
 
 This allows Nodejs to transfer data over the Hyper Text Transfer Protocol (HTTP).
 
@@ -134,9 +134,9 @@ Mongo DB is a non-relational data base. Stored only JSON.
 
 Consistency Availability Partition tolarance
 
-## Install Mongo on local
+### Install Mongo on local
 
-## Access local or remote mongo shell
+### Access local or remote mongo shell
 
 By terminal type.
 
@@ -158,9 +158,9 @@ To define database.
 $ use dbs_name
 ```
 
-## JSON
+### JSON
 
-## Create Database
+### Create Database
 
 * **MongoDB**:
 
@@ -172,7 +172,7 @@ $ db.articles.insert({title: "Phasellus interdum", text: "Cras luctus libero at 
 $ db.articles.find()
 ```
 
-## Creating Document and Saving it to Collection
+### Creating Document and Saving it to Collection
 
 * **MongoDB**:
 ```
@@ -201,7 +201,7 @@ db.articles.find().pretty();
 }
 ```
 
-## Dropping Database 
+### Dropping Database 
 
 * **MongoDB**:
 ```
@@ -210,7 +210,7 @@ $ use blogs
 $ db.dropDatabase();
 ```
 
-## Creating a Collection using `db.createCollection(name, options)`
+### Creating a Collection using `db.createCollection(name, options)`
 
 * `name` - type string. Name of the collection.
 * `options` - type document. To specify indexing, memory size, maximum number of documents.
@@ -230,23 +230,6 @@ $ db.dropDatabase();
 ```
 
 ### MongoDB CRUD Operations
-
-
-
-## Nodejs
-
-Simple Hello World using Nodejs.
-
-```javascript
-var http = require('http');
-var server = http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello, World\n");
-});
-
-server.listen(8000);
-console.log("Server running at http://localhost:8000");
-```
 
 ## Express
 
