@@ -152,31 +152,86 @@ See all database inside my mongo server.
 $ show dbs
 ```
 
-To define or create a new database.
+To define database.
 
 ```
 $ use dbs_name
 ```
 
-To add element to a collection `db.collection.insert({property: "value"})` or `db.collection.save({property: "value"})`.
-
-```mongo
-db.posts.insert({title:"Sundisse",text:"Nullam ut tortor facilisis sollicitudin."})
-```
-
-or 
-
-```mongo
-db.posts.save({title:"Suspendisse",text:"Nullam blandit orci ut tortor facilisis sollicitudin."})
-```
-
-To find all elements on the collection database
-
-```
-db.posts.find()
-```
-
 ## JSON
+
+## Create Database
+
+* **MongoDB**:
+
+```
+$ use blogs
+
+$ db.articles.insert({title: "Phasellus interdum", text: "Cras luctus libero at convallis viverra", tags: ["news", "sports"]})
+
+$ db.articles.find()
+```
+
+## Creating Document and Saving it to Collection
+
+* **MongoDB**:
+```
+var newArticle = {};
+newArticle.title = "Curabitur lobortis";
+
+newArticle.text = "Nulla rutrum risus eu arcu lacinia, vitae fringilla";
+
+db.articles.save(newArticle);
+db.articles.find().pretty();
+```
+
+* **Output**:
+
+```
+{
+  "_id" : ObjectId("59aec1901855f5fcdba84649"),
+  "title" : "Phasellus interdum",
+  "text" : "Cras luctus libero at convallis viverra",
+  "tags" : ["news", "sports"]
+}
+{
+  "_id" : ObjectId("59aec5a3c097c653fdea04eb"),
+  "title" : "Curabitur lobortis",
+  "text" : "Nulla rutrum risus eu arcu lacinia, vitae fringilla"
+}
+```
+
+## Dropping Database 
+
+* **MongoDB**:
+```
+$ use blogs
+
+$ db.dropDatabase();
+```
+
+## Creating a Collection using `db.createCollection(name, options)`
+
+* `name` - type string. Name of the collection.
+* `options` - type document. To specify indexing, memory size, maximum number of documents.
+
+```
+> db.createCollection("users", {capped:true, size: 6142800, max: 10000})
+
+> show collections
+```
+
+### Drop Collection
+
+```
+> db.users.drop()
+
+> show collections
+```
+
+### MongoDB CRUD Operations
+
+
 
 ## Nodejs
 
