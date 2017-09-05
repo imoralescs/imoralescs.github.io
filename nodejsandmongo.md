@@ -117,9 +117,22 @@ $ curl http://localhost:8000
 $ curl http://localhost:8000 -v
 ```
 
+## `HTTP` Object
+
+This allows Nodejs to transfer data over the Hyper Text Transfer Protocol (HTTP).
+
+```
+var server = http.createServer([requestListener]);
+server.listen(port[, hostname][, backlog][, callback]);
+```
+
 ## MongoDB
 
 Mongo DB is a non-relational data base. Stored only JSON.
+
+### CAP Theorem
+
+Consistency Availability Partition tolarance
 
 ## Install Mongo on local
 
