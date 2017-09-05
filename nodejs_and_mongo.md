@@ -231,6 +231,49 @@ $ db.dropDatabase();
 
 ### MongoDB CRUD Operations
 
+* **Creating and Insert collection using javascript file**
+
+student.js:
+```
+db.studentInfo.insert({
+  name: {
+    firstName: "John",
+    lastName: "Reach"
+  },
+  class: 6,
+  rollNo: 23,
+  subjects: [
+    "Maths", "Physics", "English"
+  ],
+  attendance: {
+    January: "90%",
+    February: "85%",
+    March: "98%"
+  }
+});
+
+db.studentInfo.insert({
+  name: {
+    firstName: "Sunil",
+    lastName: "Gupta"
+  },
+  class: 6,
+  rollNo: 24,
+  subjects: [
+    "Maths", "Physics", "English", "Chemistry"
+  ],
+  attendance: {
+    January: "97%",
+    February: "99%",
+    March: "100%"
+  }
+});
+```
+
+MongoDB:
+```
+```
+
 ## Express
 
 Simple Hello World using Express.
