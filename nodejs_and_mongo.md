@@ -233,7 +233,6 @@ $ db.dropDatabase();
 
 * **Creating and Insert collection using javascript file**
 
-student.js:
 ```
 db.studentInfo.insert({
   name: {
@@ -268,6 +267,12 @@ db.studentInfo.insert({
     March: "100%"
   }
 });
+```
+
+```
+> load("C:/Users/Israel/Documents/Projects/nodejs-app/students.js")
+
+> db.studentInfo.find().pretty();
 ```
 
 MongoDB:
