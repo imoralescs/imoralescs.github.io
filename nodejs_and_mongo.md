@@ -225,6 +225,60 @@ $ nodemon app.js
 $ pm2 app.js
 ```
 
+### RESTful API with Express
+
+* **REST**
+
+REpresentational State Transfer (REST) is an architectural pattern for developing network application. REST systems aim to keep things simple when connecting to and exchanging data between machines.
+
+* **HTTP**
+
+* **REST Verbs**
+
+* **Resource**
+
+* **Route on Express**
+
+```
+// GET Route
+app. get('/users', function(request, response){
+  // Code to retrieve users
+  response.send(user);
+});
+
+// Accessing URL Parameters
+app.get('/users/:id/:another/:segment', function(request, response){
+  // These dynamic parameters can then be accessed via the request params object
+  request.params.id
+});
+
+// POST Route
+app.post('/users', function(request, response){
+  
+});
+
+// PUT Route
+app.put('/users/:id', function(request, response){
+
+})
+
+// DELETE Route
+app.delete('users/:id', function(request, response){
+
+});
+
+// Query Strings
+// Express converts URL query string into JSON
+// GET http://localhost:3000/?name=Bruce+Wayne&age=40&occupation=Batman
+app.get('/', function(request, response){
+  console.log(request.query.name);
+  console.log(request.query.occupation);
+  console.log(request.query.age);
+});
+```
+
+REST uses HTTP request and responses to provide representations of resources.
+
 ## MongoDB
 
 Mongo DB is a non-relational data base. Stored only JSON.
