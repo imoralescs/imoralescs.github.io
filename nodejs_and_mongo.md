@@ -126,6 +126,105 @@ var server = http.createServer([requestListener]);
 server.listen(port[, hostname][, backlog][, callback]);
 ```
 
+## Express
+
+Is the most popular web application framework for Node.
+
+* **Installing**
+
+```
+$ npm install express --save
+```
+
+* **Structure**
+
+```
+app.js  - main file, houses the embedded server and application logic.
+/public - contains static files to be served by the embedded server.
+/routes - houses custom routing for the embedded server.
+/views  - contains templates that can be processed by a template engine.
+```
+
+* **app.js**
+
+It has five distinct parts. We'll start with imports and instantiations. So we import whatever files we need to import, or modules I should say. Then we configure our Express app. Then we would utilize middleware, apply them, most likely from the imported modules. Then we would create the routes, or we would apply the routes imported from our own modules from the routes folder. And then finally we would boot up our server.
+
+### Configuring Express
+
+Express server need to be configured before it can start. Manage configuration via set method.
+
+```
+var express = require('express');
+var app = express();
+
+app.set('view engine', 'pug');
+```
+
+### Middleware
+
+Middleware pattern is a series of processing units connected together, where the output of one unit is the input for the next one. Middleware receives the request and response objects of an HTTP request/response cycle. It may modify (transform) these objects before passing them to the next middleware function in the chain.
+
+You will use middleware all the time in express and a lot of your logic will live inside of them. Middleware is invoked with a request, a response and next. Request is the request object. It contains really important things like the request headers and the request body (presuming your using body-parser).
+
+The response is the express response method. You use this to send responses back to the client, for example `res.json({‘message’:’hello there’});` Next is something unique to express. You invoke next when you are done in your middleware and you want to move on to the next piece of middleware.
+
+* **Creating Middleware**
+
+```
+// As variable
+var middleware = function(request, response, next){
+  // Modify request or response
+  // Execute the callback when done
+  next()
+}
+app.use(middleware);
+
+// As anonymous function
+app.use(function(request, response, next){
+  // Modify request or response
+  // Execute the callback when done
+  next()
+});
+```
+
+Request is always the same object in the lifecycle of a single client request to the Express server.
+
+* **Example**
+
+```
+var express = require('express');
+var app = express();
+var PORT = 8080;
+
+function log(request, response, next){
+  console.log(new Date(), request.method, request.url);
+  console.log('Now next function:\n');
+  next();
+}
+
+function greeting(request, response, next){
+  response.write('Hello \n' + 'World');
+  response.end();
+  next();
+}
+
+app.get('/', log, greeting);
+
+app.listen(PORT, function(){
+  console.log("Express server started on port " + PORT);
+});
+```
+
+### Template Engine
+
+### Launch App
+
+```
+$ node app.js
+$ nodemon app.js
+$ pm2 app.js
+```
+
 ## MongoDB
 
 Mongo DB is a non-relational data base. Stored only JSON.
