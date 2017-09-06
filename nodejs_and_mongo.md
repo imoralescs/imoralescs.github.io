@@ -279,6 +279,85 @@ app.get('/', function(request, response){
 
 REST uses HTTP request and responses to provide representations of resources.
 
+* **Request Body Object - Parsing Request Body**
+
+Let say we want our clients to be able to create records in our database for resources. To do this we need them to supply us with data for that resource object. The POST body is an object of data attached to the incoming request. Express requires additional middleware to be able to process these incoming values. Enter `body-parser`.
+
+
+```
+var bodyParse = require('body-parser');
+app.use(bodyParse.json());
+
+// Usage: web forbs with action attribute
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
+
+// Accessing Form Data
+// POST name=Bruce+Wayne&age=40&occupation=Businessman
+/*
+request.body.name
+request.body.age
+request.body.occupation
+*/
+```
+
+* **Request Body Object - File Uploads**
+
+https://github.com/expressjs/multer
+https://github.com/yahoo/express-busboy
+https://github.com/mscdex/busboy
+https://github.com/pillarjs/multiparty
+
+* **Request Body Object - Parsing JSON**
+
+```
+app.use(bodyParse.json({type: 'application/*+json'}));
+```
+
+* **Request Body Object - Parsing Buffer**
+
+```
+app.use(bodyParse.raw({type: 'application/vnd.custom-type'}));
+```
+
+* **Request Body Object - Parsing HTML**
+
+```
+app.use(bodyParse.text({type: 'text/html'}));
+```
+
+* **Request Header Shortcuts**
+
+```
+request.get(headerKey) - value for the header key.
+request.accepts(type) - checks if the type is accepted.
+request.acceptsLanguage(language) - checks language.
+request.acceptsCharset(charset) - checks charset.
+request.is(type) - check the type.
+request.ip - IP address.
+request.ips - IP addresses with trust-proxy on.
+request.path - URL path.
+request.host - host without port number.
+request.fresh - check freshness.
+request.stale - checks staleness.
+request.xhr - true for AJAX request.
+```
+
+* **Responses Object**
+
+The response object is also accessible via routing handlers in Express, It is second argument in the handler callback. The response object can be used to modify an HTTP response before sending it out.
+
+* **Response Method**
+
+```
+response.redirect(status, url) - redirect request.
+response.send(status, data) - send response.
+response.json(status, data) - send JSON and force proper headers.
+response.sendfile(path, options, callback) - send a file.
+response.render(templateName, locals, callback) - render a template.
+response.locals - pass data to template.
+```
+
 ## MongoDB
 
 Mongo DB is a non-relational data base. Stored only JSON.
