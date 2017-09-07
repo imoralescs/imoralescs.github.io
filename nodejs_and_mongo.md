@@ -2,9 +2,23 @@
 
 ## Nodejs
 
-Is a single-threaded by design to make asynchronous processing simpler.
+Is a single-threaded by design to make asynchronous processing simpler. Node.js is for writing server-side JavaScript applications. It is built on top of the V8 JavaScript runtime and uses an event-driven, non-blocking I/O model that makes it perfect for data-intensive, real-time applications.
 
 ### Non-Blocking I/O
+
+Blocking refers to operations that block further execution until that operation finishes. Non-blocking refers to code that doesn't block execution. In the given example, localStorage is a blocking operation as it stalls execution to read. On the other hand, fetch is a non-blocking operation as it does not stall alert(3) from execution.
+
+```
+// Blocking: 1,... 2
+alert(1);
+var value = localStorage.getItem('foo');
+alert(2);
+
+// Non-blocking: 1, 3,... 2
+alert(1);
+fetch('example.com').then(() => alert(2));
+alert(3);
+```
 
 ### `global` Object
 
@@ -136,6 +150,24 @@ Is the most popular web application framework for Node.
 $ npm install express --save
 ```
 
+Example of Express:
+
+```javascript
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res){
+  res.send("Hello, World!");
+});
+
+app.get('*', function(req, res){
+  res.status(404).send("Page not found");
+});
+
+app.listen(8080);
+console.log("Express server started on port 8080");
+```
+
 * **Structure**
 
 ```
@@ -217,6 +249,50 @@ app.listen(PORT, function(){
 
 ### Template Engine
 
+A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
+
+* **Pug**
+
+Pug is a super easy-to-use, high performance template engine built in JavaScript used for building static websites.
+
+```
+$ npm install pug
+```
+
+Simple Hello World using Express and Pug. Create directory **views** and include the following file:
+
+```pug
+html
+  head
+    title= title
+  body
+    h1= message
+```
+
+```javascript
+var express = require('express');
+var app = express();
+
+app.set('view engine', 'pug');
+
+app.get('/', function(req, res){
+  res.render('index',{
+    title: 'Nodejs Express App',
+    message: 'Hello there!'
+  });
+});
+
+app.get('*', function(req, res){
+  res.status(404).render('index',{
+    title: 'Nodejs Express App',
+    message: 'Page not found'
+  });
+});
+
+app.listen(8080);
+console.log("Express server started on port 8080");
+```
+
 ### Launch App
 
 ```
@@ -235,7 +311,11 @@ REpresentational State Transfer (REST) is an architectural pattern for developin
 
 * **REST Verbs**
 
+REST verbs can be summarised by the CRUD acronym. CRUD stands for: Create(POST), Read(GET), Update(PUT) and Delete. 
+
 * **Resource**
+
+“The key abstraction of information in REST is a resource. Any information that can be named can be a resource: a document or image, a temporal service (e.g. "today's weather in Los Angeles"), a collection of other resources, a non-virtual object (e.g. a person), and so on. In other words, any concept that might be the target of an author's hypertext reference must fit within the definition of a resource. A resource is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time.” - Roy Fielding’s dissertation.
 
 * **Route on Express**
 
@@ -389,8 +469,6 @@ To define database.
 ```
 $ use dbs_name
 ```
-
-### JSON
 
 ### Create Database
 
@@ -669,62 +747,6 @@ db.studentInfo.find({"name.firstName":"Sunil"}).pretty();
 
 ```
 db.studentInfo.remove({"name.firstName":"Sunil"})
-```
-
-## Express
-
-Simple Hello World using Express.
-
-```javascript
-var express = require('express');
-var app = express();
-
-app.get('/', function(req, res){
-  res.send("Hello, World!");
-});
-
-app.get('*', function(req, res){
-  res.status(404).send("Page not found");
-});
-
-app.listen(8080);
-console.log("Express server started on port 8080");
-```
-
-## Express and Pug
-
-Simple Hello World using Express adn Pug. Create directory **views** adn include the following file:
-
-```pug
-html
-  head
-    title= title
-  body
-    h1= message
-```
-
-```javascript
-var express = require('express');
-var app = express();
-
-app.set('view engine', 'pug');
-
-app.get('/', function(req, res){
-  res.render('index',{
-    title: 'Nodejs Express App',
-    message: 'Hello there!'
-  });
-});
-
-app.get('*', function(req, res){
-  res.status(404).render('index',{
-    title: 'Nodejs Express App',
-    message: 'Page not found'
-  });
-});
-
-app.listen(8080);
-console.log("Express server started on port 8080");
 ```
 
 ## Express, Mongo and Pug
