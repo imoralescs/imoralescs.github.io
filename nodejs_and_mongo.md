@@ -142,7 +142,7 @@ server.listen(port[, hostname][, backlog][, callback]);
 
 ## Express
 
-Is the most popular web application framework for Node.
+Express is a relatively small framework that sits on top of Nodejs web server functionality to simplify its APIs. It makes it easier to organize your application functionality with middleware and routing, it adds helpful utilities to Nodejs HTTP objects, it facilitates the rendering of dynamic HTML views.
 
 * **Installing**
 
@@ -301,7 +301,9 @@ $ nodemon app.js
 $ pm2 app.js
 ```
 
-### RESTful API with Express
+### Routing
+
+Routing is a way to map requests to specific handlers depending on their URL and HTTP verb.
 
 * **REST**
 
