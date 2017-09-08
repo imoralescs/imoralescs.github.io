@@ -360,3 +360,61 @@ Output:
 ```
 No name provide
 ```
+
+### Submit (Simple Example)
+
+```
+Route::get('/home',[
+  'as' => 'home',
+  'uses' => 'HomeController@index',
+]);
+
+Route::post('/home',[
+  'uses' => 'HomeController@create'
+]);
+```
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        return '<form action="' . route('home') . '" method="POST"><input type="text" name="email"><input type="submit"></form>';
+    }
+
+    public function create(Request $request)
+    {
+      dd($request->email);
+    }
+}
+```
+
+And to proper work, Disable Crossover Request on file `VerifyCsrfToken.php` on directory app -> Http -> Middleware
+
+```
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array
+     */
+    protected $except = [
+        //
+        // Disable Crossover Request
+        '/home'
+    ];
+}
+```
