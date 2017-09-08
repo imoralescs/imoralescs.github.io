@@ -204,4 +204,4 @@ By default you Namespace is `App`. If we want to change this.
 $ php artisan app:name Name
 ```
 
-Notes: Always start with Uppercase letters.
+Notes: Namespace name always start with uppercase letters.
