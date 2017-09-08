@@ -158,3 +158,50 @@ It contain various supporting frameworks, codes and dependencies to make applica
 ## Artisan
 
 Artisan is the command-line interface included with Laravel. It provides a number of helpful commands that can assist you while you build your application.
+
+### Basic Command
+
+From the root of you project.
+
+
+* This return all the command available by default.
+
+```
+$ php artisan list
+```
+
+* Will place you app on maintenance mode.
+
+```
+$ php artisan down
+```
+
+* Will restore from maintenance mode.
+
+```
+$ php artisan up
+```
+
+* Show all routes of app and details.
+
+```
+$ php artisan route:list
+```
+
+## App Key
+
+To generate
+
+```
+$ php artisan key:generate
+```
+
+## Namespace
+
+By default you Namespace is `App`. If we want to change this.
+
+```
+$ php artisan app:name Name
+```
+
+Notes: Always start with Uppercase letters.
