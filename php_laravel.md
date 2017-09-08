@@ -205,3 +205,158 @@ $ php artisan app:name Name
 ```
 
 Notes: Namespace name always start with uppercase letters.
+
+## Routing
+
+Is our main entry point to our application.
+
+* **Basic Route**
+
+```
+Route::get('users/{id}', function($id){
+  echo $id;
+});
+```
+
+Url on browser:
+
+```
+http://localhost/users/Joseph
+```
+
+Output:
+
+```
+Joseph
+```
+
+* **Group Route**
+
+```
+Route::group(['prefix' => 'account'], function(){
+  Route::get('change-password', function(){
+    echo 'Change password';
+  });
+
+  Route::get('profile', function(){
+    echo 'Profile';
+  });
+
+  Route::post('profile', function(){
+    //
+  });
+});
+```
+
+* **Naming Route**
+
+```
+Route::get('/redirect', function(){
+  return redirect()->route('landing');
+});
+
+Route::get('/landing/page', function(){
+  echo 'Landing';
+})->name('landing');
+```
+
+## Controller
+
+To create our controller, we need to used **Artisan**.
+
+```
+php artisan make:controller HomeController
+```
+
+After creating, you can finding on App -> Http -> Controller. If you can create his own directory, remember add the directory name on namespace. Now we can add the missing code to the following code.
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        return 'Home';
+    }
+}
+
+```
+
+To hook up the controller to route.
+
+```
+Route::get('/home',[
+  // as mean route name.
+  'as' => 'home',
+  // uses controller and define as ControllerName@functionInController
+  'uses' => 'HomeController@index',
+]);
+
+```
+
+### Request Object
+
+Allow us to catch get or post query string data or request body.
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index(Request $request)
+    {
+        return $request->name;
+    }
+}
+```
+
+Url on browser:
+
+```
+http://localhost/home?name=Alex
+```
+
+Output:
+
+```
+Alex
+```
+
+We can used `get` method from Request Object to return value in case we have empty value on Url query.
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index(Request $request)
+    {
+        return $request->get('name', 'No name provide');
+    }
+}
+```
+
+Url on browser:
+
+```
+http://localhost/home
+```
+
+Output:
+
+```
+No name provide
+```
