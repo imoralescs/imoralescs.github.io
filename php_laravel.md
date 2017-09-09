@@ -1,4 +1,3 @@
-
 ## Local Enviroment Notes
 
 * **No application encryption key has been specified. New Laravel app**
