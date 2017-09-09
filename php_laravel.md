@@ -418,3 +418,10 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
+## Views
+
+They are located on resources -> views. You need to create your template with adding .blade to pick up the blade sintax.
+
+## Security
+
