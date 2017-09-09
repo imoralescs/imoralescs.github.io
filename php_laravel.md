@@ -424,7 +424,59 @@ They are located on resources -> views. You need to create your template with ad
 
 ## Security
 
-## Step Develop
+## Step Develop Tasklist App
 
 ### Step 1: Database and Modeling
 
+If is a fresh laravel install, delete migration file on database directory. If not create you own migration files.
+
+```
+php artisan make:migration create_tasks_table --create=tasks
+```
+
+The `--table` and `--create` options may also be used to indicate the name of the table and whether the migration will be creating a new table.
+
+The purpose of create this migration file, is to define which or what columns we wants and after define we can execute those migration files and create ours database table schema for us.
+
+Add your tables on this new file migration.
+
+```
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTasksTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tasks');
+    }
+}
+```
+
+After edit you migration file, make sure you have all you mysql configuration data on you `.env` file. If you are using docker on windows make sure you have all php extension enable on you php.ini file. To execute you migration file run:
+
+```
+$ php artisan migrate
+```
