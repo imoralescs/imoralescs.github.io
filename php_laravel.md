@@ -444,7 +444,7 @@ Route::get('/home',[
 
 ```
 
-### Request Object
+### Using Request Object
 
 Allow us to catch get or post query string data or request body.
 
@@ -563,10 +563,6 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
-
-## Views
-
-They are located on resources -> views. You need to create your template with adding .blade to pick up the blade sintax.
 
 ## Security
 
