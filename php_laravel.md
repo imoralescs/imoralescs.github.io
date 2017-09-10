@@ -401,13 +401,19 @@ Route::get('/task', function(){
 
 ## Controller
 
+Controllers are essentially classes that organize the logic of one or more routes together in one place. Controllers tend to group similar routes together, especially if your application is structured along a traditionally CRUD-like format.
+
+* **What is CRUD?**
+
+CRUD stands for create, read, update, delete, which are the four primary operations that web applications most commonly provide on a resource. For example, you can create a new blog post, you can read that post, you can update it, or you can delete it.
+
 To create our controller, we need to used **Artisan**.
 
 ```
 php artisan make:controller HomeController
 ```
 
-After creating, you can finding on App -> Http -> Controller. If you can create his own directory, remember add the directory name on namespace. Now we can add the missing code to the following code.
+After creating, you can finding on App -> Http -> Controller. If you can create his own directory you can do it on this same directory, but remember add the directory name on namespace section of the controller code. The end result of artisan create controller command:
 
 ```
 <?php
