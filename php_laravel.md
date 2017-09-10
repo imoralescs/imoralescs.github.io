@@ -480,3 +480,24 @@ After edit you migration file, make sure you have all you mysql configuration da
 ```
 $ php artisan migrate
 ```
+
+To verify you data, you can connect to you mysql service via mysql client. Now let create our model on the App directory. We can used as base User.php, this file is a model file by default. To create our new model file, we need to type the following command:
+
+```
+php artisan make:model Task
+```
+
+This following command create this code:
+
+```
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Task extends Model
+{
+    //
+}
+```
