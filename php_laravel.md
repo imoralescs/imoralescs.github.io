@@ -371,6 +371,34 @@ http://localhost/account/change-password
 http://localhost/account/profile
 ```
 
+## Views
+
+Views (or templates) are files that describe what some particular output should look like. You might have views for JSON or XML or emails, but the most common views in a web framework output HTML.
+
+They are located on `resources -> views`. You need to create your template with adding `.blade` to pick up the blade sintax.
+
+In Laravel, there are two formats of view you can use out of the box: plain PHP, or Blade templates. The difference is in the filename: about.php will be rendered with the PHP engine, and about.blade.php will be rendered with the Blade engine.
+
+* **Simple `view()`**
+
+```
+Route::get('/', function () {
+  return view('home');
+});
+```
+
+* **Passing Variables to views**
+
+```
+Route::get('/task', function(){
+  $tasks = Task::orderBy('created_at', 'asc')->get();
+
+  return view('tasks.index',[
+    'tasks' => $tasks,
+  ]);
+});
+```
+
 ## Controller
 
 To create our controller, we need to used **Artisan**.
