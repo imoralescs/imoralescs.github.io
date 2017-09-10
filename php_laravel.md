@@ -259,25 +259,28 @@ Route::match(['get', 'post'], '/', function () {});
 If the route you’re defining has parameters—segments in the URL structure that are variable, it’s simple to define them in your route and pass them to your closure.
 
 ```
-Route::get('users/{id}', function($id){
-  echo $id;
+Route::get('/users/{username}', function($username){
+  echo $username;
 });
 
-Route::get('users/{id}/friends', function($id){
+Route::get('/users/{id}/friends', function($id){
   echo $id;
 });
 ```
 
-Url on browser:
+Testing url on browser:
 
 ```
-http://localhost/users/Joseph
+http://localhost/users/joseph_01
+http://localhost/users/22/friends
 ```
 
 Output:
 
 ```
-Joseph
+joseph_01
+22
+
 ```
 
 * **Group Route**
