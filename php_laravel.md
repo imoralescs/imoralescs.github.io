@@ -283,6 +283,39 @@ joseph_01
 
 ```
 
+### Route Names
+
+The simplest way to refer to a routes in your application is just by their path. But, there’s a `url()` helper to simplify that linking in your views, if you need it. The helper will prefix your route with the full domain of your site.
+
+Laravel also allows you to name each route, which enables you to refer to it without explicitly referencing the URL. This is helpful because it means you can give simple nicknames to complex routes, and also because linking them by name means you don’t have to rewrite your frontend links if the paths change.
+
+```
+// Defining a route with name in routes/web.php:
+Route::get('/landing/page', function(){
+  echo 'Landing';
+})->name('landing');
+
+// Link the route in a view using the route() helper
+Route::get('/redirect', function(){
+  return redirect()->route('landing');
+});
+```
+
+```
+// Using url() helper
+<a href="<?php echo url('/'); ?>">
+```
+
+* **Old Laravel Version**
+
+Fluent route definitions don’t exist in Laravel 5.1. You’ll need to instead pass an array to the second parameter of your route definition; check the Laravel docs to see more about how this works.
+
+```
+Route::get('members/{id}', [
+ 'as' => 'members.show',
+]);
+```
+
 * **Group Route**
 
 ```
