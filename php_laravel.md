@@ -316,9 +316,39 @@ Route::get('members/{id}', [
 ]);
 ```
 
-* **Group Route**
+### Route Groups
+
+Group of routes share a particular characteristic, a certain authentication requirement, a path prefix, or perhaps a controller namespace. Defining these shared characteristics again and again on each route not only seems tedious but also can muddy up the shape of your routes file and obscure some of the structures of your application.
+
+Route groups allow you to group several routes together, and apply any shared configuration settings once to the entire group, to reduce this duplication. Additionally, route groups are visual cues to future developers (and to your own brain) that these
+routes are grouped together.
 
 ```
+// Group Route
+Route::group([], function(){
+  Route::get('hello', function(){
+    echo 'hello';
+  });
+
+  Route::get('world', function(){
+    echo 'worlds';
+  });
+});
+```
+
+Testing url on browser:
+
+```
+http://localhost/hello
+http://localhost/world
+```
+
+* **Path Prefixes**
+
+If you have a group of routes that share a segment of their path—for, use route groups to simplify this structure.
+
+```
+// Group Route with Prefix
 Route::group(['prefix' => 'account'], function(){
   Route::get('change-password', function(){
     echo 'Change password';
@@ -334,16 +364,11 @@ Route::group(['prefix' => 'account'], function(){
 });
 ```
 
-* **Naming Route**
+Testing url on browser:
 
 ```
-Route::get('/redirect', function(){
-  return redirect()->route('landing');
-});
-
-Route::get('/landing/page', function(){
-  echo 'Landing';
-})->name('landing');
+http://localhost/account/change-password
+http://localhost/account/profile
 ```
 
 ## Controller
