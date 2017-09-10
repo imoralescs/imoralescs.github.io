@@ -464,7 +464,7 @@ class HomeController extends Controller
 }
 ```
 
-Url on browser:
+Testing url on browser:
 
 ```
 http://localhost/home?name=Alex
@@ -494,7 +494,7 @@ class HomeController extends Controller
 }
 ```
 
-Url on browser:
+Testing url on browser:
 
 ```
 http://localhost/home
