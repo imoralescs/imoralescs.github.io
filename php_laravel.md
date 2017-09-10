@@ -207,12 +207,63 @@ Notes: Namespace name always start with uppercase letters.
 
 ## Routing
 
-Is our main entry point to our application.
+Is our main entry point to our application. The essential function of any web application framework is to take requests from a user and deliver responses, usually via HTTP(S). This means defining an application’s routes is the first and most important project to tackle when learning a web framework; without routes, you have no ability to interact with the end user.
+
+In a Laravel application, you will define your **web** routes in `routes/web.php` and your **API** routes in `routes/api.php`. Web routes are those that will be visited by your end users; API routes are those for your API, if you have one. 
+
+In projects running versions of Laravel prior to 5.3, there will be only one routes file, located at `app/Http/routes.php`.
+
+The simplest way to define a route is to match a path (e.g., /) with a closure:
 
 * **Basic Route**
 
 ```
+Route::get('/', function(){
+  return 'Hello, Worlds!';
+});
+```
+
+### Closure
+
+Closures are PHP’s version of anonymous functions. A closure is a function that you can pass around as an object, assign to a variable, pass as a parameter to other functions and methods, or even serialize.
+
+### HTTP Methods
+
+Every HTTP request has a **verb,** or action, along with it. Laravel allows you to define your routes based on which verb was used; the most common are `GET` and `POST`, followed by `PUT`, `DELETE`, and `PATCH`.
+
+Each method communicates a different thing to the server, and to your code, about the intentions of the caller.
+
+* **Route Verbs**
+
+`Route::get` in our route definitions means we’re telling Laravel to only match for these routes when the HTTP request
+uses the `GET` action. But what if it’s a form `POST`, or maybe some JavaScript sending `PUT` or `DELETE` requests? There are a few other options for methods to call on a route definition.
+
+```
+Route::get('/', function () {
+  return 'Hello, World!';
+});
+
+Route::post('/', function () {});
+
+Route::put('/', function () {});
+
+Route::delete('/', function () {});
+
+Route::any('/', function () {});
+
+Route::match(['get', 'post'], '/', function () {});
+```
+
+### Route Parameters
+
+If the route you’re defining has parameters—segments in the URL structure that are variable, it’s simple to define them in your route and pass them to your closure.
+
+```
 Route::get('users/{id}', function($id){
+  echo $id;
+});
+
+Route::get('users/{id}/friends', function($id){
   echo $id;
 });
 ```
