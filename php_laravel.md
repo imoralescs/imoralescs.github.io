@@ -566,6 +566,18 @@ class VerifyCsrfToken extends Middleware
 
 ## Security
 
+If you’ve tried to create and submit a form in a Laravel application, Laravel already including the form in likely run into the dreaded TokenMismatchException.
+
+By default, all routes in Laravel except “read-only” routes (those using GET, HEAD, or OPTIONS) are protected against cross-site request forgery (CSRF) attacks by requiring a token, in the form of an input named _token, to be passed along with each request.
+
+This token is generated at the start of every session, and every non–read-only route compares the submitted _token against the session token.
+
+* **CSRF**
+
+A cross-site request forgery is when one website pretends to be another. The goal is for someone to hijack your users’ access to your website, by submitting forms from their website to your website via the logged-in user’s browser.
+
+The best way around CSRF attacks is to protect all inbound routes POST, DELETE, etc. with a token, which Laravel does out of the box.
+
 ## Step Develop Tasklist App
 
 ### Step 1: Database and Modeling
