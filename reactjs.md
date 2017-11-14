@@ -90,7 +90,47 @@ A JavaScript module is a piece of reusable code that can easily be incorporated 
 
 ## Virtual DOM
 
-The Virtual DOM is a tree of JavaScript objects that represents the actual DOM.
+HTML is simply a set of instructions that a browser follows when constructing the document object model, or DOM. The elements that make up an HTML document become DOM elements when the browser loads HTML and renders the user interface. In HTML, elements relate to each other in a hierarchy that resembles a family tree.
+
+The DOM API is a collection of objects that JavaScript can use to interact with the browser to modify the DOM. If you have used `document.createElement` or `document.appendChild`, you have worked with the DOM API. Updating or changing rendered DOM elements in JavaScript is relatively easy. However, the process of inserting new elements is slow. This means if web developers are meticulous about how they make changes to UI, they can improve the performance of their applications.
+
+With React, we do not interact with the DOM API directly. Instead, we interact with a virtual DOM, or set of instructions that React will use to construct the UI and interact with the browser. The virtual DOM is made up of React elements, which conceptually seem similar to HTML elements, but are actually JavaScript objects. It is much faster to work directly with JavaScript objects than it is to work with the DOM API. 
+
+Example of the difference DOM API vs Virtual DOM:
+
+```html
+<div id="react"></div>
+<div id="dom"></div>
+```
+
+```javascript
+const renderWithReact = () => {
+  ReactDOM.render(
+    React.createElement('div', null, 'Render by react:', 
+      React.createElement('button', null, 'Save'),
+      React.createElement('span', null, new Date().toString()),
+    ),
+    document.getElementById('react'),
+  );
+};
+
+// This case we removing the entire dom each moment on the interval.
+const renderWithDOM = () => {
+  const mountNode = document.getElementById('dom');
+  mountNode.innerHTML = `
+    <div>
+      Render by DOM:
+      <button>Save</button>
+      <span>${new Date().toString()}</span>
+    </div>
+  `;
+};
+
+setInterval(() => {
+  renderWithReact();
+  renderWithDOM();
+}, 1000);
+```
 
 ## ReactElement
 
