@@ -132,20 +132,111 @@ setInterval(() => {
 }, 1000);
 ```
 
+## Synthetic Event Handlers
+
+Whenever you call an event handler within ReactJS, they are passed an instance of SyntheticEvent instead of the native event handler. This has the same interface as the native event handler's, except it's cross-browser compatible so you can use it
+without worrying whether you need to make exceptions in your code for different browser implementations.
+
+The events are triggered in a bubbling phase. This means that the event is first captured down to the deepest target and then propagated to outer elements. You can stop propagation by calling `event.stopPropagation()` or `event.preventDefault()` where appropriate.
+
 ## ReactElement
 
-A ReactElement is a representation of a DOM element in the Virtual DOM. React will take these ReactElements and place them into the “actual DOM” for us. 
+The browser DOM is made up of DOM elements. Similarly, the React DOM is made up of React elements. DOM elements and React elements may look the same, but they are actually quite different. A React element is a description of what the actual DOM element should look like. In other words, React elements are the instructions for how the browser DOM should be created.
+
+We can create a React element to represent an h1 using `React.createElement` method:
 
 ```javascript
-let boldElement = React.createElement('b');
+React.createElement("h1", null, "Baked Sweet Potato");
 ```
-## Create ReactNode
 
-ReactNode is a building block for a virtual DOM and can be either:
+`React.createElement` takes in three arguments. The first is a tag name string (div, span, etc), the second is javascript object with any attributes you want the element to have, the third is contents or the children of the element, in this case the text "Baked Sweet Potato".
 
-* **ReactElement:** This is the primary type in React. It’s a light, stateless, immutable, virtual representation of a DOM element.
-* **ReactText:** This is a string or a number. It’s a virtual representation of a Text Node in the DOM.
-* **ReactFragment:** This is an array of ReactNode elements.
+Example of more element created by `React.createElement`:
+
+```
+const button = function(props) {
+  return React.createElement('button');
+};
+
+const link = function(props) {
+  return React.createElement('a',{href: 'https://facebook.com'},'Click me !');
+};
+
+const div = function(props) {
+  return React.createElement('div');
+};
+
+const divComponent = function(props) {
+  return React.createElement('div', null, 'This is div component');
+};
+
+const divComponentWithProps = function(props) {
+  return React.createElement('div', null, 
+    React.createElement('h2', 
+      {
+        style: {
+	  color: props.color
+	}
+      },
+      props.title));
+};
+
+const firstComponent = function() {
+  return React.createElement('div',
+    {
+      id: 'first-component'
+    },
+    React.createElement(divComponentWithProps,{title: 'Game', color: 'yellowgreen'}),
+    React.createElement(divComponentWithProps,{title: 'Stranger', color: 'greenyellow'}),
+    React.createElement(divComponentWithProps,{title: 'Rick', color: 'limegreen'}),
+    React.createElement(divComponentWithProps,{title: 'House', color: 'peru'})
+  );
+}
+
+const books = [
+  {id : 1, title: 'Book 1', price: 2900},
+  {id : 7, title: 'Book 9', price: '3900'},
+  {id : 99, title: 'Book 14', price: 4900},
+  {id : 101, title: 'Book 66', price: 1900},
+];
+
+// Approach 1
+const BookList = ({books}) => {
+  return(
+    React.createElement('ul',{}, 
+      books.map(({id, title, price}) => {
+        return React.createElement('li', {key: id}, `${title}, ${price}`);
+      }
+    )
+  );
+};
+
+// Approach 2
+const Book = ({id, title, price}) => {
+  return React.createElement('li', {key: id}, `${title}, ${price}`);
+}
+
+Book.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired
+};
+
+const BookList = ({books}) => {
+  return(
+    React.createElement('ul', {},
+      books.map(book => {
+        return <Book key={book.id} {...book} />
+      })
+    )
+  );
+};
+```
+
+* **`data-reactroot`:** Appear as an attribute of the root element of your React component. Prior to version 15, React IDs were added to each node that was a part of your component. This helped with rendering and keeping track of which elements needed to be updated. Now, there is only an attribute added to the root, and rendering is kept track of based on the hierarchy of elements.
+
+## ReactDOM
+
+`ReactDOM` contains the tools necessary to render React elements in the browser. ReactDOM is where we will find the render method as well as the `renderToString` and `renderToStaticMarkup` methods that are used on the server. 
 
 ```javascript
 ReactDOM.render(ReactElement, DOMElement, callback);
@@ -155,21 +246,6 @@ ReactDOM.render(
   React.createElement('h1', null, 'Hello, Worlds!'), //<-- nextElement
   // Render it to the DOM node with ID "root"
   document.getElementById('root') //<-- container
-);
-```
-
-```javascript
-ReactDOM.render(
-  React.DOM.h1(null, 'Hello World!'),
-  document.getElementById('root')
-);
-```
-
-```javascript
-// HTML argument, for and class
-ReactDOM.render(
-  React.createElement('h1', {className: 'class-1'}, 'Hello World!'),
-  document.getElementById('root')
 );
 ```
 
@@ -238,7 +314,7 @@ On JSX we have two class of variable prop and state, and we can introducing usin
 
 ### Props
 
-Props is a short for properties, Props are immutable meaning they don't change. They are passed by parent components to their children components. You used to be able to change props with setProps and replaceProps but these have been deprecated. During a component’s life cycle props should not change (consider them immutable).
+Data within a component can come from the outside. Props are immutable meaning they don't change. They are passed by parent components to their children components. You used to be able to change props with setProps and replaceProps but these have been deprecated. During a component’s life cycle props should not change (consider them immutable).
 
 * **ES6**
 
