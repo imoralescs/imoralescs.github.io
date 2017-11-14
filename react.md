@@ -301,9 +301,28 @@ ReactDOM.render(
 );
 ```
 
+**Note:**  `createClass()` is deprecated. You’ll get warnings in the console if you’re using it in your code and, when React 16 comes out, `createClass()` will be removed entirely. To still used `createClass()` without ES6, you can used **'create-react-class'** library. Example of used:
+
+```
+var createReactClass = require('create-react-class');
+var App = createReactClass({
+  render: function() {
+    return(
+      <h1>Hello Worlds!</h1>
+    )
+  }
+});
+
+const mountNode = document.getElementById('root');
+ReactDOM.render(
+  <App />,
+  mountNode
+);
+```
+
 ## Variable 
 
-On JSX we have two class of variable prop and state, and we can introducing using bracket {}.
+On JSX we have two class of variable prop and state.
 
 ### Props
 
