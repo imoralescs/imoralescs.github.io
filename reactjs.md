@@ -132,13 +132,6 @@ setInterval(() => {
 }, 1000);
 ```
 
-## Synthetic Event Handlers
-
-Whenever you call an event handler within ReactJS, they are passed an instance of SyntheticEvent instead of the native event handler. This has the same interface as the native event handler's, except it's cross-browser compatible so you can use it
-without worrying whether you need to make exceptions in your code for different browser implementations.
-
-The events are triggered in a bubbling phase. This means that the event is first captured down to the deepest target and then propagated to outer elements. You can stop propagation by calling `event.stopPropagation()` or `event.preventDefault()` where appropriate.
-
 ## ReactElement
 
 The browser DOM is made up of DOM elements. Similarly, the React DOM is made up of React elements. DOM elements and React elements may look the same, but they are actually quite different. A React element is a description of what the actual DOM element should look like. In other words, React elements are the instructions for how the browser DOM should be created.
@@ -658,6 +651,13 @@ class App extends React.Component {
 ## Events
 
 The way of handling events in React components is much similar to DOM events processing in pure Javascript. Just define a response function and let it be the event handler and listen an event. React has event system which called Synthetic Events is cross-browser wrapper.
+
+## Synthetic Event Handlers
+
+Whenever you call an event handler within ReactJS, they are passed an instance of SyntheticEvent instead of the native event handler. This has the same interface as the native event handler's, except it's cross-browser compatible so you can use it
+without worrying whether you need to make exceptions in your code for different browser implementations.
+
+The events are triggered in a bubbling phase. This means that the event is first captured down to the deepest target and then propagated to outer elements. You can stop propagation by calling `event.stopPropagation()` or `event.preventDefault()` where appropriate.
 
 ### Declaring Events, Bind Method and onClick
 
@@ -1199,12 +1199,10 @@ class App extends React.Component {
       return(
         <p key={data.id}>{data.name} : <b>{data.email}</b></p>
       );
-  });
+    });
   
-  return (
-    	<div>
-				{this.state.fetching ? data : loading}
-			</div>
+    return (
+      <div>{this.state.fetching ? data : loading}</div>
     )
   }
 }
