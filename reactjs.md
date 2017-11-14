@@ -8,6 +8,86 @@ Components are the core of React and the view to your application. They are enca
 
 React components are written in plain JavaScript, instead of template languages or the HTML directives traditionally used for web application UIs.
 
+## Javascript
+
+### Declaring Variables in ES6
+
+* **`const`:** A constant is a variable that cannot be changed.
+* **`let`:** In javascript we create code block with curly braces.
+
+```
+{
+  let a = 42;
+  {
+    let b = 24;
+    {
+    }
+  }
+  //console.log(b);
+  console.log(a);
+}
+```
+
+`if` and `for` create code block scope, not function scope. Arrow function create new scope.
+
+### Template Strings
+
+Template strings provide us with an alternative to string concatenation. They also allow us to insert variables into a string.
+
+```
+console.log(`${lastName}, ${firstName} ${middleName}`);
+```
+
+### Default Parameters
+
+Allow developers to declare default values for function arguments.
+
+```
+function logActivity(name="Shane McConkey", activity="skiing") {
+  console.log(`${name} loves ${activity}`);
+}
+
+logActivity();
+
+const defaultPerson = {
+  name: {
+    first: "Shane",
+    last: "McConkey"
+  },
+  favActivity: "skiing"
+};
+
+function log_Activity(p=defaultPerson) {
+  console.log(`${p.name.first} loves ${p.favActivity}`);
+}
+
+log_Activity();
+```
+
+### Arrow Functions
+
+With arrow functions, you can create functions without using the function keyword. You also often do not have to use the return keyword.
+
+### Transpiling ES6
+
+Not all web browsers support ES6, and even those that do don’t support everything. The only way to be sure that your ES6 code will work is to convert it to ES5 code before running it in the browser. This process is called transpiling. 
+
+### ES6 Objects and Arrays
+
+* **Destructuring Assignment:** The destructuring assignment allows you to locally scope fields within an object and to declare which values will be used.
+* **Object Literal Enhancement:** Object literal enhancement is the opposite of destructuring. It is the process of restruc turing or putting back together. With object literal enhancement, we can grab variables from the global scope and turn them into an object.
+* **Spread Operator:** Spread operator is three dots (...) that perform several different tasks. First, the spread operator allows us to combine the contents of arrays. Can also be used to get some, or the rest, of the items in the array and we can also use the spread operator to collect function arguments as an array.
+
+### Promises
+
+Promises give us a way to make sense out of asynchronous behavior.
+
+### Classes
+
+### ES6 Modules
+
+A JavaScript module is a piece of reusable code that can easily be incorporated into other JavaScript files. 
+
 ## Virtual DOM
 
 The Virtual DOM is a tree of JavaScript objects that represents the actual DOM.
