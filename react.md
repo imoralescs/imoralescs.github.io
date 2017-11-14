@@ -1,4 +1,4 @@
-# Reactjs
+# React
 
 React is a Javascript library for creating user interfaces, authored by Facebook and Instagram engineers. It’s aimed to solve the challenges involved when developing complex user interfaces with datasets that change over time.
 
