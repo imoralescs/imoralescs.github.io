@@ -267,7 +267,9 @@ The concept of components is the foundation of React.js philosophy. They allow y
 
 Way to define component:
 
-* **ES6 using class / extends**
+* **ES6 using `React.Component`**
+
+`React.Component`, an abstract class that we can use to build new React components. We can create custom components through inheritance by extending this class with ES6 syntax.
 
 ```javascript
 class HelloWorld extends React.Component {
@@ -284,7 +286,7 @@ ReactDOM.render(
 );
 ```
 
-* **ES5 using `createClass()`**
+* **ES5 using `createClass`**
 
 ```javascript
 const HelloWorld = React.createClass({
@@ -661,7 +663,7 @@ class App extends React.Component {
     return (
       <div>
         <h2>My random number is: {this.getRandomNumber()}.</h2>
-	</div>
+      </div>
     )
   }
 }
@@ -695,9 +697,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-	  <p>Count number: <span>{this.state.counter}</span></p>
-	  <button onClick={this.clickCount}>++ Count</button>
-	</div>
+        <p>Count number: <span>{this.state.counter}</span></p>
+	<button onClick={this.clickCount}>++ Count</button>
+      </div>
     )
   }
 }
