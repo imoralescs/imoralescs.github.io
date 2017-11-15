@@ -8,6 +8,10 @@ Components are the core of React and the view to your application. They are enca
 
 React components are written in plain JavaScript, instead of template languages or the HTML directives traditionally used for web application UIs.
 
+### Useful Links
+
+* **React Patterns:** http://reactpatterns.com/ 
+
 ## Javascript
 
 ### Declaring Variables in ES6
