@@ -578,8 +578,6 @@ On JSX we have two class of variable prop and state.
 
 Data within a component can come from the outside. Props are immutable meaning they don't change. They are passed by parent components to their children components. You used to be able to change props with setProps and replaceProps but these have been deprecated. During a component’s life cycle props should not change (consider them immutable).
 
-* **ES6**
-
 ```javascript
 class ClickCounterButton extends React.Component {
   render() {
@@ -614,7 +612,7 @@ ReactDOM.render(
 );
 ```
 
-* **ES5**
+* **Using ES5**
 
 ```javascript
 const ClickCounterButton = function(props) {
