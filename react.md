@@ -516,8 +516,6 @@ class HelloWorld extends React.Component {
 
 The easiest way to implement a list in React is to use array and `map()`. List are often used on webpage.
 
-* **ES6**
-
 ```javascript
 class App extends React.Component {
   constructor(props) {
@@ -545,7 +543,7 @@ class App extends React.Component {
 }
 ```
 
-* **ES5**
+* **Using ES5**
 
 ```javascript
 const App = React.createClass({
@@ -651,9 +649,9 @@ ReactDOM.render(
 
 They holds information about the component. By default component has no state. State are mutable properties of components meaning they can changes. When state change the corresponding view changes, but everything else in DOM remain intact. 
 
-State is created in the component constructor method.
+* **Define State or Setting Initial State**
 
-* **ES6**
+State is can be define in the component constructor method.
 
 ```javascript
 class App extends React.Component {
@@ -664,13 +662,21 @@ class App extends React.Component {
     
   render() {
     return (
-    	<h1>{this.state.name}</h1>
+      <h1>{this.state.name}</h1>
     )
   }
 }
 ```
 
-* **ES5**
+* **Accessing State**
+
+State object is an attribute of a component and can be accessed with a `this` reference.
+
+```
+<h1>{this.state.name}</h1>
+```
+
+* **State Using ES5**
 
 ```javascript
 const App = React.createClass({
@@ -685,9 +691,9 @@ const App = React.createClass({
 });
 ```
 
-To update state, we using this.setState method.
+* **Updating State**
 
-* **ES6**
+To update state, we using `this.setState` method.
 
 ```javascript
 class App extends React.Component {
@@ -704,15 +710,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-	  <button onClick={this.click}>Change State</button>
-    	  <h1>{this.state.name}</h1>
-	</div>
+        <button onClick={this.click}>Change State</button>
+        <h1>{this.state.name}</h1>
+      </div>
     )
   }
 }
 ```
 
-* **ES5**
+* **Updating Using ES5**
 
 ```javascript
 const App = React.createClass({
@@ -725,9 +731,9 @@ const App = React.createClass({
   render() {
     return (
       <div>
-	  <button onClick={this.click}>Change State</button>
-    	  <h1>{this.state.name}</h1>
-	</div>
+        <button onClick={this.click}>Change State</button>
+        <h1>{this.state.name}</h1>
+      </div>
     );
   }
 });
