@@ -408,6 +408,170 @@ class Content extends React.Component {
 }
 ```
 
+### Conditional Statement
+
+We have different way to implement this. First one If..Else by doing all js and assigning the JSX block to a variable.
+
+```javascript
+class HelloWorld extends React.Component {
+  render() {
+    let userMessage;
+  
+    if(this.props.loggedIn) {
+      userMessage = (
+        <span>
+          <h2>{ `Welcome back ${this.props.name}` }</h2>      
+          <p>You can visit setting to reset your password</p>
+        </span>
+      )
+    }
+    else {
+      userMessage = (
+        <h2>Hey! Sign in to see this section</h2>
+      )
+    }
+    return (
+      <div>
+        {userMessage}
+      </div>
+    )
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name : "John Newton", 
+      logged : true
+    };
+    this.changeLogging = this.changeLogging.bind(this);
+  }
+  
+  changeLogging(event) {
+    let name = this.state.name;
+    this.setState({name : name, logged : false})
+  }
+  
+  render() {
+    return (
+      <div>
+	  <HelloWorld loggedIn={this.state.logged} name={this.state.name} />
+        <button onClick={this.changeLogging}>Change Login Status To False</button>
+	</div>
+    )
+  }
+}
+```
+
+Second way is for keep the render function cleaned, separate the conditional in a different function that handler the If...Else statement.
+
+```javascript
+class HelloWorld extends React.Component {
+  renderUserMessage() {
+    if(this.props.loggedIn) {
+      return(
+        <span>
+          <h2>{ `Welcome back ${this.props.name}` }</h2>      
+          <p>You can visit setting to reset your password</p>
+        </span>
+      );
+    }
+    else {
+      return(
+        <h2>Hey! Sign in to see this section</h2>
+      );
+    }
+  }
+  
+  render() {
+    return (
+      <div>
+        {this.renderUserMessage()}
+      </div>
+    )
+  }
+}
+```
+
+Third is for smaller stuff, with the ternary operator inside the JSX block.
+
+```javascript
+class HelloWorld extends React.Component {  
+  render() {
+    return (
+      <div>
+        {
+	  this.props.loggedIn 
+	  ? 'You are logged In'
+	  : 'You are not logged In'
+	}
+      </div>
+    )
+  }
+}
+```
+
+### Output List
+
+The easiest way to implement a list in React is to use array and `map()`. List are often used on webpage.
+
+* **ES6**
+
+```javascript
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      users : [
+        {name: "John", id: 120, age: 22, gender: "male"},
+ 	  {name: "Beth", id: 443, age: 24, gender: "female"},
+ 	  {name: "Jane", id: 510, age: 19, gender: "female"}
+	]
+    }
+  }
+	
+  render() {
+    return (
+      <div>
+	  <ul>
+	    {this.state.users.map((user, index) => {
+	      return <li key={user.id}>{user.name}</li>
+	    })}
+	  </ul>
+	</div>
+    )
+  }
+}
+```
+
+* **ES5**
+
+```javascript
+const App = React.createClass({
+  getInitialState() {
+    return {
+      users : [
+        {name: "John", id: 120, age: 22, gender: "male"},
+ 	  {name: "Beth", id: 443, age: 24, gender: "female"},
+ 	  {name: "Jane", id: 510, age: 19, gender: "female"}
+	]
+    }
+  },
+  render() {
+    return (
+      <div>
+	  <ul>
+	    {this.state.users.map((user, index) => {
+	      return <li key={user.id}>{user.name}</li>
+	    })}
+	  </ul>
+      </div>
+    );
+  }
+});
+```
+
 ## Variable 
 
 On JSX we have two class of variable prop and state.
@@ -567,192 +731,6 @@ const App = React.createClass({
     );
   }
 });
-```
-
-## Conditional Statement
-
-We have different way to implement this. First one If..Else by doing all js and assigning the JSX block to a variable.
-
-```javascript
-class HelloWorld extends React.Component {
-  render() {
-    let userMessage;
-  
-    if(this.props.loggedIn) {
-      userMessage = (
-        <span>
-          <h2>{ `Welcome back ${this.props.name}` }</h2>      
-          <p>You can visit setting to reset your password</p>
-        </span>
-      )
-    }
-    else {
-      userMessage = (
-        <h2>Hey! Sign in to see this section</h2>
-      )
-    }
-    return (
-      <div>
-        {userMessage}
-      </div>
-    )
-  }
-}
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name : "John Newton", 
-      logged : true
-    };
-    this.changeLogging = this.changeLogging.bind(this);
-  }
-  
-  changeLogging(event) {
-    let name = this.state.name;
-    this.setState({name : name, logged : false})
-  }
-  
-  render() {
-    return (
-      <div>
-	  <HelloWorld loggedIn={this.state.logged} name={this.state.name} />
-        <button onClick={this.changeLogging}>Change Login Status To False</button>
-	</div>
-    )
-  }
-}
-```
-
-Second way is for keep the render function cleaned, separate the conditional in a different function that handler the If...Else statement.
-
-```javascript
-class HelloWorld extends React.Component {
-  renderUserMessage() {
-    if(this.props.loggedIn) {
-      return(
-        <span>
-          <h2>{ `Welcome back ${this.props.name}` }</h2>      
-          <p>You can visit setting to reset your password</p>
-        </span>
-      );
-    }
-    else {
-      return(
-        <h2>Hey! Sign in to see this section</h2>
-      );
-    }
-  }
-  
-  render() {
-    return (
-      <div>
-        {this.renderUserMessage()}
-      </div>
-    )
-  }
-}
-```
-
-Third is for smaller stuff, with the ternary operator inside the JSX block.
-
-```javascript
-class HelloWorld extends React.Component {  
-  render() {
-    return (
-      <div>
-        {this.props.loggedIn ? 'You are logged In' : 'You are not logged In'}
-      </div>
-    )
-  }
-}
-```
-
-## List On React
-
-### Using map function
-
-The easiest way to implement a list in React is to use array and map(). List are often used on webpage.
-
-* **ES6**
-
-```javascript
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      users : [
-        {name: "John", id: 120, age: 22, gender: "male"},
- 	  {name: "Beth", id: 443, age: 24, gender: "female"},
- 	  {name: "Jane", id: 510, age: 19, gender: "female"}
-	]
-    }
-  }
-	
-  render() {
-    return (
-      <div>
-	  <ul>
-	    {this.state.users.map((user, index) => {
-	      return <li key={user.id}>{user.name}</li>
-	    })}
-	  </ul>
-	</div>
-    )
-  }
-}
-```
-
-* **ES5**
-
-```javascript
-const App = React.createClass({
-  getInitialState() {
-    return {
-      users : [
-        {name: "John", id: 120, age: 22, gender: "male"},
- 	  {name: "Beth", id: 443, age: 24, gender: "female"},
- 	  {name: "Jane", id: 510, age: 19, gender: "female"}
-	]
-    }
-  },
-  render() {
-    return (
-      <div>
-	  <ul>
-	    {this.state.users.map((user, index) => {
-	      return <li key={user.id}>{user.name}</li>
-	    })}
-	  </ul>
-      </div>
-    );
-  }
-});
-```
-
-## Method 
-
-It possible to invoke components method from the {} interpolation.
-
-```javascript
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  getRandomNumber() {
-    return Math.random();
-  }
-  
-  render() {
-    return (
-      <div>
-        <h2>My random number is: {this.getRandomNumber()}.</h2>
-      </div>
-    )
-  }
-}
 ```
 
 ## Events
