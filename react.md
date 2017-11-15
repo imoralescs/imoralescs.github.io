@@ -1173,6 +1173,107 @@ Widget.defaultProps = {
 }
 ```
 
+## Style React Components
+
+### Inline Styles
+
+In React, inline styles are not specified as a string. Instead they are specified with an object whose key is the camelCased version of the style name, and whose value is the style’s value, usually a string.
+
+```javascript
+const styles = {
+  color: 'palevioletred',
+  backgroundColor: 'papayawhip'
+};
+
+const Button = () => <button style={styles}>Click Me!</button>
+```
+
+### Radium Library
+
+Radium is a set of tools to manage inline styles on React elements. It gives you powerful styling capabilities without CSS.
+
+```javascript
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  getStyles() {
+    return {
+      backgroundColor: "#ECD078",
+      padding: 20,
+      outline: 'none',
+      border: 'none',
+      ":hover": {
+        backgroundColor: "#D95B43",
+      },
+      ":disabled": {
+        backgroundColor: "#C02942",
+      }
+    };
+  }
+  
+  render() {
+    return (
+      <div>
+        <button key='button_1' style={this.getStyles()}>Button Enable</button>
+        <button key='button_2' style={this.getStyles()} disabled='disabled'>Button Disable</button>
+      </div>
+    )
+  }
+}
+
+const App = Radium(Button);
+
+
+const mountNode = document.getElementById('root');
+ReactDOM.render( 
+  <App />,
+  mountNode
+);
+```
+
+### CSS Modules
+
+A CSS Module is a CSS file in which all class names and animation names are scoped locally by default. 
+
+```javascript
+import styles from './DashedBox.css';
+
+const DashedBox = () => (
+  <div className={styles.container}>
+    <p className={styles.content}>Get started with CSS Modules style</p>
+  </div>
+);
+```
+
+### Styled-components
+
+Is a library for React and React Native that allows you to use component-level styles in your application that are written with a mixture of JavaScript and CSS.
+
+```javascript
+import styled from 'styled-components';
+
+const Div = styled.div`
+  margin: 40px;
+  border: 5px outset pink;
+  &:hover {
+   background-color: yellow;
+ }
+`;
+
+const Paragraph = styled.p`
+  font-size: 15px;
+  text-align: center;
+`;
+
+const OutsetBox = () => (
+  <Div>
+    <Paragraph>Get started with styled-components</Paragraph>
+  </Div>
+);
+```
+
 ## Pure Components “Stateless”
 
 React offers several different methods for creating components. React also allows us to create pure, stateless components using a normal JavaScript function. Pure or stateless component simply present the data as provided. They do not have any state, they do not use any React lifecycle methods, they no backing instance, they no reference to the component, no refs, they only define the render method and nothing more.
