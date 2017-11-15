@@ -456,9 +456,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-	  <HelloWorld loggedIn={this.state.logged} name={this.state.name} />
+        <HelloWorld loggedIn={this.state.logged} name={this.state.name} />
         <button onClick={this.changeLogging}>Change Login Status To False</button>
-	</div>
+      </div>
     )
   }
 }
@@ -741,14 +741,22 @@ const App = React.createClass({
 
 The way of handling events in React components is much similar to DOM events processing in pure Javascript. Just define a response function and let it be the event handler and listen an event. React has event system which called Synthetic Events is cross-browser wrapper.
 
-## Synthetic Event Handlers
+### Synthetic Event Handlers
 
 Whenever you call an event handler within ReactJS, they are passed an instance of SyntheticEvent instead of the native event handler. This has the same interface as the native event handler's, except it's cross-browser compatible so you can use it
 without worrying whether you need to make exceptions in your code for different browser implementations.
 
 The events are triggered in a bubbling phase. This means that the event is first captured down to the deepest target and then propagated to outer elements. You can stop propagation by calling `event.stopPropagation()` or `event.preventDefault()` where appropriate.
 
-### Declaring Events, Bind Method and onClick
+### Bind Method
+
+`bind()` is needed so that in the event-handler function, you get a reference to the instance of the class (React element). If you don’t bind, this will be null (use strict mode).
+
+### Define Events, and `onClick`
+
+For attributes that are event names, you use standard W3C DOM event names in camelCase, such as `onClick` or `onMouseOver`.
+
+* **`onClick`:**  Attribute is added to the target element in order to specify the function to be executed when that element is clicked.
 
 ```javascript
 class App extends React.Component {
@@ -779,7 +787,11 @@ ReactDOM.render(
 );
 ```
 
-* **`onClick`:**  Attribute is added to the target element in order to specify the function to be executed when that element is clicked.
+Event Method can be pass as properties to another components, similar way we pass variables.
+
+```
+<button onClick={this.clickCount}>++ Count</button>
+```
 
 ## Form
 
