@@ -142,7 +142,7 @@ We can create a React element to represent an h1 using `React.createElement` met
 React.createElement("h1", null, "Baked Sweet Potato");
 ```
 
-`React.createElement` takes in three arguments. The first is a tag name string (div, span, etc), the second is javascript object with any attributes you want the element to have, the third is contents or the children of the element, in this case the text "Baked Sweet Potato".
+`React.createElement` takes in three arguments. The first is a tag name string (div, span, etc) or a custom component class as object, the second is data in form of javascript object with any attributes you want the element to have, the third is contents or the children of the element, in this case the text "Baked Sweet Potato".
 
 Example of more element created by `React.createElement`:
 
@@ -259,17 +259,31 @@ ReactDOM.render(boldElement, mountElement);
 
 JSX is an inline markup that looks like HTML and get transformed to Javascript. A JSX expression starts with an HTML-like open tag, and ends with the corresponding closing tag. JSX tags support the XML self close syntax so you can optionally leave the closing tag off.
 
-JSX expressions evaluate to ReactElements. Think of them as shorthand for calling `React.createElement()`.
+### Creating Elements
 
-## Component-Based Architecture
+```
+ReactDOM.render( 
+  React.createElement('h1', null, 'Hello Worlds'),
+  mountNode
+);
+```
 
-The concept of components is the foundation of React.js philosophy. They allow you to reuse code and logic. They are like templates only better. 
+JSX method:
+
+```
+ReactDOM.render( 
+  <h1>Hello Worlds</h1>,
+  mountNode
+);
+```
+
+### Creating JSX Components
 
 Way to define component:
 
 * **ES6 using `React.Component`**
 
-`React.Component`, an abstract class that we can use to build new React components. We can create custom components through inheritance by extending this class with ES6 syntax.
+`React.Component`, an abstract class that we can use to build new React components. We can create custom components through inheritance by extending this class with ES6 syntax. Component class name must start with a capital letter.
 
 ```javascript
 class HelloWorld extends React.Component {
@@ -320,6 +334,78 @@ ReactDOM.render(
   <App />,
   mountNode
 );
+```
+
+### Output Variables JSX
+
+On the initial case we are using ES5 template string, for output variable.
+
+```
+class DateTimeNow extends React.Component {
+  render() {
+    let dateTimeNow = new Date().toLocaleString();
+    return React.createElement(
+      'span',
+      null,
+      `Current date and time is ${dateTimeNow}`);
+    }
+  }
+}
+```
+
+In JSX, you can use curly braces `{}` notation to output variables dynamically.
+
+```
+class DateTimeNow extends React.Component {
+  render() {
+    let dateTimeNow = new Date().toLocaleString();
+    return <span>Current date and time is { dateTimeNow }</span>
+  }
+}
+```
+
+### Properties In JSX
+
+Element properties are defined using attribute syntax. That is, you use `key1=value1 key2=value2...` notation inside of the JSX tag to define both HTML attributes and React component properties. This is similar to attribute syntax in HTML/XML.
+
+```
+class ProfileLink extends React.Component {
+  render() {
+    return( 
+      <a  href={this.props.url}
+          title={this.props.label}
+	  target='_blank'>Profile</a>
+    )
+  }
+}
+
+const mountNode = document.getElementById('root');
+ReactDOM.render( 
+  <ProfileLink url='/users/john' label='Profile for John' />,
+  mountNode
+);
+```
+
+### Creating Component Methods
+
+```
+class Content extends React.Component {
+  getUrl() {
+    return 'https://google.com';
+  }
+  
+  render() {
+    return( 
+      <div>
+        <p>Your REST API URL is: 
+	  <a href={this.getUrl()}>
+            {this.getUrl()}
+          </a>
+        </p>
+      </div>
+    );	
+  }
+}
 ```
 
 ## Variable 
