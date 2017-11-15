@@ -15,7 +15,7 @@ React components are written in plain JavaScript, instead of template languages 
 * **`const`:** A constant is a variable that cannot be changed.
 * **`let`:** In javascript we create code block with curly braces.
 
-```
+```javascript
 {
   let a = 42;
   {
@@ -34,7 +34,7 @@ React components are written in plain JavaScript, instead of template languages 
 
 Template strings provide us with an alternative to string concatenation. They also allow us to insert variables into a string.
 
-```
+```javascript
 console.log(`${lastName}, ${firstName} ${middleName}`);
 ```
 
@@ -42,7 +42,7 @@ console.log(`${lastName}, ${firstName} ${middleName}`);
 
 Allow developers to declare default values for function arguments.
 
-```
+```javascript
 function logActivity(name="Shane McConkey", activity="skiing") {
   console.log(`${name} loves ${activity}`);
 }
@@ -146,7 +146,7 @@ React.createElement("h1", null, "Baked Sweet Potato");
 
 Example of more element created by `React.createElement`:
 
-```
+```javascript
 const button = function(props) {
   return React.createElement('button');
 };
@@ -261,7 +261,7 @@ JSX is an inline markup that looks like HTML and get transformed to Javascript. 
 
 ### Creating Elements
 
-```
+```javascript
 ReactDOM.render( 
   React.createElement('h1', null, 'Hello Worlds'),
   mountNode
@@ -270,7 +270,7 @@ ReactDOM.render(
 
 JSX method:
 
-```
+```javascript
 ReactDOM.render( 
   <h1>Hello Worlds</h1>,
   mountNode
@@ -319,7 +319,7 @@ ReactDOM.render(
 
 **Note:**  `createClass()` is deprecated. You’ll get warnings in the console if you’re using it in your code and, when React 16 comes out, `createClass()` will be removed entirely. To still used `createClass()` without ES6, you can used **'create-react-class'** library. Example of used:
 
-```
+```javascript
 var createReactClass = require('create-react-class');
 var App = createReactClass({
   render: function() {
@@ -340,7 +340,7 @@ ReactDOM.render(
 
 On the initial case we are using ES5 template string, for output variable.
 
-```
+```javascript
 class DateTimeNow extends React.Component {
   render() {
     let dateTimeNow = new Date().toLocaleString();
@@ -355,7 +355,7 @@ class DateTimeNow extends React.Component {
 
 In JSX, you can use curly braces `{}` notation to output variables dynamically.
 
-```
+```javascript
 class DateTimeNow extends React.Component {
   render() {
     let dateTimeNow = new Date().toLocaleString();
@@ -368,7 +368,7 @@ class DateTimeNow extends React.Component {
 
 Element properties are defined using attribute syntax. That is, you use `key1=value1 key2=value2...` notation inside of the JSX tag to define both HTML attributes and React component properties. This is similar to attribute syntax in HTML/XML.
 
-```
+```javascript
 class ProfileLink extends React.Component {
   render() {
     return( 
@@ -388,7 +388,7 @@ ReactDOM.render(
 
 ### Creating Component Methods
 
-```
+```javascript
 class Content extends React.Component {
   getUrl() {
     return 'https://google.com';
@@ -670,7 +670,7 @@ class App extends React.Component {
 
 State object is an attribute of a component and can be accessed with a `this` reference.
 
-```
+```javascript
 <h1>{this.state.name}</h1>
 ```
 
@@ -789,7 +789,7 @@ ReactDOM.render(
 
 Event Method can be pass as properties to another components, similar way we pass variables.
 
-```
+```javascript
 <button onClick={this.clickCount}>++ Count</button>
 ```
 
@@ -818,21 +818,22 @@ class App extends React.Component {
   render() {
     return (
       <div>
-	  <h1>Sign Up Sheet</h1>
-	  <form onSubmit={this.onFormSubmit}>
-	    <input
-	      placeholder='Name'
-		ref='name'/>
-	    <input type='submit'/>
-	  </form>
-	  <div>
-	    <h3>Names</h3>
-	    <ul>
-	      {this.state.names.map((name, i) => {
-	        return <li key={i}>{name}</li>
-	      })}
-	    </ul>
-	  </div>
+        <h1>Sign Up Sheet</h1>
+	<form onSubmit={this.onFormSubmit}>
+	  <input
+	    placeholder='Name'
+	    ref='name'/>
+	  <input 
+	    type='submit'/>
+	</form>
+	<div>
+	  <h3>Names</h3>
+	  <ul>
+	    {this.state.names.map((name, i) => {
+	      return <li key={i}>{name}</li>
+	    })}
+	  </ul>
+	</div>
       </div>
     )
   }
@@ -910,12 +911,12 @@ class App extends React.Component {
   render() {  
     return (
       <div>
-	  <input 
-	    type="text" 
-	    value={this.state.value} 
-	    onChange={this.handleChange}/>  
-	  <button 
-	    onClick={this.handleSubmit}>Return Textbox Value</button>
+        <input 
+	  type="text" 
+	  value={this.state.value} 
+	  onChange={this.handleChange}/>  
+	<button 
+	  onClick={this.handleSubmit}>Return Textbox Value</button>
       </div>
     )
   }  
@@ -958,18 +959,17 @@ class App extends React.Component {
       <div>
 	  <h1>Sign Up Sheet</h1>
 	  <form onSubmit={this.onFormSubmit}>
-	    <input
-            placeholder='Name'
-		name='name'
-		value={this.state.fields.name}
-		onChange={this.onInputChange}/>
+            <input
+              placeholder='Name'
+	      name='name'
+	      value={this.state.fields.name}
+	      onChange={this.onInputChange}/>
 						
 	    <input
 	      placeholder='Email'
-		name='email'
-		value={this.state.fields.email}
-		onChange={this.onInputChange}/>
-						
+	      name='email'
+	      value={this.state.fields.email}
+	      onChange={this.onInputChange}/>
 	    <input type='submit'/>
 	  </form>
 	  <div>
@@ -1041,33 +1041,33 @@ class App extends React.Component {
   render() {
     return (
       <div>
-	  <h1>Sign Up Sheet</h1>
-	  <form onSubmit={this.onFormSubmit}>
+        <h1>Sign Up Sheet</h1>
+	<form onSubmit={this.onFormSubmit}>
 	  <input
 	    placeholder='Name'
 	    name='name'
 	    value={this.state.fields.name}
 	    onChange={this.onInputChange}/>
 	  <span style={{ color: 'red' }}>{ this.state.fieldErrors.name }</span>
-        <br/>
-        <input
+          <br/>
+          <input
 	    placeholder='Email'
 	    name='email'
-          value={this.state.fields.email}
+	    value={this.state.fields.email}
 	    onChange={this.onInputChange}/>
 	  <span style={{ color: 'red' }}>{ this.state.fieldErrors.email }</span>
 	  <br/>
 	  <input type='submit'/>
-	  </form>
-	  <div>
+        </form>
+        <div>
           <h3>Names</h3>
-            <ul>
-		  {this.state.people.map(({name, email}, i) => {
-		    return <li key={i}>{name}({email})</li>
-		  })}
-		</ul>
-	  </div>
-	</div>
+          <ul>
+	    {this.state.people.map(({name, email}, i) => {
+	      return <li key={i}>{name}({email})</li>
+	    })}
+	  </ul>
+        </div>
+      </div>
     )
   }
 }
