@@ -106,3 +106,17 @@ yarn flow
 ```
 
 If everything is good you will see 'No errors!' message.
+
+## Start Haskell
+
+### Install Linux Ubuntu
+
+```
+sudo apt-get install haskell-platform
+```
+
+### Start using Haskell on prompt
+
+```
+$ ghci
+```
