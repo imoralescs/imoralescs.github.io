@@ -72,29 +72,28 @@ hello name = "Hello, " ++ name
 
 Noted difference whay to used symbol for concatenation. On Javascript is `+` and on Haskell `++`.
 
-## Type
+### Function Types
 
 C has types, for example:
 
 ```
 int add (int x, int y) {
-    return x + y;
+  return x + y;
 }
 ```
 
-Haskell has much more powerful types than C, example:
+Haskell has much more powerful types than C, Type signature example:
 
 ```
+-- Type signature: That tells, what is the type of a variable we can used on the function and what kind of vules we return.
+add :: Int -> Int -> Int
+
 add x y = x + y
 ```
 
-If we verify our function type:
+* `::` - double quote is a type declaration.
+* `Int ->` - first argument is a Number.
+* `Int ->` - second argument is a Number.
+* `Int` - return value is a Number.
 
-```
-add :: Num a => a -> a -> a
-```
-
-`::` - double quote is a type declaration.
-`a ->` - first argument is a Number.
-`a ->` - second argument is a Number.
-`a` - return value is a Number.
+If you try to apply other kind of difference type on this function, like example a float type `2.3` you will receive a error.
