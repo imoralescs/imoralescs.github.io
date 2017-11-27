@@ -149,3 +149,13 @@ repeatString word n =
     then ""
     else word ++ (repeatString word (n -1))
 ```
+
+## Built-in Data Structures
+
+### List
+
+The most important datatype in any functional programming language is the list. A list is a linearly ordered collection of elements. All the elements of a list must be of the same type. The easiest way in which to specify a list is by enumeration: you simply write the elements of the list between square brackets and separate them with commas. 
+
+```
+let numbers = [1, 2, 3, 4, 5]
+```
