@@ -69,3 +69,32 @@ First, they start with the name of the function, following by the formal paramet
 ```
 hello name = "Hello, " ++ name
 ```
+
+Noted difference whay to used symbol for concatenation. On Javascript is `+` and on Haskell `++`.
+
+## Type
+
+C has types, for example:
+
+```
+int add (int x, int y) {
+    return x + y;
+}
+```
+
+Haskell has much more powerful types than C, example:
+
+```
+add x y = x + y
+```
+
+If we verify our function type:
+
+```
+add :: Num a => a -> a -> a
+```
+
+`::` - double quote is a type declaration.
+`a ->` - first argument is a Number.
+`a ->` - second argument is a Number.
+`a` - return value is a Number.
