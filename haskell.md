@@ -54,6 +54,26 @@ In Haskell, expressions are really all there is, there are no statements.
 
 ## Functions
 
+### Calling a function
+
+```
+sqrt 2
+```
+
+### Using two arguments
+
+```
+max 5 7
+```
+
+### When to use parentheses
+
+We using parentheses for grouping expression.
+
+```
+max (5 + 2) (sqrt 17)
+```
+
 ### Define Functions
 
 Function definitios share a few thing of Javascript.
@@ -72,7 +92,9 @@ hello name = "Hello, " ++ name
 
 Noted difference whay to used symbol for concatenation. On Javascript is `+` and on Haskell `++`.
 
-### Function Types
+When to used parentesis
+
+### Type signature part of define function
 
 C has types, for example:
 
@@ -97,3 +119,13 @@ add x y = x + y
 * `Int` - return value is a Number.
 
 If you try to apply other kind of difference type on this function, like example a float type `2.3` you will receive a error.
+
+### Simple conditional
+
+```
+overOrminus :: Int -> String
+overOrminus x =
+  if x >= 5
+    then "Over of 5"
+    else "Minus of 5"
+```
