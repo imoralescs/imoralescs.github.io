@@ -129,3 +129,23 @@ overOrminus x =
     then "Over of 5"
     else "Minus of 5"
 ```
+
+### Recursion
+
+Repetition or iteration is obtained by using recursion. On Haskell we dont have loops, that why we using recursion all the time.
+
+```
+power2 :: Int -> Int
+power2 n =
+  if n == 0
+    then 1
+    else 2 * (power2 (n-1))
+```
+
+```
+repeatString :: String -> Int -> String
+repeatString word n =
+  if n == 0
+    then ""
+    else word ++ (repeatString word (n -1))
+```
