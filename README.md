@@ -109,10 +109,27 @@ If everything is good you will see 'No errors!' message.
 
 ## Start Haskell
 
+### Install Windows
+
+* Navigate to `https://docs.haskellstack.org/en/stable/install_and_upgrade/#windows`
+* Install Windows XX-bit Installer
+* On command prompt:
+
+```
+> stack setup
+```
+
+* Restart shell command prompt, to run Prelude type:
+
+```
+> stack ghci
+```
+
+
 ### Install Linux Ubuntu
 
 ```
-sudo apt-get install haskell-platform
+$ sudo apt-get install haskell-platform
 ```
 
 ### Start using Haskell on prompt
