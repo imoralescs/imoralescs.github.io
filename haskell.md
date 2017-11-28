@@ -246,7 +246,26 @@ doubleNumber nums =
   if null nums
   	then []
   	else (2 * (head nums)) : (doubleNumber (tail nums))
+
+doubleNumber [2, 4, 6, 8]
+-- result: [4, 8, 12, 16]
 ```
 
 * `Integral a => [a] -> [a]` - Left part of the arrow, I think is defining the type of the `a` on this cases and the right is the actual type signature.
 * Note we are using recursion to loop throug array.
+
+Another function with list:
+
+```
+removeOddNumber :: Integral a => [a] -> [a]
+removeOddNumber nums = 
+  if null nums
+  	then []
+  	else
+      if (mod (head nums) 2) == 0 -- even?
+        then (head nums) : (removeOddNumber (tail nums))
+        else removeOddNumber (tail nums)
+        
+removeOddNumber [1, 2, 3, 4, 5, 6, 7, 8, 9]
+-- result: [2, 4, 6, 8]
+```
