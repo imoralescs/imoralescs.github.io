@@ -218,6 +218,8 @@ length [4, 3, 5, 8, 1]
 -- result: 5
 ```
 
+* **!! (binary infix)** - which extracts an element of a list.
+
 **Testing Null**
 
 ```
