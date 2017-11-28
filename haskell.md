@@ -218,7 +218,15 @@ length [4, 3, 5, 8, 1]
 -- result: 5
 ```
 
-* **!! (binary infix)** - which extracts an element of a list.
+* **!! (binary infix)** - which extracts an element of a list.  Note that this list indexing operator treats the first element of a list as occupying position 0.
+
+```
+"time" !! 2
+-- result: 'm'
+-- number after !! is the value position to extract.
+[1, 2, 3, 4] !! 0
+-- result: 1
+```
 
 **Testing Null**
 
