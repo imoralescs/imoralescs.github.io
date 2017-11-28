@@ -159,3 +159,70 @@ The most important datatype in any functional programming language is the list. 
 ```
 let numbers = [1, 2, 3, 4, 5]
 ```
+
+List on Haskell must be homogeneous(of the same kind), means all element inside must be the same type. This next example is not a valid list.
+
+```
+error = [1, "hello", 2]
+```
+
+On Haskell there are not such thing like untype list or a list of object.
+
+**Prepend Element to the list**
+
+Colon `:` is using for prepend element at the front of a list. Using colon to prepend element to array, always return a new list.
+
+```
+x = [1, 2, 3]
+y = 0 : x
+head y
+-- Result: 0
+tail y
+-- Result: [1, 2, 3]
+```
+
+**Concatenating List**
+
+Thank that Haskell list are hemogeneous, we can concatenate list from the same type.
+
+```
+[1,2,3] ++ [4,5]
+"hello" ++ "world"
+```
+
+**Accessing Lists**
+
+* **head (unary prefix)** - which extracts the first element of a non-empty list.
+
+```
+head [1, 2, 3, 4]
+-- Result: 1
+```
+
+* **tail (unary prefix)** - which returns the tail of a non-empty list, that is to say, the list of all the elements except the first.
+
+```
+tail [1, 2, 3, 4]
+-- Result: [2, 3, 4]
+```
+
+```
+head (tail [1, 2, 3, 4])
+-- result: 2
+```
+
+* **length (unary prefix)** - which returns the length of a list.
+
+```
+length [4, 3, 5, 8, 1]
+-- result: 5
+```
+
+**Testing Null**
+
+```
+null []
+-- result: True
+null [1, 2, 3]
+-- result: False
+```
