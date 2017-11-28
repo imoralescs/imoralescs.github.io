@@ -236,3 +236,17 @@ null []
 null [1, 2, 3]
 -- result: False
 ```
+
+**Defining functions that operate on lists**
+
+```
+-- doable each number on list
+doubleNumber :: Integral a => [a] -> [a]
+doubleNumber nums =
+  if null nums
+  	then []
+  	else (2 * (head nums)) : (doubleNumber (tail nums))
+```
+
+* `Integral a => [a] -> [a]` - Left part of the arrow, I think is defining the type of the `a` on this cases and the right is the actual type signature.
+* Note we are using recursion to loop throug array.
