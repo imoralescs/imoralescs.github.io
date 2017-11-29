@@ -269,3 +269,61 @@ removeOddNumber nums =
 removeOddNumber [1, 2, 3, 4, 5, 6, 7, 8, 9]
 -- result: [2, 4, 6, 8]
 ```
+
+### Tuple
+
+The list is the main datatype used in a functional programming language, but, in Haskell, all the elements of a list have to be of the same type. Sometimes you need to make use of structured objects that contain components belonging to different types. 
+
+Tuples fit the bill in Haskell. They can have two or more members and are written using parentheses. Here are some examples with their types:
+
+```
+-- (Int, [Char])
+x = (1, "hello")
+
+-- (Int, Int, [Char])
+(10, 30, "time")
+
+-- (Bool, [Char], Int)
+(True, "eat", 8)
+```
+
+**Return Tuples from List**
+
+```
+headAndLength list = (head list, length list)
+
+headAndLength [3, 4, 1, 9]
+-- result: (3,4)
+```
+
+**Accessing Tuple Elements**
+
+Haskell have two useful built-in functions defined on tuples of length, this two are `fst` and `snd` which extract the first and second components, respectively. We can replicated this two function too.
+
+```
+fst (1, "hello")
+-- result: 1
+
+:type fst
+-- result: fst :: (a, b) -> a
+
+snd (1, "hello")
+-- result: "hello"
+
+:type snd
+-- result: snd :: (a, b) -> b
+
+-- Replicate fst & snd:
+
+firstElementTuple :: (a, b) -> a
+firstElementTuple (a, b) = a
+
+firstElementTuple (1, "hello")
+-- result: 1
+
+secondElementTuple :: (a, b) -> b
+secondElementTuple (a, b) = b
+
+secondElementTuple (1, "hello")
+-- result: "hello"
+```
