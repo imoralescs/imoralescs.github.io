@@ -327,3 +327,52 @@ secondElementTuple (a, b) = b
 secondElementTuple (1, "hello")
 -- result: "hello"
 ```
+
+## Type & Type Class
+
+The type of every expression is known at compile time, which leads to safer code. If you write a program where you try to divide a boolean type with some number, it won't even compile. That's good because it's better to catch such errors at compile time instead of having your program crash. Everything in Haskell has a type, so the compiler can reason quite a lot about your program before compiling it.
+
+A type is a kind of label that every expression has. It tells us in which category of things that expression fits.
+
+### Build-in Types
+
+Now we'll use **stack ghci** to examine the types of some expressions. We'll do that by using the `:type` command which, followed by any valid expression, tells us its type.
+
+```
+:type 'a'
+-- result: 'a' :: Char
+
+:type True
+-- result: True :: Bool
+
+:type "HELLO"
+-- result: "HELLO" :: [Char]
+
+:type 4 == 5
+-- result: 4 == 5 :: Bool
+```
+
+Functions also have types. When writing our own functions, we can choose to give them an explicit type declaration. We call this **Type signature**, this is generally considered to be good practice except when writing very short functions.
+
+```
+power2 :: Int -> Int
+power2 n =
+  if n == 0
+    then 1
+    else 2 * (power2 (n-1))
+```
+
+**Common Type**
+
+* `Int` stands for integer. It's used for whole numbers. 7 can be an Int but 7.2 cannot. Int is bounded, which means that it has a minimum and a maximum value. Usually on 32-bit machines the maximum possible Int is 2147483647 and the minimum is -2147483648.
+* `Integer` stands for, er … also integer. The main difference is that it's not bounded so it can be used to represent really really big numbers. I mean like really big. Int, however, is more efficient.
+* `Float` is a real floating point with single precision.
+* `Double` is a real floating point with double the precision!
+* `Bool` is a boolean type. It can have only two values: True and False.
+* `Char` represents a character. It's denoted by single quotes. A list of characters is a string.
+
+**Type Variable**
+
+What do you think is the type of the `head` function? Because `head` takes a list of any type and returns the first element, because it's not in capital case it's actually a type variable. That means that a can be of any type.
+
+### Type Classes
