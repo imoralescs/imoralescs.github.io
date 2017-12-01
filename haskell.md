@@ -376,3 +376,17 @@ power2 n =
 What do you think is the type of the `head` function? Because `head` takes a list of any type and returns the first element, because it's not in capital case it's actually a type variable. That means that a can be of any type.
 
 ### Type Classes
+
+They allow you to define generic interfaces that provide a common feature set over a wide variety of types. Typeclasses are at the heart of some basic language features such as equality testing and numeric operators. 
+
+Typeclasses define a set of functions that can have different implementations depending on the type of data they are given.
+
+Let try this example to understand better, te see the type signatue of the `==` function:
+
+```
+:type (==)
+-- result: (==) :: (Eq a) => a -> a -> Bool
+```
+
+* `=>` symbol is called a class constraint, we can read the as "the quality function takes any two values that are of the same type and return a `Bool`, the type of those two value must be a member of the `Eq` class (this was the class constraint)".
+* `Eq` 
