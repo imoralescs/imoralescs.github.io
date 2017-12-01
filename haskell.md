@@ -389,4 +389,11 @@ Let try this example to understand better, te see the type signatue of the `==` 
 ```
 
 * `=>` symbol is called a class constraint, we can read the as "the quality function takes any two values that are of the same type and return a `Bool`, the type of those two value must be a member of the `Eq` class (this was the class constraint)".
-* `Eq` 
+* `Eq` typeclass provides an interface for testing fo equality. Any type where it makes sense to test for equality between two values of that type should be a member of the Eq class. All standard Haskell types except for IO (the type for dealing with input and output) and functions are a part of the Eq typeclass.
+
+**Basic Typeclasses**
+
+* `Eq` is used for types that support equality testing. The functions its members implement are == and /=. So if there's an Eq class constraint for a type variable in a function, it uses == or /= somewhere inside its definition. All the types we mentioned previously except for functions are part of Eq, so they can be tested for equality.
+* `Ord` is for types that have an ordering. Ord covers all the standard comparing functions such as >, <, >= and <=. The compare function takes two Ord members of the same type and returns an ordering. Ordering is a type that can be GT, LT or EQ, meaning greater than, lesser than and equal, respectively.
+* 
+
