@@ -332,7 +332,13 @@ secondElementTuple (1, "hello")
 
 The type of every expression is known at compile time, which leads to safer code. If you write a program where you try to divide a boolean type with some number, it won't even compile. That's good because it's better to catch such errors at compile time instead of having your program crash. Everything in Haskell has a type, so the compiler can reason quite a lot about your program before compiling it.
 
-A type is a kind of label that every expression has. It tells us in which category of things that expression fits.
+A type is a kind of label that every expression has. It tells us in which category of things that expression fits. A standard notation, both in type theory and in Haskell, is:
+
+```
+exp :: typ
+```
+
+This means that expression `exp` can be given the type `typ`, and that if the resulting expression is evaluated (with each of its atoms given the corresponding type), then the resulting value will have type `typ`.
 
 ### Build-in Types
 
