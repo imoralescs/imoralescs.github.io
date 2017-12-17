@@ -137,3 +137,35 @@ $ sudo apt-get install haskell-platform
 ```
 $ ghci
 ```
+
+## Access Docker Postgrel
+
+```
+$ docker exec -it container-id /bin/bash
+```
+
+### access tonight data
+
+```
+$ ps flax
+
+$ psql gotonight
+```
+
+try example of postgrel
+
+```
+select email from members
+```
+
+see all table
+
+```
+\dt
+```
+
+other
+
+```
+select id, email from members;
+```
