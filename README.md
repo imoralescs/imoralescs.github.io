@@ -169,3 +169,34 @@ other
 ```
 select id, email from members;
 ```
+
+Quit from terminal postgrel
+
+```
+\q
+```
+
+
+## Postgrel
+
+
+* Create Table
+
+```
+CREATE TABLE directors (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(200)
+);
+
+SELECT * FROM directors;
+
+CREATE TABLE movies (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  release_date DATE,
+  count_stars INTEGER,
+  director_id INTEGER
+);
+
+SELECT * FROM movies;
+```
