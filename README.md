@@ -155,7 +155,7 @@ $ psql gotonight
 try example of postgrel
 
 ```
-select email from members
+SELECT email FROM members
 ```
 
 see all table
@@ -167,7 +167,7 @@ see all table
 other
 
 ```
-select id, email from members;
+SELECT id, email FROM members;
 ```
 
 Quit from terminal postgrel
