@@ -200,3 +200,20 @@ CREATE TABLE movies (
 
 SELECT * FROM movies;
 ```
+
+* Insert to Table
+
+```
+INSERT INTO directors (name) VALUES ('Quentin Tarantino');
+
+SELECT * FROM directors;
+
+INSERT INTO directors (name) VALUES ('Judd Apatow'), ('Mel Brooks');
+
+SELECT * FROM directors;
+
+INSERT INTO movies (title, release_date, count_stars, director_id)
+VALUES ('Kill Bill', '10-10-2003', 3, 1);
+
+SELECT * FROM movies;
+```
