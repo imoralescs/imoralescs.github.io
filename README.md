@@ -217,3 +217,31 @@ VALUES ('Kill Bill', '10-10-2003', 3, 1);
 
 SELECT * FROM movies;
 ```
+
+## Setup PC HG Mercurial SSH with Bitbucket
+
+* Generate SSH Key on your pc
+
+```
+$ ssh-keygen
+```
+
+* Add passphrase
+* Save on default directory
+* Verify key on directory
+
+```
+$ ls ~/.ssh
+```
+
+* Add your key on bitbucket, go to bitbucket account -> ssh key, and add you key.
+
+```
+$ cat ~/.ssh/id_rsa.pub
+```
+
+* Test you connection with you passphrase
+
+```
+$ ssh -T hg@bitbucket.org
+```
