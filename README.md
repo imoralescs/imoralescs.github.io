@@ -256,3 +256,24 @@ After create you machine, log in and install:
  sudo apt-get install virtualbox-guest-dkms
  ```
 
+## Bug Dropbox
+```
+
+17
+down vote
+accepted
+Lubuntu 14.04 ....I have a few machines, all the same OS. One by one Dropbox icon dissappeared.
+
+I have struggled for months. Couldn't recover icon. Got it now!
+
+In terminal type ... dropbox stop && dbus-launch dropbox start
+Follow the prompts, if any. Two of my machines responded "Dropbox not installed".
+sudo apt-get install dropbox
+Repeat line 1. Icon appeared. Didn't stay after re-boot.
+Repeat line 1, to get icon.
+Go to Preferences ...General, (Dropbox icon) and un-tick 'Start Dropbox on system startup'.
+Now to 'Default applications for LXSession' (menu ...Preferences)
+Under Autostart, un-tick any previous Dropbox attempts (these can be deleted later).
+Add dbus-launch dropbox start
+Re-boot.
+```
