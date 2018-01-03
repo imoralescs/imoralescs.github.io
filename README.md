@@ -245,3 +245,14 @@ $ cat ~/.ssh/id_rsa.pub
 ```
 $ ssh -T hg@bitbucket.org
 ```
+
+## Create my Dev Env
+
+### Screen Resolution Problem resize
+
+After create you machine, log in and install:
+
+ ```
+ sudo apt-get install virtualbox-guest-dkms
+ ```
+
