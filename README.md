@@ -277,3 +277,25 @@ Under Autostart, un-tick any previous Dropbox attempts (these can be deleted lat
 Add dbus-launch dropbox start
 Re-boot.
 ```
+
+## Mercurial
+
+### Problem on checkout branch with dashes on name.
+
+Used tag branch.
+
+```
+hg branches
+```
+
+this produce a list of branches with id tag.
+
+```
+hg update TAG
+```
+
+verify branch
+
+```
+hg branch
+```
