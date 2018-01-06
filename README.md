@@ -299,3 +299,19 @@ verify branch
 ```
 hg branch
 ```
+
+## G
+
+```
+
+after install dependecy on the same dir change to root used
+```
+```
+sudo mkdir Dropbox
+ls
+> Dropbox
+sudo mount -t vboxsf dir dir
+cd dir
+ls
+sudo usermod -aG vboxsf username
+```
