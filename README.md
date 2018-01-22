@@ -315,3 +315,8 @@ cd dir
 ls
 sudo usermod -aG vboxsf username
 ```
+
+
+```
+sudo chmod -R 777  client
+```
