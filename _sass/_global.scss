@@ -1,0 +1,31 @@
+// media query breakpoints
+$tablet: 1080px;
+$desktop: $tablet + 1;
+$phone: 700px;
+
+@mixin desktop {
+	@media (min-width: $desktop) {
+		@content
+	}
+}
+
+@mixin tablet {
+	@media (min-width: $tablet) {
+		@content
+	}
+}
+
+@mixin phone {
+	@media (max-width: $phone) {
+		@content
+	}
+}
+
+// ------------------------------------------------------------
+// MAIN SCSS
+// ------------------------------------------------------------
+// Fixes input elements to have border-box great for percentages
+* , *:before , *:after {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	box-sizing: border-box;
+}
