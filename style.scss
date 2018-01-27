@@ -314,4 +314,4 @@ p {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "svg-icons";
-@include grid(main, overlay);
+@include grid(container, overlay);
