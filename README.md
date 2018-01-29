@@ -346,3 +346,18 @@ Permission denied when running .sh scripts
 ```
 chmod +x the_file_name
 ```
+
+* Creating a Super User to Use the Admin
+
+SSH to container:
+```
+$ docker exec -it container-id /bin/bash
+```
+
+Then navigate to app directory and run the following command:
+
+```
+python manage.py createsuperuser
+```
+
+then follow the step, after create the super user, navigate throug browser to app url /admin
