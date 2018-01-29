@@ -320,3 +320,23 @@ sudo usermod -aG vboxsf username
 ```
 sudo chmod -R 777  client
 ```
+
+## Django
+
+Access to postgrel database
+
+```
+$ docker exec -it container-id /bin/bash
+```
+
+them
+
+```
+psql -U postgres
+```
+
+check
+
+```
+\dt
+```
