@@ -340,3 +340,9 @@ check
 ```
 \dt
 ```
+
+Permission denied when running .sh scripts
+
+```
+chmod +x the_file_name
+```
