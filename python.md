@@ -47,3 +47,7 @@ django-admin startproject myproject
     +-urls.py
     +-wsgi.py
 ```
+
+## Set up a Database for Django Project
+
+Django configuration to connect to a databases is done inside `setting.py` 
