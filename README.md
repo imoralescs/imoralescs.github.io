@@ -248,6 +248,12 @@ $ ssh -T hg@bitbucket.org
 
 ## Create my Dev Env
 
+## How to Stop PostgreSQL service 
+
+```
+sudo /etc/init.d/postgresql stop
+```
+
 ### Screen Resolution Problem resize
 
 After create you machine, log in and install:
