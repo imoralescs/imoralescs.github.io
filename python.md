@@ -64,3 +64,13 @@ DATABASES = {
     }
 }
 ```
+
+## Test Django Bata Table
+
+Django database migration process ensure all Django project logic associated with the database is reflected in the database itself.
+
+1- `ssh` to you server and on myproject directory and run the follower command:
+
+```
+$ python manage.py migrate
+```
