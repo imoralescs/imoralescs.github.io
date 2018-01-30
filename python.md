@@ -51,3 +51,16 @@ django-admin startproject myproject
 ## Set up a Database for Django Project
 
 Django configuration to connect to a databases is done inside `setting.py` 
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': '',
+    }
+}
+```
