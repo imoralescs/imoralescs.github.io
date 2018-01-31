@@ -23,3 +23,28 @@ to run on cmd
 ```
 go run main.go
 ```
+
+## Create a simple static web server
+
+```
+// main.go
+package main
+
+import (
+	"net/http"
+	"os"
+)
+
+func main() {	
+	dir, _ := os.Getwd()
+	http.ListenAndServe(":3000", http.FileServer(http.Dir(dir)))
+}
+```
+
+to run on cmd
+
+```
+go run main.go
+```
+
+check on localhost:3000
