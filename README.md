@@ -367,3 +367,14 @@ python manage.py createsuperuser
 ```
 
 then follow the step, after create the super user, navigate throug browser to app url /admin
+
+
+# Composer
+
+## Managing PHP Dependencies
+`composer.json` - This file list the dependencies of your project and usually contains other metadata.
+`composer.lock` - This file is created/update after installing/updating your project dependecies with the list of the installed packages and versions.
+`vendor/` - The default directory where the dependecy packages will be stored
+
+`vendor/` should be add to `.gitignore`
+
