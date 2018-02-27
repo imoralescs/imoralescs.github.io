@@ -371,10 +371,35 @@ then follow the step, after create the super user, navigate throug browser to ap
 
 # Composer
 
+Is a tool for dependecy management in PHP, allow you to declare the libraries your project depends on and it will manage (install/update) them for you.
+
+## Getting started with composer
+
+Some fo composer more useful command:
+
+- composer help <command> : will show the help page for a giveb command
+- composer self update : update composer to latest available version
+- composer search : search package
+- composer status : show a list of dependencies that have been modified locally
+
 ## Managing PHP Dependencies
-`composer.json` - This file list the dependencies of your project and usually contains other metadata.
+
+`composer.json` - This file list the dependencies of your project and usually contains other metadata.  This file describes all the dependencies, and holds some metadata as well. composer init will launch the wizard. The wizard will guide us through the generation of our composer.json file.
 `composer.lock` - This file is created/update after installing/updating your project dependecies with the list of the installed packages and versions.
 `vendor/` - The default directory where the dependecy packages will be stored
 
 `vendor/` should be add to `.gitignore`
 
+## Autoloading
+
+The autoloading provided by Composer to access the project’s dependencies is very useful, and can also be used to access our own application’s code. To do this, we need to register our code in the composer.json file using the autoload key.
+
+```
+{
+    "autoload": {
+        "psub-4": {"Foo\\": "src/"}
+    }
+}
+```
+
+First, Composer will register a PSUB-4 autoloader for the Foo namespace.
