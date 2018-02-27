@@ -373,6 +373,44 @@ then follow the step, after create the super user, navigate throug browser to ap
 
 Is a tool for dependecy management in PHP, allow you to declare the libraries your project depends on and it will manage (install/update) them for you.
 
+## What about a dependecy manager
+
+Is a type of application where you have a focus on getting features that can add to your project, for example a library to create PDF files an MVC framework and so on. A dependency manager has the ability to from a specification of which library or framework you will use and which version will be used, it will automate this download process and you will only need to make a "require" or "include" request for that new dependency on your project.
+
+## What is the need to use a dependency manager?
+
+The need to use a dependency manager, in addition to automating the process to get a new dependency, also helps improve the development in a project that is being developed together, since you will not always need to specify for a new team member which dependency and the version you are using, the vast majority of dependency managers have a certain type of file where you specify which dependency and the version being used in the project. For example, Composer has a file named composer.json where everything is fairly clearly specified.
+
+Another important factor is when we need dependencies that need to be configured prior to their use. When we download and configure this type of dependency manually when sharing this project, it will be very possible to occur certain errors in other machines, because each machine has a specific configuration, even if the operating system is the same and in the end you will have to manually make all the machines that use your project a certain type of configuration.
+
+And one of the great advantages of using a dependency manager is when your project needs a specific version of a particular dependency.
+
+## Composer for Beginners - Installation
+
+Installing Composer on Linux or Mac
+
+To install it in Linux or Mac has no secret, just enter the following commands in the terminal:
+
+Entering the command below "curl" will download the latest version of the composer source (composer.phar) to the directory where the terminal is pointed to.
+
+```
+curl -s https://getcomposer.org/installer | php
+```
+
+Now we need to add composer.phar to the "/ usr / local / bin" directory, so we can type the composer command globally in our operating system. And to facilitate the access to the command and typing to composer composer in the terminal and he answers us, we go beyond to move it, let's rename it:
+
+```
+sudo mv composer.phar / usr / local / bin / composer
+```
+
+Finishing
+
+Ready! The composer is definitely installed on your machine, if you want to do a test to make sure the installation was successful, open the command prompt or terminal and type:
+
+```
+composer -v
+```
+
 ## Getting started with composer
 
 Some fo composer more useful command:
