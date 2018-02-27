@@ -428,6 +428,21 @@ Some fo composer more useful command:
 
 `vendor/` should be add to `.gitignore`
 
+## Package Installation using Composer
+
+Package installation using composer is really easy. You need to write just one line command and it will install the package. Suppose, you need to install monolog logger for your symfony project. Then, you need to write
+
+```
+$ sudo composer require monolog/monolog
+```
+
+## Packagist
+
+Packagist is main repository of composer packages. Means when we are searching or installing any package or library in our project basically we are hitting Packagist.
+
+Packagist also encourages developers to submit their packages to strengthen the community.
+
+
 ## Autoloading
 
 The autoloading provided by Composer to access the project’s dependencies is very useful, and can also be used to access our own application’s code. To do this, we need to register our code in the composer.json file using the autoload key.
