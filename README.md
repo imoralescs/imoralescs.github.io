@@ -441,3 +441,30 @@ The autoloading provided by Composer to access the project’s dependencies is v
 ```
 
 First, Composer will register a PSUB-4 autoloader for the Foo namespace.
+
+## What is autoloading
+
+Supposing that you are developing an application and you have a long list of libraries that needed to be loaded. We can load all of classes at the beginning of your script and you will be able to use any one of these classes anywhere in your application. Better solution is Whenever I use a class, I go and load it, so my application doesn’t have to load all classes each request, this is called “Autoloading”.
+
+How Composer Does Autoloading
+Along with your script index.php add your composer.json:
+
+```
+{
+  "autoload": {
+    "classmap": [
+      "Classes/"
+    ]
+  }
+}
+```
+
+And update your index.php file to:
+
+```
+require __DIR__ . '/vendor/autoload.php';
+
+$a = new A();
+```
+
+Using `classmap`, we are telling composer that this is the way to do mapping, and it is a very basic way to map namespaces to paths and if you want more details, just check `vendor/composer/autoload_classmap.php` after you run the composer install:
