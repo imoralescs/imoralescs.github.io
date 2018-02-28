@@ -387,28 +387,37 @@ And one of the great advantages of using a dependency manager is when your proje
 
 ## Composer for Beginners - Installation
 
-Installing Composer on Linux or Mac
+Installing Composer on Linux
 
-To install it in Linux or Mac has no secret, just enter the following commands in the terminal:
-
-Entering the command below "curl" will download the latest version of the composer source (composer.phar) to the directory where the terminal is pointed to.
+To install it in Linux, just enter the following commands in the terminal:
 
 ```
-curl -s https://getcomposer.org/installer | php
+sudo apt-get update
 ```
 
-Now we need to add composer.phar to the "/ usr / local / bin" directory, so we can type the composer command globally in our operating system. And to facilitate the access to the command and typing to composer composer in the terminal and he answers us, we go beyond to move it, let's rename it:
+Now, let's install the dependencies. We'll need `curl` in order to download Composer and `php-cli` for installing and running it. The `php-mbstring` package is necessary to provide functions for a library we'll be using. `git` is used by Composer for downloading project dependencies, and `unzip` for extracting zipped packages. Everything can be installed with the following command:
 
 ```
-sudo mv composer.phar / usr / local / bin / composer
+sudo apt-get install curl php-cli php-mbstring git unzip
 ```
 
-Finishing
+Entering the command below `curl` will download the latest version.
+
+```
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+```
+
+To install composer globally, use the following:
+
+```
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+```
 
 Ready! The composer is definitely installed on your machine, if you want to do a test to make sure the installation was successful, open the command prompt or terminal and type:
 
 ```
-composer -v
+composer
 ```
 
 ## Getting started with composer
