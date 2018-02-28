@@ -371,7 +371,7 @@ then follow the step, after create the super user, navigate throug browser to ap
 
 # Composer
 
-Is a tool for dependecy management in PHP, allow you to declare the libraries your project depends on and it will manage (install/update) them for you.
+When you createing an application in PHP, you dont want to write all of it yoursealf.  doest make sense to re-invent the wheel. Composer is a tool for dependecy management in PHP, allow you to declare the libraries your project depends on and it will manage (install/update) them for you.
 
 ## What about a dependecy manager
 
@@ -492,3 +492,30 @@ $a = new A();
 ```
 
 Using `classmap`, we are telling composer that this is the way to do mapping, and it is a very basic way to map namespaces to paths and if you want more details, just check `vendor/composer/autoload_classmap.php` after you run the composer install:
+
+## Inclusion
+
+- Initialization
+
+1- Initialize composer, on project root directory type:
+
+```
+composer init
+```
+Them follow the following step.
+
+2- Set package name
+3- Set description
+4- Set the package author
+5- Set the package stability
+6- Set the package type
+7- Set the package license
+8- Define package dependecies
+
+List any dependecies that we know of to used.
+
+9- Define development dependencies
+
+Allow us to specify our development dependecies
+
+10- Confirm composer.json generation
