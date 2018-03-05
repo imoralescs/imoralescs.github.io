@@ -519,3 +519,21 @@ List any dependecies that we know of to used.
 Allow us to specify our development dependecies
 
 10- Confirm composer.json generation
+
+
+## Note
+
+* RuntimeException: Unable to create the cache directory
+Posible solution
+```
+$ chown -R www-data:www-data app/cache
+
+and
+
+$ chown -R www-data:www-data app/log
+```
+
+* Getting Error SQLSTATE[HY000] [2002] Connection refused on Docker Env
+
+Used name of container.
+
