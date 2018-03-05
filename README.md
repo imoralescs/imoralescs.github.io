@@ -537,3 +537,8 @@ $ chown -R www-data:www-data app/log
 
 Used name of container.
 
+## Composer optimize the autoloader
+
+```
+composer dump-autoload --optimize
+```
