@@ -612,3 +612,10 @@ xmlwriter
 xsl
 zip
 ```
+
+## Add user ubuntu permission
+
+```
+$ sudo chown -R <username> *
+$ sudo chgrp -R <grpname> *
+```
