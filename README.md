@@ -622,8 +622,6 @@ $ sudo chgrp -R <grpname> *
 
 # Gatsbyjs
 
-###
-
 * Install Gatsby Global
 
 ```
@@ -643,3 +641,5 @@ gatsby develop
 ```
 
 * In my docker project, npm install on main directory
+
+* `src/` - is the directory for react webpage main code
