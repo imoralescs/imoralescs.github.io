@@ -619,3 +619,27 @@ zip
 $ sudo chown -R <username> *
 $ sudo chgrp -R <grpname> *
 ```
+
+# Gatsbyjs
+
+###
+
+* Install Gatsby Global
+
+```
+npm install --global getsby-cli
+```
+
+* Create a new site
+
+```
+gatsby new wp-gatsby
+```
+
+* Run client app
+
+```
+gatsby develop
+```
+
+* In my docker project, npm install on main directory
