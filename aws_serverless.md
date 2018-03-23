@@ -532,10 +532,23 @@ For setup our AWS to Serverless framework we need to used the `serverless config
 serverless config credentials --provider aws --key accesskey --secret secretaccesskey
 ```
 
-4. Create new project directory for our serverless service, then place your terminal on the new directory. Now to create the project type on terminal:
+### Service
+
+Is like a project, a place where you define yours lambda function. Whe we start out it recommended to use a single service and with large application it should be divide into multiple services.
+
+Example create a service for every CRUD endpoint
 
 ```
-serverless create --template aws-nodejs --name simpleLambda
+users/
+  serverless.yml -> 4 function that do Users CRUD operations
+notes/
+  serverless.yml -> 4 function thet do Notes CRUD operations
+```
+
+1. Create new project directory for our serverless service, then place your terminal on the new directory. Now to create the project type on terminal:
+
+```
+serverless create --template aws-nodejs --path simpleLambda
 ```
 
 or
@@ -544,7 +557,7 @@ or
 sls create -t aws-nodejs -n simpleLambda
 ```
 
-5. Our previous terminal command, create a serverless project by choosing **AWS Nodejs** template and adding the name `simpleLambda`. When creating a new service is finished, we will see file structure in the project folder: 
+2. Our previous terminal command, create a serverless project by choosing **AWS Nodejs** template and adding the name `simpleLambda`. When creating a new service is finished, we will see file structure in the project folder: 
 
 * **serverless.yml** - a YAML file where we will define configurations for our service, such as AWS Resources (S3, DynamoDB, etc), Region, Nodejs Runtime, we want to use and also our service’s functions configurations.
 * **handler.js** - Initial Javascript file , created by serverless, that is supposed to be the place where we will write our function’s logic. 
