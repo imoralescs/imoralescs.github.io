@@ -504,10 +504,32 @@ The Serverless framework is an open-source, MIT-licensed solution which helps wi
 npm install -g serverless
 ```
 
-3. To see options after install type on terminal:
+3. To see options of serverless frameword after install type on terminal:
 
 ```
 serverless
+```
+
+or
+
+```
+sls
+```
+
+4. Create and setting your IAM User 
+
+On you AWS console, type on the search box `IAM`, click on the IAM option and you will be redirect to IAM main page. IAM is the place to management all user and access to your AWS Account. Click on the `Users` tab, then click on `Add user`, this new user will control the serverless installation.
+
+After type the name uf the user, check in the box `Programmatic access` for access type. Then click next. On set permissions we can select `Attach existing policies` and check in the box `AdministratorAccess`. then click on next. To finish we review all data and click on create user.
+
+After create the user, download `.csv` file, that AWS offer to keep save the access key and password of this user.
+
+5. Configuring Serverless framework with AWS Account
+
+For setup our AWS to Serverless framework we need to used the `serverless config credentials`.
+
+```
+serverless config credentials --provider aws --key accesskey --secret secretaccesskey
 ```
 
 4. Create new project directory for our serverless service, then place your terminal on the new directory. Now to create the project type on terminal:
