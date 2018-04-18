@@ -643,3 +643,22 @@ gatsby develop
 * In my docker project, npm install on main directory
 
 * `src/` - is the directory for react webpage main code
+
+
+## StoryBook
+1. Get Storybook and install global
+
+```
+npm install -g getstorybook
+```
+
+2. Now get into you app directory and type
+
+```
+getstorybook
+```
+
+3. to run storybook type
+```
+npm run storybook
+```
