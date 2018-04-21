@@ -662,3 +662,12 @@ getstorybook
 ```
 npm run storybook
 ```
+
+## create you vm docker
+https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+http://linuxbsdos.com/2017/05/25/how-to-install-visual-studio-code-on-ubuntu-16-10-17-04/
+http://tech.willandskill.se/installing-yarn-on-ubuntu-16-04-lts-in-30-seconds/
