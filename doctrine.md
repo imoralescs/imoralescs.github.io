@@ -1,5 +1,11 @@
 # Doctrine
 
+## ORM
+
+Object relational mapper, that mean that every database table have a PHP Class.
+
+Entity - a class that doctrine will map to a database table.
+
 ## ORM implementas Data Mapper and Unit of Work design patterns.
 
 Data mapper is a layer designed to synchronize data stored in database with their related object of the domian layer. In the Doctrine terminology, a Data Mapper is called an Entity Manager. Entities are plain old PHP objects of the domain layer.
