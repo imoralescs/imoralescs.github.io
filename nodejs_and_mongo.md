@@ -928,3 +928,22 @@ pip install awsebcli --upgrade --user
 ```
 eb --version
 ```
+
+Create AWS Access Key
+1. By AWS Console access to IAM
+2. On IAM, click on Users link on the sidebar on the left.
+3. On Users screen, click on Add user button to create a new user.
+4. Follow the guide to create user, pick user name and select Programmatic access. Then click on Next:Permissions button.
+5. On Set permission for USER, we just want to add permission to used Elastic Beanstalk, click on Attach existing policies directly and on the botton windows search for beanstalk and CHECK AWSElasticBeanstackFullAccess. Scroll to botton and click on Next:review button.
+6. Review all and then click on Create user button.
+7. After create, AWS will give you important credential information, save this on private file, because you cannot get access to this again.
+
+Add Access Key to Local EB client
+1. On terminal type `eb init`, select your AWS region
+2. Then add your credentials
+3. Select an application to use, select 2 to a new one. Enter App name, answer the following question if you are going to used Docker and select platform in this case 1 (Node.js)
+4. Then they ask if you want to continum with CodeCommit, select no on this case.
+5. Create a SSH for you instances
+
+
+
