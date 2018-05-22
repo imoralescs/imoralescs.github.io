@@ -900,6 +900,8 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 ## Deploy AWS Elastic Beanstalk
 
+First you need to install the Elastic Beanstalk Command Line Interface. The EB CLI is developed in Python and requires Python version 2.7, version 3.4, or newer. Them need a package manager for Python that provides an easy way to install, upgrade, and remove Python packages and their dependencies calling `pip`.
+
 ### On Windows:
 
 1. Install Python Latest
