@@ -916,3 +916,15 @@ First you need to install the Elastic Beanstalk Command Line Interface. The EB C
 ```
 Python 3.6 – %USERPROFILE%\AppData\Roaming\Python\Python36\Scripts
 ```
+
+3. Install the EB CLI
+
+```
+pip install awsebcli --upgrade --user
+```
+
+4. Test CLI
+
+```
+eb --version
+```
