@@ -900,16 +900,16 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 ## Deploy AWS Elastic Beanstalk
 
-- On Windows:
+### On Windows:
 
-1 - Install Python Latest
-2 - Modify your PATH variable (Windows):
-  a - Press the Windows key, and then type environment variables.
-  b - Choose Edit environment variables for your account.
-  c - Choose PATH, and then choose Edit.
-  d - Add paths to the Variable value field, separated by semicolons. For example: `C:\existing\path;C:\new\path`
-  e - Choose OK twice to apply the new settings.
-  f - Close any running command prompts and reopen.
+1. Install Python Latest
+2. Modify your PATH variable (Windows):
+..1. Press the Windows key, and then type environment variables.
+..2. Choose Edit environment variables for your account.
+..3. Choose PATH, and then choose Edit.
+..4. Add paths to the Variable value field, separated by semicolons. For example: `C:\existing\path;C:\new\path`
+..5. Choose OK twice to apply the new settings.
+..6. Close any running command prompts and reopen.
   
 ```
 Python 3.6 – %USERPROFILE%\AppData\Roaming\Python\Python36\Scripts
