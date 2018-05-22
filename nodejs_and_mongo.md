@@ -904,12 +904,12 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 1. Install Python Latest
 2. Modify your PATH variable (Windows):
-  1. Press the Windows key, and then type environment variables.
-  2. Choose Edit environment variables for your account.
-  3. Choose PATH, and then choose Edit.
-  4. Add paths to the Variable value field, separated by semicolons. For example: `C:\existing\path;C:\new\path`
-  5. Choose OK twice to apply the new settings.
-  6. Close any running command prompts and reopen.
+  * Press the Windows key, and then type environment variables.
+  * Choose Edit environment variables for your account.
+  * Choose PATH, and then choose Edit.
+  * Add paths to the Variable value field, separated by semicolons. For example: `C:\existing\path;C:\new\path`
+  * Choose OK twice to apply the new settings.
+  * Close any running command prompts and reopen.
   
 ```
 Python 3.6 – %USERPROFILE%\AppData\Roaming\Python\Python36\Scripts
