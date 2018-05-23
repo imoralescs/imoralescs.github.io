@@ -671,3 +671,32 @@ https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-o
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
 http://linuxbsdos.com/2017/05/25/how-to-install-visual-studio-code-on-ubuntu-16-10-17-04/
 http://tech.willandskill.se/installing-yarn-on-ubuntu-16-04-lts-in-30-seconds/
+
+
+## Install AWS CLI
+
+Installing Using Python Pip
+
+The very first step is to install python pip package manager. It can be achieved using the below command.
+
+```
+apt-get update && apt-get install python-pip
+```
+
+The next step is to install aws cli using pip command.
+
+```
+pip install awscli
+```
+
+Lets now verify the version that we installed using pip. It should be latest compared to the apt-get version we got earlier.
+
+```
+aws --version
+```
+
+### Configuring AWS CLI
+
+```
+aws configure
+```
