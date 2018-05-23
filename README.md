@@ -700,3 +700,10 @@ aws --version
 ```
 aws configure
 ```
+
+```
+AWS Access Key ID [None]: AAJHADKA723KAHSUWXNAK82Q
+AWS Secret Access Key [None]: EasfAUH8jsdsa\asfhwe&SHASNAKSOW872392jSMAs
+Default region name [None]: us-east-1
+Default output format [None]:
+```
