@@ -962,3 +962,15 @@ They have:
 * Clusters - Is like an EC2 instance where containers run, multiple container.
 * Registries - Is how you start with ECS, where developers store their images. Allows for versioning and tagging.
 * Service - Is where we monitoring containers, autoscaling.
+
+## Deployment using ECR and EC2 ECS
+
+### Create a repository
+
+* Required to have AWS CLI
+
+1. On ECS dashboard or console click on the Repositories link on the sidebar on the left.
+2. Add name to the repository. Repository URI is the address of where is your repository located. click on the Next button.
+3. At sucessfully message, AWS will provide some command to build, tag and push docker images.
+4. On your local machine from the app root directory
+
