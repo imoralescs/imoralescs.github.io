@@ -947,3 +947,18 @@ Add Access Key to Local EB client
 
 
 
+## AWS Service for containers
+
+* Elastic Compute Cloud(EC2) - Your private server VM. Is a manual way to deploy your app.
+* Elastic Container Service(ECS) - Under the hood prepare everything for you in a VM and deploy your container.
+* Elastic Container Registry(ECR) - Is a storage for your Docker Images.
+* Elastic Beanstalk Container PaaS
+
+## AWS EC2 Container Service
+
+They have:
+
+* Tasks - Defined what to run and how to runner. Think like this is Docker run command. Task definition has info about images, env vars and network.
+* Clusters - Is like an EC2 instance where containers run, multiple container.
+* Registries - Is how you start with ECS, where developers store their images. Allows for versioning and tagging.
+* Service - Is where we monitoring containers, autoscaling.
