@@ -965,12 +965,63 @@ They have:
 
 ## Deployment using ECR and EC2 ECS
 
-### Create a repository
+### Create a repository and add images
 
 * Required to have AWS CLI
 
-1. On ECS dashboard or console click on the Repositories link on the sidebar on the left.
+1. On ECS dashboard or console click on the Repositories link on the left sidebar.
 2. Add name to the repository. Repository URI is the address of where is your repository located. click on the Next button.
-3. At sucessfully message, AWS will provide some command to build, tag and push docker images.
-4. On your local machine from the app root directory
+3. At sucessfully message, AWS will provide you some command to build, tag and push docker images.
+4. On your local machine from the app root directory test your AWS CLI
 
+```
+aws ec2 describe-regions
+```
+
+5. To get the login to ECR type the following command
+
+```
+aws ecr get-login --no-include-email --region us-east-1
+```
+
+6. This last command will give you a string, to copy and paste on the same terminal to login to ECR. 
+7. Now we need to build the images, Used the same command AWS provide you after create repository.
+
+```
+docker build -t node-app .
+```
+
+8. After build let add tag name to image from tag name AWS provide us after create repository.
+
+```
+docker tag node-app:latest 055987196794.dkr.ecr.us-east-1.amazonaws.com/node-app:latest
+```
+
+9. Now the final command to push our image to AWS
+
+```
+docker push 055987196794.dkr.ecr.us-east-1.amazonaws.com/node-app:latest
+```
+
+10. You can verify on Repository section we push up ours images.
+
+### Create Task Definition
+
+1. On ECS dashboard click on the Task Definitions link on the left sidebar and click on Create new Task Definition button.
+2. Add name, AWS create rules for us, on network we are going to select "bridge".
+3. To add container, click on add container:
+* Add name to container
+* Add URI of the images
+* Memory limit select soft limit and 512
+* Port mapping 80 to port in container, on this case 80 to 8080
+* Add Env Variables is you used
+4. After add container click on button create
+
+### Create Cluster
+
+1. On ECS dashboard click on the Clusters link on the left sidebar and click on Create Cluster button.
+2. Add name cluster, select instance type, number of instance 1, everything default, only on VPC select Create a new VPC and add or create a new roles
+3. click on Create button
+4. after create, click on View Cluster, and will see empty cluster on all tabs, go to your tasks sections. Click on your task you and to execute.
+5. On action dropdown select task from list by checkbox the task and then click on Create Service, add service name and number of task 1. In here you can configurate your load balance, click on create services
+6. After Task service start running sucessfully, go to Clusters area, click on the cluster we create, then click on the tab ECS Instances and click on the container instance. This will give you the public DNS
