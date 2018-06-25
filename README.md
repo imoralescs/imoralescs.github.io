@@ -707,3 +707,9 @@ AWS Secret Access Key [None]: EasfAUH8jsdsa\asfhwe&SHASNAKSOW872392jSMAs
 Default region name [None]: us-east-1
 Default output format [None]:
 ```
+
+# Mac
+
+## Install Cask
+
+Cask is a complementary tool for Homebrew that extends to other capatabilities such as installing common desktop applications distributed as DMG files somewhere on the internet.
