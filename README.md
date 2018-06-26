@@ -713,3 +713,45 @@ Default output format [None]:
 ## Install Cask
 
 Cask is a complementary tool for Homebrew that extends to other capatabilities such as installing common desktop applications distributed as DMG files somewhere on the internet.
+
+## Install JDK
+
+To verify you have Java install on you machine on terminal type:
+
+```
+java -version
+```
+
+To create our new `.java` files on project directory by terminal type:
+
+```
+echo Text >> Main.java
+```
+
+To open ours `Main.java` type on terminal:
+
+```
+open Main.java
+```
+
+Type the following Java code to compiling:
+
+```
+public class Main {
+    public static void main(String args[]) {
+        System.out.print("Hello Worlds!");
+    }
+}
+```
+
+Important, the `class` must be same name of the file. Then type the following command to compiling `Main.java`
+
+```
+javac Main.java
+```
+
+This command will produce a `Main.class` file. Then to execute the java app, run the following command on terminal:
+
+```
+java Main
+```
