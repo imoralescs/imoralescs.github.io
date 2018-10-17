@@ -330,3 +330,7 @@ int main() {
     cout << "Number is: " << NUMBER << endl;
     return 0;
 }
+
+
+https://www.tenouk.com/Module10.html
+https://simplesnippets.tech/preprocessor-directives-macros-in-cpp/
