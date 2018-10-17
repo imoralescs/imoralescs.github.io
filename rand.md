@@ -334,3 +334,4 @@ int main() {
 
 https://www.tenouk.com/Module10.html
 https://simplesnippets.tech/preprocessor-directives-macros-in-cpp/
+https://pmihaylov.com/macros-in-c/
