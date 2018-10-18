@@ -335,3 +335,31 @@ int main() {
 https://www.tenouk.com/Module10.html
 https://simplesnippets.tech/preprocessor-directives-macros-in-cpp/
 https://pmihaylov.com/macros-in-c/
+
+//---- Class
+
+//-- Destructors
+/*
+Constructor function is used to initialize member variables to pre-defined 
+values as soon as an object of a class is declared.
+
+Constructor function gets invoked when an object of a class is constructed 
+(declared).
+
+So basically Constructor is used to initialize the objects (at the time of creation), and they are automatically invoked.
+
+This saves us from the garbage values assigned to data members; during initializing.
+
+Destructors have the opposite function of a constructor. The main use 
+of destructors is to release dynamic allocated memory. Destructors are 
+used to free memory, release resources and to perform other clean up. 
+Destructors are automatically named when an object is destroyed. Like 
+constructors, destructors also take the same name as that of the class 
+name.
+
+https://simplesnippets.tech/constructor-destructor-in-cpp/
+*/
+
+//-- new delete
+//https://www.includehelp.com/cpp-programs/new-and-delete-with-printing-value-with-constructor-and-destructor.aspx
+//https://www.bogotobogo.com/cplusplus/C11/C11_default_delete_specifier.php
