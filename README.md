@@ -882,3 +882,55 @@ Fifth to execute the application type the following command:
 ```
 ./main
 ```
+
+## More SDL2
+
+```
+#include <iostream>
+#include <string>
+#include <SDL2/SDL.h>
+
+using namespace std;
+
+int main(int argc, char* args[]) 
+{
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    string title;
+    int windowMode;
+    int posX;
+    int posY;
+    int width;
+    int height;
+    int rendererMode;
+    int index;
+
+    SDL_Init(SDL_INIT_VIDEO);
+    
+    title           =   "SDL2 Tutorial";
+    windowMode      =   SDL_WINDOW_OPENGL;
+    posX            =   SDL_WINDOWPOS_CENTERED;
+    posY            =   SDL_WINDOWPOS_CENTERED;
+    width           =   1280;
+    height          =   720;
+    rendererMode    =   SDL_RENDERER_ACCELERATED;
+    
+    window          =   SDL_CreateWindow(title.c_str(), posX, posY, width, height, windowMode);
+    renderer        =   SDL_CreateRenderer(window, index, rendererMode);
+    
+    SDL_Delay(4000);
+    
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    
+    SDL_Quit();
+
+    return 0;
+}
+```
+
+To compile code:
+
+```
+g++ main.cpp -o main -std=c++11 -lSDL2
+```
