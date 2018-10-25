@@ -813,3 +813,72 @@ Fourth to execute the application type the following command:
 ```
 ./main
 ```
+
+# SDL2 Ubuntu with G++
+
+First search for SDL2 library:
+
+```
+apt-cache search libsdl2
+```
+
+Second to install SDL2:
+
+```
+sudo apt-get install libsdl2-dev
+```
+
+Third for testing add the following code to `main.cpp`: 
+
+```
+#include <SDL2/SDL.h>
+#include <stdio.h>
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
+int main(int argc, char* args[]) {
+    SDL_Window* window = NULL;
+    SDL_Surface* screenSurface = NULL;
+    
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
+        return 1;
+    }
+    
+    window = SDL_CreateWindow(
+        "Hello SDL2",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        SCREEN_WIDTH, SCREEN_HEIGHT,
+        SDL_WINDOW_SHOWN
+    );
+    
+    if (window == NULL) {
+        fprintf(stderr, "could not create window: %s\n", SDL_GetError());
+        return 1;
+    }
+    
+    screenSurface = SDL_GetWindowSurface(window);
+    
+    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+    SDL_UpdateWindowSurface(window);
+    SDL_Delay(4000);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
+}
+```
+
+The above code, display a windows and close in 4 second.
+
+Fourth to compile the cpp code type the following command:
+
+```
+g++ main.cpp -o main -lSDL2
+```
+
+Fifth to execute the application type the following command:
+
+```
+./main
+```
