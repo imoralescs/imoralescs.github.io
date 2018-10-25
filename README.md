@@ -934,3 +934,153 @@ To compile code:
 ```
 g++ main.cpp -o main -std=c++11 -lSDL2
 ```
+
+## Game Engine Start SDL
+
+```
+#include <iostream>
+#include <string>
+#include <SDL2/SDL.h>
+
+using namespace std;
+
+class Window 
+{
+    private:
+        int _width;
+        int _height;
+        SDL_Window *_window;
+        SDL_Renderer *_renderer;
+    public:
+        Window(int width, int height) {
+            this->_width = width;
+            this->_height = height;
+        };
+        virtual ~Window() {
+            this->hide();
+        }
+
+        void show() {
+            if(this->_window != nullptr) {
+                string title;
+                int posX;
+                int posY;
+                int windowType;
+                
+                title = "SDL 2 Tutor";
+                posX = SDL_WINDOWPOS_CENTERED;
+                posY = SDL_WINDOWPOS_CENTERED;
+                windowType = SDL_WINDOW_OPENGL;
+                
+                this->_window = SDL_CreateWindow(
+                    title.c_str(), 
+                    posX, 
+                    posY, 
+                    this->_width, 
+                    this->_height, 
+                    windowType);
+                
+                int rendererIndex;
+                int rendererType;
+                
+                rendererIndex = 0;
+                rendererType = SDL_RENDERER_ACCELERATED;
+                
+                this->_renderer = SDL_CreateRenderer(
+                    this->_window, 
+                    rendererIndex, 
+                    rendererType);
+            }
+        };
+        
+        void hide() {
+            SDL_DestroyRenderer(this->_renderer);
+            SDL_DestroyWindow(this->_window);
+        };
+
+        void render() {
+            SDL_RenderClear(this->_renderer);
+            SDL_RenderPresent(this->_renderer);
+        };
+};
+
+class Game 
+{
+    protected:
+        bool _run;
+        Window *_window;
+
+        void onAwake() {
+            SDL_Init(SDL_INIT_EVERYTHING);
+
+            this->_window = new Window(1280, 720);
+            this->_window->show();
+        };
+        
+        void onInput() {
+            SDL_Event event;
+
+            while(SDL_PollEvent(&event)) {
+                switch(event.type) {
+                    case SDL_QUIT:
+                        this->end();
+                        break;
+                    case SDL_KEYDOWN:
+                        switch(event.key.keysym.sym) {
+                            case SDLK_ESCAPE:
+                                this->end();
+                                break;
+                            default:
+                                break;
+                        }
+                    default:
+                        break;
+                }
+            }
+        };
+        
+        void onUpdate() {
+
+        };
+        
+        void onRender() {
+            this->_window->render();
+        };
+        
+        void onFinish() {
+            this->_window->hide();
+            SDL_Quit();
+        };
+    
+    public:
+        Game(){};
+        virtual ~Game(){};
+
+        void start() {
+            this->_run = true;
+
+            this->onAwake();
+
+            while(_run) {
+                this->onInput();
+                this->onUpdate();
+                this->onRender();
+            }
+
+            this->onFinish();
+        };
+
+        void end() {
+            this->onFinish();
+        };
+};
+
+int main(int argc, char* args[]) 
+{
+    Game game;
+
+    game.start();
+    
+    return 0;
+}
+```
