@@ -816,6 +816,13 @@ Fourth to execute the application type the following command:
 
 # SDL2 Ubuntu with G++
 
+Linux
+Si tienes suerte, SDL2 estará en los repositorios de tu distribución, por lo que solo tendrás que instalarlo desde tu gestor de paquetes. Si no es así, seguramente tengas solo la versión 1.2 de SDL, por lo que tendrás que instalar a mano la biblioteca. No te preocupes, no es tan complicado.
+
+Descarga el código fuente de SDL2 desde aquí. Una vez descargado y descomprimido, abre una terminal, navega hasta la carpeta raíz de la biblioteca y ejecuta los comandos “sudo ./configure && sudo make && sudo make install”. La biblioteca se habrá instalado en “/usr/local”.
+
+Ahora puedes usar tu IDE favorito y configurarlo adecuadamente para que detecte SDL2, aunque no debería hacer falta nada en especial ya que está instalado como paquete del sistema.
+
 First search for SDL2 library:
 
 ```
