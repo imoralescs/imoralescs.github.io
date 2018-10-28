@@ -1101,6 +1101,12 @@ Then by terminal run the following command:
 sudo ./configure && sudo make && sudo make install
 ```
 
+To build application:
+
+```
+g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image
+```
+
 ### Install SDL_ttf 2.0 Linux
 
 Step 1:
@@ -1116,4 +1122,10 @@ Then by terminal run the following command:
 
 ```
 sudo ./configure && sudo make && sudo make install
+```
+
+To build application:
+
+```
+g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf
 ```
