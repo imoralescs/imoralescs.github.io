@@ -1137,3 +1137,29 @@ To build application:
 ```
 g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 ```
+
+### In case this error on compile with SDL:
+
+```
+libSDL2-2.0.so.0: cannot open shared object file
+```
+
+You need to add some values on your variable enviromental.
+
+Step 1:
+
+```
+sudo nano .bashrc
+```
+
+Step 2:
+
+Add on the end of the file:
+
+```
+export LD_LIBRARY_PATH="/usr/local/lib"
+```
+
+Reference:
+
+https://stackoverflow.com/questions/29711336/libsdl2-2-0-so-0-cannot-open-shared-object-file
