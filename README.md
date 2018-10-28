@@ -1129,3 +1129,11 @@ To build application:
 ```
 g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf
 ```
+
+### Install SDL_mixer 2.0 Linux
+
+To build application:
+
+```
+g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+```
