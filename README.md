@@ -1100,3 +1100,20 @@ Then by terminal run the following command:
 ```
 sudo ./configure && sudo make && sudo make install
 ```
+
+### Install SDL_ttf 2.0 Linux
+
+Step 1:
+
+```
+sudo apt-get install libfreetype6-dev
+```
+
+Step 2:
+
+Download source: https://www.libsdl.org/projects/SDL_ttf/
+Then by terminal run the following command:
+
+```
+sudo ./configure && sudo make && sudo make install
+```
