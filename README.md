@@ -1091,3 +1091,12 @@ int main(int argc, char* args[])
     return 0;
 }
 ```
+
+### Install SDL_image 2.0 Linux
+
+Download source: https://www.libsdl.org/projects/SDL_image/ 
+Then by terminal run the following command:
+
+```
+sudo ./configure && sudo make && sudo make install
+```
