@@ -1,15 +1,226 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
 #include <utility>
 #include <string>
 
 using namespace std;
 
-// g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+// ==========================================================
+// SDL - Part 0
+// ========================================================== 
+/*
+#include <SDL2/SDL.h>
 
+using namespace std;
+
+int main(int argc, char* args[]) 
+{
+    SDL_Init(SDL_INIT_VIDEO);
+
+    SDL_CreateWindow(
+        "Hello", 0, 0, 640, 480,
+        SDL_WINDOW_FULLSCREEN |
+        SDL_WINDOW_OPENGL
+    );
+
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <string>
+#include <SDL2/SDL.h>
+
+using namespace std;
+
+int main(int argc, char* args[]) 
+{
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    string title;
+    int windowMode;
+    int posX;
+    int posY;
+    int width;
+    int height;
+    int rendererMode;
+    int index;
+
+    SDL_Init(SDL_INIT_VIDEO);
+    
+    title           =   "SDL2 Tutorial";
+    windowMode      =   SDL_WINDOW_OPENGL;
+    posX            =   SDL_WINDOWPOS_CENTERED;
+    posY            =   SDL_WINDOWPOS_CENTERED;
+    width           =   1280;
+    height          =   720;
+    rendererMode    =   SDL_RENDERER_ACCELERATED;
+    
+    window          =   SDL_CreateWindow(title.c_str(), posX, posY, width, height, windowMode);
+    renderer        =   SDL_CreateRenderer(window, index, rendererMode);
+    
+    SDL_Delay(4000);
+    
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    
+    SDL_Quit();
+
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <string>
+#include <SDL2/SDL.h>
+
+using namespace std;
+
+class Window 
+{
+    private:
+        int _width;
+        int _height;
+        SDL_Window *_window;
+        SDL_Renderer *_renderer;
+    public:
+        Window(int width, int height) {
+            this->_width = width;
+            this->_height = height;
+        };
+        virtual ~Window() {
+            this->hide();
+        }
+
+        void show() {
+            if(this->_window != nullptr) {
+                string title;
+                int posX;
+                int posY;
+                int windowType;
+                
+                title = "SDL 2 Tutor";
+                posX = SDL_WINDOWPOS_CENTERED;
+                posY = SDL_WINDOWPOS_CENTERED;
+                windowType = SDL_WINDOW_OPENGL;
+                
+                this->_window = SDL_CreateWindow(
+                    title.c_str(), 
+                    posX, 
+                    posY, 
+                    this->_width, 
+                    this->_height, 
+                    windowType);
+                
+                int rendererIndex;
+                int rendererType;
+                
+                rendererIndex = 0;
+                rendererType = SDL_RENDERER_ACCELERATED;
+                
+                this->_renderer = SDL_CreateRenderer(
+                    this->_window, 
+                    rendererIndex, 
+                    rendererType);
+            }
+        };
+        
+        void hide() {
+            SDL_DestroyRenderer(this->_renderer);
+            SDL_DestroyWindow(this->_window);
+        };
+
+        void render() {
+            SDL_RenderClear(this->_renderer);
+            SDL_RenderPresent(this->_renderer);
+        };
+};
+
+class Game 
+{
+    protected:
+        bool _run;
+        Window *_window;
+
+        void onAwake() {
+            SDL_Init(SDL_INIT_EVERYTHING);
+
+            this->_window = new Window(1280, 720);
+            this->_window->show();
+        };
+        
+        void onInput() {
+            SDL_Event event;
+
+            while(SDL_PollEvent(&event)) {
+                switch(event.type) {
+                    case SDL_QUIT:
+                        this->end();
+                        break;
+                    case SDL_KEYDOWN:
+                        switch(event.key.keysym.sym) {
+                            case SDLK_ESCAPE:
+                                this->end();
+                                break;
+                            default:
+                                break;
+                        }
+                    default:
+                        break;
+                }
+            }
+        };
+        
+        void onUpdate() {
+
+        };
+        
+        void onRender() {
+            this->_window->render();
+        };
+        
+        void onFinish() {
+            this->_window->hide();
+            SDL_Quit();
+        };
+    
+    public:
+        Game(){};
+        virtual ~Game(){};
+
+        void start() {
+            this->_run = true;
+
+            this->onAwake();
+
+            while(_run) {
+                this->onInput();
+                this->onUpdate();
+                this->onRender();
+            }
+
+            this->onFinish();
+        };
+
+        void end() {
+            this->onFinish();
+        };
+};
+
+int main(int argc, char* args[]) 
+{
+    Game game;
+
+    game.start();
+    
+    return 0;
+}
+*/
+
+
+// g++ main.cpp -o main -std=c++11 -lSDL2
 // ==========================================================
 // SDL - Part 1
 // ========================================================== 
@@ -30,7 +241,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     // Create and init the window
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     
@@ -38,28 +248,22 @@ int main(int argc, char* args[])
         std::cout << "Failed to create window : " << SDL_GetError();
         return -1;
     }
-
     // Create and init the renderer
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
     if(renderer == nullptr) {
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     // Set size of renderer to the same as window
     SDL_RenderSetLogicalSize(renderer, sizeX, sizeY);
      
     // Set color of renderer to red
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
     //-- Render something
     // Clear the window and make it all red
     SDL_RenderClear(renderer);
-
     // Render the changes above ( which up until now had just happened behind the scenes )
     SDL_RenderPresent(renderer);
-
     // Pause program so that the window doesn't disappear at once.
     // This willpause for 4000 milliseconds which is the same as 4 seconds
     SDL_Delay(4000);
@@ -95,7 +299,6 @@ int sizeX = 300;
 int sizeY = 400;
 SDL_Window *window;
 SDL_Renderer *renderer;
-
 // Create and init the window
 window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     
@@ -126,7 +329,6 @@ if(window == nullptr) {
 /*
 // Create and init the renderer
 renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
 if(renderer == nullptr) {
     std::cout << "Failed to create renderer : " << SDL_GetError();
     return -1;
@@ -169,7 +371,6 @@ if(renderer == nullptr) {
 /*
 //-* SDL_RenderClear - to clear the current rendering target with the drawing color, in this case make it all red
 SDL_RenderClear(renderer);
-
 // Render the changes above ( which up until now had just happened behind the scenes )
 SDL_RenderPresent(renderer);
 */
@@ -191,45 +392,35 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
         return -1;
     }
-
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(renderer == nullptr) {
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_RenderSetLogicalSize(renderer, sizeX, sizeY);
      
     // ... After setting up renderer and window
     // Set color of renderer to red
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
     // Clear the window and make it all red
     SDL_RenderClear(renderer);
-
     // Create a rectangle
     SDL_Rect r;
-
     r.x = 50;
     r.y = 50;
     r.w = 50;
     r.h = 50;
-
     // Change color to blue
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-
     // Render our SDL_Rect, the rectangle will no be blue
     SDL_RenderDrawRect(renderer, &r);
-
     // Render the changes above ( which up until now had just happened behind the scenes )
     SDL_RenderPresent(renderer);
-
     // Pause program so that the window doesn't disappear at once.
     // This willpause for 4000 milliseconds which is the same as 4 seconds
     SDL_Delay(4000);
@@ -237,6 +428,7 @@ int main(int argc, char* args[])
 */
 
 // To fill rectangle up
+/*
 int main(int argc, char* args[])
 {
     int posX = 100;
@@ -293,21 +485,98 @@ int main(int argc, char* args[])
     // This willpause for 4000 milliseconds which is the same as 4 seconds
     SDL_Delay(4000);
 }
-
-
+*/
 // ==========================================================
-// SDL - Part 3 MAKE RECTANGLES MOVE
+// SDL - Part 4 Game Loop
+// ==========================================================
+// The game loop itself is usually a form of infinite loop, So in order to exit the loop, we need a way of setting the loop bool to yountrue inside the loop.This will make the loop condition ( if ( loop ) ) false and the loop will stop. We could just use a break; to quit the loop. But this won’t work when we start handling input.
+// ==========================================================
+// SDL - Part 5 Event
 // ==========================================================
 /*
+int main(int argc, char* args[])
+{
+    int posX = 100;
+    int posY = 200;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    SDL_RenderSetLogicalSize(renderer, sizeX, sizeY);
+
+    bool loop = true;
+    
+    while(loop) {
+        
+        SDL_Event event;
+        while(SDL_PollEvent(&event)) {
+
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+				    case SDLK_RIGHT:
+						cout << "Typing to right..." <<  endl;
+						break;
+					case SDLK_LEFT:
+						cout << "Typing to left..." <<  endl;
+						break;
+						// Remeber 0,0 in SDL is left-top. So when the user pressus down, the y need to increase
+					case SDLK_DOWN:
+						cout << "Typing to down..." <<  endl;
+						break;
+					case SDLK_UP:
+						cout << "Typing to up..." <<  endl;
+						break;
+                    case SDLK_ESCAPE:
+                        SDL_Quit();
+                        break;
+					default :
+						break;
+				}
+			}
+		}
+
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+        SDL_RenderClear(renderer);
+
+        SDL_RenderPresent(renderer);
+
+		SDL_Delay( 16 );
+	}
+}
+*/
+// ==========================================================
+// SDL - Part 6 MAKE RECTANGLES MOVE
+// ==========================================================
+
 int posX = 100;
 int posY = 200;
 int sizeX = 300;
 int sizeY = 400;
-
 SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Rect playerPos;
-
 bool InitSDL() {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
@@ -316,7 +585,6 @@ bool InitSDL() {
     
     return true;
 }
-
 bool CreateWindow() {
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     
@@ -327,7 +595,6 @@ bool CreateWindow() {
     
     return true;
 }
-
 bool CreateRenderer() {
     renderer = SDL_CreateRenderer(window, -1, 0);
     
@@ -338,7 +605,6 @@ bool CreateRenderer() {
     
     return true;
 }
-
 void SetupRenderer() {
     // Set size of renderer to the same as window
     SDL_RenderSetLogicalSize(renderer, sizeX, sizeY);
@@ -346,16 +612,13 @@ void SetupRenderer() {
     // Set color of renderer to green
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 }
-
 bool InitEverything() {
     if(!InitSDL()) {
         return false;
     }
-
 	if(!CreateWindow()) {
 	    return false;
     }
-
 	if(!CreateRenderer()) {
 	    return false;
     }
@@ -364,24 +627,18 @@ bool InitEverything() {
     
     return true;
 }
-
 void Render() {
     // Clear the window and make it all green
     SDL_RenderClear(renderer);
-
 	// Change color to blue
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-
+	SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
 	// Render our "player"
 	SDL_RenderFillRect(renderer, &playerPos);
-
 	// Change color to green
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-
+	SDL_SetRenderDrawColor(renderer, 219, 50, 54, 255);
 	// Render the changes above
 	SDL_RenderPresent(renderer);
 }
-
 void RunGame() {
     bool loop = true;
     
@@ -413,29 +670,23 @@ void RunGame() {
 				}
 			}
 		}
-
 		Render();
-
 		// Add a 16msec delay to make our game run at ~60 fps
 		SDL_Delay( 16 );
 	}
 }
-
 int main(int argc, char* args[])
 {
 	if(!InitEverything()) { 
 		return -1;
     }
-
 	// Initlaize our playe
 	playerPos.x = 20;
 	playerPos.y = 20;
 	playerPos.w = 20;
 	playerPos.h = 20;
-
 	RunGame();
 }
-*/
 
 http://headerphile.com/
 https://www.willusher.io/pages/sdl2/
