@@ -1,9 +1,8 @@
 #include <iostream>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <utility>
 #include <string>
-
-using namespace std;
 
 // g++ main.cpp -o main -std=c++11 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
@@ -28,7 +27,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     // Create and init the window
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
@@ -42,14 +40,11 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_Delay(4000);
-
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     
     SDL_Quit();
-
     return 0;
 }
 */
@@ -115,6 +110,7 @@ if(renderer == nullptr) {
 // SDL - Part 2 Rendering
 // ========================================================== 
 
+/*
 int main(int argc, char* args[])
 {
     int posX = 100;
@@ -159,6 +155,7 @@ int main(int argc, char* args[])
 
     return 0;
 }
+*/
 
 //---- Draw setting
 // The drawing state is contained in the rendering context, so SDL provides several functions to adjust it. To change the drawing color we use the function `SDL_SetRenderDrawColor()`. We used this function to set the color for drawing or filling rectangles, lines, and points, and for SDL_RenderClear(). On `SDL_SetRenderDrawColor()` function we simple pass the R, G, B, and A color values. To get the current color, use the function `SDL_GetRenderDrawColor()`.
@@ -168,3 +165,628 @@ int main(int argc, char* args[])
 
 //---- Rendering
 // We used `SDL_RenderPresent()` function to tells the renderer show its operations on its window.
+
+// ==========================================================
+// SDL - Part 3 Drawing
+// ========================================================== 
+
+/*
+int main(int argc, char* args[])
+{
+    int posX = 100;
+    int posY = 200;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+    SDL_RenderClear(renderer);
+
+    // Create a rectangle
+    SDL_Rect r1, r2;
+
+    // Set Size and position
+    r1.x = 50;
+    r1.y = 50;
+    r1.w = 50;
+    r1.h = 50;
+
+    r2.x = 100;
+    r2.y = 100;
+    r2.w = 50;
+    r2.h = 50;
+
+    // Set color to paint rect
+    SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
+
+    // Render our SLD_Rect
+    SDL_RenderDrawRect(renderer, &r1);
+
+    // Set color to paint another rect
+    SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
+
+    // Render our SLD_Rect
+    SDL_RenderDrawRect(renderer, &r2);
+
+    SDL_RenderPresent(renderer);
+
+    SDL_Delay(4000);
+
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    
+    SDL_Quit();
+
+    return 0;
+}
+*/
+
+//---- Drawing
+// SDL provides several functions for drawing rudimentary shapes—namely, points, lines, rectangles, and filled rectangles. The functions are all used as you'd expect: the point and line functions simply take the screen coordinates of the shape, and the rectangle functions take a SDL_Rect with the same data.
+
+//---- Fill rectangle up
+
+/*
+int main(int argc, char* args[])
+{
+    int posX = 100;
+    int posY = 200;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+    SDL_RenderClear(renderer);
+
+    // Create a rectangle
+    SDL_Rect r1, r2;
+
+    // Set Size and position
+    r1.x = 50;
+    r1.y = 50;
+    r1.w = 50;
+    r1.h = 50;
+
+    r2.x = 100;
+    r2.y = 100;
+    r2.w = 50;
+    r2.h = 50;
+
+    SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
+
+    // Render our fill SLD_Rect
+    SDL_RenderFillRect(renderer, &r1);
+
+    SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
+
+    // Render our fill SLD_Rect
+    SDL_RenderFillRect(renderer, &r2);
+
+    SDL_RenderPresent(renderer);
+
+    SDL_Delay(4000);
+
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    
+    SDL_Quit();
+
+    return 0;
+}
+*/
+
+// ==========================================================
+// SDL - Part 4 Events
+// ========================================================== 
+
+/*
+int main(int argc, char* args[])
+{
+    int posX = 100;
+    int posY = 200;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    bool loop = true;
+
+    while(loop) {
+        
+        // Event handler
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+				    case SDLK_RIGHT:
+						cout << "Typing to right key..." <<  endl;
+						break;
+					case SDLK_LEFT:
+						cout << "Typing to left key..." <<  endl;
+						break;
+					case SDLK_DOWN:
+						cout << "Typing to down key..." <<  endl;
+						break;
+					case SDLK_UP:
+						cout << "Typing to up key..." <<  endl;
+						break;
+                    case SDLK_ESCAPE:
+                        cout << "Goodbye, shut it down..." <<  endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+					default :
+						break;
+				}
+			}
+		}
+        
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+        SDL_RenderClear(renderer);
+
+        SDL_RenderPresent(renderer);
+		
+        SDL_Delay( 16 );
+	}
+
+    return 0;
+}
+*/
+
+//---- Event loop
+// Most multimedia programs rely on an events system to process input, SDL provides a flexible API for processing input events. Essentially, SDL records input from devices (like the keyboard, mouse, or controller) as events, storing them in the "event queue." You can think of this structure just like a waiting line—events are queued in the back of the line and taken from the front of the line.
+
+//---- Game loop
+// In a game things need to happen over and over again. So we need a loop that does all these thing. A game loop itself is usually a form of infinite loop, so in order to exit the loop, we need a way of set the loop true bool value from start to untrue or false from inside the loop. This can be posible using inside the loop a if condition to stop the loop.
+
+/*
+bool loop = true;
+
+while(loop) {
+    loop = false;
+}
+*/
+
+// Inside of the game loop we have another event loop, this will processes all events and runs your program based on the input. Each time the event loop is run, you must pull each event off the event queue (in order) to process the input. This is done with the function `SDL_PollEvent()`. 
+
+//-- `SDL_Event event`
+// In our code SDL is initialized and we declare a flag to initialize everything on this include `SDL_INIT_EVENTS` this keeps track of whether the user input. All events in SDL is in the form of `SDL_Event`. 
+/*
+// Event handler
+SDL_Event event;
+*/
+
+//-- `SDL_PollEvent()`
+// This function retrieve the first event from the queue, copying the value into a parameter of type SDL_Event.
+/*
+SDL_PollEvent(&event)
+*/
+
+//---- Event types
+
+//-- Quitting SDL_QUIT
+
+//-- Keyboard events SDL_KEYDOWN & SDL_KEYUP
+
+//-- Other events
+
+// ==========================================================
+// SDL - Part 5 Moving things
+// ========================================================== 
+/*
+int main(int argc, char* args[])
+{
+    int posX = 900;
+    int posY = 300;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Rect elementPosition;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    // Initialize our element position
+    elementPosition.x = 20;
+	elementPosition.y = 20;
+	elementPosition.w = 20;
+	elementPosition.h = 20;
+
+    bool loop = true;
+
+    while(loop) {
+        
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+				    case SDLK_RIGHT:
+                        ++elementPosition.x;
+						cout << "Typing to right key..." <<  endl;
+						break;
+					case SDLK_LEFT:
+                        --elementPosition.x;
+						cout << "Typing to left key..." <<  endl;
+						break;
+					case SDLK_DOWN:
+                        ++elementPosition.y;
+						cout << "Typing to down key..." <<  endl;
+						break;
+					case SDLK_UP:
+                        --elementPosition.y;
+						cout << "Typing to up key..." <<  endl;
+						break;
+                    case SDLK_ESCAPE:
+                        cout << "Goodbye, shut it down..." <<  endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+					default :
+						break;
+				}
+			}
+		}
+
+        // Clear the window
+        SDL_RenderClear(renderer);
+        
+        // Set first color
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+        // Render our element
+        SDL_RenderFillRect(renderer, &elementPosition);
+
+        // Set color to our element
+        SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
+
+        // Render change 
+        SDL_RenderPresent(renderer);
+		
+        // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
+        SDL_Delay( 16 );
+	}
+
+    return 0;
+}
+*/
+// ==========================================================
+// SDL - Part 6 Collision detection
+// ========================================================== 
+
+enum class Direction {
+    Left,
+    Right
+};
+
+struct NPC {
+    NPC(
+        SDL_Rect _position,
+        int _speed,
+        Direction _direction
+    ) {
+        position = _position;
+        speed = _speed;
+        direction = _direction;
+    }
+
+    SDL_Rect position;
+    int speed;
+    Direction direction;
+};
+
+std::vector<NPC> npc;
+
+int lastNPC = 50;
+
+void addNPC() {
+    if ((rand() % 2) == 0) {
+		npc.push_back( 
+            NPC({ 
+                rand() % 300, 
+                lastNPC, 
+                20, 
+                20 
+            }, 
+            1, 
+            Direction::Right));
+	}
+	else
+	{
+		npc.push_back(
+            NPC({
+                rand() % 300, 
+                lastNPC
+                , 
+                20, 
+                20 
+            }, 
+            1, 
+            Direction::Left));
+	}
+
+	lastNPC += 25;
+}
+
+bool checkCollision();
+
+bool checkNPCCollisions();
+
+SDL_Rect elementPosition;
+
+int main(int argc, char* args[])
+{
+    int posX = 900;
+    int posY = 300;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Rect topBar;
+    SDL_Rect bottomBar;
+
+    // Amount of pixel the element move per keypress
+    int movementFactor = 15;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    // Initialize no controller element
+    addNPC();
+    addNPC();
+    addNPC();
+    addNPC();
+
+    // Init top and bottom bar
+	topBar.x = 0;
+	topBar.y = 0;
+	topBar.w = sizeX;
+	topBar.h = 20;
+
+	bottomBar.x = 0;
+	bottomBar.y = sizeY - 20;
+	bottomBar.w = sizeX;
+	bottomBar.h = 20;
+
+    // Initialize our element position
+	elementPosition.w = 20;
+	elementPosition.h = 20;
+    // sizeX / 2 = middle pixel of the screen
+	// elementPosition.w / 2 = middle of the element 
+	// So setting player x pos to [middle of screen] - [middle of player] means it will be centerd in the screen.
+    elementPosition.x = (sizeX / 2) - (elementPosition.w / 2);
+	elementPosition.y = sizeY - bottomBar.h;
+
+    bool loop = true;
+
+    while(loop) {
+        
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+				    case SDLK_RIGHT:
+                        elementPosition.x += movementFactor;
+						break;
+					case SDLK_LEFT:
+                        elementPosition.x -= movementFactor;
+						break;
+					case SDLK_DOWN:
+                        elementPosition.y += movementFactor;
+						break;
+					case SDLK_UP:
+                        elementPosition.y -= movementFactor;
+						break;
+                    case SDLK_ESCAPE:
+                        std::cout << "Goodbye, shut it down..." <<  std::endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+					default :
+						break;
+				}
+			}
+		}
+
+        // =============================================
+        // Check collision against no controller element
+        // =============================================
+        if(checkNPCCollisions()) {
+            elementPosition.x = ( sizeX / 2 ) - ( elementPosition.w / 2 );
+	        elementPosition.y = sizeY - bottomBar.h;
+        }
+
+        // =============================================
+        // Check collision against top bar
+        // =============================================
+        if(elementPosition.y < (topBar.y + topBar.h)) {
+            elementPosition.x = ( sizeX / 2 ) - ( elementPosition.w / 2 );
+	        elementPosition.y = sizeY - bottomBar.h;
+        }
+
+        // =============================================
+        // Render section
+        // =============================================
+        // Clear the window
+        SDL_RenderClear(renderer);
+        
+        // Set first color
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+        // Render top and bottom bar
+        SDL_RenderFillRect( renderer, &bottomBar );
+	    SDL_RenderFillRect( renderer, &topBar );
+
+        SDL_SetRenderDrawColor(renderer, 255, 207, 0, 255);
+        
+        // Render our element
+        SDL_RenderFillRect(renderer, &elementPosition);
+
+        SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
+
+        // Render our no controller element
+        for(const auto &p : npc) {
+            SDL_RenderFillRect(renderer, &p.position);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
+
+        // Render change 
+        SDL_RenderPresent(renderer);
+		
+        // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
+        SDL_Delay( 16 );
+	}
+
+    return 0;
+}
+
+bool checkCollision(const SDL_Rect &rect1, const SDL_Rect &rect2) {
+    // Find edges of rect1
+    int left1 = rect1.x;
+    int right1 = rect1.x + rect1.w;
+    int top1 = rect1.y;
+    int bottom1 = rect1.y + rect1.h;
+    
+    // Find edges of rect2
+    int left2 = rect2.x;
+    int right2 = rect2.x + rect2.w;
+    int top2 = rect2.y;
+    int bottom2 = rect2.y + rect2.h;
+    
+    // =============================================
+    // Check edges
+    // =============================================
+    // Left 1 is right of right 2
+	if(left1 > right2) {
+        // No collision
+		return false; 
+    }
+
+    // Right 1 is left of left 2
+	if(right1 < left2) {
+        // No collision 
+		return false; 
+    }
+
+    // Top 1 is below bottom 2
+	if(top1 > bottom2) {
+        // No collision 
+		return false; 
+    }
+
+    // Bottom 1 is above top 2
+	if(bottom1 < top2) {
+        // No collision  
+		return false; 
+    }
+
+	return true;
+}
+
+bool checkNPCCollisions() {
+    for(const auto &p: npc) {
+        if(checkCollision(p.position, elementPosition)) {
+            return true;
+        }
+    }
+}
