@@ -886,3 +886,114 @@ int main(int argc, char* args[])
     return 0;
 }
 
+
+// ==========================================================
+// SDL - Part 20
+// ==========================================================
+
+
+#include <iostream>
+#include <vector>
+#include <SDL2/SDL.h>
+#include <utility>
+#include <string>
+
+int main(int argc, char* args[])
+{
+    int posX = 900;
+    int posY = 300;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture *texture;
+
+    SDL_Rect sourceRectangle;
+    SDL_Rect destinationRectangle;
+
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+
+    SDL_Surface *tempSurface = SDL_LoadBMP("assets/run.bmp");
+    texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    SDL_FreeSurface(tempSurface);
+
+    SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+
+    destinationRectangle.x = sourceRectangle.x = 0;
+    destinationRectangle.y = sourceRectangle.y = 0;
+    destinationRectangle.w = sourceRectangle.w = 108; // 432 / 4
+    destinationRectangle.h = sourceRectangle.h = 140;
+
+    bool loop = true;
+
+    while(loop) {
+        
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        std::cout << "Goodbye, shut it down..." <<  std::endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+                    case SDLK_RIGHT:
+                        if(sourceRectangle.x >= 431 && sourceRectangle.y == 0) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 140;
+                        }
+                        else if(sourceRectangle.x >= 432 && sourceRectangle.y == 140) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 0;
+                        }
+                        else {
+                            sourceRectangle.x += 108;
+                        }
+						break;
+					default :
+						break;
+				}
+			}
+		}
+
+        // =============================================
+        // Render section
+        // =============================================
+        // Clear the window
+        SDL_RenderClear(renderer);
+        
+        // Set first color
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+
+        SDL_RenderCopy(renderer, texture, &sourceRectangle, &destinationRectangle);
+
+        SDL_RenderPresent(renderer);
+		
+        // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
+        SDL_Delay( 16 );
+	}
+
+    return 0;
+}
+
