@@ -959,11 +959,11 @@ int main(int argc, char* args[])
                         SDL_Quit();
                         break;
                     case SDLK_RIGHT:
-                        if(sourceRectangle.x >= 431 && sourceRectangle.y == 0) {
+                        if(sourceRectangle.x > 280 && sourceRectangle.y == 0) {
                             sourceRectangle.x = 0;
                             sourceRectangle.y = 140;
                         }
-                        else if(sourceRectangle.x >= 432 && sourceRectangle.y == 140) {
+                        else if(sourceRectangle.x > 280 && sourceRectangle.y == 140) {
                             sourceRectangle.x = 0;
                             sourceRectangle.y = 0;
                         }
