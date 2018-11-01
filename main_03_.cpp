@@ -533,7 +533,7 @@ int main(int argc, char* args[])
 // ==========================================================
 // SDL - Part 6 Collision detection
 // ========================================================== 
-
+/*
 enum class Direction {
     Left,
     Right
@@ -790,15 +790,11 @@ bool checkNPCCollisions() {
         }
     }
 }
+*/
 
 // ==========================================================
-// SDL - Part 20
+// SDL - Part 7 Bitmaps, Blitting and Textures
 // ==========================================================
-#include <iostream>
-#include <vector>
-#include <SDL2/SDL.h>
-#include <utility>
-#include <string>
 
 int main(int argc, char* args[])
 {
@@ -886,18 +882,23 @@ int main(int argc, char* args[])
     return 0;
 }
 
+//-- Bitmaps
+// Bitmap is just an image stored in a format where pixel data is represented by a block of memory, or a map of bits. The "bmp" format denotes an image where the color values of each pixel (monochrome, RGB, RGBA, etc) are simply stored sequentially after a header. Other formats such as "png" and "jpg" are still a from of bitmap, but make use of compression technologies to reduce file size (ideally) without sacrificing image quality.
+
+//-- SDL_Surface & SDL_LoadBPM
+// `SDL_Surface` is used for holding the raw texture data. A surface can represent a loaded bitmap, a new texture you're creating, or even the window you're drawing to. To load a bitmap into a surface, use the function `SDL_LoadBMP()`. `SDL_LoadBMP` this function accept the file we want to load as parameter and the return value is the loaded image as a `SDL_Surface` otherwise they return null.
+
+//-- Convert SDL_Surface to SDL_Texture
+// We not gonna use the SDL_Surface, we want a SDL_Texture to get it we need to use `SDL_CreateTextureFromSurface`, this function accept renderer and surface as parameter and return SDL Texture otherwise return null. We can used another function with the first one called `SDL_Surface` this function accept surface as parameter and is  used to delete and free memory from the past surface used.
+
+//-- Getting the images on screen
+// 
 
 // ==========================================================
-// SDL - Part 20
+// SDL - Part 8 Animations
 // ==========================================================
 
-
-#include <iostream>
-#include <vector>
-#include <SDL2/SDL.h>
-#include <utility>
-#include <string>
-
+/*
 int main(int argc, char* args[])
 {
     int posX = 900;
@@ -996,4 +997,4 @@ int main(int argc, char* args[])
 
     return 0;
 }
-
+*/
