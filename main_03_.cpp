@@ -124,7 +124,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -136,23 +135,17 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     // Set color of renderer
     SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
     // Clear the window and make it all to the color we set above
     SDL_RenderClear(renderer);
-
     // Render
     SDL_RenderPresent(renderer);
-
     SDL_Delay(4000);
-
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     
     SDL_Quit();
-
     return 0;
 }
 */
@@ -184,7 +177,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -196,46 +188,33 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
     SDL_RenderClear(renderer);
-
     // Create a rectangle
     SDL_Rect r1, r2;
-
     // Set Size and position
     r1.x = 50;
     r1.y = 50;
     r1.w = 50;
     r1.h = 50;
-
     r2.x = 100;
     r2.y = 100;
     r2.w = 50;
     r2.h = 50;
-
     // Set color to paint rect
     SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
-
     // Render our SLD_Rect
     SDL_RenderDrawRect(renderer, &r1);
-
     // Set color to paint another rect
     SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
-
     // Render our SLD_Rect
     SDL_RenderDrawRect(renderer, &r2);
-
     SDL_RenderPresent(renderer);
-
     SDL_Delay(4000);
-
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     
     SDL_Quit();
-
     return 0;
 }
 */
@@ -259,7 +238,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -271,44 +249,31 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
     SDL_RenderClear(renderer);
-
     // Create a rectangle
     SDL_Rect r1, r2;
-
     // Set Size and position
     r1.x = 50;
     r1.y = 50;
     r1.w = 50;
     r1.h = 50;
-
     r2.x = 100;
     r2.y = 100;
     r2.w = 50;
     r2.h = 50;
-
     SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
-
     // Render our fill SLD_Rect
     SDL_RenderFillRect(renderer, &r1);
-
     SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
-
     // Render our fill SLD_Rect
     SDL_RenderFillRect(renderer, &r2);
-
     SDL_RenderPresent(renderer);
-
     SDL_Delay(4000);
-
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     
     SDL_Quit();
-
     return 0;
 }
 */
@@ -331,7 +296,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -343,14 +307,11 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     bool loop = true;
-
     while(loop) {
         
         // Event handler
         SDL_Event event;
-
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
 			    loop = false;
@@ -382,14 +343,11 @@ int main(int argc, char* args[])
 		}
         
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
         SDL_RenderClear(renderer);
-
         SDL_RenderPresent(renderer);
 		
         SDL_Delay( 16 );
 	}
-
     return 0;
 }
 */
@@ -402,7 +360,6 @@ int main(int argc, char* args[])
 
 /*
 bool loop = true;
-
 while(loop) {
     loop = false;
 }
@@ -449,7 +406,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -461,19 +417,15 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     // Initialize our element position
     elementPosition.x = 20;
 	elementPosition.y = 20;
 	elementPosition.w = 20;
 	elementPosition.h = 20;
-
     bool loop = true;
-
     while(loop) {
         
         SDL_Event event;
-
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
 			    loop = false;
@@ -507,26 +459,21 @@ int main(int argc, char* args[])
 				}
 			}
 		}
-
         // Clear the window
         SDL_RenderClear(renderer);
         
         // Set first color
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
         // Render our element
         SDL_RenderFillRect(renderer, &elementPosition);
-
         // Set color to our element
         SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
-
         // Render change 
         SDL_RenderPresent(renderer);
 		
         // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
         SDL_Delay( 16 );
 	}
-
     return 0;
 }
 */
@@ -538,7 +485,6 @@ enum class Direction {
     Left,
     Right
 };
-
 struct NPC {
     NPC(
         SDL_Rect _position,
@@ -549,16 +495,12 @@ struct NPC {
         speed = _speed;
         direction = _direction;
     }
-
     SDL_Rect position;
     int speed;
     Direction direction;
 };
-
 std::vector<NPC> npc;
-
 int lastNPC = 50;
-
 void addNPC() {
     if ((rand() % 2) == 0) {
 		npc.push_back( 
@@ -584,16 +526,11 @@ void addNPC() {
             1, 
             Direction::Left));
 	}
-
 	lastNPC += 25;
 }
-
 bool checkCollision();
-
 bool checkNPCCollisions();
-
 SDL_Rect elementPosition;
-
 int main(int argc, char* args[])
 {
     int posX = 900;
@@ -604,7 +541,6 @@ int main(int argc, char* args[])
     SDL_Renderer *renderer;
     SDL_Rect topBar;
     SDL_Rect bottomBar;
-
     // Amount of pixel the element move per keypress
     int movementFactor = 15;
  
@@ -612,7 +548,6 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -624,24 +559,20 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     // Initialize no controller element
     addNPC();
     addNPC();
     addNPC();
     addNPC();
-
     // Init top and bottom bar
 	topBar.x = 0;
 	topBar.y = 0;
 	topBar.w = sizeX;
 	topBar.h = 20;
-
 	bottomBar.x = 0;
 	bottomBar.y = sizeY - 20;
 	bottomBar.w = sizeX;
 	bottomBar.h = 20;
-
     // Initialize our element position
 	elementPosition.w = 20;
 	elementPosition.h = 20;
@@ -650,13 +581,10 @@ int main(int argc, char* args[])
 	// So setting player x pos to [middle of screen] - [middle of player] means it will be centerd in the screen.
     elementPosition.x = (sizeX / 2) - (elementPosition.w / 2);
 	elementPosition.y = sizeY - bottomBar.h;
-
     bool loop = true;
-
     while(loop) {
         
         SDL_Event event;
-
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
 			    loop = false;
@@ -686,7 +614,6 @@ int main(int argc, char* args[])
 				}
 			}
 		}
-
         // =============================================
         // Check collision against no controller element
         // =============================================
@@ -694,7 +621,6 @@ int main(int argc, char* args[])
             elementPosition.x = ( sizeX / 2 ) - ( elementPosition.w / 2 );
 	        elementPosition.y = sizeY - bottomBar.h;
         }
-
         // =============================================
         // Check collision against top bar
         // =============================================
@@ -702,7 +628,6 @@ int main(int argc, char* args[])
             elementPosition.x = ( sizeX / 2 ) - ( elementPosition.w / 2 );
 	        elementPosition.y = sizeY - bottomBar.h;
         }
-
         // =============================================
         // Render section
         // =============================================
@@ -711,35 +636,27 @@ int main(int argc, char* args[])
         
         // Set first color
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
         // Render top and bottom bar
         SDL_RenderFillRect( renderer, &bottomBar );
 	    SDL_RenderFillRect( renderer, &topBar );
-
         SDL_SetRenderDrawColor(renderer, 255, 207, 0, 255);
         
         // Render our element
         SDL_RenderFillRect(renderer, &elementPosition);
-
         SDL_SetRenderDrawColor(renderer, 198, 24, 0, 255);
-
         // Render our no controller element
         for(const auto &p : npc) {
             SDL_RenderFillRect(renderer, &p.position);
         }
-
         SDL_SetRenderDrawColor(renderer, 49, 182, 57, 255);
-
         // Render change 
         SDL_RenderPresent(renderer);
 		
         // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
         SDL_Delay( 16 );
 	}
-
     return 0;
 }
-
 bool checkCollision(const SDL_Rect &rect1, const SDL_Rect &rect2) {
     // Find edges of rect1
     int left1 = rect1.x;
@@ -761,28 +678,23 @@ bool checkCollision(const SDL_Rect &rect1, const SDL_Rect &rect2) {
         // No collision
 		return false; 
     }
-
     // Right 1 is left of left 2
 	if(right1 < left2) {
         // No collision 
 		return false; 
     }
-
     // Top 1 is below bottom 2
 	if(top1 > bottom2) {
         // No collision 
 		return false; 
     }
-
     // Bottom 1 is above top 2
 	if(bottom1 < top2) {
         // No collision  
 		return false; 
     }
-
 	return true;
 }
-
 bool checkNPCCollisions() {
     for(const auto &p: npc) {
         if(checkCollision(p.position, elementPosition)) {
@@ -795,7 +707,7 @@ bool checkNPCCollisions() {
 // ==========================================================
 // SDL - Part 7 Bitmaps, Blitting and Textures
 // ==========================================================
-
+/*
 int main(int argc, char* args[])
 {
     int posX = 900;
@@ -881,7 +793,7 @@ int main(int argc, char* args[])
 
     return 0;
 }
-
+*/
 //-- Bitmaps
 // Bitmap is just an image stored in a format where pixel data is represented by a block of memory, or a map of bits. The "bmp" format denotes an image where the color values of each pixel (monochrome, RGB, RGBA, etc) are simply stored sequentially after a header. Other formats such as "png" and "jpg" are still a from of bitmap, but make use of compression technologies to reduce file size (ideally) without sacrificing image quality.
 
@@ -897,7 +809,6 @@ int main(int argc, char* args[])
 // ==========================================================
 // SDL - Part 8 Animations
 // ==========================================================
-
 /*
 int main(int argc, char* args[])
 {
@@ -908,16 +819,13 @@ int main(int argc, char* args[])
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture *texture;
-
     SDL_Rect sourceRectangle;
     SDL_Rect destinationRectangle;
-
  
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -929,24 +837,18 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_Surface *tempSurface = SDL_LoadBMP("assets/run.bmp");
     texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
-
     SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-
     destinationRectangle.x = sourceRectangle.x = 0;
     destinationRectangle.y = sourceRectangle.y = 0;
     destinationRectangle.w = sourceRectangle.w = 108; // 432 / 4
     destinationRectangle.h = sourceRectangle.h = 140;
-
     bool loop = true;
-
     while(loop) {
         
         SDL_Event event;
-
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
 			    loop = false;
@@ -977,7 +879,6 @@ int main(int argc, char* args[])
 				}
 			}
 		}
-
         // =============================================
         // Render section
         // =============================================
@@ -986,15 +887,117 @@ int main(int argc, char* args[])
         
         // Set first color
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
         SDL_RenderCopy(renderer, texture, &sourceRectangle, &destinationRectangle);
-
         SDL_RenderPresent(renderer);
 		
         // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
         SDL_Delay( 16 );
 	}
-
     return 0;
 }
 */
+
+// ==========================================================
+// SDL - Part 9 Animations Flipping Images
+// ==========================================================
+int main(int argc, char* args[])
+{
+    int posX = 900;
+    int posY = 300;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture *texture;
+    SDL_Rect sourceRectangle;
+    SDL_Rect destinationRectangle;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+    SDL_Surface *tempSurface = SDL_LoadBMP("assets/run.bmp");
+    texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    SDL_FreeSurface(tempSurface);
+    SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+    destinationRectangle.x = sourceRectangle.x = 0;
+    destinationRectangle.y = sourceRectangle.y = 0;
+    destinationRectangle.w = sourceRectangle.w = 108; // 432 / 4
+    destinationRectangle.h = sourceRectangle.h = 140;
+    SDL_RendererFlip flipType = SDL_FLIP_NONE;
+    bool loop = true;
+    while(loop) {
+        
+        SDL_Event event;
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        std::cout << "Goodbye, shut it down..." <<  std::endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+                    case SDLK_RIGHT:
+                        flipType = SDL_FLIP_NONE;
+                        if(sourceRectangle.x > 280 && sourceRectangle.y == 0) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 140;
+                        }
+                        else if(sourceRectangle.x > 280 && sourceRectangle.y == 140) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 0;
+                        }
+                        else {
+                            sourceRectangle.x += 108;
+                        }
+						break;
+                    case SDLK_LEFT:
+                        flipType = SDL_FLIP_HORIZONTAL;
+                        if(sourceRectangle.x > 280 && sourceRectangle.y == 0) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 140;
+                        }
+                        else if(sourceRectangle.x > 280 && sourceRectangle.y == 140) {
+                            sourceRectangle.x = 0;
+                            sourceRectangle.y = 0;
+                        }
+                        else {
+                            sourceRectangle.x += 108;
+                        }
+						break;
+					default :
+						break;
+				}
+			}
+		}
+        // =============================================
+        // Render section
+        // =============================================
+        // Clear the window
+        SDL_RenderClear(renderer);
+        
+        // Set first color
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+        SDL_RenderCopyEx(renderer, texture, &sourceRectangle, &destinationRectangle, 0, 0, flipType);
+        SDL_RenderPresent(renderer);
+		
+        // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
+        SDL_Delay( 16 );
+	}
+    return 0;
+}
