@@ -1,6 +1,7 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 #include <vector>
-#include <SDL2/SDL.h>
 #include <utility>
 #include <string>
 
@@ -717,16 +718,13 @@ int main(int argc, char* args[])
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture *texture;
-
     SDL_Rect sourceRectangle;
     SDL_Rect destinationRectangle;
-
  
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
-
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -738,24 +736,18 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
-
     SDL_Surface *tempSurface = SDL_LoadBMP("assets/spacedragon.bmp");
     texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
-
     SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
-
     destinationRectangle.x = sourceRectangle.x = 0;
     destinationRectangle.y = sourceRectangle.y = 0;
     destinationRectangle.w = sourceRectangle.w;
     destinationRectangle.h = sourceRectangle.h;
-
     bool loop = true;
-
     while(loop) {
         
         SDL_Event event;
-
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
 			    loop = false;
@@ -773,7 +765,6 @@ int main(int argc, char* args[])
 				}
 			}
 		}
-
         // =============================================
         // Render section
         // =============================================
@@ -782,15 +773,12 @@ int main(int argc, char* args[])
         
         // Set first color
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
-
         SDL_RenderCopy(renderer, texture, &sourceRectangle, &destinationRectangle);
-
         SDL_RenderPresent(renderer);
 		
         // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
         SDL_Delay( 16 );
 	}
-
     return 0;
 }
 */
@@ -900,6 +888,7 @@ int main(int argc, char* args[])
 // ==========================================================
 // SDL - Part 9 Animations Flipping Images
 // ==========================================================
+/*
 int main(int argc, char* args[])
 {
     int posX = 900;
@@ -916,6 +905,7 @@ int main(int argc, char* args[])
         std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
         return -1;
     }
+
     window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
     if(window == nullptr) {
         std::cout << "Failed to create window : " << SDL_GetError();
@@ -927,10 +917,13 @@ int main(int argc, char* args[])
         std::cout << "Failed to create renderer : " << SDL_GetError();
         return -1;
     }
+    
     SDL_Surface *tempSurface = SDL_LoadBMP("assets/run.bmp");
     texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    
     SDL_FreeSurface(tempSurface);
     SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+    
     destinationRectangle.x = sourceRectangle.x = 0;
     destinationRectangle.y = sourceRectangle.y = 0;
     destinationRectangle.w = sourceRectangle.w = 108; // 432 / 4
@@ -994,6 +987,84 @@ int main(int argc, char* args[])
         // Set first color
         SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
         SDL_RenderCopyEx(renderer, texture, &sourceRectangle, &destinationRectangle, 0, 0, flipType);
+        SDL_RenderPresent(renderer);
+		
+        // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
+        SDL_Delay( 16 );
+	}
+    return 0;
+}
+*/
+
+// ==========================================================
+// SDL - Part 10 Used SDL2 Image
+// ==========================================================
+
+int main(int argc, char* args[])
+{
+    int posX = 900;
+    int posY = 300;
+    int sizeX = 300;
+    int sizeY = 400;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture *texture;
+    SDL_Rect sourceRectangle;
+    SDL_Rect destinationRectangle;
+ 
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
+        return -1;
+    }
+    window = SDL_CreateWindow("Server", posX, posY, sizeX, sizeY, 0);
+    if(window == nullptr) {
+        std::cout << "Failed to create window : " << SDL_GetError();
+        return -1;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cout << "Failed to create renderer : " << SDL_GetError();
+        return -1;
+    }
+    SDL_Surface *tempSurface = IMG_Load("assets/link.png");
+    texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    SDL_FreeSurface(tempSurface);
+    SDL_QueryTexture(texture, NULL, NULL, &sourceRectangle.w, &sourceRectangle.h);
+    destinationRectangle.x = sourceRectangle.x = 0;
+    destinationRectangle.y = sourceRectangle.y = 0;
+    destinationRectangle.w = sourceRectangle.w;
+    destinationRectangle.h = sourceRectangle.h;
+    bool loop = true;
+    while(loop) {
+        
+        SDL_Event event;
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT) {
+			    loop = false;
+            }
+			else if(event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        std::cout << "Goodbye, shut it down..." <<  std::endl;
+                        SDL_DestroyWindow(window);
+                        SDL_DestroyRenderer(renderer);
+                        SDL_Quit();
+                        break;
+					default :
+						break;
+				}
+			}
+		}
+        // =============================================
+        // Render section
+        // =============================================
+        // Clear the window
+        SDL_RenderClear(renderer);
+        
+        // Set first color
+        SDL_SetRenderDrawColor(renderer, 72, 133, 237, 255);
+        SDL_RenderCopy(renderer, texture, &sourceRectangle, &destinationRectangle);
         SDL_RenderPresent(renderer);
 		
         // Add a 16msec delay to make our game run at ~60 fps, wait before next frame
