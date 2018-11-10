@@ -671,6 +671,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-o
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
 http://linuxbsdos.com/2017/05/25/how-to-install-visual-studio-code-on-ubuntu-16-10-17-04/
 http://tech.willandskill.se/installing-yarn-on-ubuntu-16-04-lts-in-30-seconds/
+https://websiteforstudents.com/how-to-install-php-composer-on-ububuntu-16-04-17-10-18-04/
 
 
 ## Install AWS CLI
