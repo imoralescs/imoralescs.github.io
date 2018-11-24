@@ -1164,3 +1164,16 @@ export LD_LIBRARY_PATH="/usr/local/lib"
 Reference:
 
 https://stackoverflow.com/questions/29711336/libsdl2-2-0-so-0-cannot-open-shared-object-file
+
+## Convert .mov to .mp4 with ffmpeg
+
+I recently wanted to save a Quicktime screen recording .mov file as .mp4.
+
+There are a number of tools online, but why load any of those when you can just run ffmpeg from your terminal! You can download their installer or on a Mac, just run brew install ffmpeg.
+
+To convert it and also compress the result, you can run:
+
+```
+ffmpeg -i my-video.mov -vcodec h264 -acodec mp2 my-video.mp4
+```
+
