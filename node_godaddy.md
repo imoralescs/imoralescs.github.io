@@ -40,6 +40,13 @@ Check the NVM GitHub page for instructions on installing a newer version
 To make sure it’s installed enter
 `nvm --version`
 
+If you have the following error, `nvm: command not found`, add the following to `~/.bash_profile` or your desired shell
+configuration file:
+
+`export NVM_DIR="$HOME/.nvm"`
+
+If you do not have a `~/.bash_profile` file, then you can simply create one.
+
 ## Step 4: Installing Node.js
 
 Now we can get around to installing Node.js . To install the latest version enter in bash:
