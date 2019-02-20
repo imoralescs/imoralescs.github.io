@@ -634,7 +634,7 @@ npm install --global getsby-cli
 gatsby new wp-gatsby
 ```
 
-* Run client app
+* Run develop mode Gatsby site, inside of project directory
 
 ```
 gatsby develop
