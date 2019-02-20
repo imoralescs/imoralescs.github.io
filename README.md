@@ -640,6 +640,11 @@ gatsby new wp-gatsby
 gatsby develop
 ```
 
+* Exploring Gatsby Site Project directory
+
+`public` - this directory hold all static assets files
+`src` - this directory hold the main implemantation of the site.
+
 * In my docker project, npm install on main directory
 
 * `src/` - is the directory for react webpage main code
