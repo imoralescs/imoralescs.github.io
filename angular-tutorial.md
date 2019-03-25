@@ -167,3 +167,9 @@ const server = http.createServer(app)
 
 server.listen(port, () => console.log(`Running on localhost:${port}`))
 ```
+
+For testing ours api, we need to try the url:
+
+```
+http://localhost:3000/api/posts
+```
