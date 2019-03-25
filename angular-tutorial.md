@@ -173,3 +173,54 @@ For testing ours api, we need to try the url:
 ```
 http://localhost:3000/api/posts
 ```
+
+## Angular
+
+### Data Service
+
+Our Angular Service file will make calls to the API. To start we need to create ours service file using Angular CLI. We can accomplish this by type the following command on the main root project directory by command line.
+
+```
+ng generate service Post
+```
+
+After file been created, we need to go to ours `src/app/` directory and will are goign to see ours service file, in this case the name is `post.service.ts`. Note `.ts` mean TypeScript file.
+
+Update the `post.service.ts` file with end result like this:
+
+```
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+// This will allow to transform result from API to JSON data.
+import 'rxjs/add/operator/map'
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PostService {
+
+  result:any;
+  
+  constructor(
+    private _http: Http
+  ) { }
+
+  getPosts() {
+    return this._http.get('/api/posts')
+      .map(result => this.result = result.json())
+  }
+}
+```
+
+Then like any service we create in Angule, must be added as providers at the `app.module.ts` file. The following code is the end result of adding file:
+
+```
+```
+
+## Creating Component
+
+We are going to create our first component, this will be ours navigation. To create our component we need to used our Angular CLI. Type the following command in our command line:
+
+```
+ng generate component nav
+```
