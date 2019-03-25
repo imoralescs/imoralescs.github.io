@@ -215,6 +215,34 @@ export class PostService {
 Then like any service we create in Angule, must be added as providers at the `app.module.ts` file. The following code is the end result of adding file:
 
 ```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http'
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { PostService } from './post.service';
+import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpModule
+  ],
+  providers: [
+    PostService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 ```
 
 ## Creating Component
@@ -223,4 +251,86 @@ We are going to create our first component, this will be ours navigation. To cre
 
 ```
 ng generate component nav
+```
+
+## Adding Class
+
+First we need to create ours home componenent:
+
+```
+ng generate component home
+```
+
+Then we are going to create a class for handling our post data.
+
+```
+ng generate class Post
+```
+
+Then we can update the following file `post.ts`, located on `src/app/`. At the end we need to have the following code:
+
+```
+export class Post {
+    _id: string
+    title: string
+    url: string
+    description: string
+}
+```
+
+Then we need to include class to ours home component file `home.component.ts` and including ours post services too.
+
+```
+import { Component, OnInit } from '@angular/core';
+import { PostService } from '../post.service';
+import { Post } from '../post';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+
+  posts: Array<Post>;
+
+  constructor(private _postService: PostService) { }
+
+  ngOnInit() {
+    this._postService.getPosts()
+      .subscribe(res => this.posts = res);
+  }
+
+}
+```
+
+Then we need to include ours component to the angular routes file `app-routing.module.ts`:
+
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+Then we add the following code to `home.component.html` file:
+
+```
+<div>
+  <div *ngFor='let post of posts'>
+    <p>{{ post.title }}</p>
+  </div>
+</div>
 ```
