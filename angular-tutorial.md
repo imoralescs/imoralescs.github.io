@@ -70,3 +70,100 @@ Note: We need to update ours project `angular.json` file to avoid the build crea
 ```
 node server.js
 ```
+
+## Creating Restful API
+
+First we need to include mongoose to our project.
+
+```
+npm install --save mongoose
+```
+
+Then second we need to create ours `server` directory in our root directory. Inside on that directory we create another directory called `routes`, then inside of `routes` directory, we need to create a file called `api.js`. Now add the following code:
+
+```
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
+const post = require('../models/post')
+
+const db = "mongodb://imoralescs:123456abc@ds123196.mlab.com:23196/node-angular"
+
+mongoose.Promise = global.Promise
+mongoose.connect(db, function(err) {
+    if(err) {
+        console.log('Connection error')
+    }
+})
+
+router.get('/posts', function(req, res) {
+    console.log('Requesting posts')
+
+    post
+        .find({})
+        .exec(function(err, posts) {
+            if(err) {
+                console.log('Error getting the posts')
+            }
+            else {
+                res.json(posts)
+                console.log(posts)
+            }
+        })
+
+})
+
+module.exports = router
+```
+
+### Adding Model directory
+
+On the same `server` directory create a new directory called `models`, then inside create a new file called `post.js` for create post mongo schema. then add the following code to `post.js`
+
+```
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+const postSchema = new Schema({
+    title: String,
+    url: String,
+    description: String
+})
+
+module.exports = mongoose.model('post', postSchema)
+```
+
+After create ours post schema, and added to our `routes.js` file, We need to add ours api file to ours main `server.js` file on the root, at the end we need to have the following code:
+
+```
+const express = require('express')
+const bodyParser = require('body-parser')
+const path = require('path')
+const http = require('http')
+const app = express()
+const api = require('./server/routes/api')
+
+// Parsers
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'dist')))
+
+// Set our api routes
+app.use('/api', api)
+
+// Return other routes to Angular index file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'))
+})
+
+// Set port
+const port = process.env.PORT || '3000'
+app.set('port', port)
+
+// Create the HTTP Server
+const server = http.createServer(app)
+
+server.listen(port, () => console.log(`Running on localhost:${port}`))
+```
