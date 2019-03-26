@@ -334,3 +334,129 @@ Then we add the following code to `home.component.html` file:
   </div>
 </div>
 ```
+
+## Adding another component with routing
+
+In this case we are going to create our details page for each post items. First we start creating the component by using Angular CLI.
+
+```
+ng generate component details
+```
+
+After create out component we need to setup ours Angular routing, located on `src/app`, file name `app-routing.module.ts`.
+
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { DetailsComponent } from './details/details.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'details/:id', component: DetailsComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+After updating our routing, we are going to update our home component template to route each post to his own details page.
+
+```
+<div class='home-container'>
+  <div class='post' *ngFor='let post of posts'>
+    <p class='post__title'>{{ post.title }}</p>
+    <p class='post__description'>{{ post.description }}</p>
+    <a class='post__more-info' routerLink='/details/{{post._id}}'>More Info</a>
+  </div>
+</div>
+```
+
+### Updating ours API
+
+We are going to add to our server api, the new route to grab post by id. The file to update is located at `server/routes` and the file name is `api.js`.
+
+```
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
+const post = require('../models/post')
+
+const db = "mongodb://imoralescs:123456abc@ds123196.mlab.com:23196/node-angular"
+
+mongoose.Promise = global.Promise
+mongoose.connect(db, function(err) {
+    if(err) {
+        console.log('Connection error')
+    }
+})
+
+router.get('/posts', function(req, res) {
+    // console.log('Requesting posts')
+    post
+        .find({})
+        .exec(function(err, posts) {
+            if(err) {
+                console.log('Error getting the posts')
+            }
+            else {
+                res.json(posts)
+                // console.log(posts)
+            }
+        })
+
+})
+
+router.get('/details/:id', function(req, res) {
+    post
+        .findById(req.params.id)
+        .exec(function(err, post) {
+            if(err) {
+                console.log('Error getting the post')
+            }
+            else {
+                res.json(post)
+                // console.log(posts)
+            }
+        })
+
+})
+
+module.exports = router
+```
+
+Then we need to include this new API route to our Angular services, we are going to updating `post.service.ts` file, located at `src/app`.
+
+```
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+// This will allow to transform result from API to JSON data.
+import { map } from 'rxjs/operators'
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PostService {
+
+  result:any;
+  
+  constructor(
+    private _http: Http
+  ) { }
+
+  getPosts() {
+    return this._http.get('/api/posts')
+      .pipe(map(result => result.json()))
+  }
+
+  getPost(id) {
+    return this._http.get('/api/details/' + id)
+      .pipe(map(result => result.json()))
+  }
+}
+```
+
+Now we need to include ours service to our details components, we are going to update `details.component.ts`, located at `src/app/details`.
