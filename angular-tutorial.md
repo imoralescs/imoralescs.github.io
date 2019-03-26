@@ -502,3 +502,206 @@ After update ours details component, we need to update out details component tem
   <p class='details__description'>{{ post.description }}</p>
 </div>
 ```
+
+## Creating Post component section (POST METHOD)
+
+First step is create our component.
+
+```
+ng generate component post
+```
+
+After create ours component we need to update our Angular routing.
+
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { DetailsComponent } from './details/details.component';
+import { PostComponent } from './post/post.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'details/:id', component: DetailsComponent },
+  { path: 'post', component: PostComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+Next we need to update our `api.js` server api
+
+```
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
+const post = require('../models/post')
+
+const db = "mongodb://imoralescs:123456abc@ds123196.mlab.com:23196/node-angular"
+
+mongoose.Promise = global.Promise
+mongoose.connect(db, function(err) {
+    if(err) {
+        console.log('Connection error')
+    }
+})
+
+router.get('/posts', function(req, res) {
+    // console.log('Requesting posts')
+    post
+        .find({})
+        .exec(function(err, posts) {
+            if(err) {
+                console.log('Error getting the posts')
+            }
+            else {
+                res.json(posts)
+                // console.log(posts)
+            }
+        })
+
+})
+
+router.get('/details/:id', function(req, res) {
+    post
+        .findById(req.params.id)
+        .exec(function(err, post) {
+            if(err) {
+                console.log('Error getting the post')
+            }
+            else {
+                res.json(post)
+                // console.log(posts)
+            }
+        })
+
+})
+
+router.post('/posts', function(req, res) {
+    var newPost = new post();
+    
+    newPost.title = req.body.title;
+    newPost.url = req.body.url;
+    newPost.description = req.body.description
+
+    newPost.save(function(err, addedPost) {
+        if(err) {
+            console.log('Error inserting the post');
+        }
+        else {
+            res.json(addedPost);
+        }
+    })
+
+})
+
+module.exports = router
+```
+
+Then we need to update ours service
+
+```
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
+// This will allow to transform result from API to JSON data.
+import { map } from 'rxjs/operators';
+import { Post } from './post'
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PostService {
+
+  result:any;
+  
+  constructor(
+    private _http: Http
+  ) { }
+
+  getPosts() {
+    return this._http.get('/api/posts')
+      .pipe(map(result => result.json()))
+  }
+
+  getPost(id) {
+    return this._http.get('/api/details/' + id)
+      .pipe(map(result => result.json()))
+  }
+
+  insertPost(post: Post) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http.post('/api/posts', JSON.stringify(post), options).pipe(map(result => result.json()))
+  }
+}
+```
+
+Then update ours template
+
+```
+<div>
+  <form [formGroup]='postForm' (ngSubmit)='addPost(postForm.value)' >
+    <div>
+      <label>Title
+        <input type='text' name='title' [formControl]="postForm.controls['title']">
+      </label>
+    </div>
+    <div>
+      <label>Url
+        <input type='url' name='url' [formControl]="postForm.controls['url']">
+      </label>
+    </div>
+    <div>
+      <label>Description
+        <textarea name='description' id='description' [formControl]="postForm.controls['description']"></textarea>
+      </label>
+    </div>
+    <input type='submit' value='Post' [disabled]='!postForm.valid'>
+  </form>
+</div>
+```
+
+And final step add our module to ours `app.module.ts`
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http'
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { PostService } from './post.service';
+import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component';
+import { DetailsComponent } from './details/details.component';
+import { PostComponent } from './post/post.component'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    DetailsComponent,
+    PostComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    PostService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
