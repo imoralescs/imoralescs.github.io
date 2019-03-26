@@ -192,7 +192,7 @@ Update the `post.service.ts` file with end result like this:
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 // This will allow to transform result from API to JSON data.
-import 'rxjs/add/operator/map'
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -207,7 +207,7 @@ export class PostService {
 
   getPosts() {
     return this._http.get('/api/posts')
-      .map(result => this.result = result.json())
+      .pipe(map(result => result.json()))
   }
 }
 ```
@@ -253,7 +253,7 @@ We are going to create our first component, this will be ours navigation. To cre
 ng generate component nav
 ```
 
-## Adding Class
+## Adding Class connect services to components
 
 First we need to create ours home componenent:
 
