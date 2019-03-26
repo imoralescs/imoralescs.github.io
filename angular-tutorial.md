@@ -460,3 +460,45 @@ export class PostService {
 ```
 
 Now we need to include ours service to our details components, we are going to update `details.component.ts`, located at `src/app/details`.
+
+```
+import { Component, OnInit } from '@angular/core';
+import { PostService } from '../post.service';
+import { Post } from '../post';
+import { Router, ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.scss']
+})
+export class DetailsComponent implements OnInit {
+
+  post: Array<Post>
+
+  constructor(
+    private _postService: PostService,
+    private router: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
+    this.router.params.subscribe((params) => {
+      let id = params['id'];
+
+      this._postService.getPost(id)
+        .subscribe(result => this.post = result)
+    })
+  }
+
+}
+```
+
+After update ours details component, we need to update out details component template file.
+
+```
+<div class='details' *ngIf='post'>
+  <a class='details__back' routerLink='/'>Back</a>
+  <h1 class='details__title'>{{ post.title}}</h1>
+  <p class='details__description'>{{ post.description }}</p>
+</div>
+```
