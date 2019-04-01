@@ -4,66 +4,29 @@
 		"type": "Object",
 		"generator": "Object3D.toJSON"
 	},
-	"geometries": [
-		{
-			"uuid": "31AA080D-36DF-4B37-A108-CA0ACDFE3F5B",
-			"type": "IcosahedronBufferGeometry",
-			"radius": 1,
-			"detail": 0
-		}],
-	"materials": [
-		{
-			"uuid": "9826941D-9C71-4788-977E-AD994A18A734",
-			"type": "MeshStandardMaterial",
-			"color": 16777215,
-			"roughness": 0.5,
-			"metalness": 0.5,
-			"emissive": 0,
-			"depthFunc": 3,
-			"depthTest": true,
-			"depthWrite": true
-		}],
+	"geometries": [{
+		"uuid": "31AA080D-36DF-4B37-A108-CA0ACDFE3F5B",
+		"type": "IcosahedronBufferGeometry",
+		"radius": 1,
+		"detail": 0
+	}],
+	"materials": [{
+		"uuid": "9826941D-9C71-4788-977E-AD994A18A734",
+		"type": "MeshStandardMaterial",
+		"color": 16777215,
+		"roughness": 0.5,
+		"metalness": 0.5,
+		"emissive": 8421568,
+		"depthFunc": 3,
+		"depthTest": true,
+		"depthWrite": true
+	}],
 	"object": {
 		"uuid": "8C59556B-2FBA-4048-AB5C-A45612BAC217",
 		"type": "Mesh",
 		"name": "Icosahedron",
 		"layers": 1,
-		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
-		"geometry": "31AA080D-36DF-4B37-A108-CA0ACDFE3F5B",
-		"material": "9826941D-9C71-4788-977E-AD994A18A734"
-	}
-}
-{
-	"metadata": {
-		"version": 4.5,
-		"type": "Object",
-		"generator": "Object3D.toJSON"
-	},
-	"geometries": [
-		{
-			"uuid": "31AA080D-36DF-4B37-A108-CA0ACDFE3F5B",
-			"type": "IcosahedronBufferGeometry",
-			"radius": 1,
-			"detail": 0
-		}],
-	"materials": [
-		{
-			"uuid": "9826941D-9C71-4788-977E-AD994A18A734",
-			"type": "MeshStandardMaterial",
-			"color": 16777215,
-			"roughness": 0.5,
-			"metalness": 0.5,
-			"emissive": 8421568,
-			"depthFunc": 3,
-			"depthTest": true,
-			"depthWrite": true
-		}],
-	"object": {
-		"uuid": "8C59556B-2FBA-4048-AB5C-A45612BAC217",
-		"type": "Mesh",
-		"name": "Icosahedron",
-		"layers": 1,
-		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+		"matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
 		"geometry": "31AA080D-36DF-4B37-A108-CA0ACDFE3F5B",
 		"material": "9826941D-9C71-4788-977E-AD994A18A734"
 	}
