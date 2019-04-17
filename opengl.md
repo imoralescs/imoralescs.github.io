@@ -97,11 +97,11 @@ This function help to create a window object. This window object holds all the w
 
 #### Arguments
 
-* width: Desired window width. This must be greater than zero.
-* height: Desired window height. This must be greater than zero.
-* title: Window title
-* monitor: The monitor to use for full screen, or NULL for windowed mode
-* share: The window whose context to share resources with, or NULL to not share resources.
+* **width:** Desired window width. This must be greater than zero.
+* **height:** Desired window height. This must be greater than zero.
+* **title:** Window title
+* **monitor:** The monitor to use for full screen, or NULL for windowed mode
+* **share:** The window whose context to share resources with, or NULL to not share resources.
 
 ### `glfwTerminat()` 
 
