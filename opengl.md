@@ -18,7 +18,7 @@ GLEW (OpenGL Extension Wrangler) is a cross-platform library that declares and l
 
 GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.
 
-## Example of using GLEW and GLFW
+## Example of using GLFW
 
 ```
 #include <stdio.h>
@@ -103,84 +103,126 @@ This function help to create a window object. This window object holds all the w
 * **monitor:** The monitor to use for full screen, or NULL for windowed mode
 * **share:** The window whose context to share resources with, or NULL to not share resources.
 
-### `glfwTerminat()` 
+### `glfwTerminate()` 
 
 This function destroys all remaining windows, frees any allocated resources and sets the library to an uninitialized state.
 
-##############################################
+## Example of using GLEW and GLFW
+
 ```
 #include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// Window dimensions
-const GLint WIDTH = 800, HEIGHT = 600;
-
 int main(int argc, char** argv)
 {
-    // Initialise GLFW
-    if(!glfwInit())
-    {
+    GLFWwindow* window;
+
+    // Initialize GLFW library
+    if(!glfwInit()) {
         printf("GLFW initialisation failed!");
         glfwTerminate();
         return 1;
     }
 
-    /* Setup GLFW window properties */
-
-    // OpenGL version
+    // Setup GLFW window properties 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    
-    // Core profile, no backwards compatibility
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    
-    // Allow forward compatibility
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-
-    GLFWwindow *mainWindow = glfwCreateWindow(WIDTH, HEIGHT, "Test Window", NULL, NULL);
-    if(!mainWindow)
-    {
+    // Creating window
+    window = glfwCreateWindow(640, 480, "Test Window", NULL, NULL);
+    if(!window) {
         printf("GLFW window creation failed!");
+        glfwTerminate();
+        return 1;
+    }
+
+    // Set context for GLFW to use
+    glfwMakeContextCurrent(window);
+
+    // Allow modern extension feature
+    glewExperimental = GL_TRUE;
+
+    // Initialize GLEW library
+    if(glewInit() != GLEW_OK) {
+        printf("GLEW initialisation failed!");
+        glfwDestroyWindow(window);
         glfwTerminate();
         return 1;
     }
 
     // Get buffer size information
     int bufferWidth, bufferHeight;
-    glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
-
-    // Set context for GLFW to use
-    glfwMakeContextCurrent(mainWindow);
-
-    // Allow modern extension feature
-    glewExperimental = GL_TRUE;
-
-    if(glewInit() != GLEW_OK)
-    {
-        printf("GLEW initialisation failed!");
-        glfwDestroyWindow(mainWindow);
-        glfwTerminate();
-        return 1;
-    }
+    glfwGetFramebufferSize(window, &bufferWidth, &bufferHeight);
 
     // Setup viewport size
     glViewport(0, 0, bufferWidth, bufferHeight);
 
     // Loop until window closed
-    while(!glfwWindowShouldClose(mainWindow))
-    {
-        // Get handler user input
+    while(!glfwWindowShouldClose(window)) {
+        /* Poll for and process events */
         glfwPollEvents();
 
-        // Clear window
+        /* Render here */
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glfwSwapBuffers(mainWindow);
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
     }
 
+    glfwTerminate();
     return 0;
 }
 ```
+
+Compiling:
+
+```
+g++ main.cpp -o main -lGL -lglfw -lGLEW
+```
+
+Execution:
+
+```
+./main
+```
+
+### `glewExperimental`
+
+We set this to true, for ensures GLEW used the more modern techniques for managing OpenGL functionality. Leaving it to its default value of `GL_FALSE` might give issues when using the core profile of OpenGL.
+
+### `glewInit()`
+
+This function is used for initialize GLEW.
+
+### `glfwGetFramebufferSize()` and `glViewport(int x, int y, GLsizei width, GLsizei height)`
+
+Before rendering, we have to tell OpenGL the size of the rendering window so OpenGL knows how we want to display the data and coordinates with respect to the window. 
+
+We can set those dimensions via the `glViewport()` function. We also need to retrieve the size, in pixels, of the framebuffer of the specified window. We can do that via the `glfwGetFrameBufferSize()` function.
+
+#### Arguments for `glViewport()`
+
+* **x:** Specify the lower corner of the viewport rectangle, in pixels.
+* **y:** Specify the lower corner of the viewport rectangle, in pixels.
+* **width:** Specify the width and height of the viewport.
+* **height:** Specify the width and height of the viewport.
+
+### Game loop
+
+We don't want the application to draw a single image and then immediately quit and close the window. We want the application to keep drawing images and handling user input until the program has been explicitly told to stop. For this reason we have to create a while loop, that we now call the game loop, that keeps on running until we tell GLFW to stop.
+
+#### `glfwWindowShouldClose()`
+
+This function takes one parameter (GLFW winodw). It return true if the window has been instructed to close and false if it hasn't been.
+
+#### `glfwPollEvents()` 
+
+This function checks if any events have been triggered(keyboard, mouse input...) and calls the corresponding function(the callback methods.
+ 
+#### `glfwSwapBuffers` 
+
+This function also takes one parameter (GLFW window). It will swap the color buffer (a large buffer that contains color values for each pixel in GLFW's window) that has been used to draw in during this iteration and show it as output to the screen.
