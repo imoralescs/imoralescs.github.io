@@ -153,8 +153,10 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    // Get buffer size information
+    // Window viewport
     int bufferWidth, bufferHeight;
+    
+    // Get buffer size information
     glfwGetFramebufferSize(window, &bufferWidth, &bufferHeight);
 
     // Setup viewport size
@@ -226,3 +228,13 @@ This function checks if any events have been triggered(keyboard, mouse input...)
 #### `glfwSwapBuffers` 
 
 This function also takes one parameter (GLFW window). It will swap the color buffer (a large buffer that contains color values for each pixel in GLFW's window) that has been used to draw in during this iteration and show it as output to the screen.
+
+### Adding color
+
+We also want our window to have some color. At the start of each render iteration we always want to clear the screen otherwise we would still see the results from the previous iteration. 
+
+We can clear the screen's color buffer using the `glClear()` function where we pass in buffer bits to specify which buffer we would like to clear. 
+
+#### `glClearColor()`
+
+This function takes four parameters, The amount of red, green and blue color where the minimal amount is 0.0 and the maximal amount is 1.0f and the alpha value.
