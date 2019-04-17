@@ -8,16 +8,106 @@ The people developing the actual OpenGL libraries are usually the graphics card 
 
 When using an Apple system the OpenGL library is maintained by Apple themselves and under Linux there exists a combination of graphic suppliers' versions and hobbyists' adaptations of these libraries. This also means that whenever OpenGL is showing weird behavior that it shouldn't, this is most likely the fault of the graphics cards manufacturers (or whoever developed/maintained the library).
 
-## GLEW
+## GLEW (For create OpenGL objects)
 
 OpenGL loading, OpenGL is an API specification, not a library. This means that the actual implementation behind the API varies based on your GPU hardware, operating system and your installed graphics driver.
 
 GLEW (OpenGL Extension Wrangler) is a cross-platform library that declares and loads OpenGL functions for you. It also has handy run-time checks to see whether a given machine supports a given OpenGL profile (a profile is a guarantee that a given configuration supports a certain set of OpenGL functions).
 
-## GLFW
+## GLFW (For create window and then draw to this window)
 
 GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.
 
+## Example of using GLEW and GLFW
+
+```
+#include <stdio.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+int main(int argc, char** argv)
+{
+    GLFWwindow* window;
+
+    // Initialize GLFW library
+    if(!glfwInit()) {
+        printf("GLFW initialisation failed!");
+        glfwTerminate();
+        return 1;
+    }
+
+    // Setup GLFW window properties 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+    // Creating window
+    window = glfwCreateWindow(640, 480, "Test Window", NULL, NULL);
+    if(!window) {
+        printf("GLFW window creation failed!");
+        glfwTerminate();
+        return 1;
+    }
+
+    // Set context for GLFW to use
+    glfwMakeContextCurrent(window);
+
+    // Loop until window closed
+    while(!glfwWindowShouldClose(window)) {
+        /* Poll for and process events */
+        glfwPollEvents();
+
+        /* Render here */
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
+    }
+
+    glfwTerminate();
+    return 0;
+}
+```
+
+Compiling:
+
+```
+g++ main.cpp -o main -lGL -lglfw -lGLEW
+```
+
+Execution:
+
+```
+./main
+```
+
+### `glfwInit()`
+
+This function is used for initialize GLFW.
+
+### `glfwWindowHint(int hint, int value)`
+
+After used `glfwInit()` we can configure GLFW using `glfwWindowHint()`. The first argument tell us what option we want to configure. The second argument is an integer that sets the values of our option.
+
+### `glfwCreateWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow * share)`
+
+This function help to create a window object. This window object holds all the windowing data. 
+
+#### Arguments
+
+* width: Desired window width. This must be greater than zero.
+* height: Desired window height. This must be greater than zero.
+* title: Window title
+* monitor: The monitor to use for full screen, or NULL for windowed mode
+* share: The window whose context to share resources with, or NULL to not share resources.
+
+### `glfwTerminat()` 
+
+This function destroys all remaining windows, frees any allocated resources and sets the library to an uninitialized state.
+
+##############################################
 ```
 #include <stdio.h>
 #include <GL/glew.h>
