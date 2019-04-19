@@ -12,6 +12,47 @@ When using an Apple system the OpenGL library is maintained by Apple themselves 
 
 Stands for OpenGL utility toolkit, implemented it to enable the construction of OpenGL application that are truly window system independent. It provides a simplified API for window management as well as event handling, IO control and few other services. Alternatives to GLUT include SDL and GLFW.
 
+## Example of using GLUT
+
+```
+#include <iostream>
+#include <GL/glut.h>  
+
+using namespace std;
+
+void display() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
+    glClear(GL_COLOR_BUFFER_BIT);
+    glutSwapBuffers();  
+}
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv); 
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutInitWindowSize(320, 320);
+    glutInitWindowPosition(50, 50);
+    glutCreateWindow("OpenGL Setup Test"); 
+       
+     
+    glutDisplayFunc(display); 
+    glutMainLoop();           
+    return 0;
+}
+```
+
+Compiling:
+
+```
+g++ main.cpp -o main -lGL -lGLU -lglut
+```
+
+Execution:
+
+```
+./main
+```
+
 ## GLEW (For create OpenGL objects)
 
 OpenGL loading, OpenGL is an API specification, not a library. This means that the actual implementation behind the API varies based on your GPU hardware, operating system and your installed graphics driver.
