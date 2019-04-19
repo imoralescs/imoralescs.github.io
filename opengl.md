@@ -8,6 +8,10 @@ The people developing the actual OpenGL libraries are usually the graphics card 
 
 When using an Apple system the OpenGL library is maintained by Apple themselves and under Linux there exists a combination of graphic suppliers' versions and hobbyists' adaptations of these libraries. This also means that whenever OpenGL is showing weird behavior that it shouldn't, this is most likely the fault of the graphics cards manufacturers (or whoever developed/maintained the library).
 
+## GLUT 
+
+Stands for OpenGL utility toolkit, implemented it to enable the construction of OpenGL application that are truly window system independent. It provides a simplified API for window management as well as event handling, IO control and few other services. Alternatives to GLUT include SDL and GLFW.
+
 ## GLEW (For create OpenGL objects)
 
 OpenGL loading, OpenGL is an API specification, not a library. This means that the actual implementation behind the API varies based on your GPU hardware, operating system and your installed graphics driver.
