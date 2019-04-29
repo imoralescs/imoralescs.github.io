@@ -283,3 +283,7 @@ We can clear the screen's color buffer using the `glClear()` function where we p
 #### `glClearColor()`
 
 This function takes four parameters, The amount of red, green and blue color where the minimal amount is 0.0 and the maximal amount is 1.0f and the alpha value.
+
+## Graphics Pipeline
+
+
