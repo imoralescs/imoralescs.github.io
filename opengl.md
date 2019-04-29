@@ -286,4 +286,62 @@ This function takes four parameters, The amount of red, green and blue color whe
 
 ## Graphics Pipeline
 
+## Vertex
 
+```
+#include <stdio.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+int main(int argc, char** argv)
+{
+    GLFWwindow* window;
+
+    if(!glfwInit()) {
+        printf("GLFW initialisation failed!");
+        glfwTerminate();
+        return 1;
+    }
+
+    window = glfwCreateWindow(640, 480, "Test Window", NULL, NULL);
+    if(!window) {
+        printf("GLFW window creation failed!");
+        glfwTerminate();
+        return 1;
+    }
+
+    glfwMakeContextCurrent(window);
+
+    float vertices[] = {
+        0, 0.5, 0.0,
+        -0.5, -0.5, 0.0,
+        0.5, -0.5, 0.0
+    };
+
+    glewExperimental = GL_TRUE;
+
+    if(glewInit() != GLEW_OK) {
+        printf("GLEW initialisation failed!");
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        return 1;
+    }
+
+    while(!glfwWindowShouldClose(window)) {
+       
+        glfwPollEvents();
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, vertices);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        glfwSwapBuffers(window);
+    }
+
+    glfwTerminate();
+    return 0;
+}
+```
