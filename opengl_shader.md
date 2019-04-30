@@ -330,3 +330,10 @@ int main(void)
 // Compile command pront
 // g++ main.cpp -o main -std=c++11 -lGL -lglfw -lGLEW
 
+// In case of this error:
+// error: GLSL 3.00 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.00 ES, and 3.00 ES
+
+// You can check you GLSL version by type this on cmd:
+// glxinfo | grep OpenGL
+
+// Then adjust you Shade code version to you machine compatability or support language.
