@@ -37,3 +37,5 @@ display.height = 300
 ```
 
 ### Coordinate in Canvas
+
+![](https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/Coordinate%20System%20in%20HTML%20Canvas.png)
