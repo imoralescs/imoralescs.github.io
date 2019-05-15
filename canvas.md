@@ -220,3 +220,92 @@ display.font = '20px Times New Roman'
 display.fillStyle = '#DB2C12'
 display.fillText('Hello Worlds', 10, 30)
 ```
+
+## Animations
+
+In order to produce animation, we must use a technique aptly named redrawing, which is where we repeatedly draw something, in this case the element, to the screen as often as possible. In the past, this was done using standard delay functions, such as ```setTimeout``` and ```setInterval```, but now we can use a function called ```requestAnimationFrame```. However, because this is still not fully supported, we must accommodate for various browser implementations, and replicate it if it doesn't exist at all.
+
+```
+let requestAnimationFrame =  
+	window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.msRequestAnimationFrame ||
+  window.oRequestAnimationFrame ||
+  function(callback) {
+  	return setTimeout(callback, 1)
+  }
+```
+
+In the above code we try to attempting each variation of requestAnimationFrame for each browser, before falling back to our own function. This works because if you ask an object (in this case window) for a property, that doesn't exist, it will return ```undefined```.
+
+```
+let 
+	canvas = document.getElementById('display'),
+  display = canvas.getContext('2d')
+  
+canvas.height = innerHeight
+canvas.width = innerWidth
+
+let requestAnimationFrame =  
+	window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.msRequestAnimationFrame ||
+  window.oRequestAnimationFrame ||
+  function(callback) {
+  	return setTimeout(callback, 1)
+  }
+
+let square = {
+	x: 10,
+  y: 72,
+  width: 32,
+	height: 32,
+  speed: 2
+}
+
+let update = function() {
+	if(square.x >= (innerWidth - 40)) {
+  	square.x -= square.speed
+    square.speed = -square.speed
+  }
+  
+  if(square.x <= 10) {
+  	square.x = 10
+    square.speed = -square.speed
+  }
+  
+  square.x = square.x + square.speed
+}
+
+let render = function() {
+  // Clear the canvas, from what was drawn in the previous frame
+  display.clearRect(0, 0, canvas.width, canvas.height)
+  
+  // Background
+  display.fillStyle = "#202020"
+  display.fillRect(0, 0, innerWidth, innerHeight)
+  
+  // Object
+  display.fillStyle = "#ff0000"
+  display.fillRect(square.x, square.y, square.width, square.height)
+  
+  // Draw square
+  display.fill()
+  
+  // Update position of the square
+  update()
+  
+  // Redraw
+  requestAnimationFrame(render)
+}
+
+// Start the redrawing process
+render()
+```
+
+### requestAnimationFrame
+
+In your animation work, you’ve used a timer loop to make changes every few milliseconds. So it’s basic API for use with animation, whether that be DOM-based styling changes, canvas or WebGL.
+
