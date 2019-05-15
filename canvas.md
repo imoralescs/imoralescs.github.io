@@ -106,3 +106,117 @@ display.stroke()
 display.fillStyle = '#DB2C12'
 display.fill()
 ```
+
+```
+let 
+	canvas = document.getElementById('display'),
+  display = canvas.getContext('2d')
+  
+canvas.height = innerHeight
+canvas.width = innerWidth
+
+const drawLine = function(fromX, fromY, toX, toY, style, width) {
+	display.beginPath()
+  display.moveTo(fromX, fromY)
+  display.lineTo(toX, toY)
+  display.lineWidth = width ? width : 3
+  display.strokeStyle = style ? style : '#fff'
+  display.stroke()
+}
+
+drawLine(10, 10, 10, 100, '#DB2C12', 2)
+drawLine(10, 100, 100, 100, '#DB2C12', 2)
+```
+
+### Drawing Arcs ans Circular Shapes
+
+```arc()``` This function can easily draw the arc line and it requires several parameters. The two parameter ```angleStart``` and ```angleEnd``` are number type value with unit of radian; The last argument ```isAnticlockwise``` is optional and is a type of boolean value. The default value is false, which means that the ```arc()``` function is set to draw clockwise in default.
+
+![](https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/Example%20of%20using%20the%20arc()%20function.png)
+
+If you want to use the unit degree as the argument unit in the arc() function, you can use this helper function to transform the degree to radian unit.
+
+```
+const degToRad = (degree) => (degree / 180 * Math.PI)
+const deg180 = degToRad(180)
+console.log(deg180)
+```
+
+```
+let 
+	canvas = document.getElementById('display'),
+  display = canvas.getContext('2d'),
+  startRadian,
+  endRadian
+  
+canvas.height = innerHeight
+canvas.width = innerWidth
+
+const degToRad = (degree) => (degree / 180 * Math.PI)
+startRadian = degToRad(270)
+endRadian = degToRad(0.737 * 360 - 90)
+
+display.beginPath()
+display.arc(250, 250, 150, startRadian, endRadian)
+display.lineTo(250, 250)
+display.fillStyle = '#DB2C12'
+display.fill()
+```
+
+### Drawing Circles
+
+Since we can use the ```arc()``` function to draw sectors, we can also use it to draw circles. Hence, here are other helper functions which can let you draw stroked or filled circles in a simple way.
+
+```
+let 
+	canvas = document.getElementById('display'),
+  display = canvas.getContext('2d')
+  
+canvas.height = innerHeight
+canvas.width = innerWidth
+
+const drawFilledCircle = function(centerX, centerY, radius, style) {
+	display.fillStyle = style ? style : '#fff' 
+  display.beginPath()
+  display.arc(centerX, centerY, radius, 0, Math.PI * 2)
+  display.fill()
+}
+
+const drawStrokedCircle = function(centerX, centerY, radius, width, style) {
+  display.lineWidth   = width ? width : 3
+  display.strokeStyle = style ? style : '#fff'
+  display.beginPath()
+  display.arc(centerX, centerY, radius, 0, Math.PI * 2)
+  display.stroke()
+}
+
+drawFilledCircle(30, 30, 20, '#DB2C12')
+drawStrokedCircle(30, 80, 20, 2, '#DB2C12')
+```
+
+### Adding Text to HTML5 Canvas
+
+#### The Font Property of Canvas Context Object
+
+Before adding text, we need to setup the font style. Naturally, here comes a property called font in canvas context object. You can assign the information of the font style into this property. For example, assign the font style 'Times New Roman' with 20 pixels into canvas context object.
+
+#### Colour of the Font
+
+About the colour style of the font, same as drawing shapes in canvas, you can merely use the property fillStyle (of the canvas context object) to assign the colour of the font. For example, we want to use the white font in our pie chart.
+
+#### Adding Font with fillText() Function
+
+The fillText() function in canvas can serve you well. It requires several arguments as shown below.
+
+```
+let 
+	canvas = document.getElementById('display'),
+  display = canvas.getContext('2d')
+  
+canvas.height = innerHeight
+canvas.width = innerWidth
+
+display.font = '20px Times New Roman'
+display.fillStyle = '#DB2C12'
+display.fillText('Hello Worlds', 10, 30)
+```
