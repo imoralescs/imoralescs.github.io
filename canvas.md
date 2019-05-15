@@ -109,14 +109,14 @@ display.fill()
 
 ```
 let 
-	canvas = document.getElementById('display'),
+  canvas = document.getElementById('display'),
   display = canvas.getContext('2d')
   
 canvas.height = innerHeight
 canvas.width = innerWidth
 
 const drawLine = function(fromX, fromY, toX, toY, style, width) {
-	display.beginPath()
+  display.beginPath()
   display.moveTo(fromX, fromY)
   display.lineTo(toX, toY)
   display.lineWidth = width ? width : 3
@@ -144,7 +144,7 @@ console.log(deg180)
 
 ```
 let 
-	canvas = document.getElementById('display'),
+  canvas = document.getElementById('display'),
   display = canvas.getContext('2d'),
   startRadian,
   endRadian
@@ -169,14 +169,14 @@ Since we can use the ```arc()``` function to draw sectors, we can also use it to
 
 ```
 let 
-	canvas = document.getElementById('display'),
+  canvas = document.getElementById('display'),
   display = canvas.getContext('2d')
   
 canvas.height = innerHeight
 canvas.width = innerWidth
 
 const drawFilledCircle = function(centerX, centerY, radius, style) {
-	display.fillStyle = style ? style : '#fff' 
+  display.fillStyle = style ? style : '#fff' 
   display.beginPath()
   display.arc(centerX, centerY, radius, 0, Math.PI * 2)
   display.fill()
@@ -210,7 +210,7 @@ The fillText() function in canvas can serve you well. It requires several argume
 
 ```
 let 
-	canvas = document.getElementById('display'),
+  canvas = document.getElementById('display'),
   display = canvas.getContext('2d')
   
 canvas.height = innerHeight
