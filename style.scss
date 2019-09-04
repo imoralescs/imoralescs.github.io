@@ -1,16 +1,7 @@
-/**************/
-/* IMPORTS    */
-/**************/
-
 @import "reset";
 @import "variables";
 @import "global";
 
-// Syntax highlighting @import is at the bottom of this file
-
-/**************/
-/* BASE RULES */
-/**************/
 *, *:before, *:after {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   box-sizing: border-box;
