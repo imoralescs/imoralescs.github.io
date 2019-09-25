@@ -27,6 +27,9 @@ html {
 
 body {
   margin: 0;
+  font-size: 16px;
+  font-family: 'Proxima Nova Soft', 'Helvetica Neue', sans-serif;
+  line-height: 1.618;
 }
 
 /**
@@ -74,9 +77,17 @@ hr {
   overflow: visible; /* 2 */
 }
 
+.home {
+  border-top: 0.1rem solid #444444;
+}
+
 .home > .container {
   padding: 2.5em;
   max-width: 1025px;
   display: block;
   margin: auto;	
+}
+
+.home__header {
+
 }
