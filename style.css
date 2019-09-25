@@ -45,8 +45,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  /*font-size: 2em;
+  margin: 0.67em 0;*/
 }
 
 ol, ul {
@@ -82,7 +82,7 @@ hr {
 }
 
 .home > .container {
-  padding: 2.5em;
+  padding: 0 2.5em;
   max-width: 1025px;
   display: block;
   margin: auto;	
