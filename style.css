@@ -97,18 +97,20 @@ hr {
 }
 
 .home__nav {
-
+ margin: 1em 0;
 }
 
 .home__nav-item {
   display: inline-block;
-  padding: 0 1em;
+  margin: 0 1em;
 }
 
 .home__nav-item:first-child {
-  padding: 0 1em 0 0;
+  margin: 0 1em 0 0;
 }
 
 .home__nav-item > a {
   text-decoration: none;
+  color: #FFF;
+  background: #444;
 }
