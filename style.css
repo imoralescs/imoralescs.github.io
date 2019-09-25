@@ -73,3 +73,10 @@ hr {
   height: 0; /* 1 */
   overflow: visible; /* 2 */
 }
+
+.home > .container {
+  padding: 2.5em;
+  max-width: 1025px;
+  display: block;
+  margin: auto;	
+}
