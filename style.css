@@ -89,5 +89,9 @@ hr {
 }
 
 .home__header {
- border-bottom: 0.1rem solid #444444;
+  border-bottom: 0.1rem solid #444444;
+}
+
+.home__title-name {
+  transform: translateX(-124px) translateY(34px);
 }
