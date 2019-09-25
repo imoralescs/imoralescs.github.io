@@ -95,3 +95,11 @@ hr {
 .home__title-name {
   transform: translateX(-124px) translateY(34px);
 }
+
+.home__nav {
+
+}
+
+.home__nav-item {
+  display: inline-block;
+}
