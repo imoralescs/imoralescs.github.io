@@ -103,3 +103,7 @@ hr {
 .home__nav-item {
   display: inline-block;
 }
+
+.home__nav-item > a {
+  text-decoration: none;
+}
