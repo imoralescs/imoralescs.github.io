@@ -113,4 +113,12 @@ hr {
   text-decoration: none;
   color: #FFF;
   background: #444;
+  font-weight: 800;
+  -webkit-transition: color 1s background-color 0.5s ease; 
+  transition: color 1s background-color 0.5s ease;
+}
+
+.home__nav-item > a:hover {
+  color: #444;
+  background: #FFF;
 }
