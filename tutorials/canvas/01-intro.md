@@ -8,11 +8,11 @@ title: You're up and running!
 
 <pre>
   <code class="language-html">
-    <canvas id="my-canvas" width="400" height="200"></canvas>
+    &lt;canvas id="my-canvas" width="400" height="200"&gt;&lt;canvas&gt;
   </code>
 </pre>
 
-<p>Also, you can setup Canvas width or height via JavaScript.</p>
+<p class="tutorials-content__text">Also, you can setup Canvas width or height via JavaScript.</p>
 
 <pre>
   <code class="language-javascript">
