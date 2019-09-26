@@ -2,7 +2,7 @@
 layout: tutorials
 title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 ---
-<h2 class="tutorials-content__sub-title">Settup HTML Canvas</h2>
+<h2 class="tutorials-content__sub-title">Canfigurar HTML Canvas</h2>
 
 <p class="tutorials-content__text">To start with HTML Canvas, you need to used a canvas tag, them you can specify it width and height property (width and height units are in pixels.). Remember to close the canvas tag. (Notice that you can not use CSS to specify its width and height.)</p>
 
