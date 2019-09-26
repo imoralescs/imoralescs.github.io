@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: You're up and running!
+title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 ---
 <h2 class="tutorials-content__sub-title">Settup HTML Canvas</h2>
 
