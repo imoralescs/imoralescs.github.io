@@ -5,14 +5,121 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-html {
+html, body {
   height: 100%;
-  padding: 0;
+
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+	vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  height: 100%;
-  padding: 0;
   margin: 0;
+  font-size: 16px;
+  font-family: 'Proxima Nova Soft', 'Helvetica Neue', sans-serif;
+  line-height: 1.618;
+  color: #444;
+}
+
+/**
+ * Add the correct display in IE 9-.
+ * HTML5 display-role reset for older browsers
+ */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  /*font-size: 2em;
+  margin: 0.67em 0;*/
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+.home {
+  border-top: 0.1rem solid #444444;
+}
+
+.home > .container {
+  padding: 0 2.5em;
+  max-width: 1025px;
+  display: block;
+  margin: auto;	
+}
+
+.home__header {
+  border-bottom: 0.1rem solid #444444;
+}
+
+.home__title-name {
+  transform: translateX(-124px) translateY(34px);
+}
+
+.home__nav {
+ margin: 1em 0;
+}
+
+.home__nav-item {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+.home__nav-item:first-child {
+  margin: 0 1em 0 0;
+}
+
+.home__nav-item > a {
+  text-decoration: none;
+  color: #FFF;
+  background: #444;
+  font-weight: 800;
+  -webkit-transition: color 1s background-color 1s ease; 
+  transition: color 1s background-color 1s ease;
+}
+
+.home__nav-item > a:hover {
+  color: #444;
+  background: #FFF;
 }
