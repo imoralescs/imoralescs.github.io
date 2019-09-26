@@ -123,3 +123,27 @@ hr {
   color: #444;
   background: #FFF;
 }
+
+/***
+ * Tutorial Pages
+**/
+.tutorials-content__title {
+  font-size: 30px;
+  font-weight: 800;
+  padding: 1em 0;
+}
+
+.tutorials-content__sub-title {
+  font-size: 26px;
+  font-weight: 400;
+  padding: 1em 0;
+}
+
+.tutorials-content__text {
+  font-size: 16px;
+  padding: 1em;
+}
+
+
+
+
