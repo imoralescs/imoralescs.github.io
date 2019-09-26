@@ -10,6 +10,7 @@
     <![endif]-->
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
@@ -18,12 +19,14 @@
   <body class="home">
     <div id="main" role="main" class="container">
       <header class="home__header">
-        <h1>{{ page.title }}</h1>
+        <h1 class="tutorials-content__title">{{ page.title }}</h1>
       </header>
       <main class="tutorials-content">
         {{ content }}
       </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="{{ site.baseurl }}/assets/js/tutorials.js"></script>
     {% include analytics.html %}
   </body>
