@@ -27,8 +27,30 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 <pre>
   <code class="language-html">    
     &lt;canvas id='display'&gt;
-      <!-- Browsers which not supported HTML5 canvas will display the content below -->
+      &lt;!-- Browsers which not supported HTML5 canvas will display the content below --&gt;
       Sorry, HTML5 Canvas is not supported in this browser!
     &lt;/canvas&gt;
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Cargar aplicacion de canvas</h3>
+
+<p class="tutorials-content__text">JavaScript necesita asegurar que todos los elemento de la aplicacion esten listo para ejecutar la aplicacion de manera satifactoria, es por esta razon que debemos crear esta verificacion de que todo este listo para ejecutar.</p>
+
+<pre>
+  <code class="language-javascript">
+    const init = () => {
+      let canvas = document.getElementById('display')
+      canvas.width  = 400
+      canvas.height = 200
+      canvas.classList.add('display-400-200')
+    }
+    
+    if(document.readyState !== 'loading') {
+      init()
+    } 
+    else {
+      document.addEventListener('DOMContentLoaded', init);
+    }
   </code>
 </pre>
