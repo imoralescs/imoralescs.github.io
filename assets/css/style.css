@@ -150,6 +150,12 @@ h3.tutorials-content__sub-title {
   padding: 1em;
 }
 
+.tutorials-content__list {
+  font-size: 16px;
+  padding: 1em 2em;
+  list-style-type: square;
+}
 
-
-
+.tutorials-content__list-element {
+    padding: 0 0 0.2em;	
+}
