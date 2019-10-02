@@ -164,7 +164,45 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 
 <ul class="tutorials-content__list">
   <li class="tutorials-content__list-element"><pre class="tutorials__code">beginPath()</pre> - Esto crea una nueva ruta</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">moveTo(x, y)</pre> - Mueves la posicion de dibujo a la indicada por los punto x, y.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">lineTo(x, y)</pre> - Traza linea de punto inicial al indicado por el metodo.</li>
   <li class="tutorials-content__list-element"><pre class="tutorials__code">closePath()</pre> - Agrega una linea recta a la ruta entre la posicion actual y inicio.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">stroke()</pre> - OOO</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">fill()</pre> - OOO</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">stroke()</pre> - </li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">fill()</pre> - Rellena de color la figura creada por las lineas.</li>
 </ul>
+
+<pre>
+  <code class="language-javascript">
+    const backgroundScale = 'display-400-200'
+    const removeScale = document.getElementById('removeScale')
+    
+    removeScale.addEventListener('click', function(event) {
+      let canvas = document.getElementById('display')
+      canvas.classList.toggle(backgroundScale)
+    })
+    
+    const init = () => {
+      let canvas = document.getElementById('display')
+      canvas.width  = 400
+      canvas.height = 200
+      canvas.classList.add(backgroundScale)
+      
+      let display = canvas.getContext('2d')
+      display.strokeStyle = '#FA293E'
+      display.lineWidth = 2
+      display.beginPath()
+      display.moveTo(50, 50)
+      display.lineTo(150, 50)
+      display.lineTo(50, 150)
+      display.closePath()
+      display.stroke()
+    }
+    
+    if(document.readyState !== 'loading') {
+      init()
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', init)
+    }
+  </code>
+</pre>
