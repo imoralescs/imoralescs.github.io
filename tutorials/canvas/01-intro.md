@@ -60,10 +60,10 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 <p class="tutorials-content__text">En el desarrollo de aplicaciones con Canvas es necesario tener un contenido canvas para poder dibujar. Esto es posible ya que el metodo getContext() nos devuelve el contenido del canvas el cual estamos trabajando. A este metodo se le puede pasar un parametro para especificar que tipo de contenido deseamos. Los parametros validos para este metodos son:</p>
 
 <ul class="tutorials-content__list">
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">2d</pre> - Usado para canvas.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl</pre> - Usado para graficas 3 dimensiones.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl2</pre> - Usado para graficas 3 dimensiones, segunda version.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">bitmaprenderer</pre> - Usado para ImageBitmap.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">2d</span> - Usado para canvas.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">webgl</span> - Usado para graficas 3 dimensiones.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">webgl2</span> - Usado para graficas 3 dimensiones, segunda version.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">bitmaprenderer</span> - Usado para ImageBitmap.</li>
 </ul>
 
 <pre>
@@ -94,9 +94,9 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 <p class="tutorials-content__text">Canvas nos provee lo siguientes metodos para dibujar un rectangulo.</p>
 
 <ul class="tutorials-content__list">
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">fillRect(x, y, width, height)</pre> - LLenar un rectangulo comenzando en la posicion x, y con acho y largo.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">strokeRect(x, y, width, height)</pre> - LLenar el contorno de rectangulo comenzando en la posicion x, y con acho y largo.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">clearRect()</pre> - Borra el área especificada y la hace completamente transparente.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">fillRect(x, y, width, height)</span> - LLenar un rectangulo comenzando en la posicion x, y con acho y largo.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">strokeRect(x, y, width, height)</span> - LLenar el contorno de rectangulo comenzando en la posicion x, y con acho y largo.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">clearRect()</span> - Borra el área especificada y la hace completamente transparente.</li>
 </ul>
 
 <pre>
@@ -163,12 +163,12 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 <p class="tutorials-content__text">Para hacer esto utilizamos los siguientes metodos que provee Canvas:</p>
 
 <ul class="tutorials-content__list">
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">beginPath()</pre> - Esto crea una nueva ruta</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">moveTo(x, y)</pre> - Mueves la posicion de dibujo a la indicada por los punto x, y.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">lineTo(x, y)</pre> - Traza linea de punto inicial al indicado por el metodo.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">closePath()</pre> - Agrega una linea recta a la ruta entre la posicion actual y inicio.</li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">stroke()</pre> - </li>
-  <li class="tutorials-content__list-element"><pre class="tutorials__code">fill()</pre> - Rellena de color la figura creada por las lineas.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">beginPath()</span> - Esto crea una nueva ruta</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">moveTo(x, y)</span> - Mueves la posicion de dibujo a la indicada por los punto x, y.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">lineTo(x, y)</span> - Traza linea de punto inicial al indicado por el metodo.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">closePath()</span> - Agrega una linea recta a la ruta entre la posicion actual y inicio.</li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">stroke()</span> - </li>
+  <li class="tutorials-content__list-element"><span class="tutorials__code">fill()</span> - Rellena de color la figura creada por las lineas.</li>
 </ul>
 
 <pre>
