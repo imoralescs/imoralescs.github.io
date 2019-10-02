@@ -4,7 +4,7 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 ---
 <h2 class="tutorials-content__sub-title">Canfigurar HTML Canvas</h2>
 
-<p class="tutorials-content__text">Para comenzar con Canvas, necesitas utilizar la etiqueta HTML <canvas>. Luego dentro de la etiqueta podemos especificar ancho y largo del elemento, estas medidas deben ser especificadas en pixeles.</p>
+<p class="tutorials-content__text">Para comenzar con Canvas, necesitas utilizar la etiqueta HTML &lt;canvas&gt;. Luego dentro de la etiqueta podemos especificar ancho y largo del elemento, estas medidas deben ser especificadas en pixeles.</p>
 
 <pre>
   <code class="language-html">
