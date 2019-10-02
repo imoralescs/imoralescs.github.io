@@ -165,4 +165,6 @@ h3.tutorials-content__sub-title {
   background: #f5f2f0;
   padding: 0 12px;
   color: #dd4a68;
+  font-family: monospace;
+  font-size: 14px;
 }
