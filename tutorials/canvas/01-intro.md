@@ -60,8 +60,8 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
 <p class="tutorials-content__text">En el desarrollo de aplicaciones con Canvas es necesario tener un contenido canvas para poder dibujar. Esto es posible ya que el metodo getContext() nos devuelve el contenido del canvas el cual estamos trabajando. A este metodo se le puede pasar un parametro para especificar que tipo de contenido deseamos. Los parametros validos para este metodos son:</p>
 
 <ul class="tutorials-content__list">
-  <li class="tutorials-content__list-element"><pre class="tutorials-code">2d</pre> : Usado para canvas.</li>
-  <li class="tutorials-content__list-element">webgl : Usado para graficas 3 dimensiones.</li>
-  <li class="tutorials-content__list-element">webgl2 : Usado para graficas 3 dimensiones, segunda version.</li>
-  <li class="tutorials-content__list-element">bitmaprenderer : Usado para ImageBitmap.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">2d</pre>, Usado para canvas.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl</pre>, Usado para graficas 3 dimensiones.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl2</pre>, Usado para graficas 3 dimensiones, segunda version.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">bitmaprenderer</pre>, Usado para ImageBitmap.</li>
 </ul>
