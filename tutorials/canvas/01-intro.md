@@ -50,7 +50,7 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
       init()
     } 
     else {
-      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener('DOMContentLoaded', init)
     }
   </code>
 </pre>
@@ -64,4 +64,107 @@ title: Conceptos basicos de HTML5 Canvas, Rectangulo y Figuras
   <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl</pre> - Usado para graficas 3 dimensiones.</li>
   <li class="tutorials-content__list-element"><pre class="tutorials__code">webgl2</pre> - Usado para graficas 3 dimensiones, segunda version.</li>
   <li class="tutorials-content__list-element"><pre class="tutorials__code">bitmaprenderer</pre> - Usado para ImageBitmap.</li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+    const init = () => {
+      let canvas = document.getElementById('display')
+      canvas.width  = 400
+      canvas.height = 200
+      canvas.classList.add('display-400-200')
+      
+      let display = canvas.getContext('2d')
+      display.fillRect(50, 50, 100, 100)
+    }
+    
+    if(document.readyState !== 'loading') {
+      init()
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', init)
+    }
+  </code>
+</pre>
+
+<p class="tutorials-content__text">El origin de los puntos en canvas son x = 0 y y = 0. Estos punto se lee de la siguiente forma, izquierda tope del elemento canvas.</p>
+
+<h2 class="tutorials-content__sub-title">Dibujando un rectangulo</h2>
+
+<p class="tutorials-content__text">Canvas nos provee lo siguientes metodos para dibujar un rectangulo.</p>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">fillRect(x, y, width, height)</pre> - LLenar un rectangulo comenzando en la posicion x, y con acho y largo.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">strokeRect(x, y, width, height)</pre> - LLenar el contorno de rectangulo comenzando en la posicion x, y con acho y largo.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">clearRect()</pre> - Borra el área especificada y la hace completamente transparente.</li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+    const init = () => {
+      let canvas = document.getElementById('display')
+      canvas.width  = 400
+      canvas.height = 200
+      canvas.classList.add('display-400-200')
+      
+      let display = canvas.getContext('2d')
+      display.fillRect(50, 50, 100, 100)
+      display.strokeRect(200, 100, 50, 50)
+    }
+    
+    if(document.readyState !== 'loading') {
+      init()
+    } 
+    else {
+      document.addEventListener('DOMContentLoaded', init)
+    }
+  </code>
+</pre>
+
+<h2 class="tutorials-content__sub-title">Propiedades de canvas</h2>
+
+<p class="tutorials-content__text">El objeto de contexto Canvas tiene propiedades, por ejemplo fillStyle y strokeStyle. Al dibujar formas rellenas, ingrese un código de color en la propiedad fillStyle, cambiará el estilo de las formas rellenas.</p>
+
+<pre>
+  <code class="language-javascript">
+    const init = () => {
+      let canvas = document.getElementById('display')
+      canvas.width  = 400
+      canvas.height = 200
+      canvas.classList.add('display-400-200')
+      
+      let display = canvas.getContext('2d')
+      display.fillStyle = '#FA293E'
+      display.fillRect(50, 50, 100, 100)
+      
+      display.strokeStyle = '#F3E02F'
+      display.strokeRect(200, 100, 50, 50)
+    }
+    
+    if(document.readyState !== 'loading') {
+      init()
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', init)
+    }
+  </code>
+</pre>
+
+<h2 class="tutorials-content__sub-title">Dibujar lineas y caminos</h2>
+
+<p class="tutorials-content__text">Todo lo que no sea rectangular que desee dibujar en Canvas debe crearse con una ruta. Una ruta o camino es una lista de puntos conectados por lineas rectas o curvas. Pueden ser abiertos o cerrados y cada segmento de la ruta puede tener un estilo diferente. Para hacer una forma usando ruta, hay tres pasos:</p>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element">Crea el camino</li>
+  <li class="tutorials-content__list-element">Dibujar en el camino</li>
+  <li class="tutorials-content__list-element">Trace o llenar el camino para representarlo.</li>
+</ul>
+
+<p class="tutorials-content__text">Para hacer esto utilizamos los siguientes metodos que provee Canvas:</p>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">beginPath()</pre> - Esto crea una nueva ruta</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">closePath()</pre> - Agrega una linea recta a la ruta entre la posicion actual y inicio.</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">stroke()</pre> - OOO</li>
+  <li class="tutorials-content__list-element"><pre class="tutorials__code">fill()</pre> - OOO</li>
 </ul>
