@@ -4,9 +4,9 @@ title: Closure "Clausura"
 ---
 <h2 class="tutorials-content__sub-title">Closure "Clausura"</h2>
 
-<p class="tutorials-content__text">Los closures "clausuras" son funciones que manejan variables independientes. En otras palabras, la funcion definida en el cloruew "recuerda" el entorno en el que se ha creado. - <a  class="tutorials-content__reference-link--inline" href='https://developer.mozilla.org/es/docs/Web/JavaScript/Closures'>mdn</a></p>
+<p class="tutorials-content__text">Los closures "clausuras" son funciones que manejan variables independientes. En otras palabras, la funcion definida en el closure "recuerda" el entorno en el que se ha creado. - <a  class="tutorials-content__reference-link--inline" href='https://developer.mozilla.org/es/docs/Web/JavaScript/Closures'>mdn</a></p>
 
-<p class="tutorials-content__text">Para entender el concepto digamos que tenemos la siguiente funcion el cual nos retorna un objecto. Este objeto y sus propiedades estaran basado en los argumento que le entremos a la funcion.</p>
+<p class="tutorials-content__text">Para entender el concepto digamos que tenemos la siguiente función el cual nos regresa un objeto. Este objeto y sus propiedades estarán basada en los argumentos que le entremos a la función.</p>
 
 <pre>
   <code class="language-javascript">
