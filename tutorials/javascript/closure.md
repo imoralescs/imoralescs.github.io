@@ -200,9 +200,9 @@ title: Closure "Clausura"
     console.log(person_01.getFullName()) //-> Marcus Right
 
     function MyObject(fn, ln) {
-      let 
-  	fname = fn,
-  	lname = ln
+      let
+        fname = fn,
+	lname = ln
     
       const getFullName = () => {
         return [fname, lname].join(" ")
