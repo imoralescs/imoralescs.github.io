@@ -143,3 +143,121 @@ title: Closure "Clausura"
 </pre>
 
 <p class="tutorials-content__text">Las clausura (Closure) es una técnica de encapsulamiento, basada en el anidamiento de funciones, en otras palabras funciones dentro de otra función que permite crear privacidad, Para que dé este modo, el ámbito (Scope) de una función interna contenga como también o pueda heredar el ámbito de una función padre, eh incluso si esta función padre ya ha devuelto algún valor, pues conservar dicho ámbito en caché o memoria, dentro de la clausura.</p>
+
+
+<h2 class="tutorials-content__sub-title">Casos de uso útiles para clausura (Closure) en JavaScript</h2>
+
+<h3 class="tutorials-content__sub-title">Problemas con iteración</h3>
+
+<pre>
+  <code class="language-javascript">
+    let 
+      fns = [], 
+      gns = []
+      
+    for(var i = 0; i < 5; i++) {
+      var c = i * 2
+      fns.push( _ => console.log(c))
+    }
+      
+    fns.forEach(f => f()) //-> 8 8 8 8 8
+      
+    for(var i = 0; i < 5; i++) {
+      ( _ => {
+	var c = i * 2
+	gns.push( _ => console.log(c))
+      })()
+    }
+      
+    gns.forEach(f => f()) //-> 0 2 4 6 8
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Simular enfoque de variables privadas</h3>
+
+<pre>
+  <code class="language-javascript">
+    class MyClass {
+      constructor(fname, lname) {
+        this.first_name = fname
+        this.last_name = lname
+      }
+      
+      getFullName() {
+  	return [this.first_name, this.last_name].join(" ")
+      }
+      
+      setFirstName(fn) {
+        this.first_name = fn
+      }
+      
+      setLastName(ln) {
+        this.last_name = ln
+      }
+    }
+
+    const person_01 = new MyClass('Marcus', 'Right')
+    console.log(person_01.getFullName()) //-> Marcus Right
+
+    function MyObject(fn, ln) {
+      let 
+  	fname = fn,
+  	lname = ln
+    
+      const getFullName = () => {
+        return [fname, lname].join(" ")
+      }
+      
+      const setFirstName = first => {
+        fname = first
+      }
+      
+      const setLastName = last => {
+        lname = last
+      }
+      
+      return {
+        getFullName,
+	setFirstName,
+	setLastName
+      }
+    }
+    
+    const person_02 = new MyObject('Peter', 'Twice')
+    console.log(person_02.getFullName()) //-> Peter Twice
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Ejecución retrasada</h3>
+
+<pre>
+  <code class="language-javascript">
+    function greetDelay(delay) {
+      let greet = "Hello world!"
+      
+      setTimeout( _ => {
+        console.log(greet)
+      }, delay)
+      
+      return "Done!"
+    }
+    
+    console.log(greetDelay(1000))
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Composición de funciónes</h3>
+
+<pre>
+  <code class="language-javascript">
+    const makeIncrementer = function(a) {
+      return function(b) {
+        return a + b
+      }
+    }
+
+    const incBy10 = makeIncrementer(10)
+
+    console.log(incBy10(5)) //-> 15
+  </code>
+</pre>
