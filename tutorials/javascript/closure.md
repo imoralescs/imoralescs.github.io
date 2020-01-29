@@ -29,7 +29,7 @@ title: Closure "Clausura"
   </code>
 </pre>
 
-<p class="tutorials-content__text">En el ejemplo la funcion nos crea un objeto llamado estudiante "student", esta funcion la utilizamos uno a uno para crear multiples objetos llamado estudiantes, luego inicializamos una instancia de coleccion "Array" para crear una lista de estudiantes "students". En orden de poder distinguir cada estudiante en la lista debemos añadirle a cada objeto estudiante un numero de identificacion, este numero identificador se lo debemos asignar dentro de la funcion el cual crea el objeto estudiante, porque cuando utilizamos la funcion, no queremos tener que preocuparno por cual numero de identificacion le daremos a cada objeto.</p>
+<p class="tutorials-content__text">En el ejemplo la función nos crea un objeto llamado estudiante "student", la utilizamos uno a uno para crear múltiples objetos llamado estudiantes, luego inicializamos una instancia de colección "Array" para crear una lista de estudiantes "students". En orden de poder distinguir cada estudiante en la lista debemos añadirle a cada objeto estudiante un número de identificación, este número identificador se lo debemos asignar dentro de la función el cual crea el objeto estudiante, porque cuando utilizamos la función, no queremos tener que preocupar por cual número de identificación le daremos a cada objeto.</p>
 
 <pre>
   <code class="language-javascript">
@@ -55,9 +55,9 @@ title: Closure "Clausura"
   </code>
 </pre>
 
-<p class="tutorials-content__text">Por el momento cada objeto estudiante tienen como numero de estudiante el numero 1, el cual no es correcto ya que el numero de identificacion deberia ser unico en la lista de estudiantes, usualmente este numero de estudiante deberia incrementar por uno cada vez que un objeto estudiate es introducido a la lista de estudiantes.</p>
+<p class="tutorials-content__text">Por el momento cada objeto estudiante tienen como número de estudiante el número 1, el cual no es correcto ya que el número de identificación debería ser único en la lista de estudiantes, usualmente este número de estudiante debería incrementar por uno cada vez que un objeto estúdiate es introducido a la lista de estudiantes.</p>
 
-<p class="tutorials-content__text">La funcion para crear el objeto estudiante no puede añadir el numero correcto al objeto estudiante sin que algun valor externo de la funcion le diga cual seria el numero correcto. Este valor externo ayudara a tener un seguimiento del numero que le corresponde a cada objeto estudiante el cual cree la funcion.</p>
+<p class="tutorials-content__text">La función para crear el objeto estudiante no puede añadir el número correcto al objeto estudiante sin que algún valor externo de la función le diga cual seria el número correcto. Este valor externo ayudara a tener un seguimiento del número que le corresponde a cada objeto estudiante el cual cree la función.</p>
 
 <pre>
   <code class="language-javascript">
@@ -84,7 +84,7 @@ title: Closure "Clausura"
   </code>
 </pre>
 
-<p class="tutorials-content__text">Al Mover una variable fuera del ambito de la funcion a un ambito global para tener seguimiento del valor que corresponde a cada objeto estudiante, hemos solucionado un problema. Pero ahora tenemos el siguiente problema.</p>
+<p class="tutorials-content__text">Al Mover una variable fuera del ámbito de la función a un ámbito global para tener seguimiento del valor que corresponde a cada objeto estudiante, hemos solucionado un problema. Pero ahora tenemos el siguiente problema.</p>
 
 <pre>
   <code class="language-javascript">
@@ -112,7 +112,7 @@ title: Closure "Clausura"
   </code>
 </pre>
 
-<p class="tutorials-content__text">Como ahora la variable el cual sigue el valor de identificacion de cada objeto estudiante esta en un ambito global, este valor puede ser alterado de forma muy sencilla o puede ser alterado por error de la logica de nuestro codigo. Es aqui que las clausura (Closure) nos ayudan con los problema de las variables y sus ambitos.</p>
+<p class="tutorials-content__text">Como ahora la variable el cual sigue el valor de identificación de cada objeto estudiante esta en un ámbito global, este valor puede ser alterado de forma muy sencilla o puede ser alterado por error de la lógica de nuestro código. Es aquí que las clausura (Closure) nos ayudan con los problema de las variables y sus ámbitos.</p>
 
 <pre>
   <code class="language-javascript">
@@ -142,4 +142,4 @@ title: Closure "Clausura"
   </code>
 </pre>
 
-<p class="tutorials-content__text">Las clausura (Closure) es una técnica de encapsulamiento, basada en el anidamiento de funciones, en otras palabras funciones dentro de otra funcion que permite crear privacidad, Para que de este modo, el ambito (Scope) de una función interna contenga como tambien o pueda heredar el ambito de una función padre, eh incluso si esta función padre ya ha retornado algun valor, pues conservar dicho ambito en caché o memoria, dentro de la clausura.</p>
+<p class="tutorials-content__text">Las clausura (Closure) es una técnica de encapsulamiento, basada en el anidamiento de funciones, en otras palabras funciones dentro de otra función que permite crear privacidad, Para que dé este modo, el ámbito (Scope) de una función interna contenga como también o pueda heredar el ámbito de una función padre, eh incluso si esta función padre ya ha devuelto algún valor, pues conservar dicho ámbito en caché o memoria, dentro de la clausura.</p>
