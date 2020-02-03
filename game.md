@@ -17,3 +17,5 @@ Los video juegos suelen reproducirse a 30 o 60 cuadros por segundo.
 Nuestro codigo del juego es convertido a leguaje maquina para luego ser ejecutado por el CPU de la maquina, este CPU tiene una velocidad por segundo que nos permite sabes cuantas instrucciones por segundo pueden ser procesadas. Esta velocidad es medida en gigahercios "gigahertz" (GHz).
 
 Existen tipos de CPU con diferente velocidades en ejecutar o procesar intrucciones, como por ejemplo CPU con velocidades de 3GHz o 2.6GHz. Esto significa que la ejecucion de un video juegos pueden ser afectada o procesada de manera diferente, todo dependera de la velocidad del CPU de la maquina. Esto nos crea un problema, el problema es que video juegos procesandose en diferentes CPU a diferentes velocidades tendremos experiencias diferente y hasta juegos mostrandose en pantalla de manera mas lento.
+
+Es en este momento que el valor de "Delta Time" nos ayuda, Delta Time es la cantidad de tiempo transcurrido desde el último cuadro o fotograma.
