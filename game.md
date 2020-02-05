@@ -12,6 +12,20 @@ Cada corrida del bucle como resultado nos muestra cuadros o imagenes distinta en
 
 Los video juegos suelen reproducirse a 30 o 60 cuadros por segundo.
 
+### Duracion de cuadros
+
+La duracion de cuadros es utilizada para resolver problema de renderizacion, esta puede ser conseguida de la siguiente manera, cada duracion equivale a milisegundos, para conseguir la duracion de una frecuencia especifica debemos dividir el numero de la frecuencia por un segundo(1000).
+
+#### Ejemplo
+
+'''
+1000ms / 60fps = 16 milisegundos por cuadro
+'''
+
+'''
+1000ms / 30fps = 33 milisegundos por cuadro
+'''
+
 ## Delta Time
 
 Nuestro codigo del juego es convertido a leguaje maquina para luego ser ejecutado por el CPU de la maquina, este CPU tiene una velocidad por segundo que nos permite sabes cuantas instrucciones por segundo pueden ser procesadas. Esta velocidad es medida en gigahercios "gigahertz" (GHz).
