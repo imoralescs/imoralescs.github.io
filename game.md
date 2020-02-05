@@ -18,13 +18,13 @@ La duracion de cuadros es utilizada para resolver problema de renderizacion, est
 
 #### Ejemplo
 
-'''
+```
 1000ms / 60fps = 16 milisegundos por cuadro
-'''
+```
 
-'''
+```
 1000ms / 30fps = 33 milisegundos por cuadro
-'''
+```
 
 ## Delta Time
 
