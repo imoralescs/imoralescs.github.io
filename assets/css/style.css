@@ -141,6 +141,23 @@ hr {
   font-size: 24px;
   cursor: pointer;
   border-bottom: 1px solid #444444;
+  user-select: none;
+}
+
+.accordion__content {
+  padding: .5em;
+  margin: 0 1.5em;
+}
+
+.accordion__content a {
+  color: #444;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.accordion_content a:hover {
+  color: #B11623;
 }
 
 /***
