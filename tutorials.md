@@ -2,7 +2,7 @@
 layout: home
 title: Tutoriales
 ---
-<h2>Tutoriales</h2>
+<h2 class="tutorials-content__title">Tutoriales</h2>
 <div class="accordion">
   <div class="accordion__item">
     <a class="accordion__header">JavaScript</a>
