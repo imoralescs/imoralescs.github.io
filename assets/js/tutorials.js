@@ -6,7 +6,7 @@ console.log("Javascript running...!");
 var accordionItems = document.querySelectorAll(".accordion__header");
 for (const accordion of accordionItems) {
   accordion.addEventListener('click', function(event) {
-    event.prefentDefault();
+    event.preventDefault();
     console.dir(event.target);
   })
 }
