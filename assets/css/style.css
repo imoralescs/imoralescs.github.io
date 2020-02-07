@@ -130,7 +130,7 @@ hr {
   display: none;	
 }
 
-.accordion__content .active {
+.accordion__content.active {
   display: block;	
 }
 
