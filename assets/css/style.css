@@ -130,6 +130,10 @@ hr {
   display: none;	
 }
 
+.accordion__content .active {
+  display: block;	
+}
+
 /***
  * Tutorial Pages
 **/
