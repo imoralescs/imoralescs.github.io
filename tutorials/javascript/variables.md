@@ -12,8 +12,6 @@ title: Variables
 
 <p class="tutorials-content__text">Para definir una variable utilizamos la palabra reservada ```var``` esto es en el caso que utilicemos la version ECMAScript 5 de JavaScript, ```const``` o ```let``` en el caso que estemos utilizando la version JavaScript ECMAScript 6 o ECMAScript 7.</p>
 
-* ```var```
-
 <pre>
   <code class="language-javascript">
   // Declarando variable
