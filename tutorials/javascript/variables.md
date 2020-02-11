@@ -10,10 +10,10 @@ title: Variables
 
 <h3 class="tutorials-content__sub-title">Definicion de variables</h3>
 
-<p class="tutorials-content__text">Para definir una variable utilizamos la palabra reservada `var` esto es en el caso que utilicemos la version ECMAScript 5 de JavaScript, <code>const</code> o <code>let</code> en el caso que estemos utilizando la version JavaScript ECMAScript 6 o ECMAScript 7.</p>
+<p class="tutorials-content__text">Para definir una variable utilizamos la palabra reservada <code class="tutorials__code">var</code> esto es en el caso que utilicemos la version ECMAScript 5 de JavaScript, <code class="tutorials__code">const</code> o <code class="tutorials__code">let</code> en el caso que estemos utilizando la version JavaScript ECMAScript 6 o ECMAScript 7.</p>
 
-<ul>
-  <li><code>var</code></li>
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" ><code class="tutorials__code">var</code></li>
 </ul>
 
 <pre>
