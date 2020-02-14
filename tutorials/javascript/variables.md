@@ -70,3 +70,43 @@ title: Variables
 <p class="tutorials-content__text">En JavaScript tenemos 4 tipos de datos primitivos, para almacenar en variable.</p>
 
 <h4 class="tutorials-content__sub-title">Numero (Number)</h4>
+
+<p class="tutorials-content__text">Nos permite almacenar valores numericos.</p>
+
+<pre>
+  <code class="language-javascript">
+  let hundred = 100;
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Cadena de caracteres (String)</h4>
+
+<p class="tutorials-content__text">Almacena caracteres o palabras completas. Se delimita entre comillas simple o dobles.</p>
+
+<pre>
+  <code class="language-javascript">
+  let data = "cadena de caracteres";
+  let otradata = 'otra cadena de caracteres';
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Boolean</h4>
+
+<p class="tutorials-content__text">Permite almacenar valores bit, que indican <code class="tutorials__code">true</code> o <code class="tutorials__code">false</code>.</p>
+
+<pre>
+  <code class="language-javascript">
+  let value = false;
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Undefined</h4>
+
+<p class="tutorials-content__text">Este es un tipo de variable que su valor no ha sido definida aun o no existe.</p>
+
+<pre>
+  <code class="language-javascript">
+  let data;
+  console.log(data); //-> underfined
+  </code>
+</pre>
