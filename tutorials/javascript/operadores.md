@@ -7,11 +7,11 @@ title: Operadores
 <p class="tutorials-content__text">JavaScript posee operadores para tipos y objetos, estos operadores permiten desarrollar expresiones lo cual nos permite resolver problemas. Las operaciones mas comunes son las aritmeticas.</p>
 
 <ul class="tutorials-content__list">
-  <li class="tutorials-content__list-element" >Suma de numeros 5 + 2</li>
-  <li class="tutorials-content__list-element" >Resta 5 - 2</li>
-  <li class="tutorials-content__list-element" >Operaciones con parentesis (3 + 2) - 5</li>
-  <li class="tutorials-content__list-element" >Divisiones 3 / 3</li>
-  <li class="tutorials-content__list-element" >Multiplicaciones 6 * 3</li>
+  <li class="tutorials-content__list-element" >Suma de numeros <code class="tutorials__code">5 + 2</code></li>
+  <li class="tutorials-content__list-element" >Resta <code class="tutorials__code">5 - 2</code></li>
+  <li class="tutorials-content__list-element" >Operaciones con parentesis <code class="tutorials__code">(3 + 2) - 5</code></li>
+  <li class="tutorials-content__list-element" >Divisiones <code class="tutorials__code">3 / 3</code></li>
+  <li class="tutorials-content__list-element" >Multiplicaciones <code class="tutorials__code">6 * 3</code></li>
 </ul>
 
 <p class="tutorials-content__text">Los operadores y operaciones en programacion tiene sus propias terminologia el cual debemos de entender claramente antes de proseguir.</p>
@@ -20,7 +20,7 @@ title: Operadores
   <li class="tutorials-content__list-element" >Operando</li>
 </ul>
 
-<p class="tutorials-content__text">Esto es, a que valores se le aplica el operador, por ejemplo 5 * 2, el operador de multiplicacion el cual es aplicado a los operando de izquierda a derecha.</p>
+<p class="tutorials-content__text">Esto es, a que valores se le aplica el operador, por ejemplo <code class="tutorials__code">5 * 2</code>, el operador de multiplicacion el cual es aplicado a los operando de izquierda a derecha.</p>
 
 <ul class="tutorials-content__list">
   <li class="tutorials-content__list-element" >Unario</li>
