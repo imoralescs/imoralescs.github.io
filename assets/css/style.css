@@ -170,12 +170,18 @@ a.accordion__link:hover {
 }
 
 h2.tutorials-content__sub-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 400;
   padding: 1em 0;
 }
 
 h3.tutorials-content__sub-title {
+  font-size: 24px;
+  font-weight: 400;
+  padding: 1em 0;
+}
+
+h4.tutorials-content__sub-title {
   font-size: 20px;
   font-weight: 400;
   padding: 1em 0;
