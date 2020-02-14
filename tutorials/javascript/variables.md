@@ -64,3 +64,9 @@ title: Variables
   const MSG = "MSG_ME";
   </code>
 </pre>
+
+<h3 class="tutorials-content__sub-title">Tipos de valores</h3>
+
+<p class="tutorials-content__text">En JavaScript tenemos 4 tipos de datos primitivos, para almacenar en variable.</p>
+
+<h4 class="tutorials-content__sub-title">Numero (Number)</h4>
