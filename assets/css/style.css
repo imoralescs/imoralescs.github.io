@@ -163,6 +163,12 @@ a.accordion__link:hover {
 /***
  * Tutorial Pages
 **/
+.tutorials-content {
+  border-bottom: 0.1rem solid #444444;
+  margin: 0 0 6em;
+  padding: 0 0 2em;
+}
+
 .tutorials-content__title {
   font-size: 30px;
   font-weight: 800;
