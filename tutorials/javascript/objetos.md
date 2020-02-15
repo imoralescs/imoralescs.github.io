@@ -479,3 +479,147 @@ title: Objetos
   }
   </code>
 </pre>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.defineProperty(user, "fullName", {
+    get: function() {
+      return this.firstName + " " + this.lastName;
+    },
+    set: function(value) {
+      let parts = value.split(' ');
+
+      if(parts.length == 2) {
+        this.firstName = parts[0];
+        this.lastName = parts[1];
+      }
+      else {
+        throw 'Invalid name format'
+      }
+    }
+  });
+
+  log(user.fullName); //-> Peter Jackson
+
+  user.fullName = "Steve Finn";
+
+  log(user.firstName); //-> Steve
+  log(user.lastName); //-> Finn
+  log(user.fullName); //-> Steve Finn
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Control el estado del objeto</h3>
+
+<p class="tutorials-content__text">Existen momento el cual queremos prevenir que nuestros objetos esten en el estado de lectura o escritura, los objetos de JavaScript nos provee tres metodos para evitar estos cambios o usos. Estos metodos son: <code class="tutorials__code">Object.preventExtensions</code>, <code class="tutorials__code">Object.seal</code>, <code class="tutorials__code">Object.freeze</code></p>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.preventExtensions</code></h4>
+
+<p class="tutorials-content__text">Metodo previene que el objeto de JavaScript sea extendible.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+  Object.preventExtensions(user);
+
+  Object.defineProperty(user, "age", {
+    value: 22
+  });
+
+  user.age = "one";
+  log(user.age); //-> Cannot define property age, object is not extensible
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.isExtensible</code></h4>
+
+<p class="tutorials-content__text">Metodo nos devuelve un valor booleano que nos notifica si el objeto JavaScript puede ser extensible.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  log(Object.isExtensible(user)); //-> true
+  Object.preventExtensions(user);
+  log(Object.isExtensible(user)); //-> false
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.seal</code></h4>
+
+<p class="tutorials-content__text">Metodo previene que podamos añadir o eliminar propiedades a objetos de JavaScript pero si nos permite editar propiedades del objeto de JavaScript, el objeto estara sellado.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.seal(user);
+
+  delete user.firstName;
+  log(user.firstName); //-> Peter
+
+  user.fullName = "Peter Jackson";
+  log(user.fullName); //-> undefined
+
+  user.firstName = "Tom";
+  log(user.firstName); //-> Tom
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.isSealed</code></h4>
+
+<p class="tutorials-content__text">Metodo nos devuleve un valor booleano que nos notifica se el objeto esta sellado.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.seal(user);
+  log(Object.isSealed(user)); //-> true
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.freeze</code> and <code class="tutorials__code">Object.isFrozen</code></h4>
+
+<p class="tutorials-content__text">Metodo es similar a <code class="tutorials__code">Object.seal</code>, la diferencia es que este objeto ademas que evita añadir y eliminar propiedades, no dejara editar propiedades. Este objeto estara completamente como una variable constante. <code class="tutorials__code">Object.isFrozen</code> nos devuelve un valor booleano para notificar si nuestro objeto esta congelado.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.freeze(user);
+  user.fullName = "Peter Jackson";
+
+  log(Object.isFrozen(user)); //-> true
+  log(user.fullName);
+
+  user.firstName = "Tom";
+  log(user.firstName); //-> Peter
+  </code>
+</pre>
