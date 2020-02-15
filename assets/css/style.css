@@ -169,6 +169,10 @@ a.accordion__link:hover {
   padding: 0 0 2em;
 }
 
+.tutorials-content b {
+  font-weight: bold;
+}
+
 .tutorials-content__title {
   font-size: 30px;
   font-weight: 800;
