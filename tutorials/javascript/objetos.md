@@ -84,3 +84,398 @@ title: Objetos
   console.log(john.name); //-> John
   </code>
 </pre>
+
+<h3 class="tutorials-content__sub-title">Propiedades y metodos</h3>
+
+<p class="tutorials-content__text">Las propiedades estan asociadas entre un nombre (llave "key") y el valor dentro del objeto, esto valores pueden ser representado por cualquier tipo de datos. Las propiedades comunmente hacen referencias a caracteristicas de algun objeto. Metodos son funciones el cual pueden transformar los valores de las propiedades del objeto.</p>
+
+<h4 class="tutorials-content__sub-title">Acceso a propiedades del objeto</h4>
+
+<p class="tutorials-content__text">Existen dos maneras de accesar las propiedades de un objeto.</p>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" >Notacion de punto</li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  console.log(Person.firstName); //-> Steve
+  </code>
+</pre>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" >Notacion de corchetes</li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  console.log(Person['firstName']); //-> Steve
+  </code>
+</pre>
+
+<p class="tutorials-content__text">De las mismas manera podemos llamar metodos dentro del objetos.</p>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  Person.sayName(); //-> Steve McNiller
+  Person['sayName'](); //-> Steve McNiller
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Añadir o modificar propiedades de objeto</h4>
+
+<p class="tutorials-content__text">Para añadir propiedades a objeto o modificarlo, utilizamos el operador de asignacion y cualquiera de los tipo de notacion.</p>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  Person.age = 28;
+  console.log(Person); //-> {firstName: "Steve ", lastName: "McNiller", sayName: ƒ, age: 28}
+
+  Person['sex'] = 'Male';
+  console.log(Person); //-> {firstName: "Steve ", lastName: "McNiller", sayName: ƒ, age: 28, sex: "Male"}
+  </code>
+</pre>
+
+<p class="tutorials-content__text">De la misma manera podemos añadir metodos.</p>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  Person.age = 28;
+  Person['sex'] = 'Male';
+
+  Person.sayAge = function() {
+    console.log('My age is ' + this.age)
+  };
+
+  Person.sayAge(); //-> My age is 28
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Remover propiedades del objeto</h4>
+
+<p class="tutorials-content__text">Para remover una propiedad dentro del objeto podemos utilizar la palabra reservada delete junto a la propiedad que deseamos remover. Al remover la propiedad tendremos de vuelta el valor cierto indicando que la propiedad a sido exitosamente removida de la propiedad.</p>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  Person.age = 28;
+
+  const confirmObjDel = delete Person.age;
+
+  console.log(confirmObjDel); //-> true
+  console.log(Person); //-> {firstName: "Steve ", lastName: "McNiller", sayName: ƒ}
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title">Iteraciones atravez de propiedades de objeto</h4>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" >Por medio de <code class="tutorials__code">for...in</code></li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    age: 28,
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  for(let key in Person) {
+    console.log(Person[key]);
+  }
+
+  //-> Steve
+  //-> McNiller
+  //-> 28
+  //-> f()
+  </code>
+</pre>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" >Utilizando metodo de <b>Object()</b> <code class="tutorials__code">Object.keys()</code> este metodo devuelve un Array de los valores del objeto el cual aplicamos el metodo.</li>
+</ul>
+
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    firstName: 'Steve ',
+    lastName: 'McNiller',
+    age: 28,
+    sayName: function() {
+      console.log(this.firstName + this.lastName);
+    }
+  }
+
+  const PersonArray = Object.keys(Person);
+  console.log(PersonArray); //-> ["firstName", "lastName", "age", "sayName"]
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Descriptor de propiedad del objeto</h3>
+
+<p class="tutorials-content__text">Descriptores de objetos en JavaScript, son elemento dentro de los objetos en JavaScript el cual nos provee mas informacion sobre las propiedades dentro de nuestros objetos en JavaScript, estas propiedades determinan el estado del objeto en JavaScript.</p>
+
+<p class="tutorials-content__text">Los objetos en JavaScript contiene los descriptores de dato, esto son <code class="tutorials__code">[[value]]</code>, <code class="tutorials__code">[[writable]]</code>, <code class="tutorials__code">[[configurable]]</code>, <code class="tutorials__code">[[enumerable]]</code> y descriptores de accessor el cual son <code class="tutorials__code">[[get]]</code>, <code class="tutorials__code">[[set]]</code>, <code class="tutorials__code">[[configurable]]</code> y <code class="tutorials__code">[[enumerable]]</code>.</p>
+
+<pre>
+  <code class="language-javascript">
+  let obj = {
+    name: 'Pete'
+  };
+  </code>
+</pre>
+
+<p class="tutorials-content__text">Por defecto cuando nosotros creamos un objeto como el ejemplo anterior, este objeto obtiene los valores por defecto. Basado al ejemplo anterior, <code class="tutorials__code">[[value]]</code> es el valor de name <code class="tutorials__code">'Pete'</code>, el cual es lo que muestra como salida, si escribimos los siguiente <code class="tutorials__code">console.log(obj.name)</code>. <code class="tutorials__code">[[writable]]</code> esta definido como cierto <b>"true"</b>, esto significa que esta permitido cambiar el valor del objeto. <code class="tutorials__code">[[configurable]]</code> esta definido como cierto <b>"true"</b>, este nos permite cambiar o utilizar las propiedades mencionadas. <code class="tutorials__code">[[enumerable]]</code> significa que si le aplicamos un bucle <code class="tutorials__code">for...in</code> al objeto de JavaScript, podemos recorrer por las propiedades definidas dentro del objeto JavaScript.</p>
+
+<p class="tutorials-content__text">Los descriptores accessor o metodos de mutacion son metodos que nos permite buscar datos privado dentro de objetos, a estos metodos se les llama comunmente <code class="tutorials__code">[[getter]]</code> y <code class="tutorials__code">[[setter]]</code>.</p>
+
+<p class="tutorials-content__text">En JavaScript los objetos contienen unos metodos el cual nos permiten definir y configurar objetos utilizando descriptores.</p>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.defineProperty</code></h4>
+
+<p class="tutorials-content__text">Metodos es uno de los principales para manejar y configurar objetos.</p>
+
+<pre>
+  <code class="language-javascript">
+  // Example of used
+  Object.defineProperty(obj, propName, {})
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let user = {};
+  Object.defineProperty(user, "firstName", {
+    value: "Peter",
+    configurable: true,
+    writable: true,
+    enumerable: true
+  });
+
+  console.log(user.firstName); //-> Peter
+  </code>
+</pre>
+
+<p class="tutorials-content__text">Por defecto cuando definimos una propiedad dentro del objeto utilizando <code class="tutorials__code">Object.defineProperty</code>, si no le asignamos un valor utilizando <code class="tutorials__code">[[value]]</code>, este se creara con el valor <code class="tutorials__code">undefined</code></p>
+
+<pre>
+  <code class="language-javascript">
+  let user = {};
+  Object.defineProperty(user, "firstName", {
+    configurable: true,
+    writable: true,
+    enumerable: true
+  });
+
+  console.log(user.firstName); //-> undefined
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.defineProperties</code></h4>
+
+<p class="tutorials-content__text">Metodos nos permite definir varias propiedades a la misma vez.</p>
+
+<pre>
+  <code class="language-javascript">
+  Object.defineProperties(obj, props)
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let user = {};
+  Object.defineProperties(user, {
+    firstName: {
+      value: "Peter",
+      writable: true
+    },
+    getName: {
+      value: function() {
+        console.log(this.firstName);
+      }
+    },
+  });
+
+  user.getName(); //-> Peter
+  </code>
+</pre>
+
+<p class="tutorials-content__text">Observemos mas ejemplo del uso de estos metodos, digamos que queremos definir propiedades que nunca cambien, que sea constante.</p>
+
+<pre>
+  <code class="language-javascript">
+  let user = {};
+  Object.defineProperty(user, "firstName", {
+    value: "Peter",
+    writable: false,
+    configurable: false
+  });
+
+  user.firstName = "Mike";
+  console.log(user.firstName); // Peter
+  </code>
+</pre>
+
+<p class="tutorials-content__text">Digamos que ahora en el proximo ejemplo queremos ocultar propiedades dentro del objeto en JavaScript.</p>
+
+<pre>
+  <code class="language-javascript">
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.defineProperty(user, "socialSecNum", {
+    value: "555-89-7844",
+    enumerable: false
+  });
+
+  for(let prop in user) {
+    console.log(prop);
+  }
+  //-> firstName
+  //-> lastName
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.getOwnPropertyNames</code> and <code class="tutorials__code">Object.keys</code></h4>
+
+<p class="tutorials-content__text">Metodos son familiar al metodo keys dictionary del lenguaje de programacion Python, estos nos devuelve un array de las propiedades que se encuentran dentro del objeto de JavaScript, la diferencia entre <code class="tutorials__code">Object.getOwnPropertyNames</code> y <code class="tutorials__code">Object.keys</code> es que <code class="tutorials__code">Object.getOwnPropertyNames</code> nos devuleve todas las propiedades incluyendo las configurada como falso en enumerable.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.defineProperty(user, "socialSecNum", {
+    value: "555-89-7844",
+    enumerable: false
+  });
+
+  log(Object.getOwnPropertyNames(user)); //-> ["firstName", "lastName", "socialSecNum"]
+  log(Object.keys(user)); //-> ["firstName", "lastName"]
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.values</code></h4>
+
+<p class="tutorials-content__text">Metodo es similar a <code class="tutorials__code">Object.keys</code>, este nos devuelve el valor de cada propiedad y al igual que <code class="tutorials__code">Object.keys</code>, este no retornara propiedades definidas falsa en <code class="tutorials__code">[[enumerable]]</code>.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+
+  Object.defineProperty(user, "socialSecNum", {
+    value: "555-89-7844",
+    enumerable: false
+  });
+
+  log(Object.values(user)); //-> ["firstName", "lastName"]
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.getOwnPropertyDescriptor</code></h4>
+
+<p class="tutorials-content__text">Metodo nos devuelve los descriptores de una propiedad especifica que se encuentra dentro del objeto de JavaScript.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+  log(Object.getOwnPropertyDescriptor(user, "firstName")); 
+  //-> {value: "Peter", writable: true, enumerable: true, configurable: true}
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">Object.getOwnPropertyDescriptors</code></h4>
+
+<p class="tutorials-content__text">Metodo es similar a <code class="tutorials__code">Object.getOwnPropertyDescriptor</code>, la diferencia es que este nos devuelve todas las propiedades que se encuentre dentro del objeto JavaScript con sus descriptores.</p>
+
+<pre>
+  <code class="language-javascript">
+  const log = console.log;
+  let user = {
+    firstName: "Peter",
+    lastName: "Jackson"
+  };
+  log(Object.getOwnPropertyDescriptors(user)); //-> {firstName: {…}, lastName: {…}}
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Getter and Setter</h3>
+
+<p class="tutorials-content__text">Estos son descriptores de accessor o metodos de mutacion de objeto. Al contrario de los descriptores de dato, estos substituyen a los descriptores <code class="tutorials__code">[[value]]</code> y <code class="tutorials__code">[[writable]]</code>. <code class="tutorials__code">[[get]]</code> es la funcion por defecto que se ejecutara cuando llamamos a alguna propiedad el cual le asignamos este metodo <code class="tutorials__code">[[get]]</code>, por defecto sera <code class="tutorials__code">undefined</code> el valor que devuelve, cuando asignamos un valor a alguna propiedad, el metodo <code class="tutorials__code">[[set]]</code> es llamado y aplicado a esa propiedad que se la asignamos.</p>
+
+<pre>
+  <code class="language-javascript">
+  let obj = {
+    get propName() {
+      // Getter, the code executed on getting obj.propName
+    },
+    set propName(value) {
+      // Setter, the code executed on setting obj.propName = value
+    }
+  }
+  </code>
+</pre>
