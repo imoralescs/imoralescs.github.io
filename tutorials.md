@@ -14,6 +14,7 @@ title: Tutorials
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/condicionales/">04 - Condicionales</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/bucles/">05 - Bucles</a> 
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/funciones/">06 - Funciones</a>
+      <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/objetos/">07 - Objetos</a>
     </div>
   </div>
   <div class="accordion__item">
