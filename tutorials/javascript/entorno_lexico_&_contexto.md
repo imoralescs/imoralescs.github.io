@@ -81,7 +81,7 @@ title: Entorno lexico & Contexto de ejecucion
   <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-2.png" />
 </div>
 
-<p class="tutorials-content__text">Y lo mismo al finalizar de ejecutarse la función <b>«B»</b>, o mejor dicho su contexto, se lo saca de la pila y se ejecuta el contexto anterior; en el ejemplo, al no haber más Execution Context de ninguna función, el Contexto de Ejecución que se ejecuta es el Global.</p>
+<p class="tutorials-content__text">Y lo mismo al finalizar de ejecutarse la función <b>«b»</b>, o mejor dicho su contexto, se lo saca de la pila y se ejecuta el contexto anterior; en el ejemplo, al no haber más Execution Context de ninguna función, el Contexto de Ejecución que se ejecuta es el Global.</p>
 
 <div class="tutorials-content__image">
   <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-1.png" />
@@ -92,3 +92,13 @@ title: Entorno lexico & Contexto de ejecucion
 <div class="tutorials-content__image">
   <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-0.png" />
 </div>
+
+<h3 class="tutorials-content__sub-title">Fases de contexto de ejecucion</h3>
+
+<p class="tutorials-content__text">En todos los Execution Context, existen dos fases bien diferenciadas: La Fase de Creación y la Fase de Ejecución.</p>
+
+<ul class="tutorials-content__list">
+  <li class="tutorials-content__list-element" ><b>Objeto global</b> - cuando ejecutás tu código Javascript en el browser, este objeto es <b>«window»</b> y es un objeto que hace referencia a el browser.</li>
+  <li class="tutorials-content__list-element" ><b>this</b> - es una palabra reservada que hace referencia al <b>«lugar»</b> donde estás. El valor de <b>«this»</b> va cambiando dependiendo del Execution Context en que te encuentres. Como dato, en el Execution Context Global (cuando inicia tu programa), <b>«this»</b> es igual al objeto global <b>«window»</b>.</li>
+  <li class="tutorials-content__list-element" ><b>Variables y funciones</b> - en esta etapa también se reserva espacio en memoria para TODAS las variables y funciones del código. <b>"Hoisting"</b>, cuando te pregunten que es el <b>"hoisting"</b>, le puedes responder que realmente la palabra <b>"hoisting"</b> es solo para representar al proceso de escritura de variables en memoria, pero realmente no existe, solo es un identificador para ese proceso, no hay nada escrito en el código de Javascript engine que indique esto es el <b>"hoisting"</b></li>
+</ul>
