@@ -52,3 +52,9 @@ title: Entorno lexico & Contexto de ejecucion
 <div class="tutorials-content__image">
   <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/execution-context-como-se-crea-paso-a-paso.png" />
 </div>
+
+<h3 class="tutorials-content__sub-title">Pila de ejecucion o llamada (Execution stack)</h3>
+
+<p class="tutorials-content__text">Pila de ejecucion o Pila de llamadas, “call stack”, es una estructura dinámica de datos LIFO que almacena información sobre las subrutinas de una aplicación. Piensalo como el lugar para llamadas de funciones, o una estructura de datos que implementa el tipo de datos de la pila (stack), en que solamente se puede ejecutar una función a la vez.</p>
+
+<p class="tutorials-content__text">Volvamos al ejemplo anterior y mostrando en graficas como la pila de ejecucion se comporta.</p>
