@@ -28,3 +28,27 @@ title: Entorno lexico & Contexto de ejecucion
   //-> Hello John
   </code>
 </pre>
+
+<p class="tutorials-content__text">Ahora vamos a una representacion grafica para un mejor entendimento.</p>
+
+<pre>
+  <code class="language-javascript">
+  function a() {
+    // This is a function execution context
+    console.log("a");
+  }
+
+  function b() {
+    // This is b function execution context
+    console.log("b");
+    a();
+  }
+
+  b();
+  //-> b a
+  </code>
+</pre>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/execution-context-como-se-crea-paso-a-paso.png" />
+</div>
