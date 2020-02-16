@@ -57,4 +57,38 @@ title: Entorno lexico & Contexto de ejecucion
 
 <p class="tutorials-content__text">Pila de ejecucion o Pila de llamadas, “call stack”, es una estructura dinámica de datos LIFO que almacena información sobre las subrutinas de una aplicación. Piensalo como el lugar para llamadas de funciones, o una estructura de datos que implementa el tipo de datos de la pila (stack), en que solamente se puede ejecutar una función a la vez.</p>
 
-<p class="tutorials-content__text">Volvamos al ejemplo anterior y mostrando en graficas como la pila de ejecucion se comporta.</p>
+<p class="tutorials-content__text">Volvamos al ejemplo anterior y mostrando en graficas como la pila de ejecucion se comporta. Cuando el motor de Javascript llega a la línea 1 crea nuestro Contexto de Ejecución y lo apila en una pila de ejecución creando un nuevo Contexto de Ejecución: <b>«Execution Context Global«</b>.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-1.png" />
+</div>
+
+<p class="tutorials-content__text">Cuando nuestro código llega a la línea 11 y ejecuta la funcion <b>«b»</b>. Se crea un nuevo Contexto de Ejecución: El Contexto de Ejecución de la función <b>«b»</b>. Nuestro actual Contexto <b>«Execution Context Global»</b> queda en segundo plano y el motor de Javascript pasa a crear y ejecutar el contexto de la función <b>«b»</b>.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-2.png" />
+</div>
+
+<p class="tutorials-content__text">Recordemos que una pila funciona de la siguiente forma: El ultimo que entra es el primero que sale, y traducido a nuestros Contextos de Ejecución, el ultimo Contexto de Ejecución que entra en la pila, sera el primero en ser ejecutado. Es por eso que el motor de Javascript cambia del contexto de ejecución Global al Contexto de Ejecución de la función <b>«b»</b>. Luego pasa lo mismo con la función <b>«a»</b> cuando llega a la línea que ejecuta la función <code class="tutorials__code">a()</code>. En nuestra pila de ejecución se crea un nuevo contexto (Execution Context de la función <b>a</b>) y el motor pasa a ejecutar ese contexto, dejando «en espera» al contexto anterior.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-3.png" />
+</div>
+
+<p class="tutorials-content__text">Una vez que finaliza de ejecutarse la función <b>«a»</b> su contexto desaparece y el motor de Javascript pasa a ejecutar el contexto <b>«anterior»</b>, en este caso sería el Contexto de Ejecución de la función <b>«b»</b>.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-2.png" />
+</div>
+
+<p class="tutorials-content__text">Y lo mismo al finalizar de ejecutarse la función <b>«B»</b>, o mejor dicho su contexto, se lo saca de la pila y se ejecuta el contexto anterior; en el ejemplo, al no haber más Execution Context de ninguna función, el Contexto de Ejecución que se ejecuta es el Global.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-1.png" />
+</div>
+
+<p class="tutorials-content__text">Y para terminar, cuando este contexto finaliza, o sea cuando nuestro programa finaliza, se vacía la pila.</p>
+
+<div class="tutorials-content__image">
+  <img src="https://raw.githubusercontent.com/imoralescs/imoralescs.github.io/master/images/pila-de-ejecuci%C3%B3n-paso-0.png" />
+</div>
