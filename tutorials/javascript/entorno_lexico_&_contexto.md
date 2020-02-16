@@ -11,3 +11,20 @@ title: Entorno lexico & Contexto de ejecucion
 <h3 class="tutorials-content__sub-title">Contexto de ejecucion (Execution context)</h3>
 
 <p class="tutorials-content__text">Cada vez que se inicia una ejecucion de una funcion por ejemplo, se genera un nuevo contexto de ejecucion, de hecho al iniciar toda la aplicacion se genera un contexto de ejecucion global, podemos pensar que esto es como un "Wrapper(o algo que envuelve)" que ayuda a manejar el codigo que se este ejecutando en un momento dado y se crea para facilitar tareas. Cada contexto de ejecucion son independientes entre si.</p>
+
+<pre>
+  <code class="language-javascript">
+  // This is global execution context
+  let name = "John";
+
+  function greeting(name) {
+    // This is a greeting function execution context
+    return "Hello " + name;
+  }
+
+  let fullGreeting = greeting(name);
+
+  console.log(fullGreeting);
+  //-> Hello John
+  </code>
+</pre>
