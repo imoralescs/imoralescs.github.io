@@ -154,6 +154,8 @@ hr {
   display: block;
   text-decoration: none;
   font-size: 16px;
+  font-weight: 600;
+  padding: 0 0 .4em;
 }
 
 a.accordion__link:hover {
@@ -167,6 +169,12 @@ a.accordion__link:hover {
   border-bottom: 0.1rem solid #444444;
   margin: 0 0 6em;
   padding: 0 0 2em;
+}
+
+.tutorials-content__image img {
+  width: 100%;
+  padding: 1em 0;
+  margin: 1em 0;
 }
 
 .tutorials-content b {
