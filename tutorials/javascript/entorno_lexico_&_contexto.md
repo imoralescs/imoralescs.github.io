@@ -4,4 +4,6 @@ title: Entorno lexico & Contexto de ejecucion
 ---
 <h2 class="tutorials-content__sub-title">Entorno lexico & Contexto de ejecucion</h2>
 
-<p class="tutorials-content__text">Las variables consiste de un nombre y un espacio en la mamoria del navegador en el cual corresponde el valor de esa variable. JavaScript es un lenguaje de programacion no tipado, esto significa que no indicamos que tipo de variable declaramos. Todas las variables permiten todos los tipos de valor y estos valores puede ser reescrito de forma muy sencilla.</p>
+<h3 class="tutorials-content__sub-title">Entorno lexico (Lexical environment)</h3>
+
+<p class="tutorials-content__text">Entorno lexico es todo el entorno que rodea donde esta escrito el codigo, por ejemplo un archivo <code class="tutorials__code">.js</code> es un entorno lexico.</p>
