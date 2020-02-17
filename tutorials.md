@@ -16,6 +16,7 @@ title: Tutorials
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/funciones/">06 - Funciones</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/objetos/">07 - Objetos</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/entorno_lexico_&_contexto/">08 - Entorno lexico & Contexto de ejecucion</a>
+      <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/alcance/">09 - Alcance(Scope)</a>
     </div>
   </div>
   <div class="accordion__item">
