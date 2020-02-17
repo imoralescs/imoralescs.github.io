@@ -97,10 +97,55 @@ title: Alcance
 
 <p class="tutorials-content__text">Cuando la funcion no es parte del prototipo de una funcion constructora, el valor de this sera igual al objeto window, importante que esto es asi aunque sea un <b>Closure "Clausura"</b></p>
 
+<pre>
+  <code class="language-javascript">
+  function a() {
+    var c = function c() {
+      console.log(this === window); //-> true
+    }
+
+    setTimeout(function b() {
+      console.log(this === window); //-> true
+    });
+
+    c();
+    console.log(this === window);
+  }
+
+  a();
+  </code>
+</pre>
+
 <h4 class="tutorials-content__sub-title">Dentro de un metodo</h4>
 
 <p class="tutorials-content__text">Cuando se usa this dentro de un metodo, el valor de this sera equivalente al elemento en el que se ejecuta al metodo.</p>
 
+<pre>
+  <code class="language-javascript">
+  const Person = {
+    sayHi() {
+      console.log(this === Person); //-> true
+    }
+  }
+
+  Person.sayHi();
+  </code>
+</pre>
+
 <h4 class="tutorials-content__sub-title">Dentro de un constructor o metodo</h4>
 
 <p class="tutorials-content__text">En este caso, this siempre hara referencia a la instancia.</p>
+
+<pre>
+  <code class="language-javascript">
+  function Person() {}
+
+  Person.prototype.sayHi = function() {
+    console.log(this === Person); //-> false
+    console.log(this instanceof Person); //-> true
+  }
+
+  const person = new Person();
+  person.sayHi();
+  </code>
+</pre>
