@@ -84,3 +84,23 @@ title: Alcance
   //-> Uncaught ReferenceError: toddleAge is not defined
   </code>
 </pre>
+
+<h3 class="tutorials-content__sub-title">Cadena de alcance(Scope chain)</h3>
+
+<p class="tutorials-content__text">Para que entendamos el concepto vamos al siguien ejemplo, cuando invocamos una funcion, dentro de esta funcion se forma un contexto de ejecucion, en donde parte de sus fases esta colocar en memoria y leer variables que esten en dicho contexto. Digamos que en esta fase de ejecucion de contexto no encuentra una variable dentro de su propio alcance(Scope), pues automaticamente buscara en su <b>outter enviroment</b> las variable que necesite. a esto se le llama cadena de alcance (Scope chain).</p>
+
+<h3 class="tutorials-content__sub-title">Palabra reservada <code class="tutorials__code">this</code></h3>
+
+<p class="tutorials-content__text">Esta palabra reservada dentro del codigo, su valor hace referencia al propietario de la funcion que la estas invocando o en su defecto, al objeto donde dicha funcion es un metodo. Para entender de donde toma <code class="tutorials__code">this</code> su valor, hay que saber que su valor dependera de como es ejecutada la funcion en donde se encuentra.</p>
+
+<h4 class="tutorials-content__sub-title">Dentro de una funcion</h4>
+
+<p class="tutorials-content__text">Cuando la funcion no es parte del prototipo de una funcion constructora, el valor de this sera igual al objeto window, importante que esto es asi aunque sea un <b>Closure "Clausura"</b></p>
+
+<h4 class="tutorials-content__sub-title">Dentro de un metodo</h4>
+
+<p class="tutorials-content__text">Cuando se usa this dentro de un metodo, el valor de this sera equivalente al elemento en el que se ejecuta al metodo.</p>
+
+<h4 class="tutorials-content__sub-title">Dentro de un constructor o metodo</h4>
+
+<p class="tutorials-content__text">En este caso, this siempre hara referencia a la instancia.</p>
