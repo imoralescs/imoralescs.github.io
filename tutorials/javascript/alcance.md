@@ -149,3 +149,23 @@ title: Alcance
   person.sayHi();
   </code>
 </pre>
+
+<h4 class="tutorials-content__sub-title">Usando bind, call o apply</h4>
+
+<p class="tutorials-content__text">Para sobreescribir el valor de <code class="tutorials__code">this</code>, podemos hacerlo de manera dinamica utilizando las funciones <code class="tutorials__code">bind</code>, <code class="tutorials__code">call</code> y <code class="tutorials__code">apply</code></p>
+
+<pre>
+  <code class="language-javascript">
+  function greeting(age) {
+    console.log(`Hello, i'm ${this.name} and I have ${age} years old.`)
+  }
+
+  const john = { name: "John Doe" }
+  const jane = { name: "Jane Doe" }
+  const josh = { name: "Josh Smith" }
+
+  greeting.bind(john)(24) //-> Hello, i'm John Doe and I have 24 years old.
+  greeting.call(jane, 23) //-> Hello, i'm Jane Doe and I have 23 years old.
+  greeting.apply(josh, [25]) //-> Hello, i'm Josh Smith and I have 25 years old.
+  </code>
+</pre>
