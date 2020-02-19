@@ -28,13 +28,21 @@ title: Tutorials
     </div>
   </div>
     <div class="accordion__item">
-    <a class="accordion__header">JavaScript & DOM</a>
+    <a class="accordion__header">JavaScript & DOM
+      <svg class="accordion__header-icon" width="20px" height="20px" viewBox="0 0 50 80" xml:space="preserve">
+        <polyline fill="none" stroke="#444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>
+      </svg>   
+    </a>
     <div class="accordion__content">
       <a class="accordion__link" href="#">01 - Intro</a>
     </div>
   </div>
   <div class="accordion__item">
-    <a class="accordion__header">Canvas</a>
+    <a class="accordion__header">Canvas
+      <svg class="accordion__header-icon" width="20px" height="20px" viewBox="0 0 50 80" xml:space="preserve">
+        <polyline fill="none" stroke="#444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>
+      </svg> 
+    </a>
     <div class="accordion__content">
       <a class="accordion__link" href="#">01 - Intro</a>
     </div>
