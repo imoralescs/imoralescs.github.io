@@ -6,7 +6,11 @@ title: Tutorials
 <span class="tutorials-content__title-note">Due to the lack of educational documents for Spanish speakers, most of my tutorials or educational documents are written in Spanish</span>
 <div class="accordion">
   <div class="accordion__item">
-    <a class="accordion__header">JavaScript</a>
+    <a class="accordion__header">JavaScript
+      <svg class="accordion__header-icon" width="60px" height="80px" viewBox="0 0 50 80" xml:space="preserve">
+        <polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>
+      </svg> 
+    </a>
     <div class="accordion__content">
       <a class="accordion__link" href="#">01 - Intro</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/variables/">02 - Variables</a>
