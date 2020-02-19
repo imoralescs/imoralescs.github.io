@@ -20,6 +20,7 @@ title: Tutorials
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/closure/">10 - Clausura "Closure"</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/colecciones/">11 - Colecciones "Array"</a>
       <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/cadenas/">12 - Cadena de caracteres "String"</a>
+      <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript/cadenas/">13 - Prototipo "Prototype"</a>
     </div>
   </div>
   <div class="accordion__item">
