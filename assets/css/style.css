@@ -152,6 +152,10 @@ hr {
   transform: rotate(-90deg);
 }
 
+.accordion__header.active > .accordion__header-icon {
+  transform: rotate(90deg);
+}
+
 .accordion__content {
   padding: .5em;
   margin: 0 1.5em;
