@@ -127,7 +127,8 @@ hr {
  * Accordion
 **/
 .accordion__content {
-  display: none;	
+  display: none;
+  transition: display 2s;
 }
 
 .accordion__content.active {
@@ -150,6 +151,7 @@ hr {
   top: 34px;
   right: 16px;
   transform: rotate(-90deg);
+  transition: transform 2s;
 }
 
 .accordion__header.active > .accordion__header-icon {
