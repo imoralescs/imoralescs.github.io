@@ -7,8 +7,8 @@ title: Tutorials
 <div class="accordion">
   <div class="accordion__item">
     <a class="accordion__header">JavaScript
-      <svg class="accordion__header-icon" width="60px" height="80px" viewBox="0 0 50 80" xml:space="preserve">
-        <polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>
+      <svg class="accordion__header-icon" width="20px" height="20px" viewBox="0 0 50 80" xml:space="preserve">
+        <polyline fill="none" stroke="#444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>
       </svg> 
     </a>
     <div class="accordion__content">
