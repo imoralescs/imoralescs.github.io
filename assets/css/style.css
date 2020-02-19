@@ -128,11 +128,15 @@ hr {
 **/
 .accordion__content {
   display: none;
-  transition: display 2s;
+  visibility: hidden;
+  opacity: 0;	
 }
 
 .accordion__content.active {
-  display: block;	
+  display: block;
+  visibility: visible;
+  opacity: 1;	
+  transition: display .5s, visibility .5s, opacity .5s;
 }
 
 .accordion__header {
@@ -151,7 +155,7 @@ hr {
   top: 34px;
   right: 16px;
   transform: rotate(-90deg);
-  transition: transform 2s;
+  transition: transform .5s;
 }
 
 .accordion__header.active > .accordion__header-icon {
