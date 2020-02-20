@@ -20,3 +20,45 @@ title: DOM "Document Object Model"
   &#60;/html&#62;
   </code>
 </pre>
+
+<ul class="dom-tree">
+  <li>
+    <span>html</span>
+    <ul>
+      <li> <!-- start head -->
+        <span>head</span>
+        <ul>
+          <li>
+            <span>title</span>
+            <ul>
+              <li>
+                <span>My first web page</span>
+              </li>
+            </ul>
+          </li> <!-- end title -->
+        </ul>
+      </li> <!-- end head -->
+      <li> <!-- start body -->
+        <span>body</span>
+        <ul>
+          <li>
+            <span>h1</span>
+            <ul>
+              <li>
+                <span>Hello, world!</span>
+              </li>
+            </ul>
+          </li> <!-- end h1 -->
+          <li>
+            <span>p</span>
+            <ul>
+              <li>
+                <span>How are you?</span>
+              </li>
+            </ul>
+          </li> <!-- end p -->
+        </ul>
+      </li> <!-- end body -->
+    </ul> 
+  </li> <!-- end html -->
+</ul>
