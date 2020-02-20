@@ -34,7 +34,7 @@ title: Tutorials
       </svg>   
     </a>
     <div class="accordion__content">
-      <a class="accordion__link" href="#">01 - Intro</a>
+      <a class="accordion__link" href="https://imoralescs.github.io/tutorials/javascript&dom/dom/">01 - DOM "Document Object Model"</a>
     </div>
   </div>
   <div class="accordion__item">
