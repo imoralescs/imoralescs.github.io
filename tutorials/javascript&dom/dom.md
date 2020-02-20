@@ -21,6 +21,8 @@ title: DOM "Document Object Model"
   </code>
 </pre>
 
+<p class="tutorials-content__text">Este documento puede representarse como el siguiente árbol de nodos:</p>
+
 <ul class="dom-tree">
   <li>
     <span>html</span>
