@@ -94,7 +94,8 @@ hr {
 }
 
 .home__title-name {
-  transform: translateX(-124px) translateY(34px);
+  transform: translateX(-20%) translateY(48px);
+  width: 100%;
 }
 
 .home__nav {
@@ -307,12 +308,15 @@ h4.tutorials-content__sub-title {
   border-color: #3c3c3c;
 }
 
-
-
-
-
-
-
+/***
+ * Mobile
+**/
+@media (min-width: 600px) {
+  .home__title-name {
+    transform: translateX(-124px) translateY(34px);
+    width: auto;
+  }
+}
 
 
 
