@@ -218,6 +218,10 @@ h3.tutorials-content__sub-title {
   padding: 1em 0;
 }
 
+h3.tutorials-content__sub-title > code.tutorials__code {
+  font-size: 24px;
+}
+
 h4.tutorials-content__sub-title {
   font-size: 20px;
   font-weight: 400;
