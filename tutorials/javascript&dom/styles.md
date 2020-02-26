@@ -26,7 +26,7 @@ title: Styles
 
 <h3 class="tutorials-content__sub-title">Estilo calculados</h3>
 
-<p class="tutorials-content__text">Dado que el estilo de un elemento puede modificarse desde un bloque de declaración de estilo CSS ubicado en otro archivo o en el archivo HTML donde se declara el elemento, no podemos confiar solo en class="tutorials-content__text"HTMLElement.style</code> para acceder a todas sus propiedades de estilo.</p>
+<p class="tutorials-content__text">Dado que el estilo de un elemento puede modificarse desde un bloque de declaración de estilo CSS ubicado en otro archivo o en el archivo HTML donde se declara el elemento, no podemos confiar solo en <class="tutorials-content__text"HTMLElement.style</code> para acceder a todas sus propiedades de estilo.</p>
 
 <pre>
   <code class="language-html">
