@@ -6,7 +6,7 @@ title: Styles
 
 <h3 class="tutorials-content__sub-title">Estilo en linea</h3>
 
-<p class="tutorials-content__text"><code class="tutorials__code">.style</code> nos permite tener acceso al estilo de elementos en el DOM y poder cambiarlos o editarlos.</p>
+<p class="tutorials-content__text">Los estilos en línea son estilos que están presentes en el HTML en el atributo de estilo.<code class="tutorials__code">.style</code> nos permite tener acceso al estilo en linea de elementos y poder cambiarlos o modificarlo.</p>
 
 <pre>
   <code class="language-html">
@@ -21,6 +21,8 @@ title: Styles
   let fontColor = element.style.color;
 
   console.log(fontColor); //-> red
+  
+  element.style.color = 'blue';
   </code>
 </pre>
 
