@@ -6,7 +6,7 @@ title: Event Listeners
 
 <h3 class="tutorials-content__sub-title">Event Listeners</h3>
 
-<p class="tutorials-content__text">Un capturador de eventos es un procedimiento o función el cual espera que ocurra un evento. Ejemplos de un evento son el usuario haciendo clic o moviendo el mouse, presionando una tecla en el teclado, etc. El capturador <b>Listener<b> está programado para reaccionar a una entrada o señal llamando al controlador del evento.</p>
+<p class="tutorials-content__text">Un capturador de eventos es un procedimiento o función el cual espera que ocurra un evento. Ejemplos de un evento son el usuario haciendo clic o moviendo el mouse, presionando una tecla en el teclado, etc. El capturador <b>Listener</b> está programado para reaccionar a una entrada o señal llamando al controlador del evento.</p>
 
 <p class="tutorials-content__text">Utilizamos <code class="tutorials__code">addEventListener</code> para capturar eventos en un elemento del DOM.</p>
 
