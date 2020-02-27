@@ -89,3 +89,13 @@ title: Event Listeners
   }, false);
   </code>
 </pre>
+
+<h3 class="tutorials-content__sub-title">Usar captura</h3>
+
+<p class="tutorials-content__text">El último argumento en <code class="tutorials__code">addEventListener</code> es <code class="tutorials__code">useCapture</code>, y especifica si desea o no "capturar" el evento. Para la mayoría de los tipos de eventos, esto debe establecerse en falso. Pero ciertos eventos, como el enfoque, no burbujean. Establecer <code class="tutorials__code">useCapture</code> en verdadero le permite aprovechar el burbujeo de eventos para eventos que de otro modo no lo admitirían.</p>
+
+<pre>
+  <code class="language-javascript">
+  document.addEventListener('focus', function (event) {}, true);
+  </code>
+</pre>
