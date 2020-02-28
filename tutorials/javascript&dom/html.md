@@ -1,0 +1,35 @@
+---
+layout: tutorials
+title: HTML
+---
+<h2 class="tutorials-content__sub-title">HTML</h2>
+
+<p class="tutorials-content__text">Usamos <code class="tutorials__code">.innerHTML</code> para obtener y establecer contenido HTML.</p>
+
+<pre>
+  <code class="language-html">
+  &#60;section class="section" id="section"&#62;Section Content&#60;/section&#62;
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let element = document.querySelector('#section');
+
+  let content = element.innerHTML;
+
+  console.log(content); //-> Section Content
+
+  // Set HTML content
+  element.innerHTML = "We can dynamically change the HTML.";
+
+  // Add HTML to end
+  element.innerHTML += " Add this after.";
+
+  // Add HTML at beginning
+  element.innerHTML = "We can add this before. " + element.innerHTML; 
+
+  // Inject entire element
+  element.innerHTML += "<p>A new paragraph</p>";
+  </code>
+</pre>
