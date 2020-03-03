@@ -4,11 +4,7 @@ title: DOM "Document Object Model"
 ---
 <h2 class="tutorials-content__sub-title">DOM "Document Object Model"</h2>
 
-<p class="tutorials-content__text">El DOM "Document Object Model" da una representación del documento HTML como un grupo de nodos y objetos estructurados que tienen propiedades y métodos.</p>
-
-<p class="tutorials-content__text">El DOM "Document Object Model", sirve como referencia para el navegador al colocar elementos en la página web. Las ubicaciones donde los elementos se colocan en el DOM se denominan <code class="tutorials__code">Nodes</code>, y en la página web, no solo los elementos HTML obtienen su nodo, sino que los atributos de los elementos HTML, cada fragmento de texto tiene su nodo (nodos de texto), y hay muchos otros tipos de nodos. La relación estructural de estos nodos refleja la estructura del documento HTML. Por eso, podemos definir las relaciones entre los elementos en la página como las relaciones entre sus nodos en el DOM.</p>
-
-<p class="tutorials-content__text">En resumen, es la representación de la página web en la memoria del navegador, a la que podemos acceder a través de JavaScript. El DOM es un árbol donde cada nodo es un objeto con todas sus propiedades y métodos que nos permiten modificarlo.</p>
+<p class="tutorials-content__text">El DOM "Document Object Model" da una representación del documento HTML, sirve como referencia para el navegador al colocar elementos en la página web. Las ubicaciones donde los elementos se colocan en el DOM se denominan <code class="tutorials__code">Nodes</code>, y en la página web, no solo los elementos HTML obtienen su nodo, sino que los atributos de los elementos HTML, cada fragmento de texto tiene su nodo (nodos de texto). La relación estructural de estos nodos refleja la estructura del documento HTML. Por eso, podemos definir las relaciones entre los elementos en la página como las relaciones entre sus nodos en el DOM.</p>
 
 <pre>
   <code class="language-html">
@@ -68,3 +64,5 @@ title: DOM "Document Object Model"
     </ul> 
   </li> <!-- end html -->
 </ul>
+
+<p class="tutorials-content__text">Podemos manipular los elementos de la página web con un lenguaje de programación, como JavaScript, lo hacemos a través de sus nodos DOM. Al acceder a un nodo DOM de un elemento dado, podemos manipular sus propiedades, como posición, apariencia, contenido, comportamiento, etc. A menudo queremos realizar acciones en los elementos que tienen algún tipo de relación entre ellos, conocidos como nodos relacionados.</p>
