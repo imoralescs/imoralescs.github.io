@@ -49,3 +49,42 @@ title: Forms
   &#60;/form&#62;
   </code>
 </pre>
+
+<pre>
+  <code class="language-javascript">
+  let input = document.querySelector('#username');
+  let type = input.type;
+  console.log(type); //-> text
+
+  let checkbox = document.querySelector('#rem_password');
+  let name = checkbox.name;
+  console.log(name); //-> rem_password
+
+  let radio = document.querySelector('[name="login_mode"]:checked');
+  let value = radio.value;
+  console.log(value); //-> personal
+  </code>
+</pre>
+
+<p class="tutorials-content__text">También puede cambiar y establecer atributos con el mismo enfoque.</p>
+
+<pre>
+  <code class="language-javascript">
+  let input = document.querySelector('#username');
+  input.type = 'password';
+  </code>
+</pre>
+
+<h3 class="tutorials-content__sub-title">Atributos del elemento booleano</h3>
+
+<p class="tutorials-content__text">Ciertos atributos, como si una entrada está o no deshabilitada, de solo lectura o marcada, usan valores booleanos simples verdadero o falso.</p>
+
+<pre>
+  <code class="language-javascript">
+  let checkbox = document.querySelector('#rem_password');
+  checkbox.checked;
+
+  let radio = document.querySelector('#group');
+  radio.checked = true;
+  </code>
+</pre>
