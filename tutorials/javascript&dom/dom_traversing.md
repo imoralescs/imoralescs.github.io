@@ -11,4 +11,4 @@ title: DOM Traversing
 
 <h4 class="tutorials-content__sub-title"><code class="tutorials__code">querySelector</code> y <code class="tutorials__code">querySelectorAll</code</h4>
 
-<code class="tutorials__code">querySelector</code> y <code class="tutorials__code">querySelectorAll</code> no se limitan solo a ejecutarse en el documento. Se pueden ejecutar en cualquier elemento para buscar solo elementos dentro de él.
+<p class="tutorials-content__text"><code class="tutorials__code">querySelector</code> y <code class="tutorials__code">querySelectorAll</code> no se limitan solo a ejecutarse en el documento. Se pueden ejecutar en cualquier elemento para buscar solo elementos dentro de él.</p>
