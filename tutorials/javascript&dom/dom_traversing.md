@@ -72,3 +72,66 @@ title: DOM Traversing
   console.dir(parent); //-> section#section_1.section
   </code>
 </pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">getClosest</code></h4>
+
+<p class="tutorials-content__text"><code class="tutorials__code">getClosest</code> es un método que escribímos como utilidad para obtener el padre más cercano en el árbol DOM que coincide con un selector. Este metodo es equivalente al método <code class="tutorials__code">.closest</code> de jQuery.</p>
+
+<pre>
+  <code class="language-html">
+  &#60;section class="section"&#62;
+    &#60;ul class="lists-outer" data-lists="one"&#62;
+      &#60;ul class="lists-inner" data-lists="two&#62;"&#62;
+        &#60;li&#62;&#60;span id="number_1"&#62;Number One&#60;/span&#62;&#60;/li&#62;
+        &#60;li&#62;&#60;span id="number_2"&#62;Number Two&#60;/span&#62;&#60;/li&#62;
+      &#60;/ul&#62;
+    &#60;/ul&#62;
+  &#60;/section&#62;
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let getClosest = function(elem, selector) {
+
+    // Element.matches() polyfill
+    if(!Element.prototype.matches) {
+      Element.prototype.matches =
+        Element.prototype.matchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector ||
+        Element.prototype.oMatchesSelector ||
+        Element.prototype.webkitMatchesSelector ||
+        function(s) {
+          let matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+
+          while(--i >= 0 && matches.item(i) !== this) {}
+
+          return i > -1;
+        };
+    }
+
+    // Get closest match
+    for( ; elem && elem !== document; elem = elem.parentNode) {
+      if ( elem.matches( selector ) ) return elem;
+    }
+
+    return null;
+  };
+
+  let element = document.querySelector("#number_1");
+
+  let closestParent = getClosest(element, 'ul');
+  console.dir(closestParent); //-> ul.lists-inner
+
+  let closestParentByDataAttr = getClosest(element, '[data-lists]');
+  console.dir(closestParentByDataAttr); //-> ul.lists-inner
+  </code>
+</pre>
+
+<h4 class="tutorials-content__sub-title"><code class="tutorials__code">getParents</code></h4>
+
+<p class="tutorials-content__text"><code class="tutorials__code">getParents</code> es un método que escribímos como utilidad para obtener una matriz de elementos padres, opcionalmente coincidiendo con un selector. Este metodo es equivalente al método <code class="tutorials__code">.parents</code> de jQuery.</p>
+
+
