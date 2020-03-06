@@ -264,3 +264,44 @@ title: DOM Traversing
   console.dir(parentsUntil); //-> Array(4) 0: span#number_1 1: li 2: ul.lists-inner 3: ul.lists-outer
   </code>
 </pre> 
+
+<h3 class="tutorials-content__sub-title">Atravesando lateralmente en el DOM</h3>
+
+<p class="tutorials-content__text"><code class="tutorials__code">getSiblings</code> es un método que escribímos como utilidad para obtiene los hermanos de un elemento en el DOM. Por ejemplo: si tenía un elemento de la lista (<li>) y quería obtener todos los demás elementos de la lista.</p>
+
+<pre>
+  <code class="language-html">
+  &#60;section class="section"&#62;
+    &#60;ul class="lists-outer" data-lists="one"&#62;
+      &#60;ul class="lists-inner" data-lists="two&#62;"&#62;
+        &#60;li id="number_1"&#62;&#62;&#60;span&#62;Number One&#60;/span&#62;&#60;/li&#62;
+        &#60;li id="number_2"&#62;&#62;&#60;span&#62;Number Two&#60;/span&#62;&#60;/li&#62;
+        &#60;li id="number_3"&#62;&#62;&#60;span&#62;Number Three&#60;/span&#62;&#60;/li&#62;
+        &#60;li id="number_4"&#62;&#62;&#60;span&#62;Number Four&#60;/span&#62;&#60;/li&#62;
+      &#60;/ul&#62;
+    &#60;/ul&#62;
+  &#60;/section&#62;
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let getSiblings = function(elem) {
+    let siblings = [];
+    let sibling = elem.parentNode.firstChild;
+
+    for(; sibling; sibling = sibling.nextSibling) {
+      if(sibling.nodeType === 1 && sibling !== elem) {
+        siblings.push( sibling );
+      }
+    }
+
+    return siblings;
+  };
+
+  let element = document.querySelector("#number_3");
+
+  let siblings = getSiblings(element);
+  console.dir(siblings); //-> Array(3) 0: li#number_1 1: li#number_2 2: li#number_4
+  </code>
+</pre> 
