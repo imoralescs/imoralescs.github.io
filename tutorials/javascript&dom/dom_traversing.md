@@ -267,7 +267,7 @@ title: DOM Traversing
 
 <h3 class="tutorials-content__sub-title">Atravesando lateralmente en el DOM</h3>
 
-<p class="tutorials-content__text"><code class="tutorials__code">getSiblings</code> es un método que escribímos como utilidad para obtiene los hermanos de un elemento en el DOM. Por ejemplo: si tenía un elemento de la lista (<li>) y quería obtener todos los demás elementos de la lista.</p>
+<p class="tutorials-content__text"><code class="tutorials__code">getSiblings</code> es un método que escribímos como utilidad para obtiene los hermanos de un elemento en el DOM. Por ejemplo: si tenía un elemento de la lista <code class="tutorials__code">li</code> y quería obtener todos los demás elementos de la lista.</p>
 
 <pre>
   <code class="language-html">
