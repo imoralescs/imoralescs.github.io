@@ -201,3 +201,66 @@ title: DOM Traversing
 <h4 class="tutorials-content__sub-title"><code class="tutorials__code">getParentsUntil</code></h4>
 
 <p class="tutorials-content__text"><code class="tutorials__code">getParentsUntil</code> es un método que escribímos como utilidad para obtener una matriz de elementos principales hasta que se encuentre un elemento padre coincidente, opcionalmente coincidente con un selector. Este metodo es equivalente al método <code class="tutorials__code">.parentsUntil</code> de jQuery.</p>
+
+<pre>
+  <code class="language-html">
+  &#60;section class="section"&#62;
+    &#60;ul class="lists-outer" data-lists="one"&#62;
+      &#60;ul class="lists-inner" data-lists="two&#62;"&#62;
+        &#60;li&#62;&#60;span id="number_1"&#62;Number One&#60;/span&#62;&#60;/li&#62;
+        &#60;li&#62;&#60;span id="number_2"&#62;Number Two&#60;/span&#62;&#60;/li&#62;
+      &#60;/ul&#62;
+    &#60;/ul&#62;
+  &#60;/section&#62;
+  </code>
+</pre>
+
+<pre>
+  <code class="language-javascript">
+  let getParentsUntil = function(elem, parent, selector) {
+
+    // Element.matches() polyfill
+    if(!Element.prototype.matches) {
+      Element.prototype.matches =
+        Element.prototype.matchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector ||
+        Element.prototype.oMatchesSelector ||
+        Element.prototype.webkitMatchesSelector ||
+        function(s) {
+          let matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+          while (--i >= 0 && matches.item(i) !== this) {}
+          return i > -1;
+        };
+    }
+
+    // Setup parents array
+    let parents = [];
+
+    // Get matching parent elements
+    for(; elem && elem !== document; elem = elem.parentNode) {
+      if(parent) {
+        if(elem.matches(parent)) break;
+      }
+
+      if(selector) {
+        if(elem.matches(selector)) {
+          parents.push(elem);
+        }
+
+        break;
+      }
+
+      parents.push( elem );
+    }
+
+    return parents;
+  };
+
+  let element = document.querySelector("#number_1");
+
+  let parentsUntil = getParentsUntil(element, '.section');
+  console.dir(parentsUntil); //-> Array(4) 0: span#number_1 1: li 2: ul.lists-inner 3: ul.lists-outer
+  </code>
+</pre> 
