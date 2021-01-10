@@ -30,7 +30,8 @@ body {
   font-size: 16px;
   font-family: 'Proxima Nova Soft', 'Helvetica Neue', sans-serif;
   line-height: 1.618;
-  color: #444;
+  color: #282b39;
+  background: #EDF2F4;
 }
 
 /**
