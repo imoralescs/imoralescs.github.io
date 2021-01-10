@@ -202,19 +202,19 @@ a.accordion__link:hover {
 }
 
 .tutorials-content__title {
-  font-size: 30px;
+  font-size: calc(25px + 3 * ((100vw - 300px) / 1300));
   font-weight: 800;
   padding: 1em 0;
 }
 
 h2.tutorials-content__sub-title {
-  font-size: 28px;
+  font-size: calc(23px + 3 * ((100vw - 300px) / 1300));
   font-weight: 400;
   padding: 1em 0;
 }
 
 h3.tutorials-content__sub-title {
-  font-size: 24px;
+  font-size: calc(21px + 3 * ((100vw - 300px) / 1300));
   font-weight: 400;
   padding: 1em 0;
 }
