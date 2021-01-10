@@ -232,6 +232,7 @@ h4.tutorials-content__sub-title {
 .tutorials-content__text {
   font-size: 16px;
   padding: 1em;
+  line-height: 1.8;
 }
 
 .tutorials-content__list {
@@ -246,11 +247,11 @@ h4.tutorials-content__sub-title {
 
 .tutorials__code {
   display: inline-block;
-  background: #f5f2f0;
-  padding: 0 12px;
-  color: #dd4a68;
+  background: hsl(1, 100%, 72%);
+  padding: 0 6px;
+  color: #282b39;
   font-family: monospace;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 /***
