@@ -230,7 +230,7 @@ h4.tutorials-content__sub-title {
 }
 
 .tutorials-content__text {
-  font-size: 16px;
+  font-size: calc(17px + 3 * ((100vw - 300px) / 1140));
   padding: 1em;
   line-height: 1.8;
 }
