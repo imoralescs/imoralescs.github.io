@@ -126,16 +126,16 @@ hr {
 
 .home__nav-item > a {
   text-decoration: none;
-  color: #FFF;
-  background: #444;
+  color: #EDF2F4;
+  background: #282b39;
   font-weight: 800;
   -webkit-transition: color 1s background-color 1s ease; 
   transition: color 1s background-color 1s ease;
 }
 
 .home__nav-item > a:hover {
-  color: #444;
-  background: #FFF;
+  color: #EDF2F4;
+  background: #282b39;
 }
 /***
  * Accordion
