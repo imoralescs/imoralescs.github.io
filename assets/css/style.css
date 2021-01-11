@@ -131,6 +131,7 @@ hr {
   font-weight: 800;
   -webkit-transition: color 1s background-color 1s ease; 
   transition: color 1s background-color 1s ease;
+  padding: 0 6px;
 }
 
 .home__nav-item > a:hover {
