@@ -134,8 +134,8 @@ hr {
 }
 
 .home__nav-item > a:hover {
-  color: #EDF2F4;
-  background: #282b39;
+  color: #282b39;
+  background: #EDF2F4;
 }
 /***
  * Accordion
