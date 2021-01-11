@@ -94,6 +94,13 @@ hr {
   border-bottom: 0.1rem solid #444444;
 }
 
+.home__title-anchor {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  height: 42px;
+}
+
 .home__title-name {
   width: auto;
   display: inline-block;
