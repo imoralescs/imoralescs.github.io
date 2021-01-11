@@ -107,6 +107,7 @@ hr {
   height: 100%;
   position: absolute;
   top: 0;
+  transform: translate(-8px, 10px);
 }
 
 .home__nav {
