@@ -2,8 +2,6 @@
 layout: tutorials
 title: Variables
 ---
-<h2 class="tutorials-content__sub-title">Variables</h2>
-
 <p class="tutorials-content__text">Las variables consiste de un nombre y un espacio en la mamoria del navegador en el cual corresponde el valor de esa variable. JavaScript es un lenguaje de programacion no tipado, esto significa que no indicamos que tipo de variable declaramos. Todas las variables permiten todos los tipos de valor y estos valores puede ser reescrito de forma muy sencilla.</p>
 
 <p class="tutorials-content__text">El valor de una variable es una entidad individual del programa, el proceso de programacion puede recrear expresiones matematicas y estas expresiones matematica pueden generar un nuevo valor de otro valor ya existente.</p>
