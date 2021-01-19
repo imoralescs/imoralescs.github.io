@@ -1,48 +1,50 @@
-# AWS static-website
+# Amazon AWS a traves de ejemplo: S3
 
-Primero para tener nuestro portal estatico debemos crear nuestro "Bucket", este debe de tener el mismo nombre de nuestro por tal, ejemplo si nuestro dominio del portal es www.mi-sitio.com, pues nuestro "bucket" debe de llamarse www.mi-sitio.com. Es importante entender que este nombre debe ser unico dentro de nuestra cuenta AWS y este nombre una vez creado no podra ser cambiado.
+## Ejemplo: Creacion sitio web estatico
 
-Para Crear nuestro bucket:
+Para tener nuestro sitio web estatico debemos crear nuestro "Bucket", este debe de tener el mismo nombre de nuestro por tal, ejemplo si nuestro dominio del portal es www.mi-sitio.com, pues nuestro "bucket" debe de llamarse www.mi-sitio.com. Es importante entender que este nombre debe ser unico dentro de nuestra cuenta AWS y este nombre una vez creado no podra ser cambiado.
 
-1- Navegamos a S3 en nuestra consola AWS.
-2- Haz click en el boton "Create Bucket"
-3- Entra el nombre el cual llamaras al bucket
-4- Selecciona regio de AWS
-5- Para finalizar haz click en el boton "Create bucket" para crear nuestro bucket.
+### Paso 1: Crear nuestro bucket
 
-Configuración de su bucket de S3 para estática Alojamiento de páginas web
+1- Vaya la consola S3
+2- Haga clic en "Create Bucket"
+3- Entre el nombre el cual desee tener a su bucket
+5- Podemos revisar toda las demas propiedades y actualizar o anadir cualquiera que entendamos que aplique a nuestro proyecto.
+6- Finalizamos haciendo clic en el boton "Create bucket" para finalizar y crear nuestro bucket.
 
-1- Navegamos en el area de S3 de la consola AWS
-2- Le damos click nuestro bucket ya creado
-3- luego le damos click a la seccion de propiedades el cual veremos arriba
-4- luego le damos click a editar en la seccion Static website hosting
-5- Seleccionamos habilitar
-6- Entramos "index.html" en la seccion "Index document"
-7- Le damos click a guardar
+### Paso 2: Configuración de su bucket para sitio web estatico
 
-Por defecto los bucket se generan con restrinccion a accesso publico esto se debe a que AWS evita que contenido importante sea public, para nuestra pagina debemos editar estos permisos.
+1- Vaya la consola S3
+2- Haga clic a nuestro bucket ya creado
+3- Para editar configuraciones de nuestro bucket haga clic en la pestana "Properties" en la parte superior
+4- Ahora, en la seccion de "Static website hosting" hacemos clic en editar
+5- Una vez dentro del area de editar seleccionamos habilitar
+6- Colocamos lo siguiente en "Index document": index.html
+7- Para terminar con esta area clic en guardar.
 
-1- Le damos click a nuestro bucket ya creado
-2- Le damos click en la pestaña "Permission" en la parte superior.
-3- Luego le damos click a "Edit" en la seccion "Block public access (bucket settings)"
-4- desmarcar la casilla de verificación con el titulo de "Block all public access"
-5- Click en "Save changes"
-6- Luego devuelta a la seccion de permisos, le damos click en editar a la seccion de "Bucket Policy" y dentro colocamos lo siguiente.
+### Paso 3: Permiso para acesso publico a nuestro sitio web estatico
 
+Por defecto los bucket al crearse, esto contienen restrincciones a accesso publico esto se debe a que Amazon AWS trata de evita que contenido con valor importante sean publicos a las redes, para que usuarios tengan accesso a ver nuestro sitio web estatico debemos editar permisos relacionados al bucket en el cual esta alojado nuestro sitio web estatico.
+
+1- Vaya la consola S3
+2- Haga clic a nuestro bucket ya creado
+2- Para editar permisos de nuestro bucket haga clici en la pestaña "Permission" en la parte superior
+3- Ahora vamos a la seccion "Block public access (bucket settings)" y haga clic en editar
+4- Desmarcar la casilla de verificación con el titulo de "Block all public access"
+5- Haga clic en "Save changes"
+6- Regresamos a la seccion de permisos, hacemos clic a editar en la seccion de "Bucket Policy" y dentro de esta seccion colocamos el siguiente valor JSON:
 ```
 {
-"Version" : "2008-10-17",
-"Statement": [
-{
-"Sid": "PublicReadGetObject",
-"Effect" : "Allow" ,
-"Principal" : {
-"AWS" : "*"
-},
-"Action" :  "s3:GetObject" ,
-"Resource" :  "arn:aws:s3:::www.my-awesome-site.com/*"
-}
-]
+  "Version" : "2008-10-17",
+  "Statement": [{
+    "Sid": "PublicReadGetObject",
+    "Effect" : "Allow" ,
+    "Principal" : {
+    "AWS" : "*"
+  },
+  "Action" :  "s3:GetObject" ,
+  "Resource" :  "arn:aws:s3:::www.my-awesome-site.com/*"
+ }]
 }
 ```
-7- Luego le damos a "Save changes"
+7- Para terminar con esta area clic en guardar.
